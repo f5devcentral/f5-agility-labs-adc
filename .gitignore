@@ -1,3 +1,4 @@
 docs/_build/*
 *.docx
 .DS_Store
+pdf/

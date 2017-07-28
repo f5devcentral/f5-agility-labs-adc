@@ -27,16 +27,17 @@ Login info for lab jump box
 
 | Use RDP to connect to the DNS host provided to you in the Agility Portal.  The user and password are:
 |
-| Username: student
-| Password: agility
+| Username: ``student``
+| Password: ``agility``
 |
 |
-| Bigip1: 10.128.1.245
-| Bigip2: 10.128.1.246
-| Bigip3: 10.128.1.247
+| Bigip1: ``10.128.1.245``
+| Bigip2: ``10.128.1.246``
+| Bigip3: ``10.128.1.247``
 |
+
 +------------------------------+------------------+
-|BIG-IP Usernames              | BIG-IP Passwords | 
+|BIG-IP Usernames              | BIG-IP Passwords |
 +==============================+==================+
 | admin                        | admin            |
 +------------------------------+------------------+
@@ -56,10 +57,10 @@ take for each lab:
 +------------------------------------------------------+------------------+
 | LAB Name (Description)                               | Time Allocated   |
 +======================================================+==================+
-| LAB 1 – Active/Active ScaneN Clustering Exercise     | 55 minutes       |
+| Lab 1 – Active/Active ScaneN Clustering Exercise     | 55 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 2 – Sync-Only Groups Exercise                    | 30 minutes       |
+| Lab 2 – Sync-Only Groups Exercise                    | 30 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 3 – Device Service Cluster Automation            | 60 minutes       |
+| Lab 3 – Device Service Cluster Automation            | 60 minutes       |
 +------------------------------------------------------+------------------+
 

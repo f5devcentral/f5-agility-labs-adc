@@ -33,7 +33,7 @@ https://support.f5.com/kb/en-us/products/big-ip_ltm/releasenotes/product/relnote
 
      Default TCP profiles are becoming read only for "troubleshooting purposes."
 
-     If you are using the default TCP profile, it is not optimal and can be less 
+     If you are using the default TCP profile, it is not optimal and can be less
      productive for your applications.  Please see:
      https://devcentral.f5.com/articles/stop-using-the-base-tcp-profile
 
@@ -44,7 +44,7 @@ https://support.f5.com/kb/en-us/products/big-ip_ltm/releasenotes/product/relnote
      sizes manually, customers can now select the auto option for send/receive buffer
      sizes and high/low watermarks for the TCP Proxy buffers
 
-	
-.. |image50| image:: media/image51.emf
+
+.. |image50| image:: /_static/class2/image51.emf
    :width: 6.92986in
    :height: 8.98012in
