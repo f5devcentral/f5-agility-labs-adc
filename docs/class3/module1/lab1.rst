@@ -17,43 +17,39 @@ Access the Lab Environment
 
       #. i.	http://<ip_address_supplied_by_instructor/
 
-..
-
          |image0|
 
-      #.  User: **ltm101student**\ X (where **X** is your student number)
+      #. User: **ltm101student**\ X (where **X** is your student number)
 
       #. Password: **PieINtheSKYltm101**
 
    #. Open the blueprint or the view link.
 
-..
-
-   |image1|
+      |image1|
 
    #. Find the Xunbutu jumpbox in the list of applications and select
-   console to access the jumpbox via the browser. Alternately you can
-   use the IP address associated with the jumpbox to access it via RDP.
+      console to access the jumpbox via the browser. Alternately you can
+      use the IP address associated with the jumpbox to access it via RDP.
 
-   |image2|
+      |image2|
 
    #. Access the **xbun-jumpbox** using the **Console** (watch for pop-up
-   blockers)
+      blockers)
 
       #. User: **f5student**
 
-      #.  Password: **f5DEMOs4u**
+      #. Password: **f5DEMOs4u**
 
 #. To access the BIG-IP open a new browser window and
 
    #. Click the bookmark **bigip01**
 
-      #.  User: **admin**
+      #. User: **admin**
 
       #. Nomenclature for GUI navigation begins on the side-bar and then
       goes to the pop-up or top-bar.
 
-|image3| 
+         |image3| 
 
       #. For example: **Go to Local Traffic >> Virtual Servers >> Virtual List**
 
