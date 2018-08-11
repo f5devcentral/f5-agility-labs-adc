@@ -49,7 +49,7 @@ Assigning a Self IP addresses to your VLANs
 
 Go to **Network >> Self IPs**, select **Create**.
 
-|image15|
+   |image15|
 
 #. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. 
 
@@ -153,7 +153,7 @@ statistical interfaces.
          #. The name is for management purposes only, no spaces can be
             used
 
-      #.  **Description**: <optional>
+      #. **Description**: <optional>
 
       #. **Health** **Monitor**: http
 
@@ -161,10 +161,9 @@ statistical interfaces.
 
       #. **Load Balancing Method**: <leave at the default Round Robin>
 
-      #.  **Priority Group Activation**: <leave at default>
+      #. **Priority Group Activation**: <leave at default>
 
       #. **New Members**:
-
 
 +-------------+------------------+
 | **Address** | **Service Port** |
@@ -179,7 +178,7 @@ statistical interfaces.
 
       #. As you enter each IP address and port combination, hit the **Add** button
 
-      |image8|
+         |image8|
 
 When you have completed your pool configuration, hit the **Finished** button
 
@@ -221,7 +220,7 @@ Now let’s build our virtual server
 
       #. **Source Address Translation**: Auto Map
 
-      |image10|
+         |image10|
 
    #. Under **Resources**
 
@@ -245,7 +244,7 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
    #. Refresh the browser screen several times (use “<ctrl>” F5)
 
-|image12|
+      |image12|
 
    * Go to your BIG-IP and view the statistics for the **www_vs** virtual
       server and the **www_pool** pool and its associated members
@@ -260,10 +259,10 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
    * Go to **Local** **Traffic >> Pools >> Statistics**
 
-      *  Did each pool member receive the same number of connections?
+      * Did each pool member receive the same number of connections?
 
-      *  Did each pool member receive approximately the same number of
-         bytes?
+      * Did each pool member receive approximately the same number of
+        bytes?
 
       * Note the Source and Destination address when you go to directly
         and through the virtual server
@@ -278,10 +277,7 @@ You have now created a Virtual Server (Note: Items in blue are links)
 .. |image0| image:: media/image1.png
    :width: 5.79143in
    :height: 4.62037in
-.. |image1| image:: media/image2.png
-   :width: 3.72037in
-   :height: 2.59259in
-.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: media/image3.png
+.. |image2| image:: media/image3.png
    :width: 7.02449in
    :height: 3.73148in
 .. |image3| image:: media/image4.png
