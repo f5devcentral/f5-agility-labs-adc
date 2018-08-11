@@ -20,13 +20,11 @@ Using the Built-in https_redirect iRule
 
    #. Example of simple redirect iRule:
 
-..
+      .. code-block:: tcl
 
-   **when HTTP_REQUEST {**
-
-   **HTTP::redirect https://[HTTP::host][HTTP::uri]**
-
-   **}**
+         when HTTP_REQUEST {
+            HTTP::redirect https://[HTTP::host][HTTP::uri]
+         }
 
 #. Go to **Local Traffic >> iRules**
 
