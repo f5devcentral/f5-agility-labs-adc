@@ -51,7 +51,9 @@ Go to **Network >> Self IPs**, select **Create**.
 
 |image15|
 
-#. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
+#. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. 
+
+   #. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
 
 ::
 
@@ -66,13 +68,12 @@ Go to **Network >> Self IPs**, select **Create**.
       **VLAN**:              server_vlan                       client_vlan
 
       **Port** **Lockdown**:  Allow None                        Allow None
+
 \
 
-   #. The default “\ **Allow** **None**\ ” means the Self IP would
-      respond only to ICMP.
+The default “\ **Allow** **None**\ ” means the Self IP would respond only to ICMP.
    
-   #. The “\ **Allow** **Defaults**\ ” selection opens the following
-      on the self IP of the VLAN
+   #. The “\ **Allow** **Defaults**\ ” selection opens the following on the self IP of the VLAN
 
       #. TCP: ssh, domain, snmp, https
 
@@ -274,48 +275,48 @@ You have now created a Virtual Server (Note: Items in blue are links)
       * Name your archive **lab2_the_basics_net_pool_vs**
 
 
-.. |image0| image:: images/image1.png
+.. |image0| image:: media/image1.png
    :width: 5.79143in
    :height: 4.62037in
-.. |image1| image:: images/image2.png
+.. |image1| image:: media/image2.png
    :width: 3.72037in
    :height: 2.59259in
-.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: images/image3.png
+.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: media/image3.png
    :width: 7.02449in
    :height: 3.73148in
-.. |image3| image:: images/image4.png
+.. |image3| image:: media/image4.png
    :width: 0.625in
    :height: 0.20833in
-.. |image4| image:: images/image5.png
+.. |image4| image:: media/image5.png
    :width: 7.80083in
    :height: 1.74074in
-.. |image5| image:: images/image6.png
+.. |image5| image:: media/image6.png
    :width: 7.83303in
    :height: 2.81482in
-.. |image6| image:: images/image4.png
+.. |image6| image:: media/image4.png
    :width: 0.625in
    :height: 0.20833in
-.. |image7| image:: images/image7.png
+.. |image7| image:: media/image7.png
    :width: 3.46875in
    :height: 3.20148in
-.. |image8| image:: images/image8.png
+.. |image8| image:: media/image8.png
    :width: 4.375in
    :height: 1.27287in
-.. |image9| image:: images/image9.png
+.. |image9| image:: media/image9.png
    :width: 3.71994in
    :height: 3.08333in
-.. |image10| image:: images/image10.png
+.. |image10| image:: media/image10.png
    :width: 2.97587in
    :height: 0.99517in
-.. |image11| image:: images/image11.png
+.. |image11| image:: media/image11.png
    :width: 7.5in
    :height: 1.65069in
-.. |image12| image:: images/image12.png
+.. |image12| image:: media/image12.png
    :width: 6.56482in
    :height: 3.2976in
-.. |image13| image:: images/image13.png
+.. |image13| image:: media/image13.png
    :width: 5.68925in
    :height: 2.7588in
-.. |image15| image:: images/module_2_1.png
+.. |image15| image:: media/module_2_1.png
    :width: 4.31269in
    :height: 2.5in
