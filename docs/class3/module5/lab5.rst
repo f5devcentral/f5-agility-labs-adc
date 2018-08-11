@@ -22,7 +22,7 @@ Creating a Self-signed certificate and key
 
 #. Go to **System >> Certificate Management >> Traffic Certificate Management >> SSL Certificate List** and select **Create**
 
-|image1|
+   |image1|
 
    #. **NOTE:** The default key size is **2048**. You can save SSL
       resources on the **server-side** by lowering this key size
@@ -31,20 +31,20 @@ Creating a Self-signed certificate and key
 
    #. Enter:
 
-      #.   **Name**: my-selfsigned-cert
+      #. **Name**: my-selfsigned-cert
 
-      #.  **Issuer**: Self
+      #. **Issuer**: Self
 
       #. **Common Name**: www.f5demo.com
 
-      #.  Fill out the rest any way you would like
+      #. Fill out the rest any way you would like
 
 Creating SSL Client Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Go to **Local** **Traffic >> Profiles >> SSL >> Client** menu and select **Create**
 
-|image3|
+   |image3|
 
    #. Under **General Properties**
 
@@ -53,7 +53,7 @@ Creating SSL Client Profile
    #. Under **Configuration** in the **Certificate Key Chain** section,
       select the **Custom** box and hit **Add**
 
-      #.  In the **Add SSL Certificate to Key Chain** pop-up select:
+      #. In the **Add SSL Certificate to Key Chain** pop-up select:
 
          #. **Certificate**:         my-selfsigned-cert
 
@@ -160,8 +160,8 @@ Archive your work in a file called: **lab5_security**
    :width: 5.21822in
    :height: 4.58333in
 .. |image3| image:: images/image3.png
-   :width: 3.87037in
-   :height: 3.59084in
+   :width: 3.00000in
+   :height: 2.783330in
 .. |image4| image:: images/image4.png
    :width: 2.91428in
    :height: 1.63542in
