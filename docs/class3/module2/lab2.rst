@@ -44,7 +44,7 @@ Assigning a Self IP addresses to your VLANs
 
 Go to **Network >> Self IPs**, select **Create**.
 
-|image15|
+      |image15|
 
 #. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. 
 
@@ -133,7 +133,7 @@ In this lab we will build a pool and virtual server to support our web site and 
 
          #. The name is for management purposes only, no spaces can be used
 
-      #.  **Description**: <optional>
+      #. **Description**: <optional>
 
       #. **Health** **Monitor**: http
 
@@ -141,7 +141,7 @@ In this lab we will build a pool and virtual server to support our web site and 
 
       #. **Load Balancing Method**: <leave at the default Round Robin>
 
-      #.  **Priority Group Activation**: <leave at default>
+      #. **Priority Group Activation**: <leave at default>
 
       #. **New Members**:
 
@@ -157,7 +157,7 @@ In this lab we will build a pool and virtual server to support our web site and 
 
       #. As you enter each IP address and port combination, hit the **Add** button
 
-      |image8|
+            |image8|
 
 When you have completed your pool configuration, hit the **Finished** button
 
@@ -232,9 +232,9 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
    * Go to **Local** **Traffic >> Pools >> Statistics**
 
-      *  Did each pool member receive the same number of connections?
+      * Did each pool member receive the same number of connections?
 
-      *  Did each pool member receive approximately the same number of bytes?
+      * Did each pool member receive approximately the same number of bytes?
 
       * Note the Source and Destination address when you go to directly and through the virtual server
 
@@ -251,7 +251,7 @@ You have now created a Virtual Server (Note: Items in blue are links)
 .. |image1| image:: images/image2.png
    :width: 3.72037in
    :height: 2.59259in
-.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: images/image3.png
+.. |image2| image:: images/image3.png
    :width: 7.02449in
    :height: 3.73148in
 .. |image3| image:: images/image4.png
