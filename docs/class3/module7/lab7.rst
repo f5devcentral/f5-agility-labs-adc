@@ -18,13 +18,13 @@ Archive the current configuration and perform a health check using a QKview
 
    a. Click **New Support Snapshot**
 
-      **NOTE: If you have an iHealth account, you can choose to use the Generate and Upload QKview to iHealth option as long as your management port has Internet access. For this exercise, we will skip this.**
+      .. note:: If you have an iHealth account, you can choose to use the Generate and Upload QKview to iHealth option as long as your management port has Internet access. For this exercise, we will skip this.
 
    #. From the drop-down, select **Generate QKview**
 
    #. Select **Download** and download the QKView to your PC
 
-   #. **NOTE:** If you leave the **Support** page and return you will still the **Support Snapshot** screen. You CANNOT create another **QKView** or **TCP Dump** until the QKView is deleted.
+   .. note:: If you leave the **Support** page and return you will still the **Support Snapshot** screen. You CANNOT create another **QKView** or **TCP Dump** until the QKView is deleted.
 
 #. Import the QKView into iHealth.
 
@@ -65,16 +65,13 @@ Troubleshoot using TCPDump or Curl.
 
 #. SSH to the management port of your BIG-IP.
 
-   **Remember the BIG-IP is a full proxy. You will need two dumps and therefore two SSH windows for the client-side connection and the server-side connection.**
+   .. attention:: Remember the BIG-IP is a full proxy. You will need two dumps and therefore two SSH windows for the client-side connection and the server-side connection.
 
-   a. First let’s see if we are hitting the virtual server. At the Linux
-      CLI prompt:
+   a. First let’s see if we are hitting the virtual server. At the Linux CLI prompt:
 
    #. **tcpdump –i <client vlan name> host –X –s128 10.1.10.100 and port 80**
 
-         1. This is a little overkill, but a good example of syntax. We
-            will only look at traffic headed for the virtual server. We
-            will see the first 128 bytes (-s128) in ASCII (-X).
+         1. This is a little overkill, but a good example of syntax. We will only look at traffic headed for the virtual server. We will see the first 128 bytes (-s128) in ASCII (-X).
 
    #. Go to your browser and attempt to access the virtual server. You should see something like this:
 

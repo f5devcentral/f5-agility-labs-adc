@@ -9,9 +9,7 @@ your customer’s requirements and topology.
 Creating VLANs
 ~~~~~~~~~~~~~~
 
-   You will need create two untagged VLANs, one client-side VLAN
-   (**client_vlan**) and one server-side VLAN (**server_vlan)** for the
-   devices in your network.
+You will need create two untagged VLANs, one client-side VLAN (**client_vlan** and one server-side VLAN (**server_vlan)** for the devices in your network.
 
 #. From the sidebar select **Network** **>> VLANs** then select **Create**
 
@@ -25,10 +23,7 @@ Creating VLANs
 
       #. **Tag**: <leave blank>
 
-         #. Entering a tag is only required for “\ **Tagged**\ ” (802.1q)
-            interfaces. “\ **Untagged**\ ” interfaces will automatically
-            get a tag which is used for internal L2 segmentation of
-            traffic.
+         #. Entering a tag is only required for “\ **Tagged**\ ” (802.1q interfaces. “\ **Untagged**\ ” interfaces will automatically get a tag which is used for internal L2 segmentation of traffic.
 
    #. Under **Resources** in the **Interfaces** section:
 
@@ -69,8 +64,6 @@ Go to **Network >> Self IPs**, select **Create**.
 
       **Port** **Lockdown**:  Allow None                        Allow None
 
-\
-
 The default “\ **Allow** **None**\ ” means the Self IP would respond only to ICMP.
    
    #. The “\ **Allow** **Defaults**\ ” selection opens the following on the self IP of the VLAN
@@ -83,24 +76,19 @@ The default “\ **Allow** **None**\ ” means the Self IP would respond only to
 
       #. PROTOCOL: ospf
 
-   #. **NOTE:** Even with **“Allow None”** chosen, traffic destined
-      for a virtual server or object on the F5 (e.g. NAT) are able to
-      pass through without issue as any object created on the F5 is by
-      default allowed to pass through.
+   .. note:: Even with **“Allow None”** chosen, traffic destined for a virtual server or object on the F5 (e.g. NAT) are able to pass through without issue as any object created on the F5 is by default allowed to pass through.
 
 When you have completed your self-IP configuration, hit the |image3|
 button. You should have something similar to the following
 
    |image4|
 
-
 Assigning the Default Gateway
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Go to **Network > Routes** and then **Add**.
 
-   #. Here is where we assign our default gateway (and other static
-      routes as desired)
+   #. Here is where we assign our default gateway (and other static routes as desired)
 
       |image5|
 
@@ -116,16 +104,13 @@ Assigning the Default Gateway
 
       #. **Gateway** **Address**: 10.1.10.1
 
-      #. When you have completed defining your default gateway, hit the
-         |image6| button
+      #. When you have completed defining your default gateway, hit the |image6| button
 
 #. Verify your network configuration
 
-   #. Ping your client-side self IP (**10.1.10.245**) to verify
-      connectivity
+   #. Ping your client-side self IP (**10.1.10.245**) to verify connectivity
 
-   #. Use an SSH utility, such as puTTY, to access your BIG-IP
-      management port at 10.1.1.245.
+   #. Use an SSH utility, such as puTTY, to access your BIG-IP management port at 10.1.1.245.
 
       #. User: **root** Password: **default**
 
@@ -136,13 +121,9 @@ Assigning the Default Gateway
 Creating Pools
 ~~~~~~~~~~~~~~
 
-In this lab we will build a pool and virtual server to support our web
-site and verify our configurations by accessing our web servers through
-the BIG-IP. Verification will be performed visually and through various
-statistical interfaces.
+In this lab we will build a pool and virtual server to support our web site and verify our configurations by accessing our web servers through the BIG-IP. Verification will be performed visually and through various statistical interfaces.
 
-#. From the sidebar, select **Local Traffic >>** **Pools** then select
-   **Create**. Here we will create our new pool
+#. From the sidebar, select **Local Traffic >>** **Pools** then select **Create**. Here we will create our new pool
 
    |image7|
 
@@ -150,8 +131,7 @@ statistical interfaces.
 
       #. **Name**: www_pool
 
-         #. The name is for management purposes only, no spaces can be
-            used
+         #. The name is for management purposes only, no spaces can be used
 
       #.  **Description**: <optional>
 
@@ -165,17 +145,15 @@ statistical interfaces.
 
       #. **New Members**:
 
-
-+-------------+------------------+
-| **Address** | **Service Port** |
-+=============+==================+
-| 10.1.20.11  | 80               |
-+-------------+------------------+
-| 10.1.20.12  | 80               |
-+-------------+------------------+
-| 10.1.20.13  | 80               |
-+-------------+------------------+
-
+            +-------------+------------------+
+            | **Address** | **Service Port** |
+            +=============+==================+
+            | 10.1.20.11  | 80               |
+            +-------------+------------------+
+            | 10.1.20.12  | 80               |
+            +-------------+------------------+
+            | 10.1.20.13  | 80               |
+            +-------------+------------------+
 
       #. As you enter each IP address and port combination, hit the **Add** button
 
@@ -202,26 +180,21 @@ Now let’s build our virtual server
 
       #. **Source/Address:** <leave blank>
 
-         #. **Note:** The default is 0.0.0.0/0, all source IP address are allowed
+         .. note:: The default is 0.0.0.0/0, all source IP address are allowed
 
       #. **Destination** **Address/Mask:** 10.1.10.100
 
-         #. **NOTE:** The default mask is /32
+         .. note:: The default mask is /32
 
       #. **Service Port**: 80 or HTTP
 
    #. Under **Configurations**
 
-      #. The web servers do not use the BIG-IP LTM as the default
-         gateway. This means return traffic will route around the
-         BIG-IP LTM and the TCP handshake will fail. To prevent this
-         we can configure SNAT Automap on the Virtual Server. This
-         will translate the client IP to the self IP of the egress
-         VLAN and ensure the response returns to the BIG-IP.
+      #. The web servers do not use the BIG-IP LTM as the default gateway. This means return traffic will route around the BIG-IP LTM and the TCP handshake will fail. To prevent this we can configure SNAT Automap on the Virtual Server. This will translate the client IP to the self IP of the egress VLAN and ensure the response returns to the BIG-IP.
 
       #. **Source Address Translation**: Auto Map
 
-      |image10|
+            |image10|
 
    #. Under **Resources**
 
@@ -245,16 +218,15 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
    #. Refresh the browser screen several times (use “<ctrl>” F5)
 
-|image12|
+      |image12|
 
-   * Go to your BIG-IP and view the statistics for the **www_vs** virtual
-      server and the **www_pool** pool and its associated members
+   * Go to your BIG-IP and view the statistics for the **www_vs** virtual server and the **www_pool** pool and its associated members
 
    * Go to **Statistics > Module Statistics > Local Traffic**
 
       * Choose **Virtual Servers** from drop down
 
-|image13|
+        |image13|
 
    * Go to **Local** **Traffic >> Virtual Servers >> Statistics**
 
@@ -262,11 +234,9 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
       *  Did each pool member receive the same number of connections?
 
-      *  Did each pool member receive approximately the same number of
-         bytes?
+      *  Did each pool member receive approximately the same number of bytes?
 
-      * Note the Source and Destination address when you go to directly
-        and through the virtual server
+      * Note the Source and Destination address when you go to directly and through the virtual server
 
 * Let’s archive our configuration in case we have to fall back later.
 
@@ -275,48 +245,48 @@ You have now created a Virtual Server (Note: Items in blue are links)
       * Name your archive **lab2_the_basics_net_pool_vs**
 
 
-.. |image0| image:: media/image1.png
+.. |image0| image:: images/image1.png
    :width: 5.79143in
    :height: 4.62037in
-.. |image1| image:: media/image2.png
+.. |image1| image:: images/image2.png
    :width: 3.72037in
    :height: 2.59259in
-.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: media/image3.png
+.. |C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML51055f77.PNG| image:: images/image3.png
    :width: 7.02449in
    :height: 3.73148in
-.. |image3| image:: media/image4.png
+.. |image3| image:: images/image4.png
    :width: 0.625in
    :height: 0.20833in
-.. |image4| image:: media/image5.png
+.. |image4| image:: images/image5.png
    :width: 7.80083in
    :height: 1.74074in
-.. |image5| image:: media/image6.png
+.. |image5| image:: images/image6.png
    :width: 7.83303in
    :height: 2.81482in
-.. |image6| image:: media/image4.png
+.. |image6| image:: images/image4.png
    :width: 0.625in
    :height: 0.20833in
-.. |image7| image:: media/image7.png
+.. |image7| image:: images/image7.png
    :width: 3.46875in
    :height: 3.20148in
-.. |image8| image:: media/image8.png
+.. |image8| image:: images/image8.png
    :width: 4.375in
    :height: 1.27287in
-.. |image9| image:: media/image9.png
+.. |image9| image:: images/image9.png
    :width: 3.71994in
    :height: 3.08333in
-.. |image10| image:: media/image10.png
+.. |image10| image:: images/image10.png
    :width: 2.97587in
    :height: 0.99517in
-.. |image11| image:: media/image11.png
+.. |image11| image:: images/image11.png
    :width: 7.5in
    :height: 1.65069in
-.. |image12| image:: media/image12.png
+.. |image12| image:: images/image12.png
    :width: 6.56482in
    :height: 3.2976in
-.. |image13| image:: media/image13.png
+.. |image13| image:: images/image13.png
    :width: 5.68925in
    :height: 2.7588in
-.. |image15| image:: media/module_2_1.png
+.. |image15| image:: images/module_2_1.png
    :width: 4.31269in
    :height: 2.5in

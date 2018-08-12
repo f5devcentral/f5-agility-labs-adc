@@ -1,32 +1,20 @@
 Lab 6: BIG-IP Policies and iRules
 =================================
 
-When clients attempt to access your **secure_vs**, you don’t want them
-to have to remember to type HTTPS before the web site, but you also
-don’t want to open port 80 (HTTP) on your web servers as that is just
-asking for trouble. To avoid this issue, you will be creating an HTTP
-virtual server that will redirect HTTP to HTTPS and the **secure_vs**.
-Also, you will write an iRule and a BIG-IP policy that will retrieve
-images from a different pool of servers than the default pool attached
-to the virtual server. This will give you a simple comparison between
-the two methods. You will use a policy on the HTTP server and an iRule
-on the HTTPS virtual server.
+When clients attempt to access your **secure_vs**, you don’t want them to have to remember to type HTTPS before the web site, but you also don’t want to open port 80 (HTTP) on your web servers as that is just asking for trouble. To avoid this issue, you will be creating an HTTP virtual server that will redirect HTTP to HTTPS and the **secure_vs**. Also, you will write an iRule and a BIG-IP policy that will retrieve images from a different pool of servers than the default pool attached to the virtual server. This will give you a simple comparison between the two methods. You will use a policy on the HTTP server and an iRule on the HTTPS virtual server.
 
 Using the Built-in https_redirect iRule
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. While it would be easy to write your own redirect iRule, note that F5
-   has one prebuilt that you can use
+#. While it would be easy to write your own redirect iRule, note that F5 has one prebuilt that you can use
 
    #. Example of simple redirect iRule:
 
-..
+      .. code-block:: console
 
-   **when HTTP_REQUEST {**
-
-   **HTTP::redirect https://[HTTP::host][HTTP::uri]**
-
-   **}**
+            when HTTP_REQUEST {
+                  HTTP::redirect https://[HTTP::host][HTTP::uri]
+            }
 
 #. Go to **Local Traffic >> iRules**
 
@@ -56,13 +44,9 @@ Using the Built-in https_redirect iRule
 
       #. Hit **Finished**
 
-         #. **WOW!** That didn’t go too far did it. You just got an
-            error. If you are going to redirect the HTTP request, you
-            need the HOST and URI information and that requires the
-            HTTP protocol
+         #. **WOW!** That didn’t go too far did it. You just got an error. If you are going to redirect the HTTP request, you need the HOST and URI information and that requires the HTTP protocol
 
-   #. In the **Configuration** section make sure the default **http**
-      profile is added to the virtual server
+   #. In the **Configuration** section make sure the default **http** profile is added to the virtual server
 
    #. HTTP Profile: **http**
 
@@ -77,15 +61,11 @@ Using the Built-in https_redirect iRule
 Use a BIG-IP Policy to retrieve images from a different pool 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. **Create** a new pool named **image_pool**, use the **http** monitor
-   for status, and add one member **10.1.20.14:80**
+#. **Create** a new pool named **image_pool**, use the **http** monitor for status, and add one member **10.1.20.14:80**
 
-#. First you will create your policy container and set your match
-   strategy
+#. First you will create your policy container and set your match strategy
 
-   #. Try to do this using the instructions, but a screen shot of the
-      policy is available in the **Appendix** at the end of the lab
-      guide if you would like it
+   #. Try to do this using the instructions, but a screen shot of the policy is available in the **Appendix** at the end of the lab guide if you would like it.
 
 #. Go to **Local Traffic >> Policies >> Policy List** and select **Create**
 
@@ -101,19 +81,15 @@ Use a BIG-IP Policy to retrieve images from a different pool
 
    #. **Name:** get_jpegs
 
-   #. In the box under **Match all of the following conditions:** select
-      the |image2| to the right of **All Traffic**
+   #. In the box under **Match all of the following conditions:** select the |image2| to the right of **All Traffic**
 
-      #. Use the drop-down menus to look at the **HTTP URI** and
-         check if it **ends_with** an image type
+      #. Use the drop-down menus to look at the **HTTP URI** and check if it **ends_with** an image type
 
-      #. Look for JPEGs by adding **jpg** in the box under the **any
-         of** box and selecting **Add**
+      #. Look for JPEGs by adding **jpg** in the box under the **any of** box and selecting **Add**
 
          |image3|
 
-   #. Under **Do the following when the traffic is** matched, build the
-      following operation.
+   #. Under **Do the following when the traffic is** matched, build the following operation.
 
       #. **Forward Traffic** to the **pool** named **image_pool**
 
@@ -121,18 +97,15 @@ Use a BIG-IP Policy to retrieve images from a different pool
 
       |image4|
 
-#. The policy is saved in **Draft** form and is not available until
-   **Published**. To publish the policy:
+#. The policy is saved in **Draft** form and is not available until **Published**. To publish the policy:
    
    #. Select the **Save Draft Policy** drop-down menu and select **Save and Publish Policy**
 
       |image5|
 
-#. Go to the **Resources** section of your **www_vs** virtual server and
-   select **Managed** over the **Policies** box
+#. Go to the **Resources** section of your **www_vs** virtual server and select **Managed** over the **Policies** box
 
-   #. Move **access_image_pool** for the **Available** box to the
-      **Enabled** box
+   #. Move **access_image_pool** for the **Available** box to the **Enabled** box
 
       |image6|
 
@@ -147,8 +120,7 @@ Use a BIG-IP Policy to retrieve images from a different pool
 Use an iRule to Retrieve Images From a Different Pool 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Now you will use an iRule to perform the same image retrieval. Your
-   **image_pool** is already created
+#. Now you will use an iRule to perform the same image retrieval. Your **image_pool** is already created
 
 #. Go to **Local Traffic >> iRules** and select **Create**
 
@@ -158,17 +130,13 @@ Use an iRule to Retrieve Images From a Different Pool
 
       |image8|
 
-   #. This activity is not meant to be “cut and paste”. We want you to get
-      comfortable and familiar with typing iRules inside the GUI.
+   #. This activity is not meant to be “cut and paste”. We want you to get comfortable and familiar with typing iRules inside the GUI.
 
-      #. Try hovering the cursor over a command or event, such as,
-         **HTTP_REQUEST** or **HTTP:uri**. You will see a definition of the
-         item. For example:
+      #. Try hovering the cursor over a command or event, such as, **HTTP_REQUEST** or **HTTP:uri**. You will see a definition of the item. For example:
 
          |image9|
 
-#. Save your iRule and go to the **Resources** section of your
-   **secure_vs** and select **iRules >>** Manage
+#. Save your iRule and go to the **Resources** section of your **secure_vs** and select **iRules >>** Manage
 
    #. Move your **access_image_pool** iRule into the **Enabled** box
 
@@ -176,8 +144,7 @@ Use an iRule to Retrieve Images From a Different Pool
 
    #. The results should be the same as before
 
-#. **Extra Credit!** Change both the policy and iRule to access the
-   **image_pool** for **png** file types
+#. **Extra Credit!** Change both the policy and iRule to access the **image_pool** for **png** file types
 
    #. You should notice one is easier to update than the other
    

@@ -14,10 +14,11 @@ We will be using a jumpbox to connect to the lab environment.  Click on the lab 
 The credentials will be the following:
 
 user: f5student
+
 password: f5DEMOs4u
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
-   module*/module*
+   lab*

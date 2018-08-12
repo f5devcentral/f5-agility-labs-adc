@@ -55,7 +55,7 @@ Configure HA
 
 #. Lifetime is important. If your cert expires your HA setup will fail
 
-#.  Select **Finished**. Your browser will ask to exchange certs with the BIG-IP again
+#. Select **Finished**. Your browser will ask to exchange certs with the BIG-IP again
 
 #. Under **Device Management >> Device Trust >> Local Domain** select **Reset Device Trust…**
 
@@ -63,8 +63,7 @@ Configure HA
 
 #. **On each BIG-IP** configure the device object failover parameters the BIG-IP will send to other BIG-IPs that want to be a part of a sync-only or sync-failover group
 
-   a. Under **Device Management >> Devices**, select the local BIG-IP.
-      It will have the **(Self)** suffix.
+   a. Under **Device Management >> Devices**, select the local BIG-IP. It will have the **(Self)** suffix.
 
    b.  Under **Device Connectivity** on the top bar select:
 
@@ -84,8 +83,7 @@ Configure HA
 
 #. **Mirroring**
 
-#. **Primary Local Mirror Address**: use the Self IP address
-   of the HA VLAN for your
+#. **Primary Local Mirror Address**: use the Self IP address of the HA VLAN for your
 
 #. **Secondary Local Mirror Address:** None
 
@@ -97,13 +95,13 @@ Configure HA
 
 #. You could use any Self IP if the out-of-band management interface is not configured.
 
-   a.  Enter the Administrator Username and Password of the BIG-IP you are trusting
+   a. Enter the Administrator Username and Password of the BIG-IP you are trusting
 
    b.  Select **Retrieve Device Information**
 
 #. The certificate information and name from the other BIG-IP should appear
 
-   a.   Select **Device Certificate Matches** to proceed
+   a.  Select **Device Certificate Matches** to proceed
 
    b.  Select **Add Device**
 
@@ -151,7 +149,7 @@ Configure HA
 
    c. **Synchronize to Group**. It could take up to 30 seconds for synchronization to complete.
 
-#. NOTE: During the **Awaiting Initial Sync** phase either BIG-IP can perform the synchronization and the other BIG-IP will be overwritten.
+.. note:: During the **Awaiting Initial Sync** phase either BIG-IP can perform the synchronization and the other BIG-IP will be overwritten.
 
 #. What are the statuses of your BIG-IPs? Do you have an active-standby pair?
 
