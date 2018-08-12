@@ -15,7 +15,7 @@ Now you need to have your pre-master key file and your capture moved to your loc
       sudo scp root@10.1.1.245:/var/tmp/session.pms ./
       sudo scp root@10.1.1.245:/var/tmp/hackazon.pcap ./
 
-After each of these commands you will be prompted to accept the SSH keys.  Type yes to continue. Then you will be prompted for the F5 root password.  Type that in as well.
+      After each of these commands you will be prompted to accept the SSH keys.  Type yes to continue. Then you will be prompted for the F5 root password.  Type that in as well.
  
 #. Now open Wireshark.  
 
