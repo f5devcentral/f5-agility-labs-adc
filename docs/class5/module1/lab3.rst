@@ -1,5 +1,5 @@
-Module 3:  Troubleshooting
-==========================
+Lab 3:  Troubleshooting
+=======================
 		
 Location and content of dynamic routing log files:
 		

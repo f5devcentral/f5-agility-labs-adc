@@ -9,4 +9,5 @@ Expected time to complete: **3 hours**
    :maxdepth: 1
    :glob:
 
+   intro
    module*/module*
