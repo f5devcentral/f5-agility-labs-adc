@@ -22,7 +22,7 @@ Ratio Load Balancing
 
 #. Under **Load** **Balancing** section
 
-   #. Change the **Load** **Balancing** **Method** to **Ratio (Member)**
+   a. Change the **Load** **Balancing** **Method** to **Ratio (Member)**
 
    #. As you look at the drop-down menu, notice most load balancing methods have two options: (Node) or (Member). Remember the difference?
 
@@ -32,7 +32,7 @@ Ratio Load Balancing
 
    #. Then under **Current Members**
 
-      #. Select the first member in the pool **10.1.20.11:80**.
+      i. Select the first member in the pool **10.1.20.11:80**.
 
       #. Under the **Configuration** section
 
@@ -44,11 +44,11 @@ Ratio Load Balancing
 
 #. Verification
 
-   #. Check the pool statistics by selecting **Statistics** on the top bar, if you are still in **Local Traffic >> Pools**, or by going to **Statistics >> Module Statistics >> Local Traffic** and selecting **Pool** from **Statistics Type**.
+   a. Check the pool statistics by selecting **Statistics** on the top bar, if you are still in **Local Traffic >> Pools**, or by going to **Statistics >> Module Statistics >> Local Traffic** and selecting **Pool** from **Statistics Type**.
 
    #. Reset the statistics for your **www_pool** pool by checking the boxes next to the pool members and hitting the **Reset** button
 
-      #. Browse to your **www_vs** **(10.1.10.100)** virtual server
+      i. Browse to your **www_vs** **(10.1.10.100)** virtual server
 
       #.  Refresh the browser screen several times (use “<ctrl>” F5)
 
@@ -60,7 +60,7 @@ Ratio Load Balancing
 
    #. Now go back and put the pool load balancing method back to Round Robin
 
-      #. Reset the statistics
+      i. Reset the statistics
 
       #. Refresh the virtual server page several times
 
@@ -75,9 +75,9 @@ Let’s look at priority groups. In this scenario we will treat the **.13** serv
 
 #. Go to **Local Traffic >> Pools >> www_pool**
 
-   #. Select the **Members** tab.
+   a. Select the **Members** tab.
 
-      #.  Set the **Load Balancing Method** back to **Round Robin**
+      i.  Set the **Load Balancing Method** back to **Round Robin**
 
       #. Set the **Priority Group Activation** to **Less than …** **2** Available Members.
 
@@ -87,13 +87,13 @@ Let’s look at priority groups. In this scenario we will treat the **.13** serv
 
    #. Select the pool members **10.128.20.11** and **10.128.20.12** and set their **Priority Group** to **2**.
 
-      #. This will allow you to change the priority on that particular member.
+      i. This will allow you to change the priority on that particular member.
 
          |image4|
 
 #. Review your settings and let’s see how load balancing reacts now
 
-   #. Select the **Statistics** tab.
+   a. Select the **Statistics** tab.
 
    #. Reset the pool statistics.
 
@@ -113,7 +113,7 @@ Let’s look at priority groups. In this scenario we will treat the **.13** serv
 
 #. Select the member in the Priority Group 2 and Disable that pool member.
 
-   #. Select the **Disable** button
+   a. Select the **Disable** button
 
       |image5|
 
@@ -136,7 +136,7 @@ Default Monitors
 
 1. Go to **Local Traffic >> Nodes**, note the status of the nodes.
 
-   #. Note that the nodes exist in this table, even though they were never specifically configured in the Node section of the GUI. Each time a unique IP address is placed in a pool a corresponding node entry is added and assigned the default monitor (if any).
+   a. Note that the nodes exist in this table, even though they were never specifically configured in the Node section of the GUI. Each time a unique IP address is placed in a pool a corresponding node entry is added and assigned the default monitor (if any).
 
    #. Select the **Default Monitors** tab.
 
@@ -150,11 +150,11 @@ Default Monitors
 
 #. Select **Node List** or **Statistics** from the top tab.
 
-   #. What are your node statuses?
+   a. What are your node statuses?
 
 #. Select **Statistics >> Module Statistics >> Local Traffic**
 
-   #. What are the statuses of your nodes, pool and virtual server?
+   a. What are the statuses of your nodes, pool and virtual server?
 
 For those of you who did the **FQDN Pool** extra credit lab, you will notice your FQDN in the node list. The status should be **Available** (Green) even though there wasn’t a monitor. This is because a good status indicates the BIG-IP successfully queried the DNS server for the name. Click on the FQDN node to see additional options, such as query interval.
 
@@ -165,7 +165,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
 #. Browse to **http://10.1.10.100** and on the web page select the **Basic Authentication** link under **Authentication Examples**.
 
-   #. User: **user.1**
+   a. User: **user.1**
 
    #. Password: **password**
 
@@ -177,9 +177,9 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
    |image8|
 
-   #. Now we can create a monitor to check the content of our web page to ensure things are running properly.
+   a. Now we can create a monitor to check the content of our web page to ensure things are running properly.
 
-      #. **Name**: www_test
+      i. **Name**: www_test
 
       #. **Type**: HTTP
 
@@ -188,7 +188,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
    #. Once you have selected you parent **(Type)** monitor, you can access the **Configuration** section
 
-      #.  **Send String**: Enter the command to retrieve the page you want “\ **GET /basic/\r\n**\ ” (no quotes)
+      i.  **Send String**: Enter the command to retrieve the page you want “\ **GET /basic/\r\n**\ ” (no quotes)
 
       #. In the Receive String box put “\ **200 OK**\ ” (no quotes)
 
@@ -202,13 +202,13 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
 #. Where is your new Monitor?
 
-   #. |image11|\ **Hint:** Check the lower right hand corner of the Monitors list. Here you can go to the next page or view all Monitors
+   a. |image11|\ **Hint:** Check the lower right hand corner of the Monitors list. Here you can go to the next page or view all Monitors
 
    #. You can change the number of records displayed per page in **System >> Preferences**
 
 #. Go to **Local Traffic >> Pools >> www_pool** and choose **Properties** from the top bar
 
-   #. Remove the **http** monitor from the Active box.
+   a. Remove the **http** monitor from the Active box.
 
    #. Select the **www_test** monitor from the Available monitor’s window in the **Configuration** section and move it to the Active window.
 
@@ -216,13 +216,13 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
 #. Once you have selected your parent (Type) monitor, you can access the **Configuration** section
 
-   #. Select **Statistics** from the tabs.
+   a. Select **Statistics** from the tabs.
 
    #. What is the status of the pool and its members?
 
 #. Go to **Local Traffic >> Virtual Servers**. What is the status of your virtual server?
 
-   #. Browse to your **www_vs** virtual server. Which members are taking traffic?
+   a. Browse to your **www_vs** virtual server. Which members are taking traffic?
 
    #. Just for fun reverse the monitor. Now when **200 OK** is returned it indicates the server is not responding successfully. You can see where this would be useful if you were looking for a 404 (bad page) response.
 
@@ -233,11 +233,11 @@ There is now the ability to test monitors. This is tremendously helpful as you n
 
 #. Go to **Local Traffic >> Pools >> www_pool**
 
-   #. Under **Configuration**, move the active monitor to **Available**
+   a. Under **Configuration**, move the active monitor to **Available**
 
 #. Go to **Monitors** and click on **http**
 
-   #. Click the **Test** tab
+   a. Click the **Test** tab
 
    #. Under **Address** plug in **10.1.20.11** and in the port field
       plug in **80**
@@ -248,7 +248,7 @@ There is now the ability to test monitors. This is tremendously helpful as you n
 
    #. Go back to **Local Traffic >> Pools >> www_pool**
 
-      #. Once here, move **http** back to **Active**
+      a. Once here, move **http** back to **Active**
 
 Persistence Labs
 ~~~~~~~~~~~~~~~~
@@ -274,13 +274,13 @@ Simple (Source Address) Persistence
 
 #. Go to **Local** **Traffic >> Profiles** and select the **Persistence** tab.
 
-   #. From the **Persistence Profiles** screen select the **Create** button.
+   a. From the **Persistence Profiles** screen select the **Create** button.
 
       |image14|
 
    #. At the **New Persistence Profile** screen enter:
 
-      #. **Name**: my-src-persist
+      i. **Name**: my-src-persist
 
       #. **Persistence** **Type**: Source Address Affinity
 
@@ -288,11 +288,11 @@ Simple (Source Address) Persistence
 
    #. This will add the **Configuration** section to the **General Properties** section.
 
-      #. Note the parent profile.
+      i. Note the parent profile.
 
    #. In the **Configuration** section, set the
 
-      #. **Timeout**: 60 seconds
+      i. **Timeout**: 60 seconds
 
       #. **Prefix Length**: None
 
@@ -304,13 +304,13 @@ Simple (Source Address) Persistence
 
    #. You have just created your first custom Profile.
 
-      #. Note the check box for your new custom profile isn’t grayed out and can be selected to allow you to delete the profile if desired.
+      i. Note the check box for your new custom profile isn’t grayed out and can be selected to allow you to delete the profile if desired.
 
 #. Now let’s attach our new profile to the virtual server.
 
-   #. Go to **Local Traffic >> Virtual Server** and ….
+   a. Go to **Local Traffic >> Virtual Server** and ….
 
-      #. Select **www_vs** and the **Resources** tab or ….
+      i. Select **www_vs** and the **Resources** tab or ….
 
       #. Take the shortcut directly to the **Resources** of the virtual server. (Can you find it?)
 
@@ -322,7 +322,7 @@ Simple (Source Address) Persistence
 
    #. Testing Source Address Affinity
 
-      #.  At this point you may want to open a second browser window to the management GUI.
+      i.  At this point you may want to open a second browser window to the management GUI.
 
       #. From one management window go to **Statistics >> Module Statistic >> Local Traffic**
 
@@ -332,13 +332,13 @@ Simple (Source Address) Persistence
 
 #. At this point you will see that the Persistence Records statistics display has been disabled (way back in v12.1). A TMSH database command is required to activate it.
 
-   #. SSH to you BIG-IP at 10.1.1.245. Username: **root** Password: **default**
+   a. SSH to you BIG-IP at 10.1.1.245. Username: **root** Password: **default**
 
    #. At the prompt enter: **tmsh**
 
    #. At the TMSH prompt enter the command in the **Persistence Value** GUI.
 
-      #. **modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true**
+      i. **modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true**
 
          #. Tab completion will make this a little easier
 
@@ -348,13 +348,13 @@ Simple (Source Address) Persistence
 
 #. In your other management GUI window go to **www_pool** and clear the member statistics.
 
-   #. Open a browser session to your virtual server and refresh several times.
+   a. Open a browser session to your virtual server and refresh several times.
 
    #. How many members are taking traffic?
 
    #. Check you **Persists Records** window. Are there any persistence records?
 
-      #. If you are not Auto Refreshing, don’t forget to hit **Refresh**
+      i. If you are not Auto Refreshing, don’t forget to hit **Refresh**
 
    #. Refresh you web page prior to the **Age column** reaching **60.** What happens?
 
@@ -363,7 +363,7 @@ Cookie Persistence (Cookie Insert)
 
 #. Go to **Local Traffic >> Profiles >> Persistence** tab and hit **Create**
 
-   #. Let’s name our profile **my_cookie_insert** (original isn’t it)
+   a. Let’s name our profile **my_cookie_insert** (original isn’t it)
 
    #. Our **Persistence Type** will be **Cookie**
 
@@ -373,7 +373,7 @@ Cookie Persistence (Cookie Insert)
 
 #. As you can see, the default **Cookie Method** is **HTTP Cookie Insert**, so we won’t have to modify the **Cookie Method**
 
-   #. The BIG-IP will also create a cookie name for you using a combination   of “\ **BIGipServer**\ ” and the pool name the virtual server service. We will take this default also.
+   a. The BIG-IP will also create a cookie name for you using a combination   of “\ **BIGipServer**\ ” and the pool name the virtual server service. We will take this default also.
 
    #. We will use a **session** cookie. Which means the cookie is deleted when the browser is closed.
 
@@ -381,7 +381,7 @@ Cookie Persistence (Cookie Insert)
 
    #. Now attach your cookie persistence profile to your virtual server’s **Default Persistence Profile** by:
 
-      #. Go to **Local Traffic >> Virtual Server >> www_vs >> Resources** tab
+      i. Go to **Local Traffic >> Virtual Server >> www_vs >> Resources** tab
 
       #. Set the **Default Persistence Profile** to **my_cookie_insert**
 
@@ -395,7 +395,7 @@ Cookie Persistence (Cookie Insert)
 
 #. We will have to go to the virtual server to add the HTTP profile, prior to adding the Cookie Persistence profile.
 
-   #. Select the **Properties** tab on your virtual server
+   a. Select the **Properties** tab on your virtual server
 
    #. Go to **HTTP Profile** in the **Configuration** section and select the default HTTP (**http**) profile.
 
@@ -407,7 +407,7 @@ Cookie Persistence (Cookie Insert)
 
 #. Testing cookie persistence.
 
-   #. If you wish you can watch the member statistics to validate your persistence.
+   a. If you wish you can watch the member statistics to validate your persistence.
 
    #. Open a new browser session to your virtual server and refresh several times.
 
@@ -417,7 +417,7 @@ Cookie Persistence (Cookie Insert)
 
    #. Refresh several times. Are you hitting the same server?
 
-      #. On the web page under **HTTP Request and Response Information** click the **Display Cookie** link.
+      i. On the web page under **HTTP Request and Response Information** click the **Display Cookie** link.
 
          |image23|
 

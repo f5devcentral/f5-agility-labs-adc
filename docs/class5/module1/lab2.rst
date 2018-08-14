@@ -1055,8 +1055,7 @@ E_CPE_A_CSR1k:  Verify AS-Path-Prepending inbound on E_CPE_A for 10.99.99.0/24 f
     
     Total number of prefixes 2
 
-.. Note::
-    You will also notice the ‘*m’ notation has been restored above. This means the prefixes are selected for multipath since we have equalized the previous AS Path prepend configured on E_A_BIGIP.
+.. note:: You will also notice the ‘*m*’ notation has been restored above. This means the prefixes are selected for multipath since we have equalized the previous AS Path prepend configured on E_A_BIGIP.
 
 
 Let's move along... 

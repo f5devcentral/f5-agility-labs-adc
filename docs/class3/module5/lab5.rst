@@ -26,9 +26,9 @@ Creating a Self-signed certificate and key
 
       |image2|
 
-   #. Enter:
+   a. Enter:
 
-      #. **Name**: my-selfsigned-cert
+      i. **Name**: my-selfsigned-cert
 
       #. **Issuer**: Self
 
@@ -43,13 +43,13 @@ Creating SSL Client Profile
 
    |image3|
 
-   #. Under **General Properties**
+   a. Under **General Properties**
 
-      #. **Name**: my_clientssl_profile
+      i. **Name**: my_clientssl_profile
 
    #. Under **Configuration** in the **Certificate Key Chain** section, select the **Custom** box and hit **Add**
 
-      #. In the **Add SSL Certificate to Key Chain** pop-up select:
+      i. In the **Add SSL Certificate to Key Chain** pop-up select:
 
          #. **Certificate**:      my-selfsigned-cert
 
@@ -66,7 +66,7 @@ Building our New Secure Virtual Server
 
 #. Go to **Local Traffic >> Virtual Servers** and hit the **Create** button or hit the **“+”** next to Virtual Servers
 
-   #. **Name**: secure_vs
+   a. **Name**: secure_vs
 
    #. **Destination Address/Mask**: 10.1.10.105
 
@@ -85,7 +85,7 @@ Building our New Secure Virtual Server
 #. Test our secure server. Go to you **secure_vs** at
    **https://10.1.10.105**
 
-   #. If you want to watch member traffic, go to the **www_pool** and reset the statistics
+   a. If you want to watch member traffic, go to the **www_pool** and reset the statistics
 
    #. Browse to your secure virtual server
 
@@ -96,15 +96,15 @@ Securing Web Applications with the HTTP profile
 
 #. Let’s begin by creating a custom HTTP profile
 
-   #. Go to **Local Traffic >> Profiles >> Services**, select **HTTP** and create a new profile
+   a. Go to **Local Traffic >> Profiles >> Services**, select **HTTP** and create a new profile
 
    #. Under **General Properties**
 
-      #. **Name**: secure-my-website
+      i. **Name**: secure-my-website
 
    #. Under **Settings**:
 
-      #. Set the **Fallback Host**: http://10.1.1.252 *(this will take you an  internal site)*
+      i. Set the **Fallback Host**: http://10.1.1.252 *(this will take you an  internal site)*
 
       #. **Fallback on Error Codes**: 404 (fallback site if a 404 error is received)
 
@@ -118,11 +118,11 @@ Securing Web Applications with the HTTP profile
 
 #. Browse to your secure virtual server.
 
-   #. Do web pages appear normal?
+   a. Do web pages appear normal?
 
    #. Now browse to a bad page
 
-      #. For example,
+      i. For example,
 
          #. What is the result?
 

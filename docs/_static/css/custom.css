@@ -1,0 +1,19 @@
+.section ol.loweralpha > li { 
+	list-style: lower-alpha;
+}
+
+.section ol.upperalpha > li { 
+	list-style: upper-alpha;
+}
+
+.section ol.arabic > li {
+	list-style: decimal;
+}
+
+.section ol.lowerroman > li {
+    list-style: lower-roman;
+}
+
+.section ol.upperroman > li {
+    list-style: upper-roman;
+}

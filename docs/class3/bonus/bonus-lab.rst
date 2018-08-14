@@ -12,15 +12,15 @@ Building a new traffic group and floating IP.
 
 #. On your **Active** BIG-IP, go to **Device Management >> Traffic Groups** and hit **Create**
 
-    #. Use the f5.http template, which was designed for general web services
+    a. Use the f5.http template, which was designed for general web services
 
-        #.  **Name**: iapp_tg
+        i.  **Name**: iapp_tg
       
         #.  Take the defaults for the rest.
 
 #. Add a floating Self-IP to the **server_vlan**. Go to **Network >> Self IP**
 
-    #. **Name:**  server_gateway
+    a. **Name:**  server_gateway
     
     #. **IP Address:**  10.1.20.240
     
@@ -35,9 +35,9 @@ Building an HTTP application using an iApp template.
 
 #. Go to **iApp >> Application** **Services** and hit **Create**
 
-    #. Use the f5.http template, which was designed for general web services
+    a. Use the f5.http template, which was designed for general web services
    
-        #.  Set the **Template Selection** to **Advanced**
+        i.  Set the **Template Selection** to **Advanced**
         
         #.  **Name**: my_new_iapp
         
@@ -71,17 +71,17 @@ Building an HTTP application using an iApp template.
 
 #. Go to **iApp >> Application Services** and select the new application you created
 
-    #. Select **Components** from the top bar
+    a. Select **Components** from the top bar
    
-        #. Here you will see all the configuration items created by the iApp
+        i. Here you will see all the configuration items created by the iApp
       
         #. Do you see anything created that you weren’t asked about?
 
 #. Remember the concept of strictness? Let’s test that out
 
-    #. Go to **Local Traffic >> Pools >> Pool List**
+    a. Go to **Local Traffic >> Pools >> Pool List**
    
-        #. Select the pool created by your iApp: **my_new_iapp_pool**
+        i. Select the pool created by your iApp: **my_new_iapp_pool**
       
         #. Attempt to add **10.15.11.13:80** to your **my_new_iapp_pool**
       
@@ -89,7 +89,7 @@ Building an HTTP application using an iApp template.
          
     #. Go to your iApp and select **Reconfigure** from the top bar
    
-        #. Now attempt to add your new pool member
+        i. Now attempt to add your new pool member
       
         #. You can check the Components tab to verify your success
 
@@ -100,9 +100,9 @@ Active-Active Setup
 
 #. Now, let’s make our sync-failover group active-active. On the **Active** BIG-IP:
 
-    #. Go to **Device Management >> Traffic Groups**
+    a. Go to **Device Management >> Traffic Groups**
    
-        #. Go to you **iapp_tg** traffic group.
+        i. Go to you **iapp_tg** traffic group.
       
         #. Under **Advanced Setup Options**
       
@@ -120,7 +120,7 @@ Active-Active Setup
 
 #. If the traffic group is active on the wrong BIG-IP initially you will have to do a Force to Standby on the traffic group to make it active on the BIG-IP you want it on by default
 
-    #. What is the ONLINE status of each of your BIG-IPs?
+    a. What is the ONLINE status of each of your BIG-IPs?
    
     #. Reboot the BIG-IP with your second traffic group on it. Watch to see if the application becomes active on the other BIG-IP during the reboot and if it falls back to the Default Device once the BIG-IP has come back up.
    

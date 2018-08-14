@@ -8,9 +8,9 @@ Access the Lab Environment
 
 #. Using Firefox or Chrome open a connection to the training portal supplied by the instructor
 
-   #. Using the IP address supplied by the instructor log on to the training portal
+   a. Using the IP address supplied by the instructor log on to the training portal
 
-      #. http://<ip_address_supplied_by_instructor/
+      i. http://<ip_address_supplied_by_instructor/
 
          |image0|
 
@@ -28,15 +28,15 @@ Access the Lab Environment
 
    #. Access the **xbun-jumpbox** using the **Console** (watch for pop-up blockers)
 
-      #. User: **f5student**
+      a. User: **f5student**
 
       #. Password: **f5DEMOs4u**
 
 #. To access the BIG-IP open a new browser window and
 
-   #. Click the bookmark **bigip01**
+   a. Click the bookmark **bigip01**
 
-      #. User: **admin**
+      i. User: **admin**
 
       #. Nomenclature for GUI navigation begins on the side-bar and then goes to the pop-up or top-bar.
 

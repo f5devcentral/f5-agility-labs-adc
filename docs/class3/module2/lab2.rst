@@ -15,19 +15,19 @@ You will need create two untagged VLANs, one client-side VLAN (**client_vlan** a
 
    |image0|
 
-   #. Under **General Properties**:
+   a. Under **General Properties**:
 
-      #. **Name**: client_vlan
+      i. **Name**: client_vlan
 
    #. The name is for management purposes only, you could name them after your children or pets
 
-      #. **Tag**: <leave blank>
+      i. **Tag**: <leave blank>
 
          #. Entering a tag is only required for “\ **Tagged**\ ” (802.1q interfaces. “\ **Untagged**\ ” interfaces will automatically get a tag which is used for internal L2 segmentation of traffic.
 
    #. Under **Resources** in the **Interfaces** section:
 
-      #. **Interface**: 1.1
+      i. **Interface**: 1.1
 
       #. **Tagging**: Untagged
 
@@ -48,27 +48,27 @@ Go to **Network >> Self IPs**, select **Create**.
 
 #. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. 
 
-   #. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
+   a. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
 
-::
+      ::
 
-                             **Server-Side                     Client-side**
+                                **Server-Side                     Client-side**
 
-      **Name**:               server_ip                        client_ip
+         **Name**:               server_ip                        client_ip
 
-      **IP Address**:         10.1.20.245                      10.1.10.245
+         **IP Address**:         10.1.20.245                      10.1.10.245
 
-      **Netmask**:           255.255.255.0                    255.255.255.0
+         **Netmask**:           255.255.255.0                    255.255.255.0
 
-      **VLAN**:              server_vlan                       client_vlan
+         **VLAN**:              server_vlan                       client_vlan
 
-      **Port** **Lockdown**:  Allow None                        Allow None
+         **Port** **Lockdown**:  Allow None                        Allow None
 
-The default “\ **Allow** **None**\ ” means the Self IP would respond only to ICMP.
+      The default “\ **Allow** **None**\ ” means the Self IP would respond only to ICMP.
    
    #. The “\ **Allow** **Defaults**\ ” selection opens the following on the self IP of the VLAN
 
-      #. TCP: ssh, domain, snmp, https
+      i. TCP: ssh, domain, snmp, https
 
       #. TCP: 4353, 6699 (for F5 protocols, such as HA and iQuery)
 
@@ -88,13 +88,13 @@ Assigning the Default Gateway
 
 #. Go to **Network > Routes** and then **Add**.
 
-   #. Here is where we assign our default gateway (and other static routes as desired)
+   a. Here is where we assign our default gateway (and other static routes as desired)
 
       |image5|
 
    #. Under **Properties**
 
-      #. **Name**: default_gateway
+      i. **Name**: default_gateway
 
       #. **Destination**: 0.0.0.0
 
@@ -108,11 +108,11 @@ Assigning the Default Gateway
 
 #. Verify your network configuration
 
-   #. Ping your client-side self IP (**10.1.10.245**) to verify connectivity
+   a. Ping your client-side self IP (**10.1.10.245**) to verify connectivity
 
    #. Use an SSH utility, such as puTTY, to access your BIG-IP management port at 10.1.1.245.
 
-      #. User: **root** Password: **default**
+      i. User: **root** Password: **default**
 
       #. Ping your default gateway, 10.1.10.1
 
@@ -127,9 +127,9 @@ In this lab we will build a pool and virtual server to support our web site and 
 
    |image7|
 
-   #. Under **Configuration**:
+   a. Under **Configuration**:
 
-      #. **Name**: www_pool
+      i. **Name**: www_pool
 
          #. The name is for management purposes only, no spaces can be used
 
@@ -139,7 +139,7 @@ In this lab we will build a pool and virtual server to support our web site and 
 
    #. Under **Members:**
 
-      #. **Load Balancing Method**: <leave at the default Round Robin>
+      i. **Load Balancing Method**: <leave at the default Round Robin>
 
       #. **Priority Group Activation**: <leave at default>
 
@@ -170,9 +170,9 @@ Now let’s build our virtual server
 
    |image9|
 
-   #. Under **General Properties**
+   a. Under **General Properties**
 
-      #. **Name:** www_vs
+      i. **Name:** www_vs
 
       #. **Description**: <optional>
 
@@ -190,7 +190,7 @@ Now let’s build our virtual server
 
    #. Under **Configurations**
 
-      #. The web servers do not use the BIG-IP LTM as the default gateway. This means return traffic will route around the BIG-IP LTM and the TCP handshake will fail. To prevent this we can configure SNAT Automap on the Virtual Server. This will translate the client IP to the self IP of the egress VLAN and ensure the response returns to the BIG-IP.
+      a. The web servers do not use the BIG-IP LTM as the default gateway. This means return traffic will route around the BIG-IP LTM and the TCP handshake will fail. To prevent this we can configure SNAT Automap on the Virtual Server. This will translate the client IP to the self IP of the egress VLAN and ensure the response returns to the BIG-IP.
 
       #. **Source Address Translation**: Auto Map
 
@@ -198,7 +198,7 @@ Now let’s build our virtual server
 
    #. Under **Resources**
 
-      #. **iRules**: none
+      a. **iRules**: none
 
       #. **Default Pool**: From the drop down menu, select the pool (**www_pool**) which you created earlier
 
@@ -214,7 +214,7 @@ You have now created a Virtual Server (Note: Items in blue are links)
 
 #. Now let’s see if our virtual server works!
 
-   #. Open the browser to the Virtual Server you just created
+   a. Open the browser to the Virtual Server you just created
 
    #. Refresh the browser screen several times (use “<ctrl>” F5)
 

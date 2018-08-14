@@ -16,23 +16,23 @@ You will be creating a high availability cluster using the second BIG-IP **(bigi
 
    a.  Build a new untagged VLAN **ha_vlan** on interface **1.3**
 
-   b. Add a self-IP address to the VLAN, **192.168.20.1** net mask **255.255.255.0.**
+   #. Add a self-IP address to the VLAN, **192.168.20.1** net mask **255.255.255.0.**
 
-   c. Under **Port Lockdown**, select **Allow Default**, to open ports required for HA communications.
+   #. Under **Port Lockdown**, select **Allow Default**, to open ports required for HA communications.
 
 #. Go to https://10.1.1.246 which is **BigIpB.f5agility.com** and login.
 
 #. Bigip102 has already been licensed and provision. You will need to set up the base networking.
 
-+---------------+-------------------+--------------+---------------+
-| **Interface** | **Untagged VLAN** | **Self IP**  | **Netmask**   |
-+===============+===================+==============+===============+
-| 1.1           | client_vlan       | 10.1.10.246  | 255.255.255.0 |
-+---------------+-------------------+--------------+---------------+
-| 1.2           | server_vlan       | 10.1.20.246  | 255.255.255.0 |
-+---------------+-------------------+--------------+---------------+
-| 1.3           | ha_vlan           | 192.168.20.2 | 255.255.255.0 |
-+---------------+-------------------+--------------+---------------+
+      +---------------+-------------------+--------------+---------------+
+      | **Interface** | **Untagged VLAN** | **Self IP**  | **Netmask**   |
+      +===============+===================+==============+===============+
+      | 1.1           | client_vlan       | 10.1.10.246  | 255.255.255.0 |
+      +---------------+-------------------+--------------+---------------+
+      | 1.2           | server_vlan       | 10.1.20.246  | 255.255.255.0 |
+      +---------------+-------------------+--------------+---------------+
+      | 1.3           | ha_vlan           | 192.168.20.2 | 255.255.255.0 |
+      +---------------+-------------------+--------------+---------------+
 
 #. Set **Port Lockdown** to **Allow Default**
 
@@ -47,11 +47,11 @@ Configure HA
 
 #. Under **System >> Certificate Management >> Device Certificate Management >> Device Certificate,** select the **Renew…** button
 
-      a. **Common Name**: <the Hostname of the BIG-IP in the upper left corner>
+   a. **Common Name**: <the Hostname of the BIG-IP in the upper left corner>
 
-      b.  **Country**: United States (or your country of preference)
+   #.  **Country**: United States (or your country of preference)
 
-      c.   **Lifetime**: 3650
+   #.   **Lifetime**: 3650
 
 #. Lifetime is important. If your cert expires your HA setup will fail
 
@@ -65,13 +65,13 @@ Configure HA
 
    a. Under **Device Management >> Devices**, select the local BIG-IP. It will have the **(Self)** suffix.
 
-   b.  Under **Device Connectivity** on the top bar select:
+   #.  Under **Device Connectivity** on the top bar select:
 
-   c. **ConfigSync**
+   #. **ConfigSync**
 
-   d. Use the Self IP address of the HA VLAN for your **Local Address**.
+   #. Use the Self IP address of the HA VLAN for your **Local Address**.
 
-   e. **Failover Network**
+   #. **Failover Network**
 
 #. In the **Failover Unicast Configuration** section select the **Add** button
 
@@ -97,13 +97,13 @@ Configure HA
 
    a. Enter the Administrator Username and Password of the BIG-IP you are trusting
 
-   b.  Select **Retrieve Device Information**
+   #.  Select **Retrieve Device Information**
 
 #. The certificate information and name from the other BIG-IP should appear
 
    a.  Select **Device Certificate Matches** to proceed
 
-   b.  Select **Add Device**
+   #.  Select **Add Device**
 
 #. On each BIG-IP check the other BIG-IP in the **Device Trust Members** list. **Is all the information there?**
 
@@ -145,9 +145,9 @@ Configure HA
 
    a. Click on the sync status or go to **Device Management >> Overview** (or click on **Awaiting Initial** Sync) of the BIG-IP with the **good/current** configuration
 
-   b. Click the device with the configuration you want to synchronize. **Sync Options** should appear.
+   #. Click the device with the configuration you want to synchronize. **Sync Options** should appear.
 
-   c. **Synchronize to Group**. It could take up to 30 seconds for synchronization to complete.
+   #. **Synchronize to Group**. It could take up to 30 seconds for synchronization to complete.
 
 .. note:: During the **Awaiting Initial Sync** phase either BIG-IP can perform the synchronization and the other BIG-IP will be overwritten.
 
@@ -159,27 +159,27 @@ Configure HA
 
    a. Go to your **Active** BIG-IP
 
-   b. Go to your persistence profile **my-src-persistence** and check the **Mirror Persistence** box
+   #. Go to your persistence profile **my-src-persistence** and check the **Mirror Persistence** box
 
-   c. Go to your **www_vs** virtual server and set the **Default Persistence Profile** to **my-src-persistence**
+   #. Go to your **www_vs** virtual server and set the **Default Persistence Profile** to **my-src-persistence**
 
-   d. Synchronize your changes. Did the changes sync?
+   #. Synchronize your changes. Did the changes sync?
 
-   e. On each BIG-IP go to **Module Statistics > Local Traffic** and bring up the persistence record statistics
+   #. On each BIG-IP go to **Module Statistics > Local Traffic** and bring up the persistence record statistics
 
-   f. Go to the home page of your www_vs web service (http://10.1.10.100). Refresh a few times.
+   #. Go to the home page of your www_vs web service (http://10.1.10.100). Refresh a few times.
 
-   g. Check the persistence records on each of your BIG-IPs, you should see the records are mirrored on each device
+   #. Check the persistence records on each of your BIG-IPs, you should see the records are mirrored on each device
 
 #. Go to **Device Management >> Traffic Groups**. As you can see the default traffic group “\ **traffic-group-1**\ ” already exists.
 
    a. Select **traffic-group-1**. Check out the page information and then select **Force to Standby**.
 
-   b. What are the statuses of your BIG-IPs? Go to your web page. What is the client IP?
+   #. What are the statuses of your BIG-IPs? Go to your web page. What is the client IP?
 
-   c. Go to your self-IP addresses. What traffic group are they in? What does it mean?
+   #. Go to your self-IP addresses. What traffic group are they in? What does it mean?
 
-   d. Archive your work.
+   #. Archive your work.
 
 .. |image0| image:: images/image1.png
    :width: 5.57547in

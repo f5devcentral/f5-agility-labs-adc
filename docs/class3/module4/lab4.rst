@@ -18,7 +18,7 @@ TCP Express
 
 #. Set client-side and server-side TCP profiles on your virtual server properties.
 
-   #. In some earlier version you would be required to select the **Advanced** menu to see the Client and Server protocol profiles.
+   a. In some earlier version you would be required to select the **Advanced** menu to see the Client and Server protocol profiles.
 
       |image1|
 
@@ -35,35 +35,35 @@ HTTP Optimization - RamCache Lab
 
 #. Go to **Local Traffic >> Profiles >> Services >> Web Acceleration** or **Acceleration >> Profiles >> Web Acceleration**
 
-   #. Create a new profile named **www-opt-caching** using **optimized-caching** as the Parent Profile.
+   a. Create a new profile named **www-opt-caching** using **optimized-caching** as the Parent Profile.
 
    #. Take all the defaults, no other changes are required.
 
 #. Open up your **www_vs** virtual server.
 
-   #. At the **HTTP Profile** drop down menu make sure **http** is selected.
+   a. At the **HTTP Profile** drop down menu make sure **http** is selected.
 
    #. Under **Acceleration** at **Web Acceleration** **Profile** select your new caching profile; **www-opt-caching**
 
    #. Clear the statistics on your pool and the refresh the main web page several times.
 
-      #. The pictures do not change. Why do you think that is?
+      i. The pictures do not change. Why do you think that is?
 
       #. Go to your pool. Are all pool members taking connections?
 
 #. Now go to **Statistics >> Module Statistics >> Local Traffic** on the sidebar. From the **Statistics Type** drop-down menu select **Profiles Summary**
 
-|image3|
+      |image3|
 
 #. **Select** the View link next to the **Web Acceleration** profile type
 
-|image3|
+      |image3|
 
-|image4|
+      |image4|
 
 #. You can get more detailed information on RamCache entries at the CLI level
 
-   #. Log onto the CLI of your BIG-IP via SSH using the root account (user: **root** password: **default**).
+   a. Log onto the CLI of your BIG-IP via SSH using the root account (user: **root** password: **default**).
 
    #. At the CLI go into **tmsh** at the **(tmos)#** prompt
 
@@ -74,21 +74,21 @@ HTTP Optimization - HTTP Compression Lab
 
 #. Go to **Local Traffic >> Profiles >> Service >> HTTP Compression** or **Acceleration >> Profiles >> Web Acceleration**
 
-   #. Create a new profile, **www-compress**, using the **wan-optimized-compression** default profile.
+   a. Create a new profile, **www-compress**, using the **wan-optimized-compression** default profile.
 
 #. Open up your **www_vs** virtual server.
 
-   #. At the **HTTP Profile** drop down menu make sure **http** is selected
+   a. At the **HTTP Profile** drop down menu make sure **http** is selected
 
    #. At the **Web Acceleration** drop-down menu select **None**
 
-      #. *For the purpose of this lab we don’t want caching interfering with our response headers*
+      i. *For the purpose of this lab we don’t want caching interfering with our response headers*
 
    #. At the **HTTP Compression** drop-down menu select the HTTP compression profile you just created
 
 #. Now open your virtual server’s web page and under **Content Examples on This Host** select the **HTTP Compress Example** and **Plaintext Compress Example** link
 
-   #. Now off to the statistics on the sidebar. Under the **Local Traffic** drop-down menu select **Profiles Summary**
+   a. Now off to the statistics on the sidebar. Under the **Local Traffic** drop-down menu select **Profiles Summary**
 
    #. Select the **View** link next to the **HTTP Compression** profile type
 
@@ -96,7 +96,7 @@ HTTP Optimization - HTTP Compression Lab
 
    #. On the web page under **HTTP** **Request and Response Information** select the **Request and Response Headers** link.
 
-      #. Notice you no longer see the **Accept-Encoding** header in the **Request Headers Received at the Server** section
+      i. Notice you no longer see the **Accept-Encoding** header in the **Request Headers Received at the Server** section
 
 Archive your work in a file called: **lb4_acceleration**
 
