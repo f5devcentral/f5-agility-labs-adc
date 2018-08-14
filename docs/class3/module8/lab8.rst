@@ -36,7 +36,7 @@ You will be creating a high availability cluster using the second BIG-IP **(bigi
 
 #. Set **Port Lockdown** to **Allow Default**
 
-#. Build the default gateway destination **0.0.0.0**, mask **0.0.0.0**, gateway ip address **10.128.10.1**
+#. Build the default gateway destination **0.0.0.0**, mask **0.0.0.0**, gateway ip address **10.1.10.1**
 
 #. What is the status your BIG-IPs? Check the upper left-hand corner next to the F5 ball.
 
