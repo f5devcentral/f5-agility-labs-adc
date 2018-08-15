@@ -188,7 +188,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
 
    #. Once you have selected you parent **(Type)** monitor, you can access the **Configuration** section
 
-      i.  **Send String**: Enter the command to retrieve the page you want “\ **GET /basic/\r\n**\ ” (no quotes)
+      i.  **Send String**: Enter the command to retrieve the page you want **“GET /basic/\r\\n"** (no quotes)
 
       #. In the Receive String box put “\ **200 OK**\ ” (no quotes)
 
