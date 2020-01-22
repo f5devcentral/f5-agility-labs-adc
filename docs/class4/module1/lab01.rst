@@ -14,7 +14,7 @@ password: default
 
    The 'any' interface will be taken by TMM and made into the interface '0.0'
 
-   .. image:: /_static/class4/tcpdump-d.png
+   .. image:: /_static/tcpdump-d.png
       :scale: 50 %
 
 #. **tcpdump -i**
@@ -23,7 +23,7 @@ password: default
 
    When using 0.0 for the interface on a capture make sure to use a capture filter or you will get too much information and may impact performance on the F5.
 
-   .. image:: /_static/class4/tcpdump-i.png
+   .. image:: /_static/tcpdump-i.png
       :scale: 50 %
 
 #. **tcpdump -n**
@@ -38,7 +38,7 @@ password: default
 
    Use tcpdump -X to show output including ASCII and hex.  This will making reading screen output easier.
 
-   .. image:: /_static/class4/tcpdump-x.png
+   .. image:: /_static/tcpdump-x.png
       :scale: 50 %
 
 #. **tcpdump -w**
@@ -48,3 +48,9 @@ password: default
 #. **tcpdump -s**
 
    Use 'tcpdump -s0' to capture the full data packet.  The number following the 's' indicates the number of bits to capture of each packet.  0 indicates all.
+
+#. **tcpdump -W 4 -C 50 -w /var/tmp/file.pcap**
+
+   Use the -W switch to write a number of files.  In combination with the -C of filesize.  In this example we will get a rotation of 4 files each 50 Mb in size.  After the fourth file is finished the first will be deleted and a new file written and keep going until the capture is stopped.
+   
+   This is a good option for circular logging when it is unclear when an event will happen and you can stop shortly after the even happens.
