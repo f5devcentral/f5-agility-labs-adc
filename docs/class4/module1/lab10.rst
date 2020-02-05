@@ -19,7 +19,7 @@ SSL Decrypt from Windows Client
 SSL Decrypt from Linux Client
 -----------------------------
 
-#. On the Ubuntu client open a terminal window and run the following commands:
+#. On an Ubuntu client open a terminal window and run the following commands:
 
    .. code-block:: bash
       :linenos:

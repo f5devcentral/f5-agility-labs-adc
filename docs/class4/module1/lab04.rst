@@ -1,10 +1,10 @@
 Configure the F5 Wireshark Plugin
 =================================
 
-Wireshark version 3.2.0 is installed on the jumpbox.
+Wireshark version 3.2.1 is installed on the jumpbox.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wireshark 3.0 and greater have the F5 ethtrailer plugin already installed.  You will have to update one setting in Wireshark to get it fully working:
+Wireshark 2.6 and greater have the F5 ethtrailer plugin already installed.  You will have to update one setting in Wireshark to get it fully working:
 
 #. With Wireshark open browse to Analyze -> Enabled Protocols -> Search for F5.
 
@@ -35,5 +35,5 @@ You can download the F5 Wireshark plugin from devcentral.f5.com here:  https://d
 
 #. Check the plugins tab again and make sure the F5 plugin is installed.
 
-   .. image:: /_static/wireshark-plugin.png
+   .. image:: /_static/class4/wireshark-plugin.png
       :scale: 50 %
