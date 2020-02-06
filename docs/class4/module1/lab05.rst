@@ -19,9 +19,9 @@ Let's take the information we have gathered so far and take a packet capture fro
    .. code-block:: bash
       :linenos:
 
-      tcpdump -nni 0.0:nnnp -s0 -w/var/tmp/hackazon.pcap host 10.1.20.103
+      tcpdump -nni 0.0:nnnp -s0 -w/var/tmp/hackazon.pcap host 10.1.20.103 or host 10.1.20.15
 
-#. After starting the capture, start Chrome and click on the Hackazon bookmark.  Browse around the site following a couple links.  Next go to the address bar and type in: "http://hackazon.f5demo.com:8080".  Then stop the capture in the putty session by using 'Ctrl+c'.
+#. After starting the capture, start Chrome and click on the Hackazon bookmark.  Browse around the site following a couple links.  Next go to the address bar and type in: "http://10.1.20.15:88".  Then stop the capture in the putty session by using 'Ctrl+c'.
 
 #. Open WinSCP on the Windows jumpbox.  Download the hackazon.pcap file to the local box.
 
