@@ -20,7 +20,7 @@ Now you need to have your pre-master key file and your capture moved to your loc
 
 #. Browse to the pre-master session key file and click on save.
 
-#. Open in Wireshark the hackazon-ssl.pcap file you pulled down from the F5 BIG-IP. 
+#. Open in Wireshark the .pcap file you pulled down from the F5 BIG-IP.  You can use the original .pcap.
 
 #. Right click on one of the SSL packets and select Follow, TLS Stream.
 

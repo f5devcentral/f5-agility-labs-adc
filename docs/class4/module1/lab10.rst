@@ -1,7 +1,9 @@
 SSL Decryption
 ~~~~~~~~~~~~~~
 
-There are two ways to decrypt the SSL traffic. Both ways require that you perform one of the following tasks before you take the TCP Capture.
+There are two ways to decrypt the SSL traffic. Both ways require that you perform one of the following tasks before you take the TCP Capture.  The first method is to modify the client and in most cases is more difficult since you won't always have access to the client.  If you do then client modifications for Windows or Ubuntu follow:
+
+In our lab environment you can do either way.  We will focus on capturing from the BIG-IP since that will be the more commonly available. 
 
 SSL Decrypt from Windows Client
 -------------------------------
@@ -36,9 +38,14 @@ SSL Decrypt from Linux Client
 SSL Decrypt from F5
 -------------------
 
-More often you will not have access to modify the client in order to capture the SSL session data.  The other option is to get the pre-master session data from the F5 itself by doing the following.
+More often you will not have access to modify the client in order to capture the SSL session data.  The second option is to get the pre-master session data from the F5 itself by doing the following.
 
-#. Configure a new iRule as follows:
+In the lab we have already configured the iRule and applied it to the Virtual Server.  If you want to validate you can login to the BIG-IP from the jumpbox by launching the Chrome browser and clicking on the BIG-IP01 shortcut.  Login as:
+
+user: 'admin'
+password: 'admin'
+
+#. Configure an iRule as follows (ours is named 'ssl-decrypt.ir'):
 
    .. code-block:: tcl
       :linenos:
