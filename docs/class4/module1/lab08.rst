@@ -12,7 +12,7 @@ F5 Medium Details
 
 #. In the display filter type 'f5ethtrailer.rstcause'.  Now Select one of the RST packets and expand the F5 Medium Details.  Notice there is a RST Cause value.  In this case the RST Cause is `No Local Listener`.  This indicates that there is no Virtual Server listening on that IP:Port combination.  There are other RST causes.  In the F5 Medium Details you will only see RST Cause for packets that were RST by the F5.
 
-   Also note that on some versions you will have to set a db variable to enable the rstcause value.  This can be done via: `tmsh modify sys db tm.rstcause.pkt value enable`.  We have done this on our VE.
+   Also note that on some versions you will have to set a db variable to enable the rstcause value.  This can be done via: 'tmsh modify sys db tm.rstcause.pkt value enable'.  We have done this on our VE.
 
    .. image:: /_static/class4/tcp-reset.png
       :scale: 50 % 
