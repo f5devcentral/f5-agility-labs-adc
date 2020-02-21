@@ -3,34 +3,26 @@ Decrypting SSL in Wireshark
 
 Now you need to have your pre-master key file and your capture moved to your local box.  To do this do the following:
 
-#. Open Terminal on the Ubuntu Jump Box.
+#. Open WinSCP on the Windows jumpbox and connect to Bigip01.
 
-#. Change directory to Documents by typing: 'cd Documents'.
+#. Change local directory to Documents.
 
-#. Run the following commands:
+#. Pull from the remote directory the session.pms and your pcap files.
 
-   .. code-block:: bash
-      :linenos:
-
-      sudo scp root@10.1.1.245:/var/tmp/session.pms ./
-      sudo scp root@10.1.1.245:/var/tmp/hackazon.pcap ./
-
-      After each of these commands you will be prompted to accept the SSH keys.  Type yes to continue. Then you will be prompted for the F5 root password.  Type that in as well.
- 
 #. Now open Wireshark.  
 
 #. Once Wireshark is open go to Edit/Preferences.
 
-#. Expand on the left side, Protocols, then select SSL.
+#. Expand on the left side, Protocols, then select TLS.
 
    .. image:: /_static/class4/premaster-session.png
       :height: 500px
 
 #. Browse to the pre-master session key file and click on save.
 
-#. Open in Wireshark the pcap file you pulled down from the F5 BIG-IP. 
+#. Open in Wireshark the .pcap file you pulled down from the F5 BIG-IP.  You can use the original .pcap.
 
-#. Right click on one of the SSL packets and select Follow, SSL Stream.
+#. Right click on one of the SSL packets and select Follow, TLS Stream.
 
    .. image:: /_static/class4/follow-ssl-stream.png
       :height: 500px

@@ -1,9 +1,26 @@
-Install the F5 Wireshark Plugin 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configure the F5 Wireshark Plugin
+=================================
 
-Wireshark version 2.2.14 is installed on the jumpbox.
+Wireshark version 3.2.1 is installed on the jumpbox.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can download the F5 Wireshark plugin from devcentral.f5.com here:  https://devcentral.f5.com/d/wireshark-plugin?lc=1.  In the lab the plugin is already downloaded to /home/f5student/Downloads/wireshark/.
+Wireshark 2.6 and greater have the F5 ethtrailer plugin already installed.  You will have to update one setting in Wireshark to get it fully working:
+
+#. With Wireshark open browse to Analyze -> Enabled Protocols -> Search for F5.
+
+#. Select the checkbox for F5ethtrailer.
+
+#. Select OK.
+
+#. In Wireshark select Edit, then Preferences, Expand Protocols and scroll down to Ethernet.  Uncheck the option `Assume short frames which include a trailer contain padding`.
+
+   .. image:: /_static/class4/wireshark-ethernet-protocol.png
+      :scale: 50 %
+
+If you have a version before 3.0 of wireshark you will need to download and install the F5 Wireshark plugin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can download the F5 Wireshark plugin from devcentral.f5.com here:  https://devcentral.f5.com/s/articles/getting-started-with-the-f5-wireshark-plugin-on-windows.  In the lab the plugin is already downloaded to /home/f5student/Downloads/wireshark/.
 
 #. Start Wireshark by double clicking the shortcut on the desktop.
 
@@ -13,18 +30,7 @@ You can download the F5 Wireshark plugin from devcentral.f5.com here:  https://d
 
 #. Open the plugin directory in file explorer.
 
-#. Copy the F5 wireshark plugin that has been copied to /home/f5student/Downloads/wireshark/
-   
-   a. The jumpbox client is Ubuntu 64 bit.
-
-   #. Open the Linux64-2.2.0 folder and copy the f5ethtrailer.so to the plugin directory determined in step 3.
-
-   #. In order to move the file you will need to elevate permissions.  The easiest way to do this is from the command line terminal.  Use the command: 
-
-      .. code-block:: bash
-         :linenos:
-
-         sudo cp ./Downloads/wireshark/Linux64-2.2.0/f5ethtrailer.so /usr/lib/x86_64-linux-gnu/wireshark/plugins/2.2.6/
+#. Copy the F5 wireshark plugin that you downloaded from devcentral.f5.com to the plugins directory you found in the Help, About Wireshark options.
 
 #. Depending on your OS and Wireshark version, you will need the correct plugin files from the correct folder.
 
