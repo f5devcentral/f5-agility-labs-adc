@@ -51,18 +51,14 @@ password: 'admin'
       :linenos:
 
       when CLIENTSSL_HANDSHAKE {
-            if {[IP::addr [IP::client_addr] equals <client_IP_addr>] } {
             log local0. "CLIENT_Side_IP:TCP source port: [IP::client_addr]:[TCP::remote_port]"
             log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
             log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
-            }
       }
       when SERVERSSL_HANDSHAKE {
-            if {[IP::addr [IP::client_addr] equals <client_IP_addr>] } {
             log local0. "SERVER_Side_IP:TCP source port:[IP::local_addr]: [TCP::local_port]"
             log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
             log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
-            }
       } 
 
 #. Apply this new iRule to the virtual server.  In our lab environment the iRule has already been created and applied to the Virtual Server.
