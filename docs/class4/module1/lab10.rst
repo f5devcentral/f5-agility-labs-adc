@@ -51,12 +51,19 @@ password: 'admin'
       :linenos:
 
       when CLIENTSSL_HANDSHAKE {
-        log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
+            if {[IP::addr [IP::client_addr] equals <client_IP_addr>] } {
+            log local0. "CLIENT_Side_IP:TCP source port: [IP::client_addr]:[TCP::remote_port]"
+            log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
+            log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
+            }
       }
-
       when SERVERSSL_HANDSHAKE {
-         log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
-      }  
+            if {[IP::addr [IP::client_addr] equals <client_IP_addr>] } {
+            log local0. "SERVER_Side_IP:TCP source port:[IP::local_addr]: [TCP::local_port]"
+            log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
+            log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
+            }
+      } 
 
 #. Apply this new iRule to the virtual server.  In our lab environment the iRule has already been created and applied to the Virtual Server.
 
@@ -66,6 +73,8 @@ password: 'admin'
 
    .. code-block:: bash
 
-      grep Session-ID /var/log/ltm | sed 's/.*\(RSA.*\)/\1/' > /var/tmp/session.pms
+      sed -e 's/^.*\(RSA Session-ID\)/\1/;tx;d;:x' /var/log/ltm > > /var/tmp/session.pms
 
 #. Now the session.pms file can be pulled from the F5 and put into Wireshark. 
+
+#. For reference a support article for different ways and methods to capture SSL session data is here:  https://support.f5.com/csp/article/K12783074.
