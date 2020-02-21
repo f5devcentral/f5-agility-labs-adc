@@ -3,7 +3,7 @@ SSL Decryption
 
 There are two ways to decrypt the SSL traffic. Both ways require that you perform one of the following tasks before you take the TCP Capture.  The first method is to modify the client and in most cases is more difficult since you won't always have access to the client.  If you do then client modifications for Windows or Ubuntu follow:
 
-In our lab environment you can do either way.  We will focus on capturing from the BIG-IP since that will be the more commonly available. 
+In our lab environment you can do either way.  We will focus on capturing from the BIG-IP since that will be the more commonly available.
 
 SSL Decrypt from Windows Client
 -------------------------------
@@ -15,7 +15,7 @@ SSL Decrypt from Windows Client
 
 #. Once the system variable has been put in place you can then launch a web browser and start the traffic that you want to analyze.
 
-#. Once the traffic has been captured you will import the capture file into Wireshark and configre the SSL options to use the pre-master key file defined in the system variables. 
+#. Once the traffic has been captured you will import the capture file into Wireshark and configre the SSL options to use the pre-master key file defined in the system variables.
 
 
 SSL Decrypt from Linux Client
@@ -30,7 +30,7 @@ SSL Decrypt from Linux Client
       export SSLKEYLOGFILE=/home/f5student/session-key.log
       chromium-browser
 
-#. This will launch the Chrome browser and once you close the browser it will stop logging the SSL Session key data.  
+#. This will launch the Chrome browser and once you close the browser it will stop logging the SSL Session key data.
 
 #. Once the traffic has been captured you will import the capture file into Wireshark and configure the SSL options to use the session-key.log file.
 
@@ -63,7 +63,7 @@ password: 'admin'
 
 #. Apply this new iRule to the virtual server.  In our lab environment the iRule has already been created and applied to the Virtual Server.
 
-#. You can now start a tcpdump and surf the website.  
+#. You can now start a tcpdump and surf the website.
 
 #. After you have stopped the tcpdump, you will now need to SSH to the F5 and run the following command:
 
@@ -71,6 +71,6 @@ password: 'admin'
 
       sed -e 's/^.*\(RSA Session-ID\)/\1/;tx;d;:x' /var/log/ltm > /var/tmp/session.pms
 
-#. Now the session.pms file can be pulled from the F5 and put into Wireshark. 
+#. Now the session.pms file can be pulled from the F5 and put into Wireshark.
 
 #. For reference a support article for different ways and methods to capture SSL session data is here:  https://support.f5.com/csp/article/K12783074.
