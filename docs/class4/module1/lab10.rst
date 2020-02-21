@@ -69,7 +69,7 @@ password: 'admin'
 
    .. code-block:: bash
 
-      sed -e 's/^.*\(RSA Session-ID\)/\1/;tx;d;:x' /var/log/ltm > > /var/tmp/session.pms
+      sed -e 's/^.*\(RSA Session-ID\)/\1/;tx;d;:x' /var/log/ltm > /var/tmp/session.pms
 
 #. Now the session.pms file can be pulled from the F5 and put into Wireshark. 
 
