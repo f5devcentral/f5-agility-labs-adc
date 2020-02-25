@@ -1,7 +1,7 @@
 F5 High Details
 ~~~~~~~~~~~~~~~
 
-#. Now Expand the F5 High Details on one of the SSL sessions data packets.  (You can type in a display filter of '(f5ethtrailer.peeraddr) && (tls.record.content_type == 23)' to retrieve the session we are looking for). Make sure you select a packet that has Application Data in the Info field.
+#. Enter the following in the display filter [without quotes: '(f5ethtrailer.peeraddr) && (tls.record.content_type == 23)' to retrieve the session type we are looking for. Select a packet that has Application Data in the “Info” column and that does not have 10.1.10.31 as the source or destination. Now Expand the F5 High Details on one of the SSL sessions data packets.
 
    .. image:: /_static/class4/high-details.png
       :scale: 50 %
