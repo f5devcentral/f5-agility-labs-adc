@@ -13,9 +13,9 @@ We will be using a jumpbox to connect to the lab environment.  Click on the lab 
 
 The credentials will be the following:
 
-user: f5student
+user: user
 
-password: f5DEMOs4u
+password: user
 
 .. toctree::
    :maxdepth: 1
