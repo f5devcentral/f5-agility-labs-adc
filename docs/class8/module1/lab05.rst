@@ -11,14 +11,15 @@ Let's take the information we have gathered so far and take a packet capture fro
 
 #. tmsh list ltm virtual all
 
-#. **note there is a virtual server named **LAMP** with a destination ip address of 10.1.10.200
+    **note** there is a virtual server named **LAMP** with a destination ip address of 10.1.10.200
 
 #. Now take the destination IP address and compose a tcpdump command to track the traffic coming to this virtual server:
+    ``tcpdump -nni 0.0:nnn -s0 -w /var/tmp/lamp.pcap host 10.1.10.200``
 
-$. tcpdump -nni 0.0:nnn -s0 -w /var/tmp/lamp.pcap host 10.1.10.200
+#. After starting the capture, start Chrome and access http://10.1.10.200 and refresh the screen a few times.
 
-#. After starting the capture, start Chrome and click on the LAMP bookmark.  Stop the capture in the putty session by using 'Ctrl+c'.
+#. Stop the capture in the putty session by using 'Ctrl+c'.
 
-#. Open WinSCP on the Windows jumpbox.  Download the lamp.pcap file to the local box.
+#. Open WinSCP on the Windows jumpbox Desktop. Login to the BIG-IP and download the lamp.pcap file to the local box.
 
 #. Now open Wireshark and open the lamp.pcap file you just copied from the F5.

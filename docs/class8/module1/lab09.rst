@@ -1,6 +1,17 @@
 F5 High Details
 ~~~~~~~~~~~~~~~
 
+#. Create another packet capture
+    ``tcpdump -nni 0.0:nnn -s0 -w /var/tmp/lamp-ssl.pcap host 10.1.10.201``
+
+#. After starting the capture, start Chrome and access https://10.1.10.201 and refresh the screen a few times.
+
+#. Stop the capture in the putty session by using 'Ctrl+c'.
+
+#. Open WinSCP on the Windows jumpbox Desktop. Login to the BIG-IP and download the lamp.pcap file to the local box.
+
+#. Now open Wireshark and open the lamp.pcap file you just copied from the F5.
+
 #. Now Expand the F5 High Details on one of the SSL sessions data packets.  (You can type in a display filter of '(f5ethtrailer.peeraddr) && (tls.record.content_type == 23)' to retrieve the session we are looking for). Make sure you select a packet that has Application Data in the Info field.
 
 #. The F5 High Details contains a lot of valuable information.  In the example above we see that the Peer IP Protocol is 6 or TCP.

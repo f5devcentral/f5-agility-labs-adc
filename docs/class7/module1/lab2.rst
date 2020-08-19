@@ -48,6 +48,9 @@ of an incoming packet to load balance requests.  By default the source IP addres
 
 #. Open the **Virtual Server List** page and click on the **LAMP** virtual server
 
+#. Change the **Source Address Translation** setting from **Auto Map** to **None**.
+
+#. Click **Update** to update the **Virtual Server** configuration.
 
 #. From the Windows Jump Host open putty, and then connect to **BIGIP01 10.1.1.4** and log
    in as **root** / **admin.F5demo.com**.
@@ -56,20 +59,21 @@ of an incoming packet to load balance requests.  By default the source IP addres
 
 #. At the CLI type (or copy and paste):
 
-   ``tcpdump -i external port 80``
+   ``tcpdump -ni external port 80``
 
-#. Open a second putty session and connect to **BIGIP02 10.1.1.6**.
+#. Open a second putty session and connect to **BIGIP01 10.1.1.4** and log
+   in as **root** / **admin.F5demo.com**.
 
 #. At the CLI type (or copy and paste):
 
-   ``tcpdump -i internal port 80``
+   ``tcpdump -ni internal port 80``
 
 #. Use a new tab to access **http://10.1.10.200**, and then close the
    tab.
 
    The page displays as expected.
 
-#. Examine the **tcpdump** in windows.
+#. Examine the **tcpdump** in the **PuTTy** windows.
 
    On the external VLAN the communication is between the client IP
    address (**10.1.10.190**) and the virtual server (**10.1.10.200**).
@@ -80,17 +84,16 @@ of an incoming packet to load balance requests.  By default the source IP addres
 #. In both **tcpdump** sessions press the **Enter** key several times to
    move the log entries to the top of the window.
 
-#. On the internal VLAN the requests are from the client IP address to a
+#. On the **internal VLAN** the requests are from the client IP address to a
    back-end web server, however there are no responses from the web
-   server.
+   server. You should see repeating **SYN** requests or **Flags [S]**.
 
 #. Press the **Enter** key several times to move the log entries to the
    top of the window.
 
 #. In the Configuration Utility you should be in the **LAMP** virtual server configuration.
 
-#. From the **Source Address Translation** list select **Auto Map** which has already
-   been configured when the virtual was created.  Notice there are several options to include
+#. From the **Source Address Translation** list select **Auto Map**. Notice there are several options to include
    SNAT, Auto Map, and None.
 
    |image8|
@@ -112,65 +115,7 @@ of an incoming packet to load balance requests.  By default the source IP addres
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Task 2** – Create a SNAT for Internal Resources
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-#. Press the **Enter** key several times to move the log entries to the
-   top of the window.
-
-#. On the Windows server, change the default gateway to **10.1.20.245**
-   (the BIG-IP internal floating self IP address).
-
-#. On the Windows server, use Internet Explorer to access
-   **www.f5.com**.
-
-   The request fails as the internal resource has no access to the WAN (or
-   the Internet).
-
-#. Close the page, then on the Windows desktop examine the **tcpdump**
-   windows.
-
-   No requests are being sent to the Internet by the BIG-IP system on
-   behalf of the internal resource.
-
-#. In the Configuration Utility, open the **Local Traffic > Address
-   Translation > SNAT List** page and click **Create**.
-
-#. Use the following information for the new SNAT, and then click
-   **Finished**.
-
-   +-------------------------+--------------------------------+
-   | Form field              | Value                          |
-   +=========================+================================+
-   | Name                    | internal\_snat                 |
-   +-------------------------+--------------------------------+
-   | Translation             | IP Address: 10.1.10.245        |
-   +-------------------------+--------------------------------+
-   | Origin                  | Address List                   |
-   +-------------------------+--------------------------------+
-   | Address/Prefix Length   | 10.1.20.0/24 (Click **Add**)   |
-   +-------------------------+--------------------------------+
-
-#. On the Windows server, use Internet Explorer to access
-   **www.f5.com**.
-
-   The internal user now has public access to the internet using the SNAT
-   IP address of **10.1.10.100**.
-
-#. On the Windows desktop, examine the **tcpdump** windows.
-
-   On the external VLAN the communication is between the SNAT IP address
-   (**10.1.10.100**) and the Internet resources.
-
-   On the internal VLAN the communication is between the internal client
-   (**10.1.20.251**) and the Internet resources.
-
-#. Close the **putty** sessions.
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Task 3** – Use Profiles with a Virtual Server
+**Task 2** – Use Profiles with a Virtual Server
 
 Profiles are a powerful configuration tool providing an easy way to define
 traffic policies and apply those policies across virtual servers.   Through
@@ -215,7 +160,7 @@ Profiles provide
 
 #. From the **Configuration** list select **Advanced**.
 
-#. From the **HTTP Profile** list select **http**.
+#. From the **HTTP Profile (Client)** list select **http**.
 
    |image9|
 
@@ -238,7 +183,7 @@ Profiles provide
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Task 4** – Work with Monitors
+**Task 3** – Work with Monitors
 
 During this section of the lab we will review many of the available
 monitors and how to customize them.  The BIG-IP system includes a set of
@@ -296,7 +241,7 @@ pre-defined monitor templates for address, service, content, and interactive che
 
 #. Add **gateway\_icmp** to the **Active** list and click **Update**.
 
-#. Return to the **Nodes >ode List** page.
+#. Return to the **Nodes > Node List** page.
 
    All nodes now display. This means that they are all sending **icmp**
    responses.
@@ -304,15 +249,15 @@ pre-defined monitor templates for address, service, content, and interactive che
 #. Open the **Local Traffic > Network Map** page and view the status for
    **LAMP**.
 
-   The virtual server, pool, and all three pool members display available.
+   The virtual server, pool, and all pool members display available.
 
 #. Use your mouse to hover over the pool members.
 
-   All two nodes also display available.
+   All pool members display available.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Sub-Task 1** – Take Lamp_Server1 Offline
+**Task 4** – Take Lamp_Server1 Offline
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -331,7 +276,7 @@ pre-defined monitor templates for address, service, content, and interactive che
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Sub-Task 2** – Disable all pool members
+**Task 5** – Disable all pool members
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -346,7 +291,7 @@ pre-defined monitor templates for address, service, content, and interactive che
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Sub- Task 3** – Bring all pool members back online
+**Task 6** – Bring all pool members back online
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -359,6 +304,17 @@ pre-defined monitor templates for address, service, content, and interactive che
 This concludes Lab 2 and a basic overview of Secure Network Address Translation
 (SNAT), Profiles, and Monitors.  Please begin Lab 3.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Optional Extra Credit**: Access Ubuntu_LAMP web console and modify /var/www/server/3/HealthCheck.html to change status from UP to DOWN.
+
+   ``sed -i "s/UP/DOWN/g" /var/www/server/3/HealthCheck.html``
+
+   Check or Refresh the **Network Map** again and see that pool member LAMP_Server3 is now down/disabled. Set it back to UP.
+
+   ``sed -i "s/DOWN/UP/g" /var/www/server/3/HealthCheck.html``
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
  .. |image7| image:: images/image7.PNG
     :width: 3.32107in

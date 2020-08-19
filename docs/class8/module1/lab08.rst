@@ -1,6 +1,8 @@
 F5 Medium Details
 ~~~~~~~~~~~~~~~~~
 
+Note: There may not be any matching packets with a Reset Cause.
+
 #. Now expand the F5 Medium Details.
 
 #. A majority of the information in the Medium Details will be used by F5 support in analyzing packet flow.  The important parts to notice are the Flow ID, Peer ID, and RST Cause.
