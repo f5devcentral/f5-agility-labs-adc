@@ -122,8 +122,6 @@ The **f5-appsvcs-3.21.0-4.noarch.rpm** F5 Fast Template file has already been up
 
     |image17|
 
-#.  Click the **Text** option and change to **JSON**.
-
 #.  Open the text file on the Desktop named **Hello_World**.
 
 #.  Copy the contents of the **Hello_World** file.
