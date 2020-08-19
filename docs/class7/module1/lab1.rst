@@ -8,7 +8,7 @@ Addresses and map them to individual VLANs.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Task 1** – Connect to the Windows 10 Jumphost via Remote Desktop Protocol **RDP**
-Select the **ACCESS** drop down menu under Windows 10 and choose the **RDP** option.
+Select the **ACCESS** drop down menu under Windows 10 and choose the **RDP** with an appropriate resolution option.
 
    |image1|
 
