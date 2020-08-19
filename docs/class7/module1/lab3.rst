@@ -87,6 +87,8 @@ changes may flow through to your custom profile.
 
 #. Provide a **destination address** of **10.1.10.201**
 
+#. Provide a **service port** of 443
+
 #. Assign the default **http** Profile is selected in the **HTTP Profile (Client)**
    section.
    
@@ -96,8 +98,9 @@ changes may flow through to your custom profile.
 
 #. Change the **Source Address Translation** setting to **Auto Map**
 
-#. In the **Resources** section select the **LAMP** Pool as the Default Pool and
-   set the Default Persistence Profile is set to **LTM_Cookie_Insert** profile.
+#. In the **Resources** section select the **LAMP** Pool as the Default Pool 
+
+#. Select the **LTM_Cookie_Insert** profile as the **Default Persistence Profile**.
 
 #. Click finished when complete.
 
