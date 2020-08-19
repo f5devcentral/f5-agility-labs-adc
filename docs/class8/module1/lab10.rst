@@ -56,7 +56,7 @@ password: 'admin.F5demo.com'
 
 |image4|
 
-#. Apply this new iRule to the LAMP virtual server.
+#. Apply this new iRule to the LAMP SSL virtual server.
 
 #. You can now start a tcpdump and surf the website.
 

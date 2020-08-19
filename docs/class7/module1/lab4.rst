@@ -136,14 +136,16 @@ The **f5-appsvcs-3.21.0-4.noarch.rpm** F5 Fast Template file has already been up
 
 #.  Log back into BIG-IP01 web interface and select the **Sample_01** partition at the top right of the screen.
 
-|image18|
+    |image18|
 
 #.  Open the **Virtual Server** list under **Local Traffic** and you will see a new **Virtual Server** named **service**.
 
-|image19|
+    |image19|
 
 #.  Open the **Network Map** under **Local Traffic** and you should see the **Virtual Server** **service** 
     has an associated **pool** named **web\_pool** with two pool members.
+
+#. Change the **partition** at the top right back to **Common**.
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -153,8 +155,6 @@ and the completion of the LTM Essentials lab. For more information on FAST
 please refer to the documentation link below.
 
 -  https://clouddocs.f5.com/products/extensions/f5-appsvcs-templates/latest/
-
-If you have completed all labs please begin the **Troubleshooting** labs.
 
 
 .. |image14| image:: images/image14.PNG

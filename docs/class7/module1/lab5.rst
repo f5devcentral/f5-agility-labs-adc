@@ -23,7 +23,7 @@ and BIGIP02 with BIGIP01 serving as the Active device in the DSC cluster.
 #. Configure the HA VLAN on both BIG-IP systems by navigation to the Network
    pane, clicking on VLANs, and click on create.
 
-#. On BIGIP01 and BIGIP02 assign Network Interface 1.3 to a VLAN called **HA**
+#. On BIGIP01 and BIGIP02 assign Network Interface 1.3 (untagged) to a VLAN called **HA**
 
 #. The next step will be to configure a Self-IP for the HA VLAN.
 
@@ -34,7 +34,7 @@ and BIGIP02 with BIGIP01 serving as the Active device in the DSC cluster.
    +--------------+--------------------------------+
    | Form field   | Value                          |
    +==============+================================+
-   | Name         | BIGIP01                        |
+   | Name         | ha_selfip                      |
    +--------------+--------------------------------+
    | IP Address   | 10.1.30.240                    |
    +--------------+--------------------------------+
@@ -52,7 +52,7 @@ and BIGIP02 with BIGIP01 serving as the Active device in the DSC cluster.
    +--------------+--------------------------------+
    | Form field   | Value                          |
    +==============+================================+
-   | Name         | BIGIP02                        |
+   | Name         | ha_selfip                      |
    +--------------+--------------------------------+
    | IP Address   | 10.1.30.241                    |
    +--------------+--------------------------------+
@@ -91,16 +91,15 @@ and BIGIP02 with BIGIP01 serving as the Active device in the DSC cluster.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#.  On BIGIP01 from the **Navigation** pane, click on **Device Trust**
-    **Device Trust Members**, and select **Add**.
+#.  On BIGIP01 from the **Device Management** pane, click on **Device Trust**
+    > **Device Trust Members**, and select **Add**.
 
 #.  On BIGIP01, enter 10.1.1.6 which is the Management address of BIGIP02
     and enter the admin User ID and Password.
 
-#. On BIGIP02, follow the same process, but enter 10.1.1.4 which is the
-   Management IP Address of BIGIP01.   The admin User ID and Password should
-   be the same for both BIG-IP systems.
+#. Click **Retrieve Device Information**, click **Device Certificate Matches**, and then click **Add Device**.
 
+#. On BIGIP02 verify that bigip01 is displayed as a trusted device under **Device Trust**.
 
 |image22|
 
@@ -112,20 +111,26 @@ and BIGIP02 with BIGIP01 serving as the Active device in the DSC cluster.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 #.  On BIGIP01, Under the **Device Management** Navigation pane, click on
-    **Device Group** and create a new device Group named **syncfailover**.
+    **Device Group** and click **Create**
+    
+#. Create a new device Group named **syncfailover** with **Group Type** of Sync-Failover.
 
 #. Add BIGIP01 and BIGIP02 to the **Includes** box.
 
 #. Check the **Network Failover** setting for the group.
 
+#. Click **Finished**.
+
 #. Attempt to perform a **Manual** sync by clicking on the **Overview** section
    under the **Device Management** Navigation menu.
 
-#. From BIGIP01 click on the **sync** button.
+#. Ensure **bigip01.f5demo.com** is selected and then click **Sync**.
 
 -  Was the full synchronization successful?
 
--  Are the configurations identical on both BIG-IP systems?
+-  Are the configurations identical on both BIG-IP systems? 
+
+-  Check the virtual servers on BIGIP02.
 
 
 |image23|
@@ -149,9 +154,7 @@ A Floating Traffic-Group contains the following objects:
 
 #. From the **Device Management** Navigation pane, click on **Traffic Groups**
 
-#. Click on create
-
-#. Name the new Floating Traffic-Group **traffic-group-1**
+#. Click on the traffic group **traffic-group-1**
 
 #. The **Failover Method** default should be set to
    **Failover using Preferred Device Order and then Load Aware**
@@ -159,7 +162,17 @@ A Floating Traffic-Group contains the following objects:
 #. Ensure BIGIP01 and BIGIP02 have been added to the **Preferred Order**
    window.
 
-#.  Click on **Create Traffic Group**
+#. Click **Save** at the bottom.
+
+#. Select the **Failover Objects** tab at the top to see the failover objects.
+
+#. Click the **Changes Pending** at the top of the screen and then click **Sync**.
+
+#. Verify you're able to access **https://10.1.10.200**
+
+#. Force a failover by clicking **Device Management** > **Traffic Groups** > **traffic-group1** and then select **Force to Standby**
+
+#. Verify you're still able to access **https://10.1.10.200**
 
 
 .. |image20| image:: images/image20.PNG
