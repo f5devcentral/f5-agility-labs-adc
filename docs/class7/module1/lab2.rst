@@ -255,15 +255,6 @@ pre-defined monitor templates for address, service, content, and interactive che
 
    All pool members display available.
 
-   **Optional Extra Credit**: Access Ubuntu_LAMP web console and modify /var/www/server/3/HealthCheck.html to change status from UP to DOWN.
-
-   ``sed -i "s/UP/DOWN/g" /var/www/server/3/HealthCheck.html``
-
-   Check or Refresh the **Network Map** again and see that pool member LAMP_Server3 is now down/disabled. Set it back to UP.
-
-   ``sed -i "s/DOWN/UP/g" /var/www/server/3/HealthCheck.html``
-
-
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Task 4** – Take Lamp_Server1 Offline
@@ -313,6 +304,17 @@ pre-defined monitor templates for address, service, content, and interactive che
 This concludes Lab 2 and a basic overview of Secure Network Address Translation
 (SNAT), Profiles, and Monitors.  Please begin Lab 3.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Optional Extra Credit**: Access Ubuntu_LAMP web console and modify /var/www/server/3/HealthCheck.html to change status from UP to DOWN.
+
+   ``sed -i "s/UP/DOWN/g" /var/www/server/3/HealthCheck.html``
+
+   Check or Refresh the **Network Map** again and see that pool member LAMP_Server3 is now down/disabled. Set it back to UP.
+
+   ``sed -i "s/DOWN/UP/g" /var/www/server/3/HealthCheck.html``
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
  .. |image7| image:: images/image7.PNG
     :width: 3.32107in
