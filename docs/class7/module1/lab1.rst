@@ -9,25 +9,21 @@ Addresses and map them to individual VLANs.
 
 **Task 1** – Connect to the Windows 10 Jumphost via Remote Desktop Protocol **RDP**
 Select the **ACCESS** drop down menu under Windows 10 and choose the **RDP** with an appropriate resolution option.
+Select a resolution that is smaller than your desktop resolution.
 
    |image1|
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 The Windows 10 Jumphost Remote RDP User ID and Password is located within the
-**Documentation** Section.   If you are using MAC or non Windows system you may
+**Details** section of the Windows 10 Jumphost.   If you are using MAC or non Windows system you may
 need to download the Microsoft Remote Desktop App from the Mac App Store.
 
-
-  |image24|
-
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 #. From the Windows 10 Jumphost using a web browser (Chrome), log into BIG-IP01 (https://10.1.1.4) system with the below credentials.
 
    **U:** admin **P:** admin.F5demo.com
 
-#. While logged into the BIG-IP01 gui click on the Network menu object, then click on the Interfaces object. Note that there are two interfaces labeled 1.1 and 1.2
+#. While logged into the BIG-IP01 gui click on the Network menu object, then click on the Interfaces object. Note that there are three interfaces labeled 1.1, 1.2, and 1.3.
 
    The **Network** menu is where you configure elements for routing and switching.
 
@@ -91,35 +87,39 @@ to determine which member to use for that request.
    |image3|
 
 
-#. Use the following information for the new pool. For fields that are
+#. Use the following information for the new pool named **LAMP**. For fields that are
    not specified, leave them set to the default settings.
 
    +---------------+------------------------------------+
    | Form field    | Value                              |
    +===============+====================================+
-   | Name          | LAMP_Server1                       |
+   | Pool Name     | LAMP                               |
    +---------------+------------------------------------+
-   | New Members   | Node Name: LAMP_Server1            |
-   |               | Address: 10.1.20.11                |
-   |               | Service Port: 80 (Click **Add**)   |
+   | New Members   |                                    |
    +---------------+------------------------------------+
-   | Name          | LAMP_Server2                       |
+   | Node Name     | LAMP_Server1                       |
    +---------------+------------------------------------+
-   | New Members   | Node Name: LAMP_Server2            |
-   |               | Address: 10.1.20.12                |
-   |               | Service Port: 80 (Click **Add**)   |
+   | Address       | 10.1.20.11                         |
    +---------------+------------------------------------+
-   | Name          | LAMP_Server3                       |
+   | Service Port  | 80 (Click **Add**)                 |
    +---------------+------------------------------------+
-   | New Members   | Node Name: LAMP_Server3            |
-   |               | Address: 10.1.20.13                |
-   |               | Service Port: 80 (Click **Add**)   |
+   | Node Name     | LAMP_Server2                       |
    +---------------+------------------------------------+
-   | Name          | LAMP_Server4                       |
+   | Address       | 10.1.20.12                         |
    +---------------+------------------------------------+
-   | New Members   | Node Name: LAMP_Server4            |
-   |               | Address: 10.1.20.14                |
-   |               | Service Port: 80 (Click **Add**)   |
+   | Service Port  | 80 (Click **Add**)                 |
+   +---------------+------------------------------------+
+   | Node Name     | LAMP_Server3                       |
+   +---------------+------------------------------------+
+   | Address       | 10.1.20.13                         |
+   +---------------+------------------------------------+
+   | Service Port  | 80 (Click **Add**)                 |
+   +---------------+------------------------------------+
+   | Node Name     | LAMP_Server4                       |
+   +---------------+------------------------------------+
+   | Address       | 10.1.20.14                         |
+   +---------------+------------------------------------+
+   | Service Port  | 80 (Click **Add**)                 |
    +---------------+------------------------------------+
 
 
@@ -150,6 +150,8 @@ to determine which member to use for that request.
 #. Use **Ctrl + F5** to reload the page several times.
 
    You should notice the LAMP Pool displaying the respective page elements from all members.
+   If you're not seeing elements displaying from each Node you may need to open **Developer Tools** and enable the **Disable Cache** option.
+   To open Developer Tools in Chrome click the **3 dots** at the top right -> **More Tools** -> **Developer Tools**.
    That’s all it takes to create a basic web application on the BIG-IP system.
 
 #. Close the tab.
@@ -246,6 +248,11 @@ A Reject virtual server rejects any traffic destined for the virtual server IP a
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+#. From the Windows 10 Jump Host use a new tab to attempt direct access to the **LAMP** server at
+   **http://10.1.20.252**.
+
+   Access is allowed through the previously created **Forwarding Virtual Server**
+
 #. In the Configuration Utility, on the **Virtual Server List** page
    click **Create**.
 
@@ -283,7 +290,7 @@ A Reject virtual server rejects any traffic destined for the virtual server IP a
    ``route DELETE 10.1.20.0``
 
 #. In the Configuration Utility, select the **forward\_virtual** and
-   **reject\_win\_server** checkboxes and then click **Delete** and
+   **reject\_server** checkboxes and then click **Delete** and
    **Delete** again.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -304,12 +311,16 @@ Task 5 – Use Different Pool Options
 
    Currently all members of the LAMP pool member have a ratio of (**1**).
 
-#. Given that there are four members of the LAMP pool we can modify the ration
-   of connections to each pool member.  As an example let's go ahead and change
+#. Given that there are four members of the LAMP pool we can modify the ratio
+   of connections to each pool member. As an example let's go ahead and change
    ratio value for LAMP_Server1 to 4, assign a ratio value of 3 to pool member LAMP_Server2,
    a ratio value of 2 to pool member LAMP_server3, and a ratio value of 1 to
-   pool member LAMP_Server1.  The effect this would have is that connection requests would
-   be distributed to members of the LAMP pool in following manner **4, 3, 2, 1**.
+   pool member LAMP_Server1. 
+   
+   The effect this would have is that connection requests would
+   be distributed to members of the LAMP pool in following manner **4, 3, 2, 1**. 
+   LAMP_Server1 will receive 4 requests for every 1 request LAMP_Server4 receives. 
+   Send some requests and verify using pool statistics.
 
 
 #. The BIG-IP system provides several Ratio load balancing methods for load balancing traffic
@@ -343,6 +354,8 @@ Task 5 – Use Different Pool Options
    |                             | to each member.                              |
    +-----------------------------+----------------------------------------------+
 
+#. Change the load balancing method for the **LAMP** pool back to **round robin**.
+
 This concludes Lab 1 and a basic introduction into networking concepts,
 Virtual Servers, Pools, and Load Balancing methods. Please begin Lab 2.
 
@@ -363,8 +376,5 @@ Virtual Servers, Pools, and Load Balancing methods. Please begin Lab 2.
    :width: 3.32107in
    :height: 0.33645in
 .. |image6| image:: images/image6.PNG
-   :width: 3.32107in
-   :height: 0.33645in
-.. |image24| image:: images/image24.PNG
    :width: 3.32107in
    :height: 0.33645in
