@@ -118,7 +118,7 @@ The **f5-appsvcs-3.21.0-4.noarch.rpm** F5 Fast Template file has already been up
 
 #.  Enter the BIG-IP credentials **U: admin / P: admin.F5demo.com**
 
-#.  Click on the **Body** section in Postman, then click **raw**
+#.  Click on the **Body** section in Postman, then click **raw** and change the **orange Text** to **JSON**
 
     |image17|
 
