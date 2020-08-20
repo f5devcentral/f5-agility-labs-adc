@@ -38,13 +38,15 @@ take for each lab:
 +------------------------------------------------------+------------------+
 | LAB Name (Description)                               | Time Allocated   |
 +======================================================+==================+
-| LAB 1 – Configure Virtual Servers and Pools          | 35 minutes       |
+| LAB 1 – Configure Virtual Servers and Pools          | 40 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 2 – Work with SNAT, Profiles, and Monitors       | 45 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 3 – Use SSL Offload, Best Practices, and iApps   | 40 minutes       |
+| LAB 3 – Working with SSL and Persistence             | 40 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 4 – Configure High Availability                  | 30 minutes       |
+| LAB 4 – iApps and FAST                               | 30 minutes       |
++------------------------------------------------------+------------------+
+| LAB 5 – Configure High Availability                  | 30 minutes       |
 +------------------------------------------------------+------------------+
 
 .. |image0| image:: /_static/class1/image2.png

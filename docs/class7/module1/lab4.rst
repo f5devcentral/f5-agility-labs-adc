@@ -1,4 +1,4 @@
-Lab 4 – Introduction to F5 iApps and FAST Templates
+Lab 4: Introduction to F5 iApps and FAST Templates
 ---------------------------------------------------
 
 F5 iApps are a powerful features on every BIG-IP system
