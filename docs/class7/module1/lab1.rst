@@ -315,7 +315,7 @@ Task 5 – Use Different Pool Options
    of connections to each pool member. As an example let's go ahead and change
    ratio value for LAMP_Server1 to 4, assign a ratio value of 3 to pool member LAMP_Server2,
    a ratio value of 2 to pool member LAMP_server3, and a ratio value of 1 to
-   pool member LAMP_Server1. 
+   pool member LAMP_Server4.
    
    The effect this would have is that connection requests would
    be distributed to members of the LAMP pool in following manner **4, 3, 2, 1**. 
