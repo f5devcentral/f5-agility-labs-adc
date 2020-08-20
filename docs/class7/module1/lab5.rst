@@ -1,4 +1,4 @@
-Lab  5 High Availability
+Lab 5: High Availability
 ------------------------
 
 BIG-IP systems are generally deployed in pairs since redundant systems add

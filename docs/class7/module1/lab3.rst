@@ -1,4 +1,4 @@
-Lab 3: Profiles
+Lab 3: Working with SSL and Persistence
 ----------------------------------
 Profiles are a powerful configuration tool providing an easy
 way to define traffic policies and apply those policies across
