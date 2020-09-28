@@ -125,5 +125,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
    .. image:: /_static/class4/presecretfile.png
 
+#. Now the session.pms file can be put into Wireshark to decrypt the packets.
+
 
 
