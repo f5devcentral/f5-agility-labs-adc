@@ -51,12 +51,18 @@ password: 'admin'
       :linenos:
 
       when CLIENTSSL_HANDSHAKE {
-        log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
-      }
-
-      when SERVERSSL_HANDSHAKE {
+         log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
          log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
-      }  
+         log local0. "SERVER_HANDSHAKE_TRAFFIC_SECRET [SSL::clientrandom] [SSL::tls13_secret server hs]"
+         log local0. "CLIENT_HANDSHAKE_TRAFFIC_SECRET [SSL::clientrandom] [SSL::tls13_secret client hs]"
+         log local0. "CLIENT_TRAFFIC_SECRET_0 [SSL::clientrandom] [SSL::tls13_secret client app]"
+         log local0. "SERVER_TRAFFIC_SECRET_0 [SSL::clientrandom] [SSL::tls13_secret server app]"
+      }
+      when SERVERSSL_HANDSHAKE {
+         log local0. "SERVER_Side_IP:TCP source port:[IP::local_addr]: [TCP::local_port]"
+         log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
+         log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
+      }   
 
 #. Apply this new iRule to the virtual server.  In our lab environment the iRule has already been created and applied to the Virtual Server.
 
@@ -67,5 +73,59 @@ password: 'admin'
    .. code-block:: bash
 
       grep Session-ID /var/log/ltm | sed 's/.*\(RSA.*\)/\1/' > /var/tmp/session.pms
+      grep -h -o 'CLIENT_RANDOM.*' /var/log/ltm >> /var/tmp/session.pms
+      grep -h -o 'CLIENT_TRAFFIC.*' /var/log/ltm >> /var/tmp/session.pms
+      grep -h -o 'SERVER_TRAFFIC.*' /var/log/ltm >> /var/tmp/session.pms
+      grep -h -o 'CLIENT_HANDSHAKE.*' /var/log/ltm >> /var/tmp/session.pms
+      grep -h -o 'SERVER_HANDSHAKE.*' /var/log/ltm >> /var/tmp/session.pms
 
-#. Now the session.pms file can be pulled from the F5 and put into Wireshark. 
+
+#. Now the session.pms file can be pulled from the F5 and put into Wireshark as indicated on the next page. 
+
+tcpdump --f5 ssl
+----------------
+
+Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to decrypt TLS with a Pre Master Secret file.  In order to do this do the following:
+
+#. Enable the **tcpdump.sslprovider** db varialbe.
+
+   .. code-block:: bash
+      :linenos:
+      
+      tmsh modify sys db tcpdump.sslprovider value enable 
+
+#. Now when you take a packet capture you need to add **--f5 ssl** to the end of your command like this:
+
+   .. code-block:: bash
+      :linenos:
+
+      tcpdump -nni 0.0:nnn -s0 -w /var/tmp/hackazon-ssl.pcap host 10.1.20.103 --f5 ssl 
+
+   Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
+
+#. Once we have the packet capture we will also need to enable the F5 TLS protocols in Wireshark:
+
+   a. Go to Analyze, Enable Protocols
+
+      .. image:: /_static/class4/enable-protocols.jpeg
+   
+   b. Search for F5 and check F5 TLS:
+
+      .. image:: /_static/class4/enable-f5tls.jpeg
+
+#. New you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
+
+#. If you right click the log and copy then select value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
+    
+   .. image:: /_static/class4/keylogvalue.png
+
+#. Make sure to copy all of the keylog values from each instance if you want to decrypt the whole file.  Otherwise you can copy the values from the streams that you are looking for specifically.
+
+#. The Pre Master Secret file will look similar to this after creating:
+
+   .. image:: /_static/class4/presecretfile.png
+
+#. Now the session.pms file can be put into Wireshark to decrypt the packets.
+
+
+
