@@ -113,7 +113,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
       .. image:: /_static/class4/enable-f5tls.jpeg
 
-#. New you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
+#. Now you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
 
 #. If you right click the log and copy then select value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
     
