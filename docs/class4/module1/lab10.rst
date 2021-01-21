@@ -113,19 +113,38 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
       .. image:: /_static/class4/enable-f5tls.jpeg
 
-#. New you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
+#. Now you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
 
 #. If you right click the log and copy then select value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
     
    .. image:: /_static/class4/keylogvalue.png
+      :scale: 50 %
 
 #. Make sure to copy all of the keylog values from each instance if you want to decrypt the whole file.  Otherwise you can copy the values from the streams that you are looking for specifically.
 
 #. The Pre Master Secret file will look similar to this after creating:
 
    .. image:: /_static/class4/presecretfile.png
+      :scale: 50 %
 
-#. Now the session.pms file can be put into Wireshark to decrypt the packets.
+#. You can also automate this doing the following:
 
+#. Open you packet capture in Wireshark, and set the following display filter: 'f5ethtrailer.tls.keylog'
+
+#. Click on File, Export Packet Dissections, As JSON:
+
+   .. image:: /_static/class4/exportpacket.png
+      :scale: 50 %
+
+#. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
+
+#. Now load the JSON file onto a linux system and run the following command:
+
+   .. code-block:: bash
+      :linenos:
+
+      cat <json file> | jq -r .[]._source.layers.f5ethtrailer'."f5ethtrailer.tls"."f5ethtrailer.tls.keylog"' >> /var/tmp/session.pms
+
+#. However you created the Pre Master Secret file it can now be used in Wireshark to decrypt the traffic following instructions on next page.
 
 
