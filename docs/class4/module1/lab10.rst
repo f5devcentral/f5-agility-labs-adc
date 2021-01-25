@@ -127,9 +127,9 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
    .. image:: /_static/class4/presecretfile.png
       :scale: 50 %
 
-#. You can also automate this doing the following:
+#. You can also automate this by doing the following:
 
-#. Open you packet capture in Wireshark, and set the following display filter: 'f5ethtrailer.tls.keylog'
+#. Open your packet capture in Wireshark, and set the following display filter: 'f5ethtrailer.tls.keylog'
 
 #. Click on File, Export Packet Dissections, As JSON:
 
@@ -138,7 +138,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
 #. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
 
-#. Now load the JSON file onto a linux system and run the following command:
+#. Now load the JSON file onto a linux system (your BIG-IP would work) and run the following command:
 
    .. code-block:: bash
       :linenos:
