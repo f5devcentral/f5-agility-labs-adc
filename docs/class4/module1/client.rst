@@ -32,3 +32,11 @@ SSL Decrypt from Linux Client
 #. This will launch the Chrome browser and once you close the browser it will stop logging the SSL Session key data.  
 
 #. Once the traffic has been captured you will import the capture file into Wireshark and configure the SSL options to use the session-key.log file.
+
+Now Follow this link **instead of clicking on next** in order to see how to import the PreMasterSecret in Wireshark:
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   lab11
