@@ -5,7 +5,7 @@ This section is for informative value and nothing will be done in the lab enviro
 
 F5 has added some F5 specific switches to the tcpdump utility on the F5.  These switches give additional information on your packet captures.  These switches are placed after the interface option in the command line as follows:
 
-#. :n gives low details
+#. **:n** gives low details
 
     a. for example: **tcpdump -nni 0.0:n -s0 -w /var/tmp/capture.pcap**
 
@@ -13,7 +13,7 @@ F5 has added some F5 specific switches to the tcpdump utility on the F5.  These 
 
     .. image:: /_static/class4/tcpdump-n.png
 
-#. :nn gives medium details
+#. **:nn** gives medium details
 
     a. for example: **tcpdump -nni 0.0:nn -s0 -w /var/tmp/capture.pcap**
 
@@ -30,7 +30,7 @@ F5 has added some F5 specific switches to the tcpdump utility on the F5.  These 
 
     .. image:: /_static/class4/tcpdump-nn.png
 
-#. :nnn gives high details
+#. **:nnn** gives high details
 
     a. for example: **tcpdump -nni 0.0:nnn -s0 -w /var/tmp/capture.pcap**
 
