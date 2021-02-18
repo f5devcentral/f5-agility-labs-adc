@@ -44,3 +44,11 @@ F5 has added some F5 specific switches to the tcpdump utility on the F5.  These 
        * Peer local port
 
     .. image:: /_static/class4/tcpdump-nnn.png
+
+#. **:nnnp** captures traffic on both the client and server side of the F5 related to the filter.  For example if I captured for a virtual server at IP address 10.1.20.103 and the pool members were 10.1.10.5, 10.1.10.6, and 10.1.10.7, and my host filter was for 10.1.20.103, then my capture would gather all the traffic from client to 10.1.20.103 and from BIG-IP to the pool members.
+
+     a. for example: **tcpdump -nni 0.0:nnnp -s0 -w/var/tmp/capture.pcap**
+
+     b. This option will capture all traffic coming into the BIG-IP and correlated traffic going to all pool members.
+
+     
