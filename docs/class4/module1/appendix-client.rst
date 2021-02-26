@@ -1,5 +1,5 @@
 Decrypt traffic using Client
-============================
+----------------------------
 
 If you have access to the client you can use the following modifications for Windows or Ubuntu:
 
@@ -33,10 +33,3 @@ SSL Decrypt from Linux Client
 
 #. Once the traffic has been captured you will import the capture file into Wireshark and configure the SSL options to use the session-key.log file.
 
-Now Follow this link **instead of clicking on next** in order to see how to import the PreMasterSecret in Wireshark:
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   lab11

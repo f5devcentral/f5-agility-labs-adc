@@ -21,4 +21,4 @@ password: `user`
    :caption: Switches
    :glob:
 
-   module*/module*
+   module1/lab*
