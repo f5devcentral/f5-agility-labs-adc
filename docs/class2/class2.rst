@@ -1,5 +1,5 @@
-Class 2: Building the F5 Fabric
-===============================
+Building the F5 Fabric
+======================
 
 Welcome to the Building the F5 Fabric lab session at F5 Agility |year|.
 These labs are intended to guide you through creating basic Device

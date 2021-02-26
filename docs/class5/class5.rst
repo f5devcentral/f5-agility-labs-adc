@@ -1,5 +1,5 @@
-Class 5: Resilient Data Center Architectures with F5 BIG-IP
-===========================================================
+Resilient Data Center Architectures with F5 BIG-IP
+==================================================
 
 This class covers covering common High Availability, BGP configurations on the BIG-IP.
 

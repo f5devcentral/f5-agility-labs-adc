@@ -1,5 +1,5 @@
-Class 1: Introduction to ADC Deployments with BIG-IP LTM
-========================================================
+Introduction to ADC Deployments with BIG-IP LTM
+===============================================
 
 Welcome to the ADC Deployments with BIG-IP LTM hands-on lab session.
 These labs are intended to guide you through creating basic ADC
