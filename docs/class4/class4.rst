@@ -1,5 +1,5 @@
-Troubleshoot with tcpdump and Wireshark
-=======================================
+Class 4: Troubleshoot with tcpdump and Wireshark
+=========+++++++++==============================
 
 This class covers the following topics:
 
