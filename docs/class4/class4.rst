@@ -1,5 +1,5 @@
 Class 4: Troubleshoot with tcpdump and Wireshark
-================================================
+=========+++++++++==============================
 
 This class covers the following topics:
 
@@ -21,4 +21,4 @@ password: `user`
    :caption: Switches
    :glob:
 
-   module*/module*
+   module1/lab*
