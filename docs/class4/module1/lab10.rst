@@ -1,7 +1,7 @@
 Decrypt with tcpdump --f5 ssl
 =============================
 
-Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to decrypt TLS with a Pre Master Secret file.  In order to do this do the following:
+Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to decrypt TLS with a Pre Master Secret file.  A Pre Master Secret file is used to decrypt the PCAP data in a packet capture.  It can be imported into Wireshark to decrypt the data within each packet.  In order to do this do the following:
 
 #. Enable the **tcpdump.sslprovider** db varialbe.
 
@@ -24,24 +24,26 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
    a. Go to Analyze, Enable Protocols
 
       .. image:: /_static/class4/enable-protocols.jpeg
+         :scale: 60%
    
    b. Search for F5 and check F5 TLS:
 
       .. image:: /_static/class4/enable-f5tls.jpeg
+         :scale: 60%
 
 #. Now you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
 
 #. If you right click the log and copy then select value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
     
    .. image:: /_static/class4/keylogvalue.png
-      :scale: 50 %
+      :scale: 80 %
 
 #. Make sure to copy all of the keylog values from each instance if you want to decrypt the whole file.  Otherwise you can copy the values from the streams that you are looking for specifically.
 
 #. The Pre Master Secret file will look similar to this after creating:
 
    .. image:: /_static/class4/presecretfile.png
-      :scale: 50 %
+      :scale: 80 %
 
 #. You can also automate this by doing the following:
 
@@ -50,7 +52,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 #. Click on File, Export Packet Dissections, As JSON:
 
    .. image:: /_static/class4/exportpacket.png
-      :scale: 50 %
+      :scale: 80 %
 
 #. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
 
@@ -63,4 +65,3 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
 #. However you created the Pre Master Secret file it can now be used in Wireshark to decrypt the traffic following instructions on next page.
 
-Now Follow this link **instead of clicking on next** in order to see how to import the PreMasterSecret in Wireshark:
