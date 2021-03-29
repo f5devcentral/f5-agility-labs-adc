@@ -19,7 +19,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
       tcpdump -nni 0.0:nnnp -s0 -w /var/tmp/hackazon-ssl.pcap host 10.1.20.103 --f5 ssl 
 
-   Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
+   .. NOTE:: Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
 
 #. Now that the packet capture is running open Chrome and click on the Hackazon link and browse around the website.
 
@@ -60,7 +60,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 Automate Pre Master Secret File Creation
 ----------------------------------------
 
-#. Open your packet capture in Wireshark, and set the following display filter: 'f5ethtrailer.tls.keylog'
+#. Open your packet capture in Wireshark, and set the following display filter: `f5ethtrailer.tls.keylog`
 
 #. Click on File, Export Packet Dissections, As JSON:
 
