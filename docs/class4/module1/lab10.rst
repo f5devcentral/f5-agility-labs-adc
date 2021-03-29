@@ -1,7 +1,9 @@
 Decrypt with tcpdump --f5 ssl
 =============================
 
-Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to decrypt TLS with a Pre Master Secret file.  A Pre Master Secret file is used to decrypt the PCAP data in a packet capture.  It can be imported into Wireshark to decrypt the data within each packet.  In order to do this do the following:
+Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to create a Pre Master Secret file.  A Pre Master Secret file is used to decrypt the PCAP data in a packet capture.  It can be imported into Wireshark to decrypt the data within each packet.  In order to do this do the following:
+
+#. SSH using Putty into the BIG-IP01 box.   
 
 #. Enable the **tcpdump.sslprovider** db varialbe.
 
@@ -19,6 +21,14 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
    Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
 
+#. Now that the packet capture is running open Chrome and click on the Hackazon link and browse around the website.
+
+#. Stop the packet capture with `Ctrl + C`.  
+
+#. Start WINSCP from the jumpbox and copy the hackazon-ssl.pcap file from the /var/tmp directory.
+
+#. Open Wireshark and open the hackazon-ssl.pcap file.
+
 #. Once we have the packet capture we will also need to enable the F5 TLS protocols in Wireshark:
 
    a. Go to Analyze, Enable Protocols
@@ -31,21 +41,24 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
       .. image:: /_static/class4/enable-f5tls.jpeg
          :scale: 60%
 
-#. Now you can expand the F5 TLS options on any of the packets that meet this filter: 'f5ethtrailer.tls.keylog'
+#. Apply the following filter in Wireshark: `f5ethtrailer.tls.keylog`
 
-#. If you right click the log and copy then select value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
+#. Now expand the F5 Ethernet Trailer Protocol, then F5 TLS on any of the packets.
+
+#. If you right click the Keylog entry and then select copy, and then value, this will put the keylog value into your clipboard and you can manually build a Pre Master Secret Log file:
     
    .. image:: /_static/class4/keylogvalue.png
       :scale: 80 %
 
-#. Make sure to copy all of the keylog values from each instance if you want to decrypt the whole file.  Otherwise you can copy the values from the streams that you are looking for specifically.
+#. Now you would open a notepad document and paste the clipboard value into the doc and save it as session.pms.  You would need to do this for every packet that has the f5ethtrailer.tls.keylog value which could take a long time.
 
 #. The Pre Master Secret file will look similar to this after creating:
 
    .. image:: /_static/class4/presecretfile.png
       :scale: 80 %
 
-#. You can also automate this by doing the following:
+Automate Pre Master Secret File Creation
+----------------------------------------
 
 #. Open your packet capture in Wireshark, and set the following display filter: 'f5ethtrailer.tls.keylog'
 
@@ -56,7 +69,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
 #. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
 
-#. Now load the JSON file onto a linux system (your BIG-IP would work) and run the following command:
+#. Now WINSCP the JSON file onto your BIG-IP and run the following command, replace <json file> with the name of the file you exported from Wireshark:
 
    .. code-block:: bash
       :linenos:
