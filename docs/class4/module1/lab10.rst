@@ -69,7 +69,7 @@ Automate Pre Master Secret File Creation
 
 #. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
 
-#. Now WINSCP the JSON file onto your BIG-IP and run the following command, replace <json file> with the name of the file you exported from Wireshark:
+#. Now WINSCP the JSON file onto your BIG-IP and run the following command, replace **<json file>** with the name of the file you exported from Wireshark:
 
    .. code-block:: bash
       :linenos:
