@@ -24,7 +24,12 @@ We will start with what kind of unique information is gathered through the plugi
 Follow F5 Conversation
 ~~~~~~~~~~~~~~~~~~~~~~
 
-#. Enter `f5ethtrailer.peeraddr` in the Wireshark display filter and hit enter.  Right Click on one of the packets in the capture and select Conversation Filter and then F5 TCP.  This will automatically develop a display filter to show the client and server sides of a conversation going through the BIG-IP device.  Notice the source and destination IP addresses are different on the Client Side and Server Sides of the F5.
+#. Enter `f5ethtrailer.peeraddr` in the Wireshark display filter and hit enter.  Right Click on one of the packets in the capture and select Conversation Filter and then F5 TCP.  This will automatically develop a display filter to show the client and server sides of a conversation going through the BIG-IP device.  
 
    .. image:: /_static/class4/f5-tcp-convo.png
+      :scale: 50 %
+
+#. Notice the source and destination IP addresses are different on the Client Side and Server Sides of the F5.
+
+   .. image:: /_static/class4/multiside-convo.png
       :scale: 50 %
