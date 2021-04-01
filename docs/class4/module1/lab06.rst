@@ -31,5 +31,5 @@ Follow F5 Conversation
 
 #. Notice the source and destination IP addresses are different on the Client Side and Server Sides of the F5.
 
-   .. image:: /_static/class4/multiside-convo.png
+   .. image:: /_static/class4/multi-convo.png
       :scale: 50 %
