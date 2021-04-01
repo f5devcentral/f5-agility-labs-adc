@@ -1,4 +1,4 @@
-BIG-IP® Local Traffic Manager (LTM) - v13.1 Lab Guide
+BIG-IP® Local Traffic Manager (LTM) - Getting Started
 =====================================================
 
 This lab guide is designed for you to get an understanding of the BIG-IP
