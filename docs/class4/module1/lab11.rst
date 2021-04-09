@@ -18,11 +18,13 @@ Now you need to have your pre-master key file and your capture moved to your loc
    .. image:: /_static/class4/premaster-session.png
       :height: 500px
 
-#. Browse to the pre-master session key file and click on save.
+#. Browse to the pre-master session key file and click on Open.  Then Click OK.
 
-#. Open in Wireshark the .pcap file you pulled down from the F5 BIG-IP.  You can use the original .pcap.
+#. Open in Wireshark the .pcap file you pulled down from the F5 BIG-IP with SSL packet capture.
 
-#. Right click on one of the SSL packets and select Follow, TLS Stream.
+#. Apply a display filter of **http**
+
+#. Right click on one of the packets and select Follow, HTTP Stream.
 
    .. image:: /_static/class4/follow-ssl-stream.png
       :height: 500px
