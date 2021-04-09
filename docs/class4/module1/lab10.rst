@@ -60,21 +60,16 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 Automate Pre Master Secret File Creation
 ----------------------------------------
 
-#. Open your packet capture in Wireshark, and set the following display filter: `f5ethtrailer.tls.keylog`
-
-#. Click on File, Export Packet Dissections, As JSON:
-
-   .. image:: /_static/class4/exportpacket.png
-      :scale: 80 %
-
-#. In the Packet Range select Displayed and All Packets, give the file a name and click on Save.
-
-#. Now WINSCP the JSON file onto your BIG-IP and run the following command, replace **<json file>** with the name of the file you exported from Wireshark:
+#. Open a Command Prompt in your RDP Session.  Run the following command:
 
    .. code-block:: bash
       :linenos:
 
-      cat <json file> | jq -r .[]._source.layers.f5ethtrailer'."f5ethtrailer.tls"."f5ethtrailer.tls.keylog"' >> /var/tmp/session.pms
+      "c:\Program Files\Wireshark"\tshark.exe -r c:\users\user\Documents\hackazon-ssl.pcap -Y "f5ethtrailer.tls.keylog" -T fields -e f5ethtrailer.tls.keylog >> c:\users\user\Documents\session.pms
 
-#. However you created the Pre Master Secret file it can now be used in Wireshark to decrypt the traffic following instructions on next page.
+   .. NOTE:: The command is in the format of: **"tshark.exe -r <packet capture file> -Y "f5ethtrailer.tls.keylog" -T fields -e f5.ethtrailers.tls.keylog >> <file to write to>"**
+             
+             The -Y sets a display filter, the -T says to look for Field values, -e pulls tha values from the fields.
+
+#. However you created the Pre Master Secret file it can now be used in Wireshark to decrypt the traffic following instructions on the next page.
 
