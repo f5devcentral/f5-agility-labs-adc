@@ -17,7 +17,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
    .. code-block:: bash
       :linenos:
 
-      tcpdump -nni 0.0:nnnp -s0 -w /var/tmp/hackazon-ssl.pcap host 10.1.20.103 --f5 ssl 
+      tcpdump -nni 0.0:nnn -s0 -w /var/tmp/hackazon-ssl.pcap host 10.1.20.103 --f5 ssl 
 
    .. NOTE:: Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
 
