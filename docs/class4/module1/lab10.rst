@@ -8,15 +8,13 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 #. Enable the **tcpdump.sslprovider** db varialbe.
 
    .. code-block:: bash
-      :linenos:
-      
+            
       tmsh modify sys db tcpdump.sslprovider value enable 
 
 #. Now when you take a packet capture you need to add **--f5 ssl** to the end of your command like this:
 
    .. code-block:: bash
-      :linenos:
-
+      
       tcpdump -nni 0.0:nnn -s0 -w /var/tmp/hackazon-ssl.pcap host 10.1.20.103 --f5 ssl 
 
    .. NOTE:: Notice that we've got a warning message because Master Secret will be copied to tcpdump capture itself, so we need to be careful with who we share such capture with.
@@ -63,8 +61,7 @@ Automate Pre Master Secret File Creation
 #. Open a Command Prompt in your RDP Session.  Run the following command:
 
    .. code-block:: bash
-      :linenos:
-
+      
       "c:\Program Files\Wireshark"\tshark.exe -r c:\users\user\Documents\hackazon-ssl.pcap -Y "f5ethtrailer.tls.keylog" -T fields -e f5ethtrailer.tls.keylog >> c:\users\user\Documents\session.pms
 
    .. NOTE:: The command is in the format of: **"tshark.exe -r <packet capture file> -Y "f5ethtrailer.tls.keylog" -T fields -e f5.ethtrailers.tls.keylog >> <file to write to>"**
