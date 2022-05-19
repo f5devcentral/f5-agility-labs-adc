@@ -10,13 +10,67 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 #. In this task we will manipulate an interface on the active BIG-IP.   We will also disable an interface and observe BIG-IP behavior during failover.
    We will also monitor logs to review the failover process.
 
+#. On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+
+
+.. image:: ../images/image1.png
+   :width: 5.57547in
+   :height: 0.64571in
+
+
+#. During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
+
+
+.. image:: ../images/image91.png
+   :width: 5.57547in
+   :height: 0.64571in
+
+
+.. image:: ../images/image92.png
+      :width: 5.57547in
+      :height: 0.64571in
+
+
+
+#.    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
+      device.
+
+
+
+  .. image:: ../images/image91.png
+         :width: 5.57547in
+         :height: 0.64571in
+
+
+  .. image:: ../images/image92.png
+            :width: 5.57547in
+            :height: 0.64571in
+
+
+#.  We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
+
+  #. Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
+
+
+  .. image:: ../images/image92.png
+            :width: 5.57547in
+            :height: 0.64571in
+
+#. Did a failover event occur?   If so, why or why not?
+
+**This concludes the **BIG-IP HA Failover - do it the proper way** lab.
 
 
 
 
-   **Supplemental Resources:**
 
 
+.. image:: ../images/image92.png
+          :width: 5.57547in
+          :height: 0.64571in
+
+
+**Supplemental Resources:**
 
 
    https://support.f5.com/csp/article/K16947
@@ -40,10 +94,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
    Ports	Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended).
    BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128
-
-
-
-   Appendix:
+**Appendix:**
 
    •	tmsh commands cheat sheet:
 
@@ -80,15 +131,12 @@ Configure HA
 
 #.
 #.
-   .. image:: images/image1.png
+   .. image:: ../images/image1.png
       :width: 5.57547in
-      :height: 0.64571in+
+      :height: 0.64571in
 
 
-
-
-
-   .. image:: images/image2.png
+   .. image:: ../images/image2.png
       :width: 5.57547in
       :height: 0.62307in
 
@@ -96,9 +144,9 @@ Configure HA
 
    #. Archive your work.
 
-.. |image0| image:: images/image1.png
+.. |image0| image:: ../images/image1.png
    :width: 5.57547in
    :height: 0.64571in
-.. |image1| image:: images/image2.png
+.. |image1| image:: ../images/image2.png
    :width: 5.57547in
    :height: 0.62307in

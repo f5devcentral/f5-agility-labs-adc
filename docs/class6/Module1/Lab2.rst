@@ -21,7 +21,7 @@ and finalize configuration for HA Groups.
 | Navigate to: | Device Management --> Devices --> click the (Self) hyperlink |
 +--------------+--------------------------------------------------------------+
 
--  .. image:: ./images/image18.png
+-  .. image:: ../images/image18.png
       :width: 9.89792in
       :height: 4.23125in
 
@@ -31,7 +31,7 @@ and finalize configuration for HA Groups.
 
 -  Click the "ConfigSync" banner:
 
-   -  .. image:: ./images/image19.png
+   -  .. image:: ../images/image19.png
          :width: 5.11111in
          :height: 2.19444in
 
@@ -40,7 +40,7 @@ and finalize configuration for HA Groups.
 -  Under the Local Address drop-down, select the HA VLAN 30 address,
    then click the Update button:
 
-   -  .. image:: ./images/image20.png
+   -  .. image:: ../images/image20.png
          :width: 5.96319in
          :height: 2.19444in
 
@@ -48,7 +48,7 @@ and finalize configuration for HA Groups.
 
 -  Click the "Failover Network" banner, then the "Add" button:
 
-   -  .. image:: ./images/image21.png
+   -  .. image:: ../images/image21.png
          :width: 7.48125in
          :height: 3.24097in
 
@@ -59,7 +59,7 @@ and finalize configuration for HA Groups.
 -  From the New Failover Unicast Address drop-down, select the
    data-plane VLAN 10 address; click the "Repeat" button:
 
-   -  .. image:: ./images/image22.png
+   -  .. image:: ../images/image22.png
          :width: 5.90764in
          :height: 2.07431in
 
@@ -68,7 +68,7 @@ and finalize configuration for HA Groups.
 -  From the New Failover Unicast Address drop-down, select the
    data-plane VLAN 20 address; click the "Finished" button:
 
-   -  .. image:: ./images/image23.png
+   -  .. image:: ../images/image23.png
          :width: 5.57431in
          :height: 2in
 
@@ -78,7 +78,7 @@ and finalize configuration for HA Groups.
 
 -  View of the Failover Unicast Configuration:
 
-   -  .. image:: ./images/image24.png
+   -  .. image:: ../images/image24.png
          :width: 7.34236in
          :height: 2.53681in
 
@@ -156,7 +156,7 @@ setup, observe the changes in BIG-IP behavior.
 |              | new Peer Device                                      |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image31.png
+-  .. image:: ../images/image31.png
       :width: 4.26875in
       :height: 2.39792in
 
@@ -167,7 +167,7 @@ setup, observe the changes in BIG-IP behavior.
    -  Fill in the respective form items for *bigipA.f5demo.com*, then
       click the *Retrieve Device Information* button:
 
-      -  .. image:: ./images/image32.png
+      -  .. image:: ../images/image32.png
             :width: 3.86111in
             :height: 2.86111in
 
@@ -180,7 +180,7 @@ setup, observe the changes in BIG-IP behavior.
    -  Confirm the device certificate information, then click the *Device
       Certificate Matches* button:
 
-      -  .. image:: ./images/image33.png
+      -  .. image:: ../images/image33.png
             :width: 8.76875in
             :height: 2.53681in
 
@@ -192,7 +192,7 @@ setup, observe the changes in BIG-IP behavior.
 
    -  Verify the device name, and click the *Add Device* button:
 
-   -  .. image:: ./images/image34.png
+   -  .. image:: ../images/image34.png
          :width: 5.26875in
          :height: 1.10208in
 
@@ -205,7 +205,7 @@ setup, observe the changes in BIG-IP behavior.
    -  Navigate to: Device Management --> Device Trust --> Device Trust
       Members:
 
-      -  .. image:: ./images/image35.png
+      -  .. image:: ../images/image35.png
             :width: 4.23125in
             :height: 2.36111in
 
@@ -215,7 +215,7 @@ setup, observe the changes in BIG-IP behavior.
 
 -  Verify that *bigipB.f5demo.com* is shown in the Peer Device List:
 
-   -  .. image:: ./images/image36.png
+   -  .. image:: ../images/image36.png
          :width: 9.65764in
          :height: 1.82431in
 
@@ -255,7 +255,7 @@ both BIG-IP systems.
 |              | click the "+" button:                                |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image37.png
+-  .. image:: ../images/image37.png
       :width: 2.62014in
       :height: 1.87014in
 
@@ -287,7 +287,7 @@ both BIG-IP systems.
 
 
 
--  .. image:: ./images/image38.png
+-  .. image:: ../images/image38.png
       :width: 6.86111in
       :height: 4.13889in
 
@@ -295,7 +295,7 @@ both BIG-IP systems.
 
 
 
--  .. image:: ./images/image39.png
+-  .. image:: ../images/image39.png
       :width: 6.46319in
       :height: 3.99097in
 
@@ -319,7 +319,7 @@ In this task, you will observe the current Active/Standby HA state.
 
    -  BIG-IP-A:
 
-      -  .. image:: ./images/image40.png
+      -  .. image:: ../images/image40.png
             :width: 4.57431in
             :height: 1.19444in
 
@@ -329,7 +329,7 @@ In this task, you will observe the current Active/Standby HA state.
 
 -  BIP-IP-B:
 
-   -  .. image:: ./images/image41.png
+   -  .. image:: ../images/image41.png
          :width: 4.57431in
          :height: 1.09236in
 
@@ -343,7 +343,7 @@ In this task, you will observe the current Active/Standby HA state.
 
       -  **Is it successful?**
 
-         -  .. image:: ./images/image42.png
+         -  .. image:: ../images/image42.png
                :width: 16.04653in
                :height: 6.13889in
 
@@ -353,13 +353,13 @@ In this task, you will observe the current Active/Standby HA state.
 
    -  BIG-IP-A:
 
-      -  .. image:: ./images/image43.png
+      -  .. image:: ../images/image43.png
             :width: 5.52778in
             :height: 3.85208in
 
    -  BIG-IP-B:
 
-      -  .. image:: ./images/image44.png
+      -  .. image:: ../images/image44.png
             :width: 5.51875in
             :height: 3.28681in
 
@@ -400,7 +400,7 @@ On each BIG-IP:
 
 
 
--  .. image:: ./images/image45.png
+-  .. image:: ../images/image45.png
       :width: 7.82431in
       :height: 6.11111in
 
@@ -412,7 +412,7 @@ On each BIG-IP:
 -  Under the Port Lockdown drop-down, change the value to "Allow
    Default," then click the Update button:
 
-   -  .. image:: ./images/image46.png
+   -  .. image:: ../images/image46.png
          :width: 6.40764in
          :height: 4.37986in
 
@@ -531,13 +531,13 @@ On each BIG-IP, review the current state.
 
 -  BIG-IP-A:
 
-   -  .. image:: ./images/image48.png
+   -  .. image:: ../images/image48.png
          :width: 4.87014in
          :height: 1.25in
 
 -  BIG-IP-B:
 
-   -  .. image:: ./images/image49.png
+   -  .. image:: ../images/image49.png
          :width: 4.62986in
          :height: 1.24097in
 
@@ -587,7 +587,7 @@ On the ACTIVE BIG-IP:
 
 
 
--  .. image:: ./images/image50.png
+-  .. image:: ../images/image50.png
       :width: 4.12986in
       :height: 3.56458in
 
@@ -602,7 +602,7 @@ On the ACTIVE BIG-IP:
 
    -  Address = 10.1.10.199
 
-      -  .. image:: ./images/image51.png
+      -  .. image:: ../images/image51.png
             :width: 6.48125in
             :height: 4.12986in
 
@@ -624,7 +624,7 @@ On the ACTIVE BIG-IP,
 
 -  Notice the "Changes Pending" in the upper-left corner:
 
-   -  .. image:: ./images/image52.png
+   -  .. image:: ../images/image52.png
          :width: 4.5in
          :height: 1.20347in
 
@@ -632,7 +632,7 @@ On the ACTIVE BIG-IP,
 
    -  Review the recommendations, and perform a ConfigSync to peer:
 
-      -  .. image:: ./images/image53.png
+      -  .. image:: ../images/image53.png
             :width: 7.94444in
             :height: 6.87986in
 
@@ -644,7 +644,7 @@ On the ACTIVE BIG-IP,
 -  While the configuration is being pushed, you will see a "Syncing"
    icon display in the middle:
 
-   -  .. image:: ./images/image54.png
+   -  .. image:: ../images/image54.png
          :width: 9.64792in
          :height: 1.37986in
 
@@ -658,7 +658,7 @@ On the ACTIVE BIG-IP,
 
    -  Verify the sync state:
 
-      -  .. image:: ./images/image55.png
+      -  .. image:: ../images/image55.png
             :width: 7.32431in
             :height: 4.14792in
 
@@ -694,7 +694,7 @@ to see logging data in real-time:
 
 -  Access the "WEB SHELL" from UDF for each BIG-IP:
 
-   -  .. image:: ./images/image56.png
+   -  .. image:: ../images/image56.png
          :width: 3.82431in
          :height: 2.76875in
 
@@ -708,13 +708,13 @@ to see logging data in real-time:
 
       -  BIG-IP-A:
 
-         -  .. image:: ./images/image57.png
+         -  .. image:: ../images/image57.png
                :width: 9.65764in
                :height: 0.62014in
 
       -  BIG-IP-B:
 
-         -  .. image:: ./images/image58.png
+         -  .. image:: ../images/image58.png
                :width: 9.35208in
                :height: 0.77778in
 
@@ -736,7 +736,7 @@ to see logging data in real-time:
 
 
 
--  .. image:: ./images/image59.png
+-  .. image:: ../images/image59.png
       :width: 10.23125in
       :height: 6.08333in
 
@@ -772,7 +772,7 @@ to see logging data in real-time:
 
 -  Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
 
-   -  .. image:: ./images/image60.png
+   -  .. image:: ../images/image60.png
          :width: 7.57431in
          :height: 2.90764in
 
@@ -808,7 +808,7 @@ to see logging data in real-time:
 
 
 
--  .. image:: ./images/image61.png
+-  .. image:: ../images/image61.png
       :width: 21.12014in
       :height: 6.57431in
 
@@ -836,7 +836,7 @@ to see logging data in real-time:
 |              | 1.2, then click the "Enable" button:                 |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image62.png
+-  .. image:: ../images/image62.png
       :width: 5.27778in
       :height: 5.71319in
 
@@ -877,7 +877,7 @@ NOTES:
 
 
 
--  .. image:: ./images/image63.png
+-  .. image:: ../images/image63.png
       :width: 5.49097in
       :height: 4.42569in
 
@@ -888,7 +888,7 @@ NOTES:
 
 -  Add an HA Group Name; example: bigip-b_ha-group
 
-   -  .. image:: ./images/image64.png
+   -  .. image:: ../images/image64.png
          :width: 4.28681in
          :height: 4.77778in
 
@@ -899,7 +899,7 @@ NOTES:
 
 -  Next, we will add our Trunk links to our HA Group Configuration:
 
-   -  .. image:: ./images/image65.png
+   -  .. image:: ../images/image65.png
          :width: 7.66667in
          :height: 3.23125in
 
@@ -910,7 +910,7 @@ NOTES:
 -  Add the External Trunk object, and click the "Add" button; repeat
    this step for the Internal Trunk object:
 
-   -  .. image:: ./images/image66.png
+   -  .. image:: ../images/image66.png
          :width: 5.74097in
          :height: 3.33333in
 
@@ -921,7 +921,7 @@ NOTES:
 
 -  Verify that your HA Group Trunk configuration reflects the following:
 
-   -  .. image:: ./images/image67.png
+   -  .. image:: ../images/image67.png
          :width: 10.79653in
          :height: 2.07431in
 
@@ -933,7 +933,7 @@ NOTES:
 -  Verify your HA Group Configuration; once complete, click the "Create
    HA Group" button:
 
-   -  .. image:: ./images/image68.png
+   -  .. image:: ../images/image68.png
          :width: 10.66667in
          :height: 4.83333in
 
@@ -945,7 +945,7 @@ NOTES:
 -  After HA Group Creation, you should be presented with the following
    screen, showing your HA Group configuration object:
 
-   -  .. image:: ./images/image69.png
+   -  .. image:: ../images/image69.png
          :width: 6.45347in
          :height: 1.99097in
 
@@ -973,7 +973,7 @@ NOTES:
 
 
 
--  .. image:: ./images/image70.png
+-  .. image:: ../images/image70.png
       :width: 6.33333in
       :height: 2.5in
 
@@ -984,7 +984,7 @@ NOTES:
 -  From the "Health Monitor" Section, select the drop-down for "HA
    Group:"
 
-   -  .. image:: ./images/image71.png
+   -  .. image:: ../images/image71.png
          :width: 7.61111in
          :height: 7.28681in
 
@@ -994,7 +994,7 @@ NOTES:
 
 -  Select our HA Group we created previously:
 
-   -  .. image:: ./images/image72.png
+   -  .. image:: ../images/image72.png
          :width: 3.87014in
          :height: 0.97222in
 
@@ -1006,7 +1006,7 @@ NOTES:
    "Failover to Device With Best HA Score," then click the "**Save**"
    button:
 
-   -  .. image:: ./images/image73.png
+   -  .. image:: ../images/image73.png
          :width: 6.12014in
          :height: 5.85208in
 
@@ -1018,7 +1018,7 @@ NOTES:
 -  Review the Traffic Groups screen, and verify the Failover Method is
    set to HA Score:
 
-   -  .. image:: ./images/image74.png
+   -  .. image:: ../images/image74.png
          :width: 7.85208in
          :height: 3.28681in
 

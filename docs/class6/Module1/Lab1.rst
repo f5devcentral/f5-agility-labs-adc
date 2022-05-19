@@ -125,7 +125,7 @@ Lab Tasks:
 |              | "+" button to create a new Trunk                     |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image1.png
+-  .. image:: ../images/image1.png
       :width: 4.07431in
       :height: 3.14792in
 
@@ -147,7 +147,7 @@ Lab Tasks:
 
 -  Example - Internal Trunk:
 
-   -  .. image:: ./images/image2.png
+   -  .. image:: ../images/image2.png
          :width: 5.36111in
          :height: 3.39792in
 
@@ -155,7 +155,7 @@ Lab Tasks:
 
 
 
--  .. image:: ./images/image3.png
+-  .. image:: ../images/image3.png
       :width: 5.12986in
       :height: 3.25in
 
@@ -165,7 +165,7 @@ Lab Tasks:
 
 -  External Trunk:
 
-   -  .. image:: ./images/image4.png
+   -  .. image:: ../images/image4.png
          :width: 5.13889in
          :height: 3.25in
 
@@ -175,7 +175,7 @@ Lab Tasks:
 
 -  HA Trunk:
 
-   -  .. image:: ./images/image5.png
+   -  .. image:: ../images/image5.png
          :width: 5.44444in
          :height: 3.37986in
 
@@ -185,7 +185,7 @@ Lab Tasks:
 
 -  View of Trunk List after creating all three Trunks:
 
-   -  .. image:: ./images/image6.png
+   -  .. image:: ../images/image6.png
          :width: 7.25in
          :height: 2.57431in
 
@@ -232,7 +232,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 |              | button to create a new VLAN                          |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image7.png
+-  .. image:: ../images/image7.png
       :width: 4.11111in
       :height: 3.57431in
 
@@ -248,7 +248,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  Internal VLAN:
 
-   -  .. image:: ./images/image8.png
+   -  .. image:: ../images/image8.png
          :width: 7.11111in
          :height: 3.95347in
 
@@ -256,7 +256,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 
 
--  .. image:: ./images/image9.png
+-  .. image:: ../images/image9.png
       :width: 6.70347in
       :height: 6.32431in
 
@@ -264,7 +264,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  External VLAN:
 
-   -  .. image:: ./images/image10.png
+   -  .. image:: ../images/image10.png
          :width: 6.41667in
          :height: 6.44444in
 
@@ -274,7 +274,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  HA VLAN:
 
-   -  .. image:: ./images/image11.png
+   -  .. image:: ../images/image11.png
          :width: 6.41667in
          :height: 6.45347in
 
@@ -285,7 +285,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 -  View of the VLAN List after all VLANs have been defined, and
    associated to their respective Trunk:
 
-   -  .. image:: ./images/image12.png
+   -  .. image:: ../images/image12.png
          :width: 7.37986in
          :height: 2.66667in
 
@@ -364,7 +364,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 
 
--  .. image:: ./images/image13.png
+-  .. image:: ../images/image13.png
       :width: 2.56458in
       :height: 1.29653in
 
@@ -378,7 +378,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  Self IP, VLAN 10:
 
-   -  .. image:: ./images/image14.png
+   -  .. image:: ../images/image14.png
          :width: 6.55556in
          :height: 3.57431in
 
@@ -388,7 +388,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  Self IP, VLAN 20:
 
-   -  .. image:: ./images/image15.png
+   -  .. image:: ../images/image15.png
          :width: 6.41667in
          :height: 3.68542in
 
@@ -398,7 +398,7 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  Self IP, HA VLAN 30:
 
-   -  .. image:: ./images/image16.png
+   -  .. image:: ../images/image16.png
          :width: 6.59236in
          :height: 3.81458in
 
@@ -406,6 +406,6 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -  View of the Self IP List after all Self IPs have been defined:
 
-   -  .. image:: ./images/image17.png
+   -  .. image:: ../images/image17.png
          :width: 7.37986in
          :height: 2.68542in
