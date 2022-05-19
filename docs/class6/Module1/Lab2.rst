@@ -15,7 +15,7 @@ and finalize configuration for HA Groups.
 
 
 
--
+
 
 +--------------+--------------------------------------------------------------+
 | Navigate to: | Device Management --> Devices --> click the (Self) hyperlink |
