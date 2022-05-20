@@ -15,7 +15,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 * On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
 
 
-.. image:: ../images/image90.png
+.. image:: ../images/image100.png
    :width: 5.57547in
    :height: 0.64571in
 
