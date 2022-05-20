@@ -3,16 +3,11 @@ Getting Started
 
 You will be using our Unified Demo Framework (UDF) environment to complete the tasks in this lab.  All configuration can be completed from a Web browser.
 
-.. NOTE::
-
-	All work for this lab will be performed exclusively from your Web browser.
-
-
 Lab Topology Diagram
----------------
-.. image:: ../images/image90.png
-   :width: 5.57547in
-   :height: 0.64571in
+--------------------
+.. image:: images/image90.png
+   :width: 1080
+   :height: 795
 
 The following components have been included in your lab environment:
 
@@ -40,5 +35,4 @@ The following table lists the management IP Addresses and Credentials for all co
    * - Windows Jumpbox
      - 10.1.1.4
      - external_user:admin.F5demo.com
-     - Administrator:7vezsdTBQTtR8
 
