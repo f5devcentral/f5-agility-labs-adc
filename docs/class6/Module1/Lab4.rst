@@ -28,9 +28,13 @@ Now that we have succesfully configured HA Groups we will perform a series of va
    :height: 0.64571in
 
 
+
+
 .. image:: ../images/image102.png
       :width: 5.57547in
       :height: 0.64571in
+
+
 
 
 
