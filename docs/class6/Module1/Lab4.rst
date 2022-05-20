@@ -1,153 +1,169 @@
+Lab 4:  Test & Validate a Failover Scenario
+===========================================
 
-===================================================================
-Lab 5: Validating, Testing & Troubleshooting HA Group Functionality
-===================================================================
+Lab Tasks:
+==========
+* Task 1: Disable a BIG-IP Interface
+* Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
-Now that we have succesfully configured HA Groups we will perform a series of validation tests as well as provide tips for troubleshooting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-* Disable an interface to force HA Group actions
 
-* In this task we will manipulate an interface on the active BIG-IP.   We will also disable an interface and observe BIG-IP behavior during failover.
-   We will also monitor logs to review the failover process.
+**Task 1: Disable a BIG-IP Interface**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
 
+In this task, we will simulate a "link down" failure on the ACTIVE
+BIG-IP, and determine if the BIG-IP will failover automatically.
 
-.. image:: ../images/image100.PNG
-   :width: 5.57547in
-   :height: 0.64571in
 
 
-* During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
+We will compare the failover timing once we create & use our HA Group
+configuration design.
 
 
 
-.. image:: ../images/image101.png
-   :width: 3.57547in
-   :height: 0.64571in
+BONUS: From the BIG-IP CLI, perform a "follow" of the */var/log/ltm* log
+to see logging data in real-time:
 
+-  Access the "WEB SHELL" from UDF for each BIG-IP:
 
+   -  .. image:: ./images/image56.png
+         :width: 3.82431in
+         :height: 2.76875in
 
+..
 
+   
 
+-  Run the following command at shell prompt:
 
-*    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
-      device.
+   -  *tail -f /var/log/ltm*
 
+      -  BIG-IP-A:
 
+         -  .. image:: ./images/image57.png
+               :width: 9.65764in
+               :height: 0.62014in
 
-  .. image:: ../images/image91.png
-         :width: 5.57547in
-         :height: 0.64571in
+      -  BIG-IP-B:
 
+         -  .. image:: ./images/image58.png
+               :width: 9.35208in
+               :height: 0.77778in
 
-  .. image:: ../images/image92.png
-            :width: 5.57547in
-            :height: 0.64571in
+.. _section-15:
 
 
-#.  We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
+~
 
-  #. Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
+-  
 
++----------------------------------+----------------------------------+
+| .. rubric:: From the *ACTIVE*    | Network --> Interfaces --> place |
+|    BIG-IP, navigate to:          | a checkmark next to 1.1 & click  |
+|    :name: fr                     | the "Disable" button             |
+| om-the-active-big-ip-navigate-to |                                  |
++----------------------------------+----------------------------------+
 
-  .. image:: ../images/image92.png
-            :width: 5.57547in
-            :height: 0.64571in
+..
 
-#. Did a failover event occur?   If so, why or why not?
+   
 
-**This concludes the **BIG-IP HA Failover - do it the proper way** lab.
+-  .. image:: ./images/image59.png
+      :width: 10.23125in
+      :height: 6.08333in
 
 
 
+-  
 
++-------------+-------------------------------------------------------+
+| Question:   | Did the BIG-IP failover? Why or why not?              |
++=============+=======================================================+
+| Answer:     | No, the BIG-IP did not failover, as the interface     |
+|             | objects are not part of the HA configuration.         |
++-------------+-------------------------------------------------------+
+| Log Output: | Apr 28 15:13:47 bigipB.f5demo.com info lacpd[7293]:   |
+|             | 01160016:6: Interface 1.1, link admin status:         |
+|             | disabled, link status: up, duplex mode: full, lacp    |
+|             | operation state: down                                 |
+|             | Apr 28 15:13:47 bigipB.f5demo.com info lacpd[7293]:   |
+|             | 01160010:6: Link 1.1 removed from aggregation         |
+|             | Apr 28 15:13:47 bigipB.f5demo.com notice mcpd[4745]:  |
+|             | 01bb0003:5: Trunk: int_trunk is DOWN                  |
+|             | Apr 28 15:13:47 bigipB.f5demo.com notice mcpd[4745]:  |
+|             | 01b5004a:5: Link: 1.1 is DISABLED                     |
+|             | Apr 28 15:13:50 bigipB.f5demo.com warning sod[7297]:  |
+|             | 010c0083:4: No failover status messages received for  |
+|             | 3.100 seconds, from device bigipA.f5demo.com          |
+|             | (10.1.1.5) (unicast: -> 10.1.10.242).                 |
++-------------+-------------------------------------------------------+
 
 
-.. image:: ../images/image92.png
-          :width: 5.57547in
-          :height: 0.64571in
 
+   
 
-**Supplemental Resources:**
+-  Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
 
+   -  .. image:: ./images/image60.png
+         :width: 7.57431in
+         :height: 2.90764in
 
-   `https://support.f5.com/csp/article/K16947`_
 
 
-   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html`_
+-  
 
++----------+----------------------------------------------------------+
+| Question | Did the BIG-IPs failover? Are they Active/Standby?       |
++==========+==========================================================+
+| Answer   | No failover. Both BIG-IPs in an Active / Active state    |
++----------+----------------------------------------------------------+
+| Logs:    | Apr 28 15:19:38 bigipB.f5demo.com info lacpd[7293]:      |
+|          | 01160016:6: Interface 1.2, link admin status: disabled,  |
+|          | link status: up, duplex mode: full, lacp operation       |
+|          | state: down                                              |
+|          | Apr 28 15:19:38 bigipB.f5demo.com info lacpd[7293]:      |
+|          | 01160010:6: Link 1.2 removed from aggregation            |
+|          | Apr 28 15:19:38 bigipB.f5demo.com notice mcpd[4745]:     |
+|          | 01bb0003:5: Trunk: ext_trunk is DOWN                     |
+|          | Apr 28 15:19:38 bigipB.f5demo.com notice mcpd[4745]:     |
+|          | 01b5004a:5: Link: 1.2 is DISABLED                        |
+|          | **Apr 28 15:19:41 bigipB.f5demo.com warning sod[7297]:   |
+|          | 010c0083:4: No failover status messages received for     |
+|          | 3.100 seconds, from device bigipA.f5demo.com (10.1.1.5)  |
+|          | (unicast: -> 10.1.20.242).                               |
+|          | Apr 28 15:19:41 bigipB.f5demo.com notice sod[7297]:      |
+|          | 010c007e:5: Not receiving status updates from peer       |
+|          | device bigipA.f5demo.com (10.1.1.5) (Disconnected).**    |
++----------+----------------------------------------------------------+
 
-   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0/creating-an-active-standby-configuration-using-the-configuration-utility.html`_
+..
 
+   
 
-   `https://support.f5.com/csp/article/K13946`_
+-  .. image:: ./images/image61.png
+      :width: 21.12014in
+      :height: 6.57431in
 
+.. _section-16:
 
-   `https://support.f5.com/csp/article/K41983050`_
 
+-
 
-   `https://support.f5.com/csp/article/K41983050`_
+.. _section-17:
 
 
+**Task 2: Enable both Interfaces on ACTIVE BIG-IP**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   Ports	Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended).
-   BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128
-**Appendix:**
+-  
 
-   •	tmsh commands cheat sheet:
++--------------+------------------------------------------------------+
+| Navigate to: | Network --> Interfaces --> place checkmarks in 1.1 & |
+|              | 1.2, then click the "Enable" button:                 |
++--------------+------------------------------------------------------+
 
-   Task 1:	Create BIG-IP Trunks
-
-   tmsh create net trunk int_trunk interfaces add { 1.1 }
-   tmsh create net trunk ext_trunk interfaces add { 1.2 }
-   tmsh create net trunk HA_trunk interfaces add { 1.3 }
-
-
-   Task 2:	Create BIG-IP VLANs
-
-   tmsh create net vlan int_vlan_10 tag 10 interfaces add { int_trunk }
-   tmsh create net vlan ext_vlan_20 tag 20 interfaces add { ext_trunk }
-   tmsh create net vlan HA_vlan_30 tag 30 interfaces add { HA_trunk }
-
-
-   Task 3:	Create BIG-IP Self IPs
-
-   tmsh create net self self_vlan10 address 10.1.10.242/24 vlan int_vlan_10
-   tmsh create net self self_vlan20 address 10.1.20.242/24 vlan ext_vlan_20
-   tmsh create net self self_ha_vlan30 address 10.1.30.242/24 vlan HA_vlan_30
-
-
-   Task 4:	Define Device Service Cluster High-Availability Settings
-
-
-   tmsh modify cm device bigip1 configsync-ip 10.1.30.242
-   tmsh modify cm device bigip1 unicast-address { { ip 10.1.10.242 } { ip 10.1.20.242 } }
-
-
-Configure HA
-~~~~~~~~~~~~
-
-#.
-#.
-   .. image:: ../images/image1.png
-      :width: 5.57547in
-      :height: 0.64571in
-
-
-   .. image:: ../images/image2.png
-      :width: 5.57547in
-      :height: 0.62307in
-
-
-
-   #. Archive your work.
-
-.. |image0| image:: ../images/image1.png
-   :width: 5.57547in
-   :height: 0.64571in
-.. |image1| image:: ../images/image2.png
-   :width: 5.57547in
-   :height: 0.62307in
+-  .. image:: ./images/image62.png
+      :width: 5.27778in
+      :height: 5.71319in
