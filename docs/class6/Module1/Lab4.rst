@@ -1,7 +1,7 @@
 
-
-Lab x: Validating, Testing & Troubleshooting HA Group Functionality
-=====================================
+===================================================================
+Lab 5: Validating, Testing & Troubleshooting HA Group Functionality
+===================================================================
 
 Now that we have succesfully configured HA Groups we will perform a series of validation tests as well as provide tips for troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -15,7 +15,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 * On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
 
 
-.. image:: ../images/image1.png
+.. image:: ../images/image100.PNG
    :width: 5.57547in
    :height: 0.64571in
 
@@ -23,12 +23,12 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 * During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
 
-.. image:: ../images/image91.png
+.. image:: ../images/image101.png
    :width: 5.57547in
    :height: 0.64571in
 
 
-.. image:: ../images/image92.png
+.. image:: ../images/image102.png
       :width: 5.57547in
       :height: 0.64571in
 
