@@ -9,13 +9,14 @@ Lab Topology Diagram
 
 The following components have been included in your lab environment:
 
-* 2 x F5 BIG-IP VE (v16.1.2.2)
-* 1 x Windows Jumphost
+* F5 BIG-IP VE (bigipA)
+* F5 BIG-IP VE (bigipB)
+* Windows Jumphost
 
 Lab Components
 ---------------
 
-The following table lists the management IP Addresses and Credentials for all components:
+The following table lists the management IP addresses and credentials for all components:
 
 .. list-table:: 
    :widths: auto
