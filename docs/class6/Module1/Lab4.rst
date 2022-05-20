@@ -1,3 +1,5 @@
+
+
 Lab x: Validating, Testing & Troubleshooting HA Group Functionality
 =====================================
 
@@ -5,12 +7,12 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-#. Disable an interface to force HA Group actions
+* Disable an interface to force HA Group actions
 
-#. In this task we will manipulate an interface on the active BIG-IP.   We will also disable an interface and observe BIG-IP behavior during failover.
+* In this task we will manipulate an interface on the active BIG-IP.   We will also disable an interface and observe BIG-IP behavior during failover.
    We will also monitor logs to review the failover process.
 
-#. On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+* On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
 
 
 .. image:: ../images/image1.png
@@ -18,7 +20,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
    :height: 0.64571in
 
 
-#. During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
+* During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
 
 .. image:: ../images/image91.png
@@ -73,22 +75,22 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 **Supplemental Resources:**
 
 
-   https://support.f5.com/csp/article/K16947
+   `https://support.f5.com/csp/article/K16947`_
 
 
-   https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html
+   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html`_
 
 
-   https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0/creating-an-active-standby-configuration-using-the-configuration-utility.html
+   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0/creating-an-active-standby-configuration-using-the-configuration-utility.html`_
 
 
-   https://support.f5.com/csp/article/K13946
+   `https://support.f5.com/csp/article/K13946`_
 
 
-   https://support.f5.com/csp/article/K41983050
+   `https://support.f5.com/csp/article/K41983050`_
 
 
-   https://support.f5.com/csp/article/K41983050
+   `https://support.f5.com/csp/article/K41983050`_
 
 
 
