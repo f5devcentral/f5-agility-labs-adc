@@ -34,7 +34,6 @@ The following table lists the management IP Addresses and Credentials for all co
    * - bigipA
      - 10.1.1.5
      - admin:	admin.F5demo.com
-     - 
    * - bigipB
      - 10.1.1.6
      - root:default
@@ -42,5 +41,4 @@ The following table lists the management IP Addresses and Credentials for all co
      - 10.1.1.4
      - external_user:admin.F5demo.com
      - Administrator:7vezsdTBQTtR8
-
 
