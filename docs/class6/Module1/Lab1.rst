@@ -1,25 +1,21 @@
 Lab 1: Configure BIG-IP Trunks, VLAN's, and Self-IP's
-=====================================
+=====================================================
 
 Lab Tasks:
 ==========
+* Task 1: Create BIG-IP Trunks
+* Task 2: Create BIG-IP VLANs
+* Task 3: Create BIG-IP Self IPs
 
 
-
-=================== ========================
-.. rubric:: Task 1: **Create BIG-IP Trunks**
-   :name: task-1
-=================== ========================
+**Task 1: Create BIG-IP Trunks**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-
-   On both BIG-IP devices, configure trunks under the Network
-   configuration section.
+On both BIG-IP devices, configure trunks under the Network configuration section.
 
 
-
-   Use the following table to create & define your three Trunks:
-
+Use the following table to create & define your three Trunks:
 
 
 +----------------+----------------------+-------------------------+
@@ -41,7 +37,6 @@ Lab Tasks:
 
 
 
--
 
 +--------------+------------------------------------------------------+
 | Navigate to: | Network --> Trunks --> Trunk List, then click the    |
@@ -118,21 +113,17 @@ Lab Tasks:
 
 
 
-=================== =======================
-.. rubric:: Task 2: **Create BIG-IP VLANs**
-   :name: task-2
-=================== =======================
-
+**Task 2: Create BIG-IP VLANs**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..
 
 
 
-   On both BIG-IP devices, configure VLANs under the Network
-   configuration section.
+On both BIG-IP devices, configure VLANs under the Network configuration section.
 
 
 
-   Use the following table to create & define your three VLANs:
+Use the following table to create & define your three VLANs:
 
 
 
@@ -217,21 +208,17 @@ HA_vlan_30  30      HA_trunk      Untagged
 
 -
 
-=================== ==========================
-.. rubric:: Task 3: **Create BIG-IP Self IPs**
-   :name: task-3
-=================== ==========================
-
+**Task 3: Create BIG-IP Self IPs**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ..
 
 
 
-   On both BIG-IP devices, configure their respective Self IPs under the
-   Network configuration section.
+On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
 
 
 
-   Use the following table to create & define your three Self IPs:
+Use the following table to create & define your three Self IPs:
 
 
 
