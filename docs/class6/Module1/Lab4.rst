@@ -23,9 +23,13 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 * During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
 
+
 .. image:: ../images/image101.png
    :width: 3.57547in
    :height: 0.64571in
+
+
+
 
 
 
@@ -38,7 +42,10 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
 
 
-#.    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
+
+
+
+*    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
       device.
 
 
