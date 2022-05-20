@@ -9,9 +9,12 @@ Lab Topology Diagram
 
 The following components have been included in your lab environment:
 
-* F5 BIG-IP VE (bigipA)
-* F5 BIG-IP VE (bigipB)
-* Windows Jumphost
+#. F5 BIG-IP VE (bigipA)
+
+#. F5 BIG-IP VE (bigipB)
+
+#. Windows Jumphost
+
 
 Lab Components
 ---------------
