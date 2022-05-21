@@ -42,18 +42,18 @@ Task 1: Create BIG-IP Trunks
 
       When you define the last trunk, you may select the "Finished" button
 
-   Example - Internal Trunk:
+   -  Internal Trunk:
 
    -  .. image:: ../images/image2.png
 
 
    -  .. image:: ../images/image3.png
 
-   External Trunk:
+   -  External Trunk:
 
    -  .. image:: ../images/image4.png
 
-   HA Trunk:
+   -  HA Trunk:
 
    -  .. image:: ../images/image5.png
 
@@ -161,22 +161,22 @@ Task 1: Create BIG-IP Trunks
 
    -  .. image:: ../images/image13.png
 
-   Create the respective Self IPs per the table above.
+#. Create the respective Self IPs per the table above.
 
-   Self IP, VLAN 10:
+   -  Self IP, VLAN 10:
 
    -  .. image:: ../images/image14.png
 
-   Self IP, VLAN 20:
+   -  Self IP, VLAN 20:
 
    -  .. image:: ../images/image15.png
 
-   Self IP, HA VLAN 30:
+   -  Self IP, HA VLAN 30:
 
    -  .. image:: ../images/image16.png
 
-   View of the Self IP List after all Self IPs have been defined:
+   -  View of the Self IP List after all Self IPs have been defined:
 
    -  .. image:: ../images/image17.png
 
-#. You have completed lab 1 and should have network connectivity between the devices on all VLANs.
+#. You have completed this lab and should have network connectivity between the devices on all VLANs.
