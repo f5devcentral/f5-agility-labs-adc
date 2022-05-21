@@ -114,7 +114,7 @@ Task 3: Create BIG-IP Self IPs
       :align: center
       :header-rows: 1
    
-      * - ** BIG-IP **
+      * - BIG-IP
         - Name
         - IP address
         - Netmask
