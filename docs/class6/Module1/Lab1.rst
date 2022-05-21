@@ -62,8 +62,8 @@ Task 1: Create BIG-IP Trunks
    -  .. image:: ../images/image6.png
 
 
-**Task 2: Create BIG-IP VLANs**
-===============================
+Task 2: Create BIG-IP VLANs
+===========================
 
 #. On both BIG-IP devices, configure VLANs under the Network configuration section.
 
@@ -103,8 +103,8 @@ Task 1: Create BIG-IP Trunks
 
    -  .. image:: ../images/image12.png
 
-**Task 3: Create BIG-IP Self IPs**
-==================================
+Task 3: Create BIG-IP Self IPs
+==============================
 #. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
 
    Use the following table to create & define your three Self IPs:
