@@ -3,6 +3,8 @@ Getting Started
 
 You will be using our Unified Demo Framework (UDF) environment to complete the tasks in this lab.  All configuration can be completed from a Web browser.
 
+Estimated time of completion = 45 minutes
+
 Lab Topology Diagram
 --------------------
 .. image:: images/image90.png
