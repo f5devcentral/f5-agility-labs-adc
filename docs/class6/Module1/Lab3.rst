@@ -13,10 +13,14 @@ Task 1:  Modify Self IP Port Lockdown
 
 For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.  In this Task, we will define a Custom Port Lockdown configuration on the respective Self IPs.
 
-For our HA VLAN, we will select **"Allow Default"**
-For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
+* For our HA VLAN, we will select **"Allow Default"**
+* For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
 
 There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
+
+In this Task, we will modify the Self IP port lockdown behavior.
+ 
+When we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
 
 
 **On each BIG-IP:**
@@ -41,9 +45,14 @@ There are port lockdown exceptions to be aware of.  Please review Knowledge Arti
       * - Answer:
         - No, still Active / Active - Failover via unicast Self IPs & port lockdown
 
-#. On both BIG-IPs, modify the Internal & External Self IP Port Lockdown settings
+#. On both BIG-IPs, modify both the Internal & External Self IP Port Lockdown settings
 
-   -  Change from "Allow None" to "Allow Default"
+   -  Change from "Allow None" to **"Allow Custom"**
+      - From the Port Lockdown drop-down, select "Allow Custom."  Click the radio button for UDP.  Click the radio button for Port.  In the Port field, enter 1026.  Click Add.
+        -  .. image:: ../images/image112.png
+        -  You should see "1026" listed in the UDP Custom List section.  Click Update.
+            -  .. image:: ../images/image113.png
+   - Repeat this step on the External VLAN
 
    .. list-table:: 
       :widths: auto
