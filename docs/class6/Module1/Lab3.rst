@@ -5,7 +5,7 @@ Lab Tasks:
 **********
 * Task 1: Modify Self IP Port Lockdown
 * Task 2: Verify an Active / Standby "In Sync" State
-* Task 3: Create an LTM Node Configuration Object
+* Task 3: Create LTM Virtual Server Configuration Objects
 * Task 4: Perform a Configuration Synchronization between BIG-IPs
 
 Task 1:  Modify Self IP Port Lockdown
@@ -96,22 +96,25 @@ Task 2: Verify an Active / Standby "In Sync" State
 
 #. If your BIG-IPs are in a state other than the above, please review the previous steps to ensure correct configuration.
 
-Task 3: Create an LTM Node Configuration Object
-===============================================
+Task 3: Create LTM Virtual Server Configuration Objects
+=======================================================
 
-In this task, we will create an LTM node object that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
+In this task, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
 
-**On the ACTIVE BIG-IP**
+**On the ACTIVE BIG-IP, Create Pool & Node Objects**
 
-#. **Navigate to**: Local Traffic > Nodes > Node List > click the "+" sign to create a new node
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool
 
-   -  .. image:: ../images/image50.png
+   -  .. image:: ../images/image114.png
 
-#. Create the following Windows Server Node Object, and click Finished
+#. Create the following Windows Server Pool Configuration Objects:
 
-   -  **Name:** win_server
-
-   -  **Address:** 10.1.10.199
+   -  **Name:** server_pool
+   -  **Health Monitors:** gateway_icmp
+   -  Within the Resources Section:
+   -  **New Node Address:** 10.1.10.199
+   -  **Service Port:** *All Services
+   -  C
 
    -  .. image:: ../images/image51.png
 
