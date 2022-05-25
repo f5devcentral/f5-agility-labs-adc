@@ -11,6 +11,14 @@ Lab Tasks:
 Task 1:  Modify Self IP Port Lockdown
 =====================================
 
+For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.  In this Task, we will define a Custom Port Lockdown configuration on the respective Self IPs.
+
+For our HA VLAN, we will select **"Allow Default"**
+For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
+
+Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.  There are port lockdown exceptions
+
+
 **On each BIG-IP:**
 
 #. **Navigate to**: Network > Self IPs
