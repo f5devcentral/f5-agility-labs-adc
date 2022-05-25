@@ -40,6 +40,18 @@ Task 1:  Define Device Service Cluster High-Availability Settings
 
    -  .. image:: ../images/image24.png
 
+#. Click the "Mirroring" banner:
+
+   -  .. image:: ../images/image110.png
+
+
+#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
+
+   -  .. image:: ../images/image111.png
+
+For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
+
+
 Task 2: Configure & Verify Device Trust between BIG-IPs
 =======================================================
 

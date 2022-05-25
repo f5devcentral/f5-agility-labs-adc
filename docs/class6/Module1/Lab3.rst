@@ -16,7 +16,7 @@ For optimal security, F5 recommends that you use the port lockdown feature to al
 For our HA VLAN, we will select **"Allow Default"**
 For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
 
-Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.  There are port lockdown exceptions
+There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
 
 
 **On each BIG-IP:**
