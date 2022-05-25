@@ -179,4 +179,9 @@ Task 3: Create BIG-IP Self IPs
 
    -  .. image:: ../images/image17.png
 
-#. You have completed this lab and should have network connectivity between the devices on all VLANs.
+
+Lab Summary
+^^^^^^^^^^^
+In this lab, you setup basic BIG-IP network configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the following labs.
+
+This completes Lab 1.

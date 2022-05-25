@@ -167,3 +167,9 @@ to see logging data in real-time:
 -  .. image:: ./images/image62.png
       :width: 5.27778in
       :height: 5.71319in
+
+Lab Summary
+^^^^^^^^^^^
+In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event.  After completion of these lab tasks, you should have an understanding of how the BIG-IP behaves in a typical HA design.  The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
+
+This completes Lab 4.

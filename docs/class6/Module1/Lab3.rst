@@ -122,3 +122,10 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 #. Verify the sync state:
 
    -  .. image:: ../images/image55.png
+
+
+Lab Summary
+^^^^^^^^^^^
+In this lab, you configured addtional BIG-IP configuration objects.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
+
+This completes Lab 3.

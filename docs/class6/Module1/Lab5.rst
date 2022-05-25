@@ -5,8 +5,6 @@ Lab Tasks:
 ==========
 * Task 1: Create HA Groups
 * Task 2: Enable HA Group as the Preferred Failover Method
-* Task 3: Create an LTM Node Configuration Object
-* Task 4: Perform a Configuration Synchronization between BIG-IPs
 
 **Task 1: Create HA Groups**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -180,3 +178,9 @@ NOTES:
 
 -  Perform this same procedure to setup the HA Group configuration on
    *bigipB.f5demo.com*
+
+Lab Summary
+^^^^^^^^^^^
+In this lab, you enhanced your HA configuration to leverage HA Groups.  HA Groups provide the ability to monitor an "object" and take action upon and event.  After completion of these lab tasks, your BIG-IP should be leveraging HA Groups for failover.  In the following lab, we will test & validate how this configuration enhances the failover timing.
+
+This completes Lab 5.
