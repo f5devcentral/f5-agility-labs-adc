@@ -28,6 +28,11 @@ Task 1:  Define Device Service Cluster High-Availability Settings
 
    -  .. image:: ../images/image21.png
 
+#. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
+
+   -  .. image:: ../images/image115.png
+
+
 #. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
 
    -  .. image:: ../images/image22.png
