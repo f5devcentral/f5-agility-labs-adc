@@ -55,6 +55,10 @@ Task 1:  Define Device Service Cluster High-Availability Settings
 
    -  .. image:: ../images/image111.png
 
+To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
+
+For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
+
 For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
 
 
@@ -158,7 +162,28 @@ both BIG-IP systems.
    -  .. image:: ../images/image39.png
 
 Task 4:  Setup MAC Masquerade
-=========================================
+=============================
+
+To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic groups on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
+
+In this task, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+
+In Virtualized environments, there are come configuration caveats to be aware of; please review the **Notes** section in Article `K13502 <https://support.f5.com/csp/article/K13502>`_
+
+First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs, and flip the 1st MAC HEX value to "02."
+
+1.  Navigate to Network --> Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
+   -  .. image:: ../images/image116.png
+2.  Now, navigate to Device Management --> Traffic Groups --> click the traffic-group-1 hyperlink:
+   -  .. image:: ../images/image117.png
+3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
+   -  .. image:: ../images/image118.png
+   -  Replace the "52" with "02" and click Save
+       -  .. image:: ../images/image119.png
+4. After this change, Sync your BIG-IP configurations.
+   -  .. image:: ../images/image120.png
+
+
 
 Task 5:  Validate the Device Group Status
 =========================================
