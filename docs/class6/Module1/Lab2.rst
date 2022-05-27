@@ -6,7 +6,8 @@ Lab Tasks:
 * Task 1: Define DSC HA Settings
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
-* Task 4: Validate the Device Group Status
+* Task 4: Setup MAC Masquerade
+* Task 5: Validate the Device Group Status
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -156,7 +157,10 @@ both BIG-IP systems.
 
    -  .. image:: ../images/image39.png
 
-Task 4:  Validate the Device Group Status
+Task 4:  Setup MAC Masquerade
+=========================================
+
+Task 5:  Validate the Device Group Status
 =========================================
 
 In this task, you will observe the current Active/Standby HA state.
