@@ -101,20 +101,30 @@ Task 3: Create LTM Virtual Server Configuration Objects
 
 In this task, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
 
+We will create two pool objects:
+1.  Back-end Server Pool - this will be used as the pool for the Virtual Server object
+2.  External Gateway Pool - this will be used in our HA Group, to validate the availability of our external gateway
+
 **On the ACTIVE BIG-IP, Create Pool & Node Objects**
 
 #. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool
 
    -  .. image:: ../images/image114.png
 
-#. Create the following Windows Server Pool Configuration Objects:
-
+#. Create the following Pool Configuration Objects:
+**Pool 1**
    -  **Name:** server_pool
    -  **Health Monitors:** gateway_icmp
    -  Within the Resources Section:
-   -  **New Node Address:** 10.1.10.199
-   -  **Service Port:** *All Services
-   -  C
+       -  **New Node Address:** 10.1.10.199
+       -  **Service Port:** *All Services
+
+**Pool 2**
+   -  **Name:** ext_gw_pool
+   -  **Health Monitors:** gateway_icmp
+   -  Within the Resources Section:
+       -  **New Node Address:** 10.1.20.1
+       -  **Service Port:** *All Services
 
    -  .. image:: ../images/image51.png
 
