@@ -112,12 +112,17 @@ We will create two pool objects:
    -  .. image:: ../images/image114.png
 
 #. Create the following Pool Configuration Objects:
+
 **Pool 1**
    -  **Name:** server_pool
    -  **Health Monitors:** gateway_icmp
    -  Within the Resources Section:
        -  **New Node Address:** 10.1.10.199
        -  **Service Port:** *All Services
+       - Click the Add button
+   - Click the Repeat Button to Create Pool 2
+   -   .. image:: ../images/image123.png
+
 
 **Pool 2**
    -  **Name:** ext_gw_pool
@@ -125,8 +130,15 @@ We will create two pool objects:
    -  Within the Resources Section:
        -  **New Node Address:** 10.1.20.1
        -  **Service Port:** *All Services
+       - Click the Add button
+           -   .. image:: ../images/image124.png
 
-   -  .. image:: ../images/image51.png
+       - **NOTE** You will need to highlight the previous Node Object (10.1.10.199) and click the Delete button to remove from the Node List.
+            -   .. image:: ../images/image125.png
+
+   -  Click the Finished Button
+   -   .. image:: ../images/image126.png
+
 
 Task 4:  Perform a Configuration Synchronization between BIG-IPs
 ================================================================
