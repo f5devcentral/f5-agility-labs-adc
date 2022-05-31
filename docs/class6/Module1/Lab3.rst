@@ -139,6 +139,8 @@ We will create two pool objects:
    -  Click the Finished Button
    -   .. image:: ../images/image126.png
 
+After completion of this task, you should be presented with the following 2 pools:
+   -   .. image:: ../images/image127.png
 
 Task 4:  Perform a Configuration Synchronization between BIG-IPs
 ================================================================
