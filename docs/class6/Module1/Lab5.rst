@@ -4,8 +4,7 @@ Lab 5:  Create & Enable HA Groups
 Lab Tasks:
 ==========
 * Task 1: Create HA Groups
-* Task 2: Define Addtional HA Group Objects 
-* Task 3: Enable HA Group as the Preferred Failover Method
+* Task 2: Enable HA Group as the Preferred Failover Method
 
 **Task 1: Create HA Groups**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -51,6 +50,7 @@ NOTES:
 
 -  Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
     -  Click the "Add" button
+|
        -  .. image:: ../images/image131.png
     -  In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
        -  .. image:: ../images/image132.png
@@ -88,19 +88,7 @@ NOTES:
 
 
 
-**Task 2: Define Addtional HA Group Objects**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In this Task, we will define a Default Gateway pool.  This will become an HA Group item that contributes to the overal HA Group score.  If the GW goes unreachable, we will take action.
-
-1.  Create a Default Gateway pool on the External VLAN
-   - Navigate to Local Traffic --> Pools --> Pool List --> then click the "+" button:
-       -  .. image:: ../images/image121.png
-   - Create the pool with the following Settings:
-       -  .. image:: ../images/image122.png
-
-
-
-**Task 3: Enable HA Group as the Preferred Failover Method**
+**Task 2: Enable HA Group as the Preferred Failover Method**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 -  
