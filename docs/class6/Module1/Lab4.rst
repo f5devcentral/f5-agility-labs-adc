@@ -6,77 +6,58 @@ Lab Tasks:
 * Task 1: Disable a BIG-IP Interface
 * Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
-
-
-
 **Task 1: Disable a BIG-IP Interface**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 In this task, we will simulate a "link down" failure on the ACTIVE
 BIG-IP, and determine if the BIG-IP will failover automatically.
 
-
-
 We will compare the failover timing once we create & use our HA Group
 configuration design.
-
-
 
 BONUS: From the BIG-IP CLI, perform a "follow" of the */var/log/ltm* log
 to see logging data in real-time:
 
 -  Access the "WEB SHELL" from UDF for each BIG-IP:
 
-   -  .. image:: ./images/image56.png
+   .. image:: ../images/image56.png
          :width: 3.82431in
          :height: 2.76875in
 
 ..
 
-   
+ 
 
 -  Run the following command at shell prompt:
 
-   -  *tail -f /var/log/ltm*
+     **tail -f /var/log/ltm**
 
-      -  BIG-IP-A:
+      BIG-IP-A:
 
-         -  .. image:: ./images/image57.png
+         .. image:: ../images/image57.png
                :width: 9.65764in
                :height: 0.62014in
 
-      -  BIG-IP-B:
+      BIG-IP-B:
 
-         -  .. image:: ./images/image58.png
+         .. image:: ../images/image58.png
                :width: 9.35208in
                :height: 0.77778in
 
-.. _section-15:
-
-
-~
-
--  
-
-+----------------------------------+----------------------------------+
-| .. rubric:: From the *ACTIVE*    | Network --> Interfaces --> place |
-|    BIG-IP, navigate to:          | a checkmark next to 1.1 & click  |
-|    :name: fr                     | the "Disable" button             |
-| om-the-active-big-ip-navigate-to |                                  |
-+----------------------------------+----------------------------------+
++------------------------------------+----------------------------------+
+| .. rubric:: From the \*ACTIVE\*    | Network --> Interfaces --> place |
+|    BIG-IP, navigate to:            | a checkmark next to 1.1 & click  |
+|    :name: fr                       | the "Disable" button             |
+| om-the-active-big-ip-navigate-to   |                                  |
++------------------------------------+----------------------------------+
 
 ..
 
    
 
--  .. image:: ./images/image59.png
+.. image:: ../images/image59.png
       :width: 10.23125in
       :height: 6.08333in
-
-
-
--  
 
 +-------------+-------------------------------------------------------+
 | Question:   | Did the BIG-IP failover? Why or why not?              |
@@ -101,18 +82,11 @@ to see logging data in real-time:
 +-------------+-------------------------------------------------------+
 
 
-
-   
-
 -  Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
 
-   -  .. image:: ./images/image60.png
+   .. image:: ../images/image60.png
          :width: 7.57431in
          :height: 2.90764in
-
-
-
--  
 
 +----------+----------------------------------------------------------+
 | Question | Did the BIG-IPs failover? Are they Active/Standby?       |
@@ -138,33 +112,22 @@ to see logging data in real-time:
 |          | device bigipA.f5demo.com (10.1.1.5) (Disconnected).**    |
 +----------+----------------------------------------------------------+
 
-..
 
-   
 
--  .. image:: ./images/image61.png
+.. image:: ../images/image61.png
       :width: 21.12014in
       :height: 6.57431in
-
-.. _section-16:
-
-
--
-
-.. _section-17:
 
 
 **Task 2: Enable both Interfaces on ACTIVE BIG-IP**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
--  
 
 +--------------+------------------------------------------------------+
 | Navigate to: | Network --> Interfaces --> place checkmarks in 1.1 & |
 |              | 1.2, then click the "Enable" button:                 |
 +--------------+------------------------------------------------------+
 
--  .. image:: ./images/image62.png
+.. image:: ../images/image62.png
       :width: 5.27778in
       :height: 5.71319in
 

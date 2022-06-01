@@ -34,7 +34,7 @@ Task 1: Create BIG-IP Trunks
 
 #. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk
 
-   -  .. image:: ../images/image1.png
+   .. image:: ../images/image1.png
 
 #. Provide a Trunk Name, and move the respective Available interface to the "Members" section.
 
@@ -43,23 +43,23 @@ Task 1: Create BIG-IP Trunks
       When you define the last trunk, you may select the "Finished" button
 
    -  Internal Trunk:
+   
+    .. image:: ../images/image2.png
 
-   -  .. image:: ../images/image2.png
 
-
-   -  .. image:: ../images/image3.png
+    .. image:: ../images/image3.png
 
    -  External Trunk:
 
-   -  .. image:: ../images/image4.png
+     .. image:: ../images/image4.png
 
    -  HA Trunk:
 
-   -  .. image:: ../images/image5.png
+     .. image:: ../images/image5.png
 
    -  View of Trunk List after creating all three trunks:
 
-   -  .. image:: ../images/image6.png
+     .. image:: ../images/image6.png
 
 
 Task 2: Create BIG-IP VLANs
@@ -81,27 +81,27 @@ Task 2: Create BIG-IP VLANs
 
 #. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN
 
-   -  .. image:: ../images/image7.png
+     .. image:: ../images/image7.png
 
 #. Create the respective VLANs per the table above.
 
    -  Internal VLAN:
 
-   -  .. image:: ../images/image8.png
+     .. image:: ../images/image8.png
 
-   -  .. image:: ../images/image9.png
+     .. image:: ../images/image9.png
 
    -  External VLAN:
 
-   -  .. image:: ../images/image10.png
+     .. image:: ../images/image10.png
 
    -  HA VLAN:
 
-   -  .. image:: ../images/image11.png
+     .. image:: ../images/image11.png
 
    -  View of the VLAN List after all VLANs have been defined, and associated to their respective Trunk:
 
-   -  .. image:: ../images/image12.png
+     .. image:: ../images/image12.png
 
 Task 3: Create BIG-IP Self IPs
 ==============================
@@ -159,25 +159,25 @@ Task 3: Create BIG-IP Self IPs
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP
 
-   -  .. image:: ../images/image13.png
+     .. image:: ../images/image13.png
 
 #. Create the respective Self IPs per the table above.
 
    -  Self IP, VLAN 10:
 
-   -  .. image:: ../images/image14.png
+     .. image:: ../images/image14.png
 
    -  Self IP, VLAN 20:
 
-   -  .. image:: ../images/image15.png
+     .. image:: ../images/image15.png
 
    -  Self IP, HA VLAN 30:
 
-   -  .. image:: ../images/image16.png
+     .. image:: ../images/image16.png
 
    -  View of the Self IP List after all Self IPs have been defined:
 
-   -  .. image:: ../images/image17.png
+     .. image:: ../images/image17.png
 
 
 Lab Summary

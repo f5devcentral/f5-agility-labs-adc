@@ -34,75 +34,52 @@ NOTES:
 
    
 
--  .. image:: ./images/image63.png
+.. image:: ../images/image63.png
       :width: 5.49097in
       :height: 4.42569in
 
-.. _section-19:
-
-
-~
 
 -  Add an HA Group Name; example: bigip-b_ha-group
 
-   -  .. image:: ./images/image64.png
+   .. image:: ../images/image64.png
          :width: 4.28681in
          :height: 4.77778in
 
-.. _section-20:
-
-
--
 
 -  Next, we will add our Trunk links to our HA Group Configuration:
 
-   -  .. image:: ./images/image65.png
+   .. image:: ../images/image65.png
          :width: 7.66667in
          :height: 3.23125in
 
-..
-
-   
 
 -  Add the External Trunk object, and click the "Add" button; repeat
    this step for the Internal Trunk object:
 
-   -  .. image:: ./images/image66.png
+   .. image:: ../images/image66.png
          :width: 5.74097in
          :height: 3.33333in
 
-.. _section-21:
-
-
--
 
 -  Verify that your HA Group Trunk configuration reflects the following:
 
-   -  .. image:: ./images/image67.png
+   .. image:: ../images/image67.png
          :width: 10.79653in
          :height: 2.07431in
 
-.. _section-22:
-
-
--
 
 -  Verify your HA Group Configuration; once complete, click the "Create
    HA Group" button:
 
-   -  .. image:: ./images/image68.png
+   .. image:: ../images/image68.png
          :width: 10.66667in
          :height: 4.83333in
 
-.. _section-23:
-
-
--
 
 -  After HA Group Creation, you should be presented with the following
    screen, showing your HA Group configuration object:
 
-   -  .. image:: ./images/image69.png
+   .. image:: ../images/image69.png
          :width: 6.45347in
          :height: 1.99097in
 
@@ -113,17 +90,16 @@ NOTES:
 In this Task, we will define a Default Gateway pool.  This will become an HA Group item that contributes to the overal HA Group score.  If the GW goes unreachable, we will take action.
 
 1.  Create a Default Gateway pool on the External VLAN
-   - Navigate to Local Traffic --> Pools --> Pool List --> then click the "+" button:
-       -  .. image:: ../images/image121.png
-   - Create the pool with the following Settings:
-       -  .. image:: ../images/image122.png
+
+   - Navigate to Local Traffic --> Pools --> Pool List --> then click the \"\+\" button:       
+       .. image:: ../images/image121.png
+   - Create the pool with the following Settings:       
+       .. image:: ../images/image122.png
 
 
 
 **Task 3: Enable HA Group as the Preferred Failover Method**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
--  
 
 +--------------------------------+------------------------------------+
 | On Active BIG-IP, Navigate to: | Device Management --> Traffic      |
@@ -131,63 +107,43 @@ In this Task, we will define a Default Gateway pool.  This will become an HA Gro
 |                                | hyperlink                          |
 +--------------------------------+------------------------------------+
 
-..
 
-   
-
--  .. image:: ./images/image70.png
+.. image:: ../images/image70.png
       :width: 6.33333in
       :height: 2.5in
 
-..
-
-   
 
 -  From the "Health Monitor" Section, select the drop-down for "HA
    Group:"
 
-   -  .. image:: ./images/image71.png
+   .. image:: ../images/image71.png
          :width: 7.61111in
          :height: 7.28681in
 
-..
-
-   
 
 -  Select our HA Group we created previously:
 
-   -  .. image:: ./images/image72.png
+   .. image:: ../images/image72.png
          :width: 3.87014in
          :height: 0.97222in
 
-..
-
-   
 
 -  Under the Failover Configuration section, select the radio button for
    "Failover to Device With Best HA Score," then click the "**Save**"
    button:
 
-   -  .. image:: ./images/image73.png
+   .. image:: ../images/image73.png
          :width: 6.12014in
          :height: 5.85208in
 
-.. _section-25:
-
-
-~
 
 -  Review the Traffic Groups screen, and verify the Failover Method is
    set to HA Score:
 
-   -  .. image:: ./images/image74.png
+   .. image:: ../images/image74.png
          :width: 7.85208in
          :height: 3.28681in
 
-.. _section-26:
-
-
--
 
 -  Perform this same procedure to setup the HA Group configuration on
    *bigipB.f5demo.com*

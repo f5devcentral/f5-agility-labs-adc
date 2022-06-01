@@ -96,6 +96,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
    Ports	Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended).
    BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128
+
 **Appendix:**
 
    •	tmsh commands cheat sheet:
@@ -131,8 +132,8 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 Configure HA
 ~~~~~~~~~~~~
 
-#.
-#.
+
+
    .. image:: ../images/image1.png
       :width: 5.57547in
       :height: 0.64571in

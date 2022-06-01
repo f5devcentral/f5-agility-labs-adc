@@ -2,7 +2,7 @@ BIG-IP HA - do it the proper way
 ================================
 
 Time and time again we have seen customers setting up a basic HA setup.
-Customer expactation was that in case of a failover the event would be seemless. 
+Customer expactation was that in case of a failover, the event would be seemless. 
 They were surprised that the failover had production traffic impact and were cautious what to expect in the future.
 
 In this lab we will create a BIG-IP active/standby pair with best practices.
@@ -10,31 +10,65 @@ The result is a failover configuration that allows minimal impact in case of a f
 
 In order to achieve this, we will address following BIG-IP topics:
 
-1. Architecture - HA Vlan 
-2. Layer 2 link failure detection - use Trunks
-3. HA Basics 
-4. MAC masquerade - address gratuitous ARP issues
-5. GW pool - use HA groups to identify network layer issues
-6. High avalability (HA) Groups - Failover method
-7. Connection mirroring 
-8. Persistance mirroring
-
-
+1. Architecture
+2. Network setup
+3. Layer 2 link failure detection
+4. HA Basics 
+5. MAC masquerade
+6. GW pool
+7. High avalability (HA) Groups
+8. Connection mirroring 
+9. Persistance mirroring
 
 Architecture
 ------------
 
-The HA VLAN will be used for HA information, like connection mirroring, HA status updates, config sync and others.
+Our lab Architecture look like this:
+
+.. image:: images/image90.png
+
+Network setup
+-------------
+
+BIG-IP TMOS (Traffic Managment Operating System) classical network configuration steps are:
+
+1. create VLANS and assigns VLANs to physical interfaces. 
+2. create SelfIP and assigns IP interfaces to VLANS. 
+
+Each IP interface has a configuration object that is called Port lockdown. Port lockdown determines which BIG-IP System service (like Web UI, API, SSH Access etc) the BIG-IP will allow on that IP interface. 
+
+For a best practice HA setup, the BIG-IPs will have three type of IP interfaces: 
+
+* Data interfaces - multiple possible
+* HA interface
+* Managment interface
+
+Data interfaces
++++++++++++++++
+
+The data interfaces are used to handle the data traffic (Virtual servers). The BIG-IP should not be manageable from these interfaces. The only BIG-IP system service allowed will be the heartbeat for failover, which runs on UDP port 1026.
+Therefore the Portlockdown setting for the data interfaces is "custom" and UDP Port 1026.
+
+HA interface
+++++++++++++
+
+The HA IP interface will be used for HA information, like connection mirroring, HA status updates, config sync and others.
 
 For a secure HA setup it is recommended that the failover information is not send over a data interface/VLAN.
 Therefore customer should always use a dedicated HA VLAN. 
 
-The data interafaces should exchange heartbeat information. Therefore the port lockdown on the data interfaces should be set to custom and allow only UDP port 1026.
-
 The HA VLAN self-IP should have port lockdown set to default. The self-IP should be in a IPv4 /29 network CIDR range.
 
+It is recommended that the HA VLAN runs on a dedicated physical interface. The link speed of the HA interface should match the data interface link speed
 
-.. image:: images/image90.png
+If possible connect the HA interfaces of both BIG-IP devices direct. If a direct link is not possible, connect them to switches, but use dedicated VLANs.
+
+Management interface
+++++++++++++++++++++
+
+The management interface is used to manage the BIG-IP. 
+It should be in a dedicated subnet and not be exposed to the public or unauthorized users.
+
 
 Layer 2 link failure detection
 ------------------------------
@@ -54,13 +88,19 @@ At the same time a trunk can have only a single interface applied.
 
 BIG-IP TMOS can see the number of interfaces in a trunk. So we will use this ability to track the link status if a physical interface is up or down. 
 
+Based on this, the best practice network configuration steps of a BIG-IP are:
+
+1. create Trunks and assign physical interfaces to Trunks 
+2. create VLANS and assigns VLANs to trunks. 
+3. create SelfIP and assigns IP interfaces to VLANS. 
+
 **Every physical interface will be part of a trunk.** 
 
-If your architecture uses one interface for external and one interface for internal traffic, then create two Trunks with one interface in each Trunk.
+If your architecture uses one physical interface for external and one physical interface for internal traffic, then create two Trunks with one physical interface in each Trunk.
 
 So the trunk object allows BIG-IP TMOS to failover if the one interface in the trunk goes down.
 
-.. note:: **Remember**: Always create a Trunk first. Do not assing VLANs to physical interfaces, assign them to trunks.
+.. note:: **Remember**: Always create a Trunk first. Do not assing VLANs to physical interfaces, assign them to Trunks.
 
 Physical interfaces that use a multiple VLANs 
 +++++++++++++++++++++++++++++++++++++++++++++
@@ -70,6 +110,18 @@ If a physical interface uses 802.1Q VLAN tagging, then it is enough to monitor a
 
 HA Basics
 ---------
+
+With the basic HA setup we will create the BIG-IP HA Cluster. Once the HA cluster is created we will add additional configuration in this lab.
+
+The steps for a basic HA setup are:
+
+1. create device trust
+2. configure config sync
+3. configure failover network
+4. configure mirroring
+5. configure device group
+6. configure MAC masquerade - where applicable
+
 
 Device Trust
 ++++++++++++
@@ -83,6 +135,7 @@ Set the IP address on the HA VLAN to be config sync address.
 
 Failover network
 ++++++++++++++++
+
 We will use Failover **Unicast** Configuration only. Do not use Failover Multicast configuration.
 
 Add all data interfaces and the management interface. **Do not** add HA interface IP address. 
@@ -90,7 +143,8 @@ Add all data interfaces and the management interface. **Do not** add HA interfac
 Mirroring
 +++++++++
 
-Set the HA VLAN IP address as "Primary Local Mirror Address"
+Set the HA VLAN IP address as "Primary Local Mirror Address". Mirroring traffic volume can be significant. 
+Use dedicated interfaces with link speed that is equal or higher to the data interfaces.
 
 Device Group
 ++++++++++++
@@ -156,7 +210,7 @@ We will use a custom gateway_icmp monitor with a short timeout (e.g. 4 sec) and 
 These settigns will allow BIG-IP to failover within 4 seconds if it cannot reach its default gateway.
 
 Alernative to the default gateway, there can be other IP endpoints within the network that can be monitored within this pool.
-As long as thee are pool members available, BIG-IP will assume the network layer is reachable and not use this as a failover trigger.
+As long as there are pool members available, BIG-IP will assume the network layer is reachable and not use this as a failover trigger.
 
 High availability (HA) Groups
 -----------------------------
@@ -177,7 +231,7 @@ It performs traffic forwarding and most of the time changes source/destination p
 BIG-IP keeps track of these changes in it's connection table. 
 
 If the connection information is not mirrored to the standby device, then all existing traffic flow during the failover will be interrupted.
-Clients will have to establish a new connection, which is perceived as service discruption. 
+Clients will have to establish a new connection, which is perceived as service disruption. 
 
 The importance of connection mirroring is depending on the protocol. 
 HTTP based protocols can carry their persistent information at higher layers, so that the individual connection might not be problematic if it has to be rebuild.
@@ -199,7 +253,7 @@ Standard virtual server copy the complete data stream to the standby device.
 recommended interface speed for connection mirroring
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Since the connection mirroring traffic can be significant, it is recommended that the interface speed for the VLAN used for connection mirroring is the same speed as the external inteface.
+Since the connection mirroring traffic can be significant, it is recommended that the interface speed for the VLAN used for connection mirroring is the same speed as the external interface.
 
 e.g. is the external interface speed is 10 Gbit/s then the connection mirroring interface should be 10 Gbit/s as well. 
 
