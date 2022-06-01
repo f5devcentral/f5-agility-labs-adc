@@ -34,10 +34,8 @@ NOTES:
 
    
 
--  .. image:: ./images/image63.png
-      :width: 5.49097in
-      :height: 4.42569in
-
+-  .. image:: ../images/image63.png
+      
 .. _section-19:
 
 
@@ -45,9 +43,8 @@ NOTES:
 
 -  Add an HA Group Name; example: bigip-b_ha-group
 
-   -  .. image:: ./images/image64.png
-         :width: 4.28681in
-         :height: 4.77778in
+   -  .. image:: ../images/image64.png
+
 
 .. _section-20:
 
@@ -56,9 +53,7 @@ NOTES:
 
 -  Next, we will add our Trunk links to our HA Group Configuration:
 
-   -  .. image:: ./images/image65.png
-         :width: 7.66667in
-         :height: 3.23125in
+   -  .. image:: ../images/image65.png
 
 ..
 
@@ -67,9 +62,7 @@ NOTES:
 -  Add the External Trunk object, and click the "Add" button; repeat
    this step for the Internal Trunk object:
 
-   -  .. image:: ./images/image66.png
-         :width: 5.74097in
-         :height: 3.33333in
+   -  .. image:: ../images/image66.png
 
 .. _section-21:
 
@@ -78,9 +71,7 @@ NOTES:
 
 -  Verify that your HA Group Trunk configuration reflects the following:
 
-   -  .. image:: ./images/image67.png
-         :width: 10.79653in
-         :height: 2.07431in
+   -  .. image:: ../images/image67.png
 
 .. _section-22:
 
@@ -90,9 +81,7 @@ NOTES:
 -  Verify your HA Group Configuration; once complete, click the "Create
    HA Group" button:
 
-   -  .. image:: ./images/image68.png
-         :width: 10.66667in
-         :height: 4.83333in
+   -  .. image:: ../images/image68.png
 
 .. _section-23:
 
@@ -102,9 +91,7 @@ NOTES:
 -  After HA Group Creation, you should be presented with the following
    screen, showing your HA Group configuration object:
 
-   -  .. image:: ./images/image69.png
-         :width: 6.45347in
-         :height: 1.99097in
+   -  .. image:: ../images/image69.png
 
 
 
