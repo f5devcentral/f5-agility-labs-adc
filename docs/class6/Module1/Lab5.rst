@@ -135,16 +135,15 @@ In this Task, we will define a Default Gateway pool.  This will become an HA Gro
 
    
 
--  .. image:: ./images/image70.png
+-  .. image:: ../images/image70.png
 
    
 
 -  From the "Health Monitor" Section, select the drop-down for "HA
    Group:"
 
-   -  .. image:: ./images/image71.png
-         :width: 7.61111in
-         :height: 7.28681in
+   -  .. image:: ../images/image71.png
+
 
 ..
 
