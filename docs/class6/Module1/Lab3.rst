@@ -5,8 +5,9 @@ Lab Tasks:
 **********
 * Task 1: Modify Self IP Port Lockdown
 * Task 2: Verify an Active / Standby "In Sync" State
-* Task 3: Create LTM Virtual Server Configuration Objects
-* Task 4: Perform a Configuration Synchronization between BIG-IPs
+* Task 3: Create LTM Pool Configuration Objects
+* Task 4: Create LTM Virtual Server Configuration Object
+* Task 5: Perform a Configuration Synchronization between BIG-IPs
 
 Task 1:  Modify Self IP Port Lockdown
 =====================================
@@ -100,8 +101,8 @@ Task 2: Verify an Active / Standby "In Sync" State
 
 #. If your BIG-IPs are in a state other than the above, please review the previous steps to ensure correct configuration.
 
-Task 3: Create LTM Virtual Server Configuration Objects
-=======================================================
+Task 3: Create LTM Pool Configuration Objects
+=============================================
 
 In this task, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
 
@@ -153,7 +154,28 @@ We will create two pool objects:
 After completion of this task, you should be presented with the following 2 pools:
    -   .. image:: ../images/image127.png
 
-Task 4:  Perform a Configuration Synchronization between BIG-IPs
+Task 4:  Create LTM Virtual Server Configuration Object
+=======================================================
+In this task, we will create a simple HTTP Virtual Server object.  This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+
+- Navigate to:  Local Traffic --> Virtual Servers --> Virtual Server List, then click the "+" sign:
+    -   .. image:: ../images/image128.png
+- Create the Virtual Server with the following settings:
+    -  Name:  test_http_vs
+    -  Type:  Standard
+    -  Destination Address/Mask:  10.1.10.55
+    -  Service Port:  80 (HTTP)
+    -  HTTP Profile (Client):  http
+    -  Resources:
+       -  Default Pool:  server_pool
+       -  Default Persistence Profile:  source_addr
+    - Click the "Finished" Button
+
+   -  .. image:: ../images/image129.png
+   -  .. image:: ../images/image130.png
+
+
+Task 5:  Perform a Configuration Synchronization between BIG-IPs
 ================================================================
 
 **On the ACTIVE BIG-IP**

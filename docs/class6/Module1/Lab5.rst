@@ -4,8 +4,7 @@ Lab 5:  Create & Enable HA Groups
 Lab Tasks:
 ==========
 * Task 1: Create HA Groups
-* Task 2: Define Addtional HA Group Objects 
-* Task 3: Enable HA Group as the Preferred Failover Method
+* Task 2: Enable HA Group as the Preferred Failover Method
 
 **Task 1: Create HA Groups**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -34,6 +33,7 @@ NOTES:
 
    
 
+<<<<<<< HEAD
 .. image:: ../images/image63.png
       :width: 5.49097in
       :height: 4.42569in
@@ -45,9 +45,31 @@ NOTES:
          :width: 4.28681in
          :height: 4.77778in
 
+=======
+-  .. image:: ../images/image63.png
+      
+.. _section-19:
 
--  Next, we will add our Trunk links to our HA Group Configuration:
 
+~
+
+-  Add an HA Group Name; example: bigip-b_ha-group
+
+   -  .. image:: ../images/image64.png
+
+
+.. _section-20:
+
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
+
+-  Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
+    -  Click the "Add" button
+|
+       -  .. image:: ../images/image131.png
+    -  In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
+       -  .. image:: ../images/image132.png
+
+<<<<<<< HEAD
    .. image:: ../images/image65.png
          :width: 7.66667in
          :height: 3.23125in
@@ -60,9 +82,26 @@ NOTES:
          :width: 5.74097in
          :height: 3.33333in
 
+=======
 
--  Verify that your HA Group Trunk configuration reflects the following:
+-  Next, we will add our Trunk links to our HA Group Configuration:
+    -  Under the Trunks section, click the "Add" button:
+       -  .. image:: ../images/image65.png
+   
 
+   -  From the drop-down, select the the External Trunk object (ext_trunk), and click the "Add" button:
+       -  .. image:: ../images/image133.png
+   -  Repeat this step for the Internal Trunk object (int_trunk):
+       -  .. image:: ../images/image134.png
+
+.. _section-21:
+
+
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
+
+-  Verify that your HA Group Trunk configuration reflects the following, and Click the "Create HA Group" button:
+
+<<<<<<< HEAD
    .. image:: ../images/image67.png
          :width: 10.79653in
          :height: 2.07431in
@@ -75,30 +114,42 @@ NOTES:
          :width: 10.66667in
          :height: 4.83333in
 
+=======
+    -  .. image:: ../images/image67.png
+
+
+
+.. _section-23:
+
+
+-
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
 
 -  After HA Group Creation, you should be presented with the following
    screen, showing your HA Group configuration object:
 
+<<<<<<< HEAD
    .. image:: ../images/image69.png
          :width: 6.45347in
          :height: 1.99097in
 
 
+=======
+   -  .. image:: ../images/image69.png
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
 
-**Task 2: Define Addtional HA Group Objects**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In this Task, we will define a Default Gateway pool.  This will become an HA Group item that contributes to the overal HA Group score.  If the GW goes unreachable, we will take action.
 
+<<<<<<< HEAD
 1.  Create a Default Gateway pool on the External VLAN
 
    - Navigate to Local Traffic --> Pools --> Pool List --> then click the \"\+\" button:       
        .. image:: ../images/image121.png
    - Create the pool with the following Settings:       
        .. image:: ../images/image122.png
+=======
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
 
-
-
-**Task 3: Enable HA Group as the Preferred Failover Method**
+**Task 2: Enable HA Group as the Preferred Failover Method**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 +--------------------------------+------------------------------------+
@@ -108,17 +159,30 @@ In this Task, we will define a Default Gateway pool.  This will become an HA Gro
 +--------------------------------+------------------------------------+
 
 
+<<<<<<< HEAD
 .. image:: ../images/image70.png
       :width: 6.33333in
       :height: 2.5in
 
+=======
+   
+
+-  .. image:: ../images/image70.png
+
+   
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
 
 -  From the "Health Monitor" Section, select the drop-down for "HA
    Group:"
 
+<<<<<<< HEAD
    .. image:: ../images/image71.png
          :width: 7.61111in
          :height: 7.28681in
+=======
+   -  .. image:: ../images/image71.png
+
+>>>>>>> 4e2674a8b91fabc81b1e90a8272e75e58189698b
 
 
 -  Select our HA Group we created previously:
