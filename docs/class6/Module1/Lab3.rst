@@ -120,9 +120,9 @@ We will create two pool objects:
 #. Create the following Pool Configuration Objects:
 
    **Pool 1**
-       -  **Name:** server_pool
-       -  **Health Monitors:** gateway_icmp
-       -  Within the Resources Section:
+      -  **Name:** server_pool
+      -  **Health Monitors:** gateway_icmp
+      -  Within the Resources Section:
   
          -  **New Node Address:** 10.1.10.199   
          -  **Service Port:** \* All Services       
@@ -171,8 +171,8 @@ In this task, we will create a simple HTTP Virtual Server object.  This will be 
        -  Default Persistence Profile:  source_addr
     - Click the "Finished" Button
 
-   -  .. image:: ../images/image129.png
-   -  .. image:: ../images/image130.png
+     .. image:: ../images/image129.png
+     .. image:: ../images/image130.png
 
 
 Task 5:  Perform a Configuration Synchronization between BIG-IPs

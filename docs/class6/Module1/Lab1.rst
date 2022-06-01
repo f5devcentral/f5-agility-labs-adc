@@ -40,7 +40,7 @@ Task 1: Create BIG-IP Trunks
 
 #. Click Repeat to define your next trunk.
 
-      When you define the last trunk, you may select the "Finished" button
+   When you define the last trunk, you may select the "Finished" button
 
    -  Internal Trunk:
    
