@@ -136,10 +136,6 @@ In this Task, we will define a Default Gateway pool.  This will become an HA Gro
    
 
 -  .. image:: ./images/image70.png
-      :width: 6.33333in
-      :height: 2.5in
-
-..
 
    
 
