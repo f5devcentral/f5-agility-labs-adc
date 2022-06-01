@@ -49,39 +49,32 @@ NOTES:
 .. _section-20:
 
 
--
+-  Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
+    -  Click the "Add" button
+       -  .. image:: ../images/image131.png
+    -  In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
+       -  .. image:: ../images/image132.png
+
 
 -  Next, we will add our Trunk links to our HA Group Configuration:
-
-   -  .. image:: ../images/image65.png
-
-..
-
+    -  Under the Trunks section, click the "Add" button:
+       -  .. image:: ../images/image65.png
    
 
--  Add the External Trunk object, and click the "Add" button; repeat
-   this step for the Internal Trunk object:
-
-   -  .. image:: ../images/image66.png
+   -  From the drop-down, select the the External Trunk object (ext_trunk), and click the "Add" button:
+       -  .. image:: ../images/image133.png
+   -  Repeat this step for the Internal Trunk object (int_trunk):
+       -  .. image:: ../images/image134.png
 
 .. _section-21:
 
 
--
 
--  Verify that your HA Group Trunk configuration reflects the following:
+-  Verify that your HA Group Trunk configuration reflects the following, and Click the "Create HA Group" button:
 
-   -  .. image:: ../images/image67.png
-
-.. _section-22:
+    -  .. image:: ../images/image67.png
 
 
--
-
--  Verify your HA Group Configuration; once complete, click the "Create
-   HA Group" button:
-
-   -  .. image:: ../images/image68.png
 
 .. _section-23:
 
