@@ -7,10 +7,37 @@ To address this, we will use the HA Group Failover object. Here is how it is con
 
 Lab Tasks:
 ==========
-* Task 1: Create HA Groups
-* Task 2: Enable HA Group as the Preferred Failover Method
+* Task 1: Create Gateway pool
+* Task 2: Create HA Groups
+* Task 3: Enable HA Group as the Preferred Failover Method
 
 **Task 1: Create HA Groups**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will create a pool that contains the default gateway as pool member. The function of that pool is to help BIG-IP identify network related problems.
+
+We will use this pool as a failover event trigger in the subsequent HA Group.
+
+**Gateway pool configuratipon:**
+
+-  **Name:** ext_gw_pool
+-  **Health Monitors:** gateway_icmp
+   Within the Resources Section:
+      
+   -  **New Node Address:** 10.1.20.1
+   -  **Service Port:** \* All Services
+   - Click the Add button
+  
+     .. image:: ../images/image124.png
+
+     .. image:: ../images/image125.png
+
+   Click the Finished Button
+      
+      .. image:: ../images/image126.png
+
+
+**Task 2: Create HA Groups**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
