@@ -1,6 +1,10 @@
 Lab 5:  Create & Enable HA Groups
 =================================
 
+In previous labs we have seen that the basic HA configuration does not take a physical interface failure into account.
+
+To address this, we will use the HA Group Failover object. Here is how it is configured: 
+
 Lab Tasks:
 ==========
 * Task 1: Create HA Groups
@@ -67,6 +71,31 @@ Verify that your HA Group Trunk configuration reflects the following, and Click 
 After HA Group Creation, you should be presented with the following screen, showing your HA Group configuration object:
 
    .. image:: ../images/image69.png
+
+
+HA Scoring
+++++++++++
+
+The BIG-IP with the highest HA group scoring will become the active device.
+
+The HA Group score is beeing calculated by the sum of all active trunks and pool members.
+
+In addition to that the active device will get a bonus score, this is the "active Bonus".
+
+The active bonus is added for two reasons:
+
+* to prevent an active-active split brain
+* to allow the active device to stay active in specific usecases.
+  One use case is, if there are multiple links in the HA trunk and one interface goes down, but the remaining links still can handle the traffic. 
+  The Admin might decide that this is not a reason to failover because of service stability. 
+
+
+for detailed information and bet practives see following K-article:
+
+https://support.f5.com/csp/article/K16947
+
+
+
 
 **Task 2: Enable HA Group as the Preferred Failover Method**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

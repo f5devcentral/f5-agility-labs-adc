@@ -5,35 +5,46 @@ Lab 6: Validating, Testing & Troubleshooting HA Group Functionality
 Now that we have succesfully configured HA Groups we will perform a series of validation tests as well as provide tips for troubleshooting
 
 
-* Disable an interface to force HA Group actions
+Disable an interface to force HA Group actions
+++++++++++++++++++++++++++++++++++++++++++++++
 
-* In this task we will manipulate an interface on the active BIG-IP.   We will also disable an interface and observe BIG-IP behavior during failover.
-   We will also monitor logs to review the failover process.
+In this task we will: 
 
-* On the active BIG-IP, Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+* manipulate an interface on the active BIG-IP.   
+* disable an interface and observe BIG-IP behavior during failover
+* monitor logs to review the failover process.
 
 
-.. image:: ../images/image100.PNG
+On the active BIG-IP: 
+
+* Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+
+
+  .. image:: ../images/image100.PNG
 
 
 
 * During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
-.. image:: ../images/image101.png
+  .. image:: ../images/image101.png
 
-.. image:: ../images/image102.png
+  .. image:: ../images/image102.png
 
-#.    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
+  Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
       device.
 
   .. image:: ../images/image91.png
 
   .. image:: ../images/image92.png
 
-#.  We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
 
-    - Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
-  .. image:: ../images/image93.png
+We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
+
+In the standby BIG-IP
+
+*  Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
+  
+   .. image:: ../images/image93.png
 
 #. Did a failover event occur?   If so, why or why not?
 
