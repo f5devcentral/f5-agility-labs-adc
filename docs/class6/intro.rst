@@ -15,8 +15,8 @@ In order to achieve this, we will address following BIG-IP topics:
 3. Layer 2 link failure detection
 4. HA Basics 
 5. MAC masquerade
-6. GW pool
-7. High avalability (HA) Groups
+6. High avalability (HA) Groups 
+7. GW pool
 8. Connection mirroring 
 9. Persistance mirroring
 
@@ -198,6 +198,15 @@ Architectures that do not support MAC masquerade:
 
 BIG-IP VE deployments in public cloud providers like AWS, Azure and GCP
 
+High availability (HA) Groups
+-----------------------------
+
+An HA group is a high availability feature that allows you to specify a set of configuration objects such as trunks, pools, and VIPRION clusters that may be used to raise failover for redundant BIG-IP systems. 
+When you associate an HA group with a traffic group instance on a specific device, the BIG-IP system calculates a health score for that device for the associated traffic group, based on trunk, pool, or cluster availability. 
+This HA health score determines the device that should be active at any given time and then triggers failover if necessary. 
+
+Best practices on HA groups:
+https://support.f5.com/csp/article/K16947
 
 GW pool
 -------
@@ -212,18 +221,7 @@ These settigns will allow BIG-IP to failover within 4 seconds if it cannot reach
 Alernative to the default gateway, there can be other IP endpoints within the network that can be monitored within this pool.
 As long as there are pool members available, BIG-IP will assume the network layer is reachable and not use this as a failover trigger.
 
-High availability (HA) Groups
------------------------------
-
-An HA group is a high availability feature that allows you to specify a set of configuration objects such as trunks, pools, and VIPRION clusters that may be used to raise failover for redundant BIG-IP systems. 
-When you associate an HA group with a traffic group instance on a specific device, the BIG-IP system calculates a health score for that device for the associated traffic group, based on trunk, pool, or cluster availability. 
-This HA health score determines the device that should be active at any given time and then triggers failover if necessary. 
-
-Best practices on HA groups:
-https://support.f5.com/csp/article/K16947
-
-
-connection mirroring
+Connection mirroring
 --------------------
 
 BIG-IP TMOS is a statefull proxy. 
@@ -240,7 +238,7 @@ Other protocols like FTP are more sensitive, because a large file download might
 Per default the connection information is not mirrored to the standby BIG-IP. This has to be done for each Virtual server. 
 This allows customers to decide which Virtual IP to mirror and which not.
 
-performance Impact of connection mirroring
+Performance Impact of connection mirroring
 ++++++++++++++++++++++++++++++++++++++++++
 
 Enabling connection mirroring can have a performance impact in terms of higher CPU load.
@@ -250,7 +248,7 @@ Performance Layer 4 virtual servers copy the connection setup and connection clo
 
 Standard virtual server copy the complete data stream to the standby device.
 
-recommended interface speed for connection mirroring
+Recommended interface speed for connection mirroring
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Since the connection mirroring traffic can be significant, it is recommended that the interface speed for the VLAN used for connection mirroring is the same speed as the external interface.
@@ -261,7 +259,7 @@ More information on connection mirroring
 https://support.f5.com/csp/article/K84303332
 
 
-persistance mirroring
+Persistance mirroring
 ---------------------
 
 Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be send to the same pool member.
