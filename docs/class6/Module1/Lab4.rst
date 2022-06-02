@@ -24,9 +24,6 @@ to see logging data in real-time:
          :width: 3.82431in
          :height: 2.76875in
 
-..
-
- 
 
 -  Run the following command at shell prompt:
 
@@ -47,13 +44,8 @@ to see logging data in real-time:
 +------------------------------------+----------------------------------+
 | .. rubric:: From the \*ACTIVE\*    | Network --> Interfaces --> place |
 |    BIG-IP, navigate to:            | a checkmark next to 1.1 & click  |
-|    :name: fr                       | the "Disable" button             |
-| om-the-active-big-ip-navigate-to   |                                  |
+|                                    | the "Disable" button             |
 +------------------------------------+----------------------------------+
-
-..
-
-   
 
 .. image:: ../images/image59.png
       :width: 10.23125in
