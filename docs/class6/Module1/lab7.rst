@@ -1,6 +1,10 @@
 Lab7: Persistance mirroring and connection mirroring
 ----------------------------------------------------
 
+- Task 1: Persistence mirroring Profile
+- Task 2: Create LTM Pool Configuration Objects
+- Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
+
 Task 1: Persistence mirroring Profile
 =====================================
 
@@ -11,16 +15,30 @@ It is per default not enabled and require to create a dedicated profile that has
 DO NOT edit the default profiles. Always create a new profile with the desired settings and use the default profile as parent profiles. 
 Default profiles will be overwritten with the next software update.
 
+Navigate to Local Traffic --> Profiles --> Persistence, and click the "+" button to create a new profile:
+   .. image:: ../images/image136.png
+
+Provide a Name for your Custom Persistence Profile, i.e.:  source_addr_mirror_persist
+Select Source Address Affinity from the Persistnece Type drop-down
+Ensure the Parent Profile is set to source_addr
+You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
+   .. image:: ../images/image137.png
+
+Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
+   .. image:: ../images/image138.png
+
+You should see two Source Address profiles, one custom and one default:
+   .. image:: ../images/image139.png
+
 
 Task 2: Create LTM Pool Configuration Objects 
 =============================================
 
 In this task, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
 
-We will create two pool objects:
+We will create a pool object:
 
 1.  Back-end Server Pool - this will be used as the pool for the Virtual Server object
-2.  External Gateway Pool - this will be used in our HA Group, to validate the availability of our external gateway
 
 **On the ACTIVE BIG-IP, Create Pool & Node Objects**
 
@@ -30,11 +48,10 @@ We will create two pool objects:
 
 #. Create the following Pool Configuration Objects:
 
-   **Pool 1**
-      -  **Name:** server_pool
-      -  **Health Monitors:** gateway_icmp
-      -  Within the Resources Section:
-  
+Server Pool:
+   -  **Name:** server_pool
+   -  **Health Monitors:** gateway_icmp
+     -  Within the Resources Section:
          -  **New Node Address:** 10.1.10.200   
          -  **Service Port:** \* All Services       
          - Click the Add button
