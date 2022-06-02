@@ -27,10 +27,11 @@ We will create two pool objects:
          -  **New Node Address:** 10.1.10.199   
          -  **Service Port:** \* All Services       
          - Click the Add button
-  
-      - Click the Repeat Button to Create Pool 2
-  
+ 
         .. image:: ../images/image123.png
+
+   - Click the "Finished" Button:
+        .. image:: ../images/image135.png
 
    **Pool 2**
       -  **Name:** ext_gw_pool
