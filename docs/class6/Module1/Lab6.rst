@@ -45,25 +45,14 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 **Supplemental Resources:**
 
 
-   `https://support.f5.com/csp/article/K16947`_
+- `K16947: F5 recommended practices for the HA group feature <https://support.f5.com/csp/article/K16947>`_
+- `Manual : BIG-IP Device Service Clustering: Administration <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html>`_
+- `Manual Chapter : Creating an Active-Standby Configuration using the Configuration Utility <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0/creating-an-active-standby-configuration-using-the-configuration-utility.html>`_
+- `K13946: Troubleshooting ConfigSync and device service clustering issues <https://support.f5.com/csp/article/K13946>`_
+- `Archived - K41983050: The HA group score displayed with tmsh shows that the sys ha-group command no longer includes the active bonus <https://support.f5.com/csp/article/K41983050>`_
 
 
-   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html`_
-
-
-   `https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0/creating-an-active-standby-configuration-using-the-configuration-utility.html`_
-
-
-   `https://support.f5.com/csp/article/K13946`_
-
-
-   `https://support.f5.com/csp/article/K41983050`_
-
-
-   `https://support.f5.com/csp/article/K41983050`_
-
-
-
+**NOTE**:
    Ports	Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended).
    BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128
 
@@ -97,24 +86,3 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
    tmsh modify cm device bigip1 configsync-ip 10.1.30.242
    tmsh modify cm device bigip1 unicast-address { { ip 10.1.10.242 } { ip 10.1.20.242 } }
-
-
-Configure HA
-~~~~~~~~~~~~
-
-
-
-   .. image:: ../images/image1.png
-
-
-   .. image:: ../images/image2.png
-
-
-   #. Archive your work.
-
-.. |image0| image:: ../images/image1.png
-   :width: 5.57547in
-   :height: 0.64571in
-.. |image1| image:: ../images/image2.png
-   :width: 5.57547in
-   :height: 0.62307in
