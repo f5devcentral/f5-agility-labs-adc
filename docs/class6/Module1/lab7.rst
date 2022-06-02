@@ -1,11 +1,12 @@
-Lab7: Persistance mirroring and connection mirroring
+Lab 7: Persistence Mirroring and Connection Mirroring
 ----------------------------------------------------
 
-- Task 1: Persistence mirroring Profile
+- Task 1: Persistence Mirroring Profile
 - Task 2: Create LTM Pool Configuration Objects
-- Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
+- Task 3: Create LTM Virtual Server Configuration Object with connection mirroring enabled
+- Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
-Task 1: Persistence mirroring Profile
+Task 1: Persistence Mirroring Profile
 =====================================
 
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
@@ -114,3 +115,6 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 #. Verify the sync state:
 
    .. image:: ../images/image55.png
+
+
+This concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
