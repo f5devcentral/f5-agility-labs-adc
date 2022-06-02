@@ -33,7 +33,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 #.  We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
 
   #. Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
-
+  .. image:: ../images/image93.png
 
 #. Did a failover event occur?   If so, why or why not?
 
