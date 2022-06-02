@@ -157,40 +157,6 @@ Task 3: Create BIG-IP Self IPs
         - HA_vlan_30
         - Allow None (default)
 
-On BIG-IP A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
-
-   Use the following table to create & define your three Self IPs:
-
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
-   
-      * - BIG-IP
-        - Name
-        - IP address
-        - Netmask
-        - VLAN
-        - Port Lockdown
-      * - bigipA
-        - self_vlan10_float
-        - 10.1.10.240
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipA
-        - self_vlan20_float
-        - 10.1.20.240
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipA
-        - self_vlan30_float
-        - 10.1.30.240
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP
 

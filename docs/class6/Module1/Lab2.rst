@@ -233,6 +233,20 @@ On the ACTIVE BIG-IP, create the following Floating Self IP Objects.  These will
         - HA_vlan_30
         - Allow None (default)
 
+#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP
+
+     .. image:: ../images/image13.png
+
+#. Create the respective Self IPs per the table above.
+
+VLAN 10 Float:
+     .. image:: ../images/image144.png
+
+VLAN 20 Float:
+     .. image:: ../images/image145.png
+
+VLAN 30 Float:
+     .. image:: ../images/image146.png
 
 Task 6:  Validate the Device Group Status
 =========================================
