@@ -37,7 +37,7 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
 #. Did a failover event occur?   If so, why or why not?
 
-**This concludes the **BIG-IP HA Failover - do it the proper way** lab.
+This concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
 
 
 
