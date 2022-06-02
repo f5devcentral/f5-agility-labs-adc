@@ -82,6 +82,8 @@ General Properties:
 From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
      .. image:: ../images/image140.png
     -  **HTTP Profile (Client):**  http
+    -  **Source Address Translation:**  From the drop-down, select AutoMap:
+       .. image:: ../images/image148.png
     -  **Connection Mirroring:**  Place a checkmark on this setting
      .. image:: ../images/image141.png
      .. image:: ../images/image143.png
