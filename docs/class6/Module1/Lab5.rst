@@ -30,7 +30,7 @@ NOTES:
   .. image:: ../images/image63.png
       
 
-Add an HA Group Name; example: bigip-b_ha-group
+Add an HA Group Name; example: bigip-ha-group
 
    .. image:: ../images/image64.png
 
