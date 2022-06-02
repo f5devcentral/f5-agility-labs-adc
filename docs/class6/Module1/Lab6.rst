@@ -39,7 +39,11 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
 This concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
 
-
+**ADD**
+- timing / log events of HA Group failover vs. traditonal 
+- HA scoring . . . what is contributing to the Score, and how it affects the failover
+- show any mirroring / persistence info from the VS (stats, etc.)?
+- t'shooting tips / tricks / steps . . . DSC config guide walk-through as an idea
 
 
 **Supplemental Resources:**
