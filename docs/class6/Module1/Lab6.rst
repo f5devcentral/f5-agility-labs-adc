@@ -1,10 +1,8 @@
 
-===================================================================
 Lab 6: Validating, Testing & Troubleshooting HA Group Functionality
-===================================================================
+-------------------------------------------------------------------
 
 Now that we have succesfully configured HA Groups we will perform a series of validation tests as well as provide tips for troubleshooting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 * Disable an interface to force HA Group actions
@@ -16,60 +14,32 @@ Now that we have succesfully configured HA Groups we will perform a series of va
 
 
 .. image:: ../images/image100.PNG
-   :width: 5.57547in
-   :height: 0.64571in
+
 
 
 * During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
-
 .. image:: ../images/image101.png
-   :width: 5.57547in
-   :height: 0.64571in
-
 
 .. image:: ../images/image102.png
-      :width: 5.57547in
-      :height: 0.64571in
-
-
 
 #.    Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
       device.
 
-
-
   .. image:: ../images/image91.png
-         :width: 5.57547in
-         :height: 0.64571in
-
 
   .. image:: ../images/image92.png
-            :width: 5.57547in
-            :height: 0.64571in
-
 
 #.  We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
 
   #. Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
 
 
-  .. image:: ../images/image92.png
-            :width: 5.57547in
-            :height: 0.64571in
-
 #. Did a failover event occur?   If so, why or why not?
 
 **This concludes the **BIG-IP HA Failover - do it the proper way** lab.
 
 
-
-
-
-
-.. image:: ../images/image92.png
-          :width: 5.57547in
-          :height: 0.64571in
 
 
 **Supplemental Resources:**
@@ -135,14 +105,9 @@ Configure HA
 
 
    .. image:: ../images/image1.png
-      :width: 5.57547in
-      :height: 0.64571in
 
 
    .. image:: ../images/image2.png
-      :width: 5.57547in
-      :height: 0.62307in
-
 
 
    #. Archive your work.
