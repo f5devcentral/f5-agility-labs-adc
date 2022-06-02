@@ -7,7 +7,8 @@ Lab Tasks:
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
 * Task 4: Setup MAC Masquerade
-* Task 5: Validate the Device Group Status
+* Task 5: Create Floating Self IPs on Active BIG-IP 
+* Task 6: Validate the Device Group Status
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -193,8 +194,47 @@ First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We
      .. image:: ../images/image120.png
 
 
+Task 5:  Create Floating Self IPs on Active BIG-IP 
+==================================================
 
-Task 5:  Validate the Device Group Status
+In this task, we will define Floating Self IP Objects on the ACTIVE BIG-IP, which are shared objects between an Active/Standby BIG-IP pair.  
+
+On the ACTIVE BIG-IP, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on the ACTIVE BIG-IP:
+
+   Use the following table to create & define your three Self IPs:
+
+   .. list-table:: 
+      :widths: auto
+      :align: center
+      :header-rows: 1
+   
+      * - BIG-IP
+        - Name
+        - IP address
+        - Netmask
+        - VLAN
+        - Port Lockdown
+      * - bigipA
+        - self_vlan10_float
+        - 10.1.10.240
+        - 255.255.255.0
+        - int_vlan_10
+        - Allow None (default)
+      * - bigipA
+        - self_vlan20_float
+        - 10.1.20.240
+        - 255.255.255.0
+        - ext_vlan_20
+        - Allow None (default)
+      * - bigipA
+        - self_vlan30_float
+        - 10.1.30.240
+        - 255.255.255.0
+        - HA_vlan_30
+        - Allow None (default)
+
+
+Task 6:  Validate the Device Group Status
 =========================================
 
 In this task, you will observe the current Active/Standby HA state.
