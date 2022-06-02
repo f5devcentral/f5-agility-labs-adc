@@ -92,6 +92,8 @@ From the Configuration section, at the Basic drop-down, select Advanced, and Con
        -  **Default Persistence Profile:**  source_addr_mirror_persist
      .. image:: ../images/image142.png
 
+You should be presented with the following Virtual Server after creation:
+     .. image:: ../images/image149.png
 
 Task 4:  Perform a Configuration Synchronization between BIG-IPs
 ================================================================
