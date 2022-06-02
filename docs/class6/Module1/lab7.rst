@@ -19,6 +19,7 @@ We will create two pool objects:
 
 #. Create the following Pool Configuration Objects:
 
+<<<<<<< HEAD
    **Pool 1**
       -  **Name:** server_pool
       -  **Health Monitors:** gateway_icmp
@@ -41,19 +42,22 @@ We will create two pool objects:
          -  **New Node Address:** 10.1.20.1
          -  **Service Port:** \* All Services
          - Click the Add button
-  
-            .. image:: ../images/image124.png
+=======
+   -  **Name:** server_pool
+   -  **Health Monitors:** gateway_icmp
+   -  Within the Resources Section:
 
-         - **NOTE** You will need to highlight the previous Node Object (10.1.10.199) and click the Delete button to remove from the Node List.
+      -  **New Node Address:** 10.1.10.199   
+      -  **Service Port:** \* All Services       
+      - Click the Add button
+>>>>>>> 584c3e40ae31f1e2fd25a0ba08d45058b7f24460
   
-            .. image:: ../images/image125.png
-
-      -  Click the Finished Button
-      
-         .. image:: ../images/image126.png
+   - Click the Repeat Button to Create Pool 2
+  
+      .. image:: ../images/image123.png
 
 After completion of this task, you should be presented with the following 2 pools:
-   -   .. image:: ../images/image127.png
+      .. image:: ../images/image127.png
 
 Task 4:  Create LTM Virtual Server Configuration Object
 =======================================================

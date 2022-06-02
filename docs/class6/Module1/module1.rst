@@ -8,4 +8,4 @@ In this module you will learn how to configure BIG-IP HA - the proper way.
    :maxdepth: 1
    :glob:
 
-   lab*
+   Lab*
