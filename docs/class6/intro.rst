@@ -270,3 +270,9 @@ Persistence mirroring is used that.
 
 Persistence information is only send when a new persistence record is created or an old record expired. It has less performance impact on BIG-IP than connection mirroring.
 
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   labinfo
+   module*/module*
