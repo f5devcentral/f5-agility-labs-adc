@@ -71,18 +71,23 @@ In this task, we will create a simple HTTP Virtual Server object.  This will be 
 - Navigate to:  Local Traffic --> Virtual Servers --> Virtual Server List, then click the "+" sign:
     -   .. image:: ../images/image128.png
 - Create the Virtual Server with the following settings:
+General Properties:
     -  **Name:**  test_http_vs
     -  **Type:**  Standard
     -  **Destination Address/Mask:**  10.1.10.55
     -  **Service Port:**  80 (HTTP)
-    -  **HTTP Profile (Client):**  http
-    -  **Resources:**
-       -  **Default Pool:**  server_pool
-       -  **Default Persistence Profile:**  source_addr
-    - Click the "Finished" Button
-
      .. image:: ../images/image129.png
-     .. image:: ../images/image130.png
+
+From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
+     .. image:: ../images/image140.png
+    -  **HTTP Profile (Client):**  http
+    -  **Connection Mirroring:**  Place a checkmark on this setting
+     .. image:: ../images/image141.png
+     .. image:: ../images/image142.png
+    - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
+       -  **Default Pool:**  server_pool
+       -  **Default Persistence Profile:**  source_addr_mirror_persist
+     .. image:: ../images/image142.png
 
 
 Task 4:  Perform a Configuration Synchronization between BIG-IPs
