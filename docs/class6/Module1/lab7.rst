@@ -30,13 +30,12 @@ We will create two pool objects:
 
 #. Create the following Pool Configuration Objects:
 
-<<<<<<< HEAD
    **Pool 1**
       -  **Name:** server_pool
       -  **Health Monitors:** gateway_icmp
       -  Within the Resources Section:
   
-         -  **New Node Address:** 10.1.10.199   
+         -  **New Node Address:** 10.1.10.200   
          -  **Service Port:** \* All Services       
          - Click the Add button
  
@@ -44,28 +43,6 @@ We will create two pool objects:
 
    - Click the "Finished" Button:
         .. image:: ../images/image135.png
-
-   **Pool 2**
-      -  **Name:** ext_gw_pool
-      -  **Health Monitors:** gateway_icmp
-      -  Within the Resources Section:
-        
-         -  **New Node Address:** 10.1.20.1
-         -  **Service Port:** \* All Services
-         - Click the Add button
-=======
-   -  **Name:** server_pool
-   -  **Health Monitors:** gateway_icmp
-   -  Within the Resources Section:
-
-      -  **New Node Address:** 10.1.10.199   
-      -  **Service Port:** \* All Services       
-      - Click the Add button
->>>>>>> 584c3e40ae31f1e2fd25a0ba08d45058b7f24460
-  
-   - Click the Repeat Button to Create Pool 2
-  
-      .. image:: ../images/image123.png
 
 After completion of this task, you should be presented with the following 2 pools:
       .. image:: ../images/image127.png
