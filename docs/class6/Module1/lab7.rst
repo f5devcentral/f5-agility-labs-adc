@@ -83,7 +83,7 @@ From the Configuration section, at the Basic drop-down, select Advanced, and Con
     -  **HTTP Profile (Client):**  http
     -  **Connection Mirroring:**  Place a checkmark on this setting
      .. image:: ../images/image141.png
-     .. image:: ../images/image142.png
+     .. image:: ../images/image143.png
     - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
        -  **Default Pool:**  server_pool
        -  **Default Persistence Profile:**  source_addr_mirror_persist
