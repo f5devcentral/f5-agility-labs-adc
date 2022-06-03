@@ -55,7 +55,11 @@ In Task 2, we will now re-enable Interface 1.1 on the Standby BIG-IP by performi
 
 #. Did a failover event occur?   If so, why or why not?
 
+Lab Summary
+***********
+In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event with HA Groups.  After completion of these lab tasks, you should have a better understanding of how the BIG-IP behaves with an advanced HA Group Configuration.
 
+This completes Lab 6.
 
 Supplemental Resources:
 +++++++++++++++++++++++
