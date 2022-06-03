@@ -36,7 +36,7 @@ In Task 1, we will define BIG-IP trunks.  These trunks will be used in subsequen
    |                |                      | network connection      |
    +----------------+----------------------+-------------------------+
 
-#. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk
+#. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk:
 
    .. image:: ../images/image1.png
 
@@ -85,7 +85,7 @@ In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associate
    |HA_vlan_30  | 30 |HA_trunk   | Untagged |
    +------------+----+-----------+----------+
 
-#. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN
+#. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN:
 
      .. image:: ../images/image7.png
 
@@ -167,7 +167,7 @@ In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will 
         - Allow None (default)
 
 
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP
+#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
      .. image:: ../images/image13.png
 
@@ -185,13 +185,13 @@ In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will 
 
      .. image:: ../images/image16.png
 
-   -  View of the Self IP List after all Self IPs have been defined:
+   -  Example view of the Self IP List from BIG-IP-A after all Self IPs have been defined:
 
      .. image:: ../images/image17.png
 
 
 Lab Summary
-^^^^^^^^^^^
-In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the following labs.
+***********
+In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
 
 This completes Lab 1.
