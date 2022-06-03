@@ -7,32 +7,35 @@ In Lab 5, to address this limitation, we will use the HA Group Failover object.
 
 Lab Tasks:
 **********
-* Task 1: Create Gateway pool
+* Task 1: Create a Gateway Pool
 * Task 2: Create HA Groups
 * Task 3: Enable HA Group as the Preferred Failover Method
 
-Task 1: Create HA Groups
-========================
+Task 1: Create a Gateway Pool
+=============================
 
-We will create a pool that contains the default gateway as the pool member. The function of this pool is to help the BIG-IP identify network related problems upstream.
+In Task 1, we will create a pool that contains the default gateway as the pool member. The function of this pool is to help the BIG-IP identify network related problems upstream.
 
-We will use this pool as a failover event trigger in the subsequent HA Group configuration.
+We will use this pool object as a failover event trigger in Task 2 of our HA Group configuration.
 
-**Gateway pool configuratipon:**
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool
 
--  **Name:** ext_gw_pool
--  **Health Monitors:** gateway_icmp
-   Within the Resources Section:
-      
-   -  **New Node Address:** 10.1.20.1
-   -  **Service Port:** \* All Services
-   - Click the Add button
+   .. image:: ../images/image114.png
+
+   - Create a Gateway Pool with the following settings:
+
+    -  **Name:** ext_gw_pool
+    -  **Health Monitors:** gateway_icmp
+   
+    - Within the Resources Section:
+       -  **New Node Address:** 10.1.20.1
+       -  **Service Port:** \* All Services
+    - Click the Add button
   
-     .. image:: ../images/image124.png
+      .. image:: ../images/image124.png
 
-     .. image:: ../images/image125.png
 
-   Click the Finished Button
+   Click the **Finished** Button:
       
       .. image:: ../images/image126.png
 
