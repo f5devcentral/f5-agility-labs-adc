@@ -16,9 +16,9 @@ Task 1: Disable an interface to force HA Group actions
 
 In this task we will: 
 
-* manipulate an interface on the active BIG-IP.   
-* disable an interface and observe BIG-IP behavior during failover
-* monitor logs to review the failover process.
+* Manipulate an interface on the active BIG-IP
+* Disable an interface and observe BIG-IP behavior during failover
+* Monitor logs to review the failover process
 
 
 On the active BIG-IP: 
@@ -47,11 +47,9 @@ On the active BIG-IP:
 Task 2: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
 
-We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
+In Task 2, we will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
 
-In the standby BIG-IP
-
-*  Navigate to Network, Interfaces, Interface List, and place  checkmark next to interface 1.1 then click the **Enable** button.
+#. On the standby BIG-IP, **Navigate to**: Network > Interfaces > Interface List, and place checkmark next to interface 1.1 then click the **Enable** button.
   
    .. image:: ../images/image93.png
 
