@@ -21,23 +21,23 @@ In Task 1, we will define our respective DSC configuration items.
 
 #. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
 
-     .. image:: ../images/image18.png
+    .. image:: ../images/image18.png
 
 #. Click the "ConfigSync" banner:
 
-     .. image:: ../images/image19.png
+    .. image:: ../images/image19.png
 
 #. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
 
-     .. image:: ../images/image20.png
+    .. image:: ../images/image20.png
 
 #. Click the "Failover Network" banner, then the "Add" button:
 
-     .. image:: ../images/image21.png
+    .. image:: ../images/image21.png
 
 #. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
 
-     .. image:: ../images/image115.png
+    .. image:: ../images/image115.png
 
 
 #. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
