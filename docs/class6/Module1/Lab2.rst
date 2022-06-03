@@ -21,11 +21,11 @@ In Task 1, we will define our respective DSC configuration items.
 
 #. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
 
-    .. image:: ../images/image18.png
+   .. image:: ../images/image18.png
 
 #. Click the "ConfigSync" banner:
 
-    .. image:: ../images/image19.png
+   .. image:: ../images/image19.png
 
 #. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
 
