@@ -3,6 +3,8 @@ Lab 2:  Configure Device Service Cluster (DSC) High-Availability Settings
 
 In Lab 2, we will configure DSC configuration objects, which will assist with establishing a device-trust between BIG-IPs, allowing a successful highly-available Active/Standby BIG-IP pair.
 
+For addtional details on DSC, please refer to this Article: `BIG-IP Device Service Clustering: Administration <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html>`_
+
 Lab Tasks:
 **********
 * Task 1: Define DSC HA Settings
