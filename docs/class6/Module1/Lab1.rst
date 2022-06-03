@@ -1,6 +1,8 @@
 Lab 1: Configure BIG-IP Trunks, VLAN's, and Self-IP's
 -----------------------------------------------------
 
+In Lab 1, we will setup basic network-level settings on our BIG-IPs.  We will define Trunks, VLANs, and local Self IPs.  These configuration items will assist in establishing connectivity to/from our BIG-IPs, and between BIG-IPs.
+
 Lab Tasks:
 **********
 
@@ -10,6 +12,8 @@ Lab Tasks:
 
 Task 1: Create BIG-IP Trunks
 ============================
+
+In Task 1, we will define BIG-IP trunks.  These trunks will be used in subsequent labs, becoming part of our HA Group configuration.
 
 #. On both BIG-IP devices, configure trunks under the Network configuration section.
 
@@ -65,6 +69,8 @@ Task 1: Create BIG-IP Trunks
 Task 2: Create BIG-IP VLANs
 ===========================
 
+In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associated with their respective trunk from Task 1.
+
 #. On both BIG-IP devices, configure VLANs under the Network configuration section.
 
    Use the following table to create & define your three VLANs:
@@ -105,6 +111,9 @@ Task 2: Create BIG-IP VLANs
 
 Task 3: Create BIG-IP Self IPs
 ==============================
+
+In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will be our L3 connectivity to our BIG-IP networks.
+
 #. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
 
    Use the following table to create & define your three Self IPs:
@@ -183,6 +192,6 @@ Task 3: Create BIG-IP Self IPs
 
 Lab Summary
 ^^^^^^^^^^^
-In this lab, you setup basic BIG-IP network configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the following labs.
+In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the following labs.
 
 This completes Lab 1.
