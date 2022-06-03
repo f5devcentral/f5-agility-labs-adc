@@ -1,6 +1,8 @@
 Lab 2:  Configure Device Service Cluster (DSC) High-Availability Settings
 -------------------------------------------------------------------------
 
+In Lab 2, we will configure DSC configuration objects, which will assist with establishing a device-trust between BIG-IPs, allowing a successful highly-available Active/Standby BIG-IP pair.
+
 Lab Tasks:
 **********
 * Task 1: Define DSC HA Settings
@@ -13,8 +15,9 @@ Lab Tasks:
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
 
+In Task 1, we will define our respective DSC configuration items.
 
-#. **Navigate to**: Device Management > Devices > click the (Self) hyperlink
+#. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
 
      .. image:: ../images/image18.png
 
@@ -66,6 +69,8 @@ For more information on Connection Mirroring Configuration, please refer to Know
 Task 2: Configure & Verify Device Trust between BIG-IPs
 =======================================================
 
+In Task 2, we will define the configuration to establish our device-trust between BIG-IPs.
+
 On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
 
    NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **Active / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
@@ -92,7 +97,7 @@ On device *bigipB.f5demo.com*, setup the Device Trust that will be used between 
      -  .. image:: ../images/image29.png
      -  .. image:: ../images/image30.png
 
-#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device
+#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device:
 
      .. image:: ../images/image31.png
 
@@ -134,10 +139,12 @@ On device *bigipB.f5demo.com*, setup the Device Trust that will be used between 
 Task 3:  Configure the Device Group
 ===================================
 
+In Task 3, we will define the device group on the BIG-IPs.
+
 On *bigipA.f5demo.com*, set up the new Device Group that will be used by
 both BIG-IP systems.
 
-#. **Navigate to**: Device Management > Device Groups page, and then click the "+" button
+#. **Navigate to**: Device Management > Device Groups page, and then click the "+" button:
 
      .. image:: ../images/image37.png
 
@@ -165,19 +172,19 @@ both BIG-IP systems.
 Task 4:  Setup MAC Masquerade
 =============================
 
+In Task 4, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+
 To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic groups on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
 
-In this task, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
 
-In Virtualized environments, there are come configuration caveats to be aware of; please review the **Notes** section in Article `K13502 <https://support.f5.com/csp/article/K13502>`_
+First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
 
-First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs, and flip the 1st MAC HEX value to "02."
-
-1.  Navigate to Network --> Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
+1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
    
      .. image:: ../images/image116.png
 
-2.  Now, navigate to Device Management --> Traffic Groups --> click the traffic-group-1 hyperlink:
+2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
    
      .. image:: ../images/image117.png
 
@@ -197,7 +204,7 @@ First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We
 Task 5:  Create Floating Self IPs on BIG-IP-A
 ==================================================
 
-In this task, we will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
+In Task 5, we will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
 
 On the BIG-IP-A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
 
@@ -233,7 +240,7 @@ On the BIG-IP-A, create the following Floating Self IP Objects.  These will be s
         - HA_vlan_30
         - Allow None (default)
 
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP
+#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
      .. image:: ../images/image13.png
 
@@ -254,7 +261,7 @@ After creation of your Floating Self IPs, your Self IP List should reflect the f
 Task 6:  Validate the Device Group Status
 =========================================
 
-In this task, you will observe the current Active/Standby HA state.
+In Task 6, you will observe the current Active/Standby HA state.
 
 #. Observe the state of each BIG-IP after Device Group creation
 
@@ -296,3 +303,9 @@ In this task, you will observe the current Active/Standby HA state.
    |           | to the current Self IP Port Lockdown behavior on the HA |
    |           | VLAN.                                                   |
    +-----------+---------------------------------------------------------+
+
+Lab Summary
+***********
+In this lab, you setup BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  These configuration objects will assist with the subsequent labs.
+
+This completes Lab 2.
