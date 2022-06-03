@@ -29,37 +29,37 @@ In Task 1, we will define our respective DSC configuration items.
 
 #. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
 
-    .. image:: ../images/image20.png
+   .. image:: ../images/image20.png
 
 #. Click the "Failover Network" banner, then the "Add" button:
 
-    .. image:: ../images/image21.png
+   .. image:: ../images/image21.png
 
 #. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
 
-    .. image:: ../images/image115.png
+   .. image:: ../images/image115.png
 
 
 #. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
 
-     .. image:: ../images/image22.png
+   .. image:: ../images/image22.png
 
 #. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the "Finished" button:
 
-     .. image:: ../images/image23.png
+   .. image:: ../images/image23.png
 
 #. View of the Failover Unicast Configuration:
 
-     .. image:: ../images/image24.png
+   .. image:: ../images/image24.png
 
 #. Click the "Mirroring" banner:
 
-     .. image:: ../images/image110.png
+   .. image:: ../images/image110.png
 
 
 #. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
 
-     .. image:: ../images/image111.png
+   .. image:: ../images/image111.png
 
 To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
 
@@ -101,35 +101,35 @@ On device *bigipB.f5demo.com*, setup the Device Trust that will be used between 
 
 #. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device:
 
-     .. image:: ../images/image31.png
+   .. image:: ../images/image31.png
 
 #. Retrieve Device Credentials (Step 1 of 3):
 
    Fill in the respective form items for *bigipA.f5demo.com*, then click the *Retrieve Device Information* button
 
-     .. image:: ../images/image32.png
+   .. image:: ../images/image32.png
 
 #. Verify Device Certificate (Step 2 of 3):
 
    Confirm the device certificate information, then click the *Device Certificate Matches* button
 
-     .. image:: ../images/image33.png
+   .. image:: ../images/image33.png
 
 #. Add Device (Step 3 of 3):
 
    Verify the device name, and click the *Add Device* button
 
-     .. image:: ../images/image34.png
+   .. image:: ../images/image34.png
 
 #. Verify *bigipA.f5demo.com*
 
    Navigate to: Device Management --> Device Trust --> Device Trust Members
 
-     .. image:: ../images/image35.png
+   .. image:: ../images/image35.png
 
 #. Verify that *bigipB.f5demo.com* is shown in the Peer Device List:
 
-     .. image:: ../images/image36.png
+   .. image:: ../images/image36.png
 
 +-----------+---------------------------------------------------------+
 | Question: | Why are both BIG-IPs Active?                            |
@@ -148,7 +148,7 @@ both BIG-IP systems.
 
 #. **Navigate to**: Device Management > Device Groups page, and then click the "+" button:
 
-     .. image:: ../images/image37.png
+   .. image:: ../images/image37.png
 
 #. Create a Device Group using the following information, and then click Finished
 
@@ -167,9 +167,9 @@ both BIG-IP systems.
    |             | to the *Includes* column                              |
    +-------------+-------------------------------------------------------+
 
-     .. image:: ../images/image38.png
+   .. image:: ../images/image38.png
 
-     .. image:: ../images/image39.png
+   .. image:: ../images/image39.png
 
 Task 4:  Setup MAC Masquerade on BIG-IP-A
 =========================================
@@ -184,19 +184,19 @@ First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We
 
 1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
    
-     .. image:: ../images/image116.png
+    .. image:: ../images/image116.png
 
 2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
    
-     .. image:: ../images/image117.png
+    .. image:: ../images/image117.png
 
 3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
    
-     .. image:: ../images/image118.png
+    .. image:: ../images/image118.png
 
-     Replace the "52" with "02" and click Save
+    Replace the "52" with "02" and click Save
 
-     .. image:: ../images/image119.png
+    .. image:: ../images/image119.png
 
 
 Task 5:  Create Floating Self IPs on BIG-IP-A
@@ -240,21 +240,21 @@ On the BIG-IP-A, create the following Floating Self IP Objects.  These will be s
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
-     .. image:: ../images/image13.png
+   .. image:: ../images/image13.png
 
 #. Create the respective Self IPs per the table above.
 
-VLAN 10 Float:
-     .. image:: ../images/image144.png
+   VLAN 10 Float:
+   .. image:: ../images/image144.png
 
-VLAN 20 Float:
-     .. image:: ../images/image145.png
+   VLAN 20 Float:
+   .. image:: ../images/image145.png
 
-VLAN 30 Float:
-     .. image:: ../images/image146.png
+   VLAN 30 Float:
+   .. image:: ../images/image146.png
 
-After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
-     .. image:: ../images/image147.png
+   After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
+   .. image:: ../images/image147.png
 
 Task 6:  Validate the Device Group Status
 =========================================
