@@ -1,6 +1,8 @@
 Lab 4:  Test & Validate a Failover Scenario
 -------------------------------------------
 
+In Lab 4, we will manipulate a BIG-IP interface to see how it affects basic failover events.
+
 Lab Tasks:
 **********
 * Task 1: Disable a BIG-IP Interface
@@ -9,7 +11,7 @@ Lab Tasks:
 Task 1: Disable a BIG-IP Interface
 ==================================
 
-In this task, we will simulate a "link down" failure on the ACTIVE
+In Task 1, we will simulate a "link down" failure on the ACTIVE
 BIG-IP, and determine if the BIG-IP will failover automatically.
 
 We will compare the failover timing once we create & use our HA Group
@@ -114,6 +116,8 @@ to see logging data in real-time:
 Task 2: Enable both Interfaces on ACTIVE BIG-IP
 ===============================================
 
+In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
+
 +--------------+------------------------------------------------------+
 | Navigate to: | Network --> Interfaces --> place checkmarks in 1.1 & |
 |              | 1.2, then click the "Enable" button:                 |
@@ -124,7 +128,7 @@ Task 2: Enable both Interfaces on ACTIVE BIG-IP
       :height: 5.71319in
 
 Lab Summary
-^^^^^^^^^^^
+***********
 In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event.  After completion of these lab tasks, you should have an understanding of how the BIG-IP behaves in a typical HA design.  The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
 
 This completes Lab 4.
