@@ -1,13 +1,13 @@
 Lab 4:  Test & Validate a Failover Scenario
-===========================================
+-------------------------------------------
 
 Lab Tasks:
-==========
+**********
 * Task 1: Disable a BIG-IP Interface
 * Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
-**Task 1: Disable a BIG-IP Interface**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Task 1: Disable a BIG-IP Interface
+==================================
 
 In this task, we will simulate a "link down" failure on the ACTIVE
 BIG-IP, and determine if the BIG-IP will failover automatically.
@@ -111,8 +111,8 @@ to see logging data in real-time:
       :height: 6.57431in
 
 
-**Task 2: Enable both Interfaces on ACTIVE BIG-IP**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Task 2: Enable both Interfaces on ACTIVE BIG-IP
+===============================================
 
 +--------------+------------------------------------------------------+
 | Navigate to: | Network --> Interfaces --> place checkmarks in 1.1 & |

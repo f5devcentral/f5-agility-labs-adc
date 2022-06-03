@@ -1,18 +1,18 @@
 Lab 5:  Create & Enable HA Groups
-=================================
+---------------------------------
 
 In previous labs we have seen that the basic HA configuration does not take a physical interface failure into account.
 
 To address this, we will use the HA Group Failover object. Here is how it is configured: 
 
 Lab Tasks:
-==========
+**********
 * Task 1: Create Gateway pool
 * Task 2: Create HA Groups
 * Task 3: Enable HA Group as the Preferred Failover Method
 
-**Task 1: Create HA Groups**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Task 1: Create HA Groups
+========================
 
 We will create a pool that contains the default gateway as pool member. The function of that pool is to help BIG-IP identify network related problems.
 
@@ -37,8 +37,8 @@ We will use this pool as a failover event trigger in the subsequent HA Group.
       .. image:: ../images/image126.png
 
 
-**Task 2: Create HA Groups**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Task 2: Create HA Groups
+========================
 
 
 NOTES:
@@ -124,8 +124,8 @@ https://support.f5.com/csp/article/K16947
 
 
 
-**Task 2: Enable HA Group as the Preferred Failover Method**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Task 2: Enable HA Group as the Preferred Failover Method
+========================================================
 
 +--------------------------------+------------------------------------+
 | On Active BIG-IP, Navigate to: | Device Management --> Traffic      |
