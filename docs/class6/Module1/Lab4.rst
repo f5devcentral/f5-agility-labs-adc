@@ -110,7 +110,7 @@ In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 
 #. **Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the "Enable" button:
 
-.. image:: ../images/image62.png
+   .. image:: ../images/image62.png
       :width: 5.27778in
       :height: 5.71319in
 
