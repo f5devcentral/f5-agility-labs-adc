@@ -49,35 +49,35 @@ Default profiles will be overwritten with the next software update.
 Task 2: Create LTM Pool Configuration Objects 
 =============================================
 
-In Task 2, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
+In Task 2, we will create an LTM Pool Configuration object, which will be used for the backend server pool for our Virtual Server.
 
-We will create a pool object:
+**On the ACTIVE BIG-IP, Create Pool & Node Objects:**
 
-1.  Back-end Server Pool - this will be used as the pool for the Virtual Server object
 
-**On the ACTIVE BIG-IP, Create Pool & Node Objects**
-
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
 
    .. image:: ../images/image114.png
 
 #. Create the following Pool Configuration Objects:
 
-Server Pool:
-   -  **Name:** server_pool
-   -  **Health Monitors:** gateway_icmp
-     -  Within the Resources Section:
-         -  **New Node Address:** 10.1.10.200   
-         -  **Service Port:** \* All Services       
-         - Click the Add button
+    - **Server Pool:**
+       -  **Name:** server_pool
+       -  **Health Monitors:** gateway_icmp
+       -  Within the Resources Section:
+          -  **New Node Address:** 10.1.10.200
+          -  **Service Port:** \* All Services
+          - Click the Add button
  
         .. image:: ../images/image123.png
 
-   - Click the "Finished" Button:
-        .. image:: ../images/image135.png
+    - Click the "Finished" Button:
 
-After completion of this task, you should be presented with the following 2 pools:
-      .. image:: ../images/image127.png
+      .. image:: ../images/image135.png
+
+#. After completion of this task, you should be presented with the following 2 pools:
+
+
+   .. image:: ../images/image127.png
 
 Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
 =========================================================================================
