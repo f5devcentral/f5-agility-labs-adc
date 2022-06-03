@@ -1,6 +1,8 @@
 Lab 3:  Modify BIG-IP settings, Sync, & Perform Validation
 ----------------------------------------------------------
 
+In Lab 3, we will modify port lockdown settings, and validate BIG-IP configuration synchronization.
+
 Lab Tasks:
 **********
 * Task 1: Modify Self IP Port Lockdown
@@ -9,16 +11,16 @@ Lab Tasks:
 Task 1:  Modify Self IP Port Lockdown
 =====================================
 
-For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.  In this Task, we will define a Custom Port Lockdown configuration on the respective Self IPs.
+In Task 1, we will modify our "Allow None" Self IP port lockdown behavior; we will define a Custom Port Lockdown configuration on the respective Self IPs.
+
+For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.
 
 * For our HA VLAN, we will select **"Allow Default"**
 * For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
 
 There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
-
-In this Task, we will modify the Self IP port lockdown behavior.
  
-When we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
+In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
 
 
 **On each BIG-IP:**
@@ -96,6 +98,8 @@ When we created our Local Self IPs, we chose to select the "Allow None" port loc
 Task 2: Verify an Active / Standby "In Sync" State
 ==================================================
 
+In Task 2, we will perform a BIG-IP device synchronization.  This will validate our HA DSC configuration.
+
 #. On each BIG-IP, review the current state.
 
    -  BIG-IP-A:
@@ -111,7 +115,7 @@ Task 2: Verify an Active / Standby "In Sync" State
 
 
 Lab Summary
-^^^^^^^^^^^
-In this lab, you configured addtional BIG-IP configuration objects.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
+***********
+In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
 
 This completes Lab 3.
