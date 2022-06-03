@@ -31,11 +31,11 @@ to see logging data in real-time:
 
    BIG-IP-A:
 
-      .. image:: ../images/image57.png
+   .. image:: ../images/image57.png
    
    BIG-IP-B:
 
-      .. image:: ../images/image58.png
+   .. image:: ../images/image58.png
       
 +------------------------------------+----------------------------------+
 | .. rubric:: From the \*ACTIVE\*    | Network --> Interfaces --> place |
