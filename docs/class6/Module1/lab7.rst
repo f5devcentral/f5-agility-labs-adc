@@ -1,35 +1,39 @@
 Lab 7: Persistence Mirroring and Connection Mirroring
-----------------------------------------------------
+-----------------------------------------------------
 
-- Task 1: Persistence Mirroring Profile
-- Task 2: Create LTM Pool Configuration Objects
-- Task 3: Create LTM Virtual Server Configuration Object with connection mirroring enabled
-- Task 4:  Perform a Configuration Synchronization between BIG-IPs
+In Lab 7, we will continue to enhance & optimize the BIG-IP configuration.  We will specifically be enabling Virtual Server configuration, to enhance Connection Mirroring & Persistence Mirroring.
+
+Lab Tasks:
+**********
+* Task 1: Persistence Mirroring Profile
+* Task 2: Create LTM Pool Configuration Objects
+* Task 3: Create LTM Virtual Server Configuration Object with connection mirroring enabled
+* Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
 Task 1: Persistence Mirroring Profile
 =====================================
 
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
 
-It is per default not enabled and require to create a dedicated profile that has it enabled.
+By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
 
-DO NOT edit the default profiles. Always create a new profile with the desired settings and use the default profile as parent profiles. 
+**DO NOT** edit default BIG-IP profiles. Always create a new profile with the desired settings and use the default profile as parent profiles. 
 Default profiles will be overwritten with the next software update.
 
-Navigate to Local Traffic --> Profiles --> Persistence, and click the "+" button to create a new profile:
+#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the "+" button to create a new profile:
    .. image:: ../images/image136.png
 
-Provide a Name for your Custom Persistence Profile, i.e.:  source_addr_mirror_persist
-Select Source Address Affinity from the Persistnece Type drop-down
-Ensure the Parent Profile is set to source_addr
-You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
-   .. image:: ../images/image137.png
+#. Provide a Name for your Custom Persistence Profile, i.e.:  *source_addr_mirror_persist*
+    - Select Source Address Affinity from the Persistnece Type drop-down
+    - Ensure the Parent Profile is set to *source_addr*
+    - You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
+      .. image:: ../images/image137.png
 
-Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
-   .. image:: ../images/image138.png
+   - Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
+     .. image:: ../images/image138.png
 
-You should see two Source Address profiles, one custom and one default:
-   .. image:: ../images/image139.png
+   - You should see two Source Address profiles, one custom and one default:
+     .. image:: ../images/image139.png
 
 
 Task 2: Create LTM Pool Configuration Objects 
@@ -121,4 +125,15 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
    .. image:: ../images/image55.png
 
 
-This concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
+Lab Summary
+***********
+In this lab, you enhanced your HA configuration to leverage HA Groups.  
+HA Groups provide the ability to monitor an "object" and take action upon an event.  
+After completion of these lab tasks, your BIG-IP should be leveraging HA Groups for Failover.  In the following lab, we will test & validate how this configuration enhances the failover timing.
+
+This completes lab 7, and concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
+
+We hope this lab experience was educational and beneficial.  If you have any feedback, or suggestions on making this better, please provide feedback.
+
+Thank you, 
+F5 Solutions Engineers
