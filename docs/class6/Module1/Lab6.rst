@@ -2,11 +2,17 @@
 Lab 6: Validating, Testing & Troubleshooting HA Group Functionality
 -------------------------------------------------------------------
 
-Now that we have succesfully configured HA Groups we will perform a series of validation tests as well as provide tips for troubleshooting
+Now that we have succesfully configured HA Groups we will perform a series of validation tests, as well as provide tips for troubleshooting.
 
 
-Disable an interface to force HA Group actions
-++++++++++++++++++++++++++++++++++++++++++++++
+Lab Tasks:
+**********
+* Task 1: Disable an interface to force HA Group actions
+* Task 2: Re-enable Interface, and Observe BIG-IP Behavior
+
+
+Task 1: Disable an interface to force HA Group actions
+======================================================
 
 In this task we will: 
 
@@ -37,6 +43,9 @@ On the active BIG-IP:
 
   .. image:: ../images/image92.png
 
+
+Task 2: Re-enable Interface, and Observe BIG-IP Behavior
+========================================================
 
 We will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
 
