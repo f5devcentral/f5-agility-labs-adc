@@ -13,6 +13,8 @@ Lab Tasks:
 Task 1: Persistence Mirroring Profile
 =====================================
 
+In Task 1, we will create a new Persistence Profile, enabling persistence mirroring.
+
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
 
 By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
@@ -27,19 +29,25 @@ Default profiles will be overwritten with the next software update.
     - Select Source Address Affinity from the Persistnece Type drop-down
     - Ensure the Parent Profile is set to *source_addr*
     - You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
+
+
       .. image:: ../images/image137.png
 
    - Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
+
+
      .. image:: ../images/image138.png
 
    - You should see two Source Address profiles, one custom and one default:
+
+
      .. image:: ../images/image139.png
 
 
 Task 2: Create LTM Pool Configuration Objects 
 =============================================
 
-In this task, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
+In Task 2, we will create LTM Virtual Server configuration objects that will be synchronized between BIG-IPs. This will validate that ConfigSync is working correctly. We will perform these changes on the ACTIVE BIG-IP, and then we will sync these changes to the STANDBY BIG-IP.
 
 We will create a pool object:
 
