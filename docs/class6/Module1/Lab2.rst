@@ -10,7 +10,7 @@ Lab Tasks:
 * Task 1: Define DSC HA Settings
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
-* Task 4: Setup MAC Masquerade
+* Task 4: Setup MAC Masquerade on BIG-IP-A
 * Task 5: Create Floating Self IPs on BIG-IP-A
 * Task 6: Validate the Device Group Status
 
@@ -171,8 +171,8 @@ both BIG-IP systems.
 
      .. image:: ../images/image39.png
 
-Task 4:  Setup MAC Masquerade
-=============================
+Task 4:  Setup MAC Masquerade on BIG-IP-A
+=========================================
 
 In Task 4, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
 
@@ -198,13 +198,9 @@ First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We
 
      .. image:: ../images/image119.png
 
-4. After this change, Sync your BIG-IP configurations.
-   
-     .. image:: ../images/image120.png
-
 
 Task 5:  Create Floating Self IPs on BIG-IP-A
-==================================================
+=============================================
 
 In Task 5, we will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
 
