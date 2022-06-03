@@ -61,6 +61,7 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
 #. On BIG-IP-A, modify the Floating Self IPs per the previous steps:
     - Floating VLAN 30 = Allow Default, then Click Update:
+  
       .. image:: ../images/image150.png
 
     - Floating VLAN 10 & 20 = Allow Custom, UDP port 1026, then Click Update:
