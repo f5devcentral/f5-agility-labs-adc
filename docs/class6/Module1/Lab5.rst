@@ -18,12 +18,11 @@ In Task 1, we will create a pool that contains the default gateway as the pool m
 
 We will use this pool object as a failover event trigger in Task 2 of our HA Group configuration.
 
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
 
    .. image:: ../images/image114.png
 
-   - Create a Gateway Pool with the following settings:
-
+#. Create a Gateway Pool with the following settings:
     -  **Name:** ext_gw_pool
     -  **Health Monitors:** gateway_icmp
    
@@ -100,31 +99,29 @@ NOTES:
    .. image:: ../images/image69.png
 
 
-HA Scoring
-++++++++++
+About HA Group Scoring
+++++++++++++++++++++++
 
-The BIG-IP with the highest HA group scoring will become the active device.
+The BIG-IP with the highest HA group scoring value will become the active device.
 
-The HA Group score is beeing calculated by the sum of all active trunks and pool members.
+The HA Group score is being calculated by the sum of all active trunks and pool member objects.
 
-In addition to that the active device will get a bonus score, this is the "active Bonus".
+In addition, there is an "Active Bonus" value that is added to the **Active** device, preventing a race-condition of both devices having the same score when all HA objects are "up."
 
-The active bonus is added for two reasons:
+The Active Bonus is added for two reasons:
 
-* to prevent an active-active split brain
-* to allow the active device to stay active in specific usecases.
-  One use case is, if there are multiple links in the HA trunk and one interface goes down, but the remaining links still can handle the traffic. 
-  The Admin might decide that this is not a reason to failover because of service stability. 
+* To prevent an active-active split-brain scenario
+* To allow the active device to stay active in specific use cases.
+
+One use-case is:
+    - If there are multiple links in the HA trunk and one interface goes down, but the remaining links can still handle the traffic, then the Admin might decide that this is not a reason to failover because of service stability.
 
 
-for detailed information and bet practives see following K-article:
-
-https://support.f5.com/csp/article/K16947
-
+For detailed information and HA Best Practices, see following K-article:  - `K16947: F5 recommended practices for the HA group feature <https://support.f5.com/csp/article/K16947>`_
 
 
 
-Task 2: Enable HA Group as the Preferred Failover Method
+Task 3: Enable HA Group as the Preferred Failover Method
 ========================================================
 
 #. On Active BIG-IP, Navigate to: Device Management --> Traffic Groups --> *traffic-group-1* hyperlink
