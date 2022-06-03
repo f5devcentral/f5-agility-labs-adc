@@ -245,15 +245,19 @@ Use the following table to create & define your three Self IPs:
 #. Create the respective Self IPs per the table above.
 
    VLAN 10 Float:
+
    .. image:: ../images/image144.png
 
    VLAN 20 Float:
+
    .. image:: ../images/image145.png
 
    VLAN 30 Float:
+
    .. image:: ../images/image146.png
 
    After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
+   
    .. image:: ../images/image147.png
 
 Task 6:  Validate the Device Group Status
