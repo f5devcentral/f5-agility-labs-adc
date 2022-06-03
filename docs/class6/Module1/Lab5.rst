@@ -42,20 +42,20 @@ We will use this pool object as a failover event trigger in Task 2 of our HA Gro
 Task 2: Create HA Groups
 ========================
 
+In Task 2, we will create HA Group configurations on each BIG-IP.
 
-NOTES:
+**NOTES:**
 
 -  HA group configuration is device specific and is not synced between
    members of a DSC group.
 
-   -  You must create a separate HA group on every device in the device
+   -  You **MUST** create a separate HA group on every device in the device
       group for this traffic group.
 
 
+#. On each BIG-IP, create an HA Group:
 
--  On each BIG-IP, create an HA Group:
-
-#. **Navigate to**: System > High Availability > HA Group List >  click the "+" button
+#. **Navigate to**: System > High Availability > HA Group List >  click the "+" button:
 
    .. image:: ../images/image63.png
       
@@ -102,7 +102,7 @@ NOTES:
 About HA Group Scoring
 ++++++++++++++++++++++
 
-The BIG-IP with the highest HA group scoring value will become the active device.
+The BIG-IP with the highest HA Group scoring value will become the active device.
 
 The HA Group score is being calculated by the sum of all active trunks and pool member objects.
 
@@ -117,14 +117,16 @@ One use-case is:
     - If there are multiple links in the HA trunk and one interface goes down, but the remaining links can still handle the traffic, then the Admin might decide that this is not a reason to failover because of service stability.
 
 
-For detailed information and HA Best Practices, see following K-article:  - `K16947: F5 recommended practices for the HA group feature <https://support.f5.com/csp/article/K16947>`_
+For detailed information and HA Best Practices, see following K-article: `K16947: F5 recommended practices for the HA group feature <https://support.f5.com/csp/article/K16947>`_
 
 
 
 Task 3: Enable HA Group as the Preferred Failover Method
 ========================================================
 
-#. On Active BIG-IP, Navigate to: Device Management --> Traffic Groups --> *traffic-group-1* hyperlink
+#. On the Active BIG-IP, **Navigate to**: Device Management > Traffic Groups > *traffic-group-1* hyperlink:
+   
+   
    .. image:: ../images/image70.png
 
 #. From the "Health Monitor" Section, select the drop-down for "HA Group:"
