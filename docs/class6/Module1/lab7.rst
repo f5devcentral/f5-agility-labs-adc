@@ -27,9 +27,10 @@ Default profiles will be overwritten with the next software update.
 
    .. image:: ../images/image136.png
 
-#. Provide a Name for your Custom Persistence Profile, i.e.:  *source_addr_mirror_persist*
-    - Select Source Address Affinity from the Persistnece Type drop-down
-    - Ensure the Parent Profile is set to *source_addr*
+#. Configure the following Settings for your Custom Persistence Profile:
+    - **Name:** *source_addr_mirror_persist*
+    - **Persitence Type:** Select Source Address Affinity from the Persistnece Type drop-down
+    - **Parent Profile:** Ensure the Parent Profile is set to *source_addr*
     - You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
 
 
@@ -81,32 +82,39 @@ In Task 2, we will create an LTM Pool Configuration object, which will be used f
 
 Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
 =========================================================================================
-In this task, we will create a simple HTTP Virtual Server object.  This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
 
-- Navigate to:  Local Traffic --> Virtual Servers --> Virtual Server List, then click the "+" sign:
+In Task 3, we will create a simple HTTP Virtual Server object.  This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+
+#. **Navigate to**: Local Traffic > Virtual Servers > Virtual Server List, then click the "+" sign:
     -   .. image:: ../images/image128.png
-- Create the Virtual Server with the following settings:
-General Properties:
-    -  **Name:**  test_http_vs
-    -  **Type:**  Standard
-    -  **Destination Address/Mask:**  10.1.10.55
-    -  **Service Port:**  80 (HTTP)
-     .. image:: ../images/image129.png
 
-From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
+#. Create the Virtual Server with the following settings:
+    - General Properties:
+       -  **Name:**  test_http_vs
+       -  **Type:**  Standard
+       -  **Destination Address/Mask:**  10.1.10.55
+       -  **Service Port:**  80 (HTTP)
+          
+          .. image:: ../images/image129.png
+
+#. From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
      .. image:: ../images/image140.png
     -  **HTTP Profile (Client):**  http
     -  **Source Address Translation:**  From the drop-down, select AutoMap:
+
+
        .. image:: ../images/image148.png
+
+
     -  **Connection Mirroring:**  Place a checkmark on this setting
-     .. image:: ../images/image141.png
-     .. image:: ../images/image143.png
+       .. image:: ../images/image141.png
+       .. image:: ../images/image143.png
     - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
        -  **Default Pool:**  server_pool
        -  **Default Persistence Profile:**  source_addr_mirror_persist
      .. image:: ../images/image142.png
 
-You should be presented with the following Virtual Server after creation:
+You should be presented with the following Virtual Server object after creation:
      .. image:: ../images/image149.png
 
 Task 4:  Perform a Configuration Synchronization between BIG-IPs
