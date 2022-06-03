@@ -107,8 +107,14 @@ In Task 3, we will create a simple HTTP Virtual Server object.  This will be use
 
 
     -  **Connection Mirroring:**  Place a checkmark on this setting
+
+
        .. image:: ../images/image141.png
+
+
        .. image:: ../images/image143.png
+
+          
     - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
        -  **Default Pool:**  server_pool
        -  **Default Persistence Profile:**  source_addr_mirror_persist
