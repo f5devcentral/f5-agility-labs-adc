@@ -37,11 +37,7 @@ to see logging data in real-time:
 
    .. image:: ../images/image58.png
       
-+------------------------------------+----------------------------------+
-| .. rubric:: From the \*ACTIVE\*    | Network --> Interfaces --> place |
-|    BIG-IP, navigate to:            | a checkmark next to 1.1 & click  |
-|                                    | the "Disable" button             |
-+------------------------------------+----------------------------------+
+From the **ACTIVE**, BIG-IP, **Navigate to**:  Network > Interfaces > place a checkmark next to 1.1 & click  the "Disable" button
 
 .. image:: ../images/image59.png
       :width: 10.23125in
@@ -112,10 +108,7 @@ Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
 In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 
-+--------------+------------------------------------------------------+
-| Navigate to: | Network --> Interfaces --> place checkmarks in 1.1 & |
-|              | 1.2, then click the "Enable" button:                 |
-+--------------+------------------------------------------------------+
+**Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the "Enable" button:
 
 .. image:: ../images/image62.png
       :width: 5.27778in
