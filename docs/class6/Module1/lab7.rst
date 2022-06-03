@@ -23,6 +23,8 @@ By default, persistence mirroring is **NOT** enabled.  You will need to create a
 Default profiles will be overwritten with the next software update.
 
 #. **Navigate to**: Local Traffic > Profiles > Persistence, and click the "+" button to create a new profile:
+
+
    .. image:: ../images/image136.png
 
 #. Provide a Name for your Custom Persistence Profile, i.e.:  *source_addr_mirror_persist*
