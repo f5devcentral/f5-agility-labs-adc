@@ -23,26 +23,20 @@ to see logging data in real-time:
 -  Access the "WEB SHELL" from UDF for each BIG-IP:
 
    .. image:: ../images/image56.png
-         :width: 3.82431in
-         :height: 2.76875in
-
+      
 
 -  Run the following command at shell prompt:
 
-     **tail -f /var/log/ltm**
+   **tail -f /var/log/ltm**
 
-      BIG-IP-A:
+   BIG-IP-A:
 
-         .. image:: ../images/image57.png
-               :width: 9.65764in
-               :height: 0.62014in
+      .. image:: ../images/image57.png
+   
+   BIG-IP-B:
 
-      BIG-IP-B:
-
-         .. image:: ../images/image58.png
-               :width: 9.35208in
-               :height: 0.77778in
-
+      .. image:: ../images/image58.png
+      
 +------------------------------------+----------------------------------+
 | .. rubric:: From the \*ACTIVE\*    | Network --> Interfaces --> place |
 |    BIG-IP, navigate to:            | a checkmark next to 1.1 & click  |
