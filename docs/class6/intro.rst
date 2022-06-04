@@ -25,7 +25,7 @@ Architecture
 
 Our lab Architecture look like this:
 
-.. image:: images/image90.png
+.. image:: ./images/image90.png
 
 Network setup
 -------------
@@ -273,4 +273,4 @@ Persistence information is only send when a new persistence record is created or
    :glob:
 
    labinfo
-   module*/module*
+   Module*/Lab*

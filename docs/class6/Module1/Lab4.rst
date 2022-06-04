@@ -40,8 +40,6 @@ to see logging data in real-time:
 #. From the **ACTIVE**, BIG-IP, **Navigate to**:  Network > Interfaces > place a checkmark next to 1.1 & click  the "Disable" button
 
    .. image:: ../images/image59.png
-      :width: 10.23125in
-      :height: 6.08333in
 
 +-------------+-------------------------------------------------------+
 | Question:   | Did the BIG-IP failover? Why or why not?              |
@@ -69,8 +67,6 @@ to see logging data in real-time:
 #. Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
 
    .. image:: ../images/image60.png
-         :width: 7.57431in
-         :height: 2.90764in
 
 +----------+----------------------------------------------------------+
 | Question | Did the BIG-IPs failover? Are they Active/Standby?       |
@@ -96,12 +92,7 @@ to see logging data in real-time:
 |          | device bigipA.f5demo.com (10.1.1.5) (Disconnected).**    |
 +----------+----------------------------------------------------------+
 
-
-
 .. image:: ../images/image61.png
-      :width: 21.12014in
-      :height: 6.57431in
-
 
 Task 2: Enable both Interfaces on ACTIVE BIG-IP
 ===============================================
@@ -111,8 +102,6 @@ In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 #. **Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the "Enable" button:
 
    .. image:: ../images/image62.png
-      :width: 5.27778in
-      :height: 5.71319in
 
 Lab Summary
 ***********
