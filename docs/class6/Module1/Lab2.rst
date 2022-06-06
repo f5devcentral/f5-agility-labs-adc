@@ -210,6 +210,8 @@ In Virtualized environments, there are some configuration caveats to be aware of
 
 First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
 
+For addtional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
+
 1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
    
     .. image:: ../images/image116.png
