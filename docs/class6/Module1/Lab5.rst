@@ -126,7 +126,10 @@ For detailed information and HA Best Practices, see following K-article: `K16947
 Task 3: Enable HA Group as the Preferred Failover Method
 ========================================================
 
-#. On the Active BIG-IP, **Navigate to**: Device Management > Traffic Groups > *traffic-group-1* hyperlink:
+You will complete this task on both BIG-IP devices.  Perform this same procedure to setup the HA Group configuration on each BIG-IP.
+
+
+#. On each BIG-IP, **Navigate to**: Device Management > Traffic Groups > *traffic-group-1* hyperlink:
    
    
    .. image:: ../images/image70.png
@@ -149,8 +152,6 @@ Task 3: Enable HA Group as the Preferred Failover Method
 
    .. image:: ../images/image74.png
 
-
-#. Perform this same procedure to setup the HA Group configuration on **bigipB.f5demo.com**
 
 Lab Summary
 ===========
