@@ -32,7 +32,7 @@ We will use this pool object as a failover event trigger in Task 2 of our HA Gro
        -  **Service Port:** \* All Services
     - Click the Add button
   
-      .. image:: ../images/image124.png
+      .. image:: ../images/image156.png
 
 
     - Click the **Finished** Button:
