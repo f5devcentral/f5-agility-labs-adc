@@ -39,6 +39,14 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image18.png
 
+#. If your device name is still "bipip1," Click the "Change Device Name" button:
+
+   .. image:: ../images/image153.png
+
+#. Provide the BIG-IP FQDN as the "New Name," change the Certificate drop-down to Generate New Self-Signed Authority, and click the "Update" button:
+   .. image:: ../images/image154.png
+
+
 #. Click the "ConfigSync" banner:
 
    .. image:: ../images/image19.png
