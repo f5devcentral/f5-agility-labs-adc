@@ -27,7 +27,9 @@ Use the following table for the respective configuration objects:
    |ConfigSync [Local Address]               | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
    +-----------------------------------------+---------------------------+-----------------+------------------+
    |Failover Network [Unicast Config]        | Management Address:       |10.1.1.5         | 10.1.1.6         |
+   |                                         |                           |                 |                  |
    |                                         | int_vlan_10:              |10.1.10.241      | 10.1.10.242      |
+   |                                         |                           |                 |                  |
    |                                         | ext_vlan_20:              |10.1.20.241      | 10.1.20.242      |
    +-----------------------------------------+---------------------------+-----------------+------------------+
    |Mirroring [Primary Local Mirror Address] | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
