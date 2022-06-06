@@ -194,4 +194,6 @@ Lab Summary
 ***********
 In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
 
+Observe the current state of each BIG-IP.  At this time, both BIG-IPs should be in an **ACTIVE** and **Standalone** state.  In the following labs, we will establish a successfull highly-available Active/Standby BIG-IP pair.
+
 This completes Lab 1.
