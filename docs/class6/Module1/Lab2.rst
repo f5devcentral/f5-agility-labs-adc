@@ -17,7 +17,21 @@ Lab Tasks:
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
 
-In Task 1, we will define our respective DSC configuration items.
+In Task 1, we will define our respective DSC configuration items on each respective BIG-IP.
+
+Use the following table for the respective configuration objects:
+
+   +-----------------------------------------+---------------------------+-----------------+------------------+
+   |Device Management Settings:              |Configuration Item / Object|BIG-IP-A Setting | BIG-IP-B Setting |
+   +=========================================+===========================+=================+==================+
+   |ConfigSync [Local Address]               | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
+   +-----------------------------------------+---------------------------+-----------------+------------------+
+   |Failover Network [Unicast Config]        | Management Address:       |10.1.1.5         | 10.1.1.6         |
+   |                                         | int_vlan_10:              |10.1.10.241      | 10.1.10.242      |
+   |                                         | ext_vlan_20:              |10.1.20.241      | 10.1.20.242      |
+   +-----------------------------------------+---------------------------+-----------------+------------------+
+   |Mirroring [Primary Local Mirror Address] | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
+   +-----------------------------------------+---------------------------+-----------------+------------------+
 
 #. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
 
@@ -60,6 +74,8 @@ In Task 1, we will define our respective DSC configuration items.
 #. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
 
    .. image:: ../images/image111.png
+
+Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby HA BIG-IP pair.
 
 To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
 
