@@ -149,9 +149,13 @@ You will complete this task on both BIG-IP devices.  Perform this same procedure
 
 
 #. Review the Traffic Groups screen, and verify the Failover Method is set to HA Score:
+    - BIG-IP-A:
 
-   .. image:: ../images/image74.png
+      .. image:: ../images/image74.png
+    
+    - BIG-IP-B:
 
+      .. image:: ../images/image155.png
 
 Lab Summary
 ===========
