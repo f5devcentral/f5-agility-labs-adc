@@ -6,7 +6,8 @@ In Lab 2, we will configure DSC configuration objects, which will assist with es
 For addtional details on DSC, please refer to this Article: `BIG-IP Device Service Clustering: Administration <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html>`_
 
 Lab Tasks:
-**********
+==========
+
 * Task 1: Define DSC HA Settings
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group

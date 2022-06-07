@@ -4,7 +4,8 @@ Lab 3:  Modify BIG-IP settings, Sync, & Perform Validation
 In Lab 3, we will modify port lockdown settings, and validate BIG-IP configuration synchronization.
 
 Lab Tasks:
-**********
+==========
+
 * Task 1: Modify Self IP Port Lockdown
 * Task 2: Verify an Active / Standby "In Sync" State
 
@@ -121,7 +122,8 @@ In Task 2, we will perform a BIG-IP device synchronization.  This will validate 
 
 
 Lab Summary
-***********
+===========
+
 In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
 
 This completes Lab 3.

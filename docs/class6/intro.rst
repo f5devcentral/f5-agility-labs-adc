@@ -16,7 +16,7 @@ In order to achieve this, we will address following BIG-IP topics:
 4. HA Basics 
 5. MAC masquerade
 6. High avalability (HA) Groups 
-7. GW pool
+7. Gateway pool
 8. Connection mirroring 
 9. Persistance mirroring
 

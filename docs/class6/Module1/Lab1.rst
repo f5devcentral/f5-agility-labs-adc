@@ -4,7 +4,7 @@ Lab 1: Configure BIG-IP Trunks, VLAN's, and Self-IP's
 In Lab 1, we will setup basic network-level settings on our BIG-IPs.  We will define Trunks, VLANs, and local Self IPs.  These configuration items will assist in establishing connectivity to/from our BIG-IPs, and between BIG-IPs.
 
 Lab Tasks:
-**********
+==========
 
 * Task 1: Create BIG-IP Trunks
 * Task 2: Create BIG-IP VLANs
@@ -191,7 +191,7 @@ In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will 
 
 
 Lab Summary
-***********
+===========
 In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
 
 Observe the current state of each BIG-IP.  At this time, both BIG-IPs should be in an **ACTIVE** and **Standalone** state.  In the following labs, we will establish a successfull highly-available Active/Standby BIG-IP pair.
