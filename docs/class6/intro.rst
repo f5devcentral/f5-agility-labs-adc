@@ -2,7 +2,7 @@ Intro to: BIG-IP HA - do it the proper way
 ==========================================
 
 Time and time again we have seen customers setting up a basic HA setup.
-Customer expactation was that in case of a failover, the event would be seemless. 
+Customer expectation was that in case of a failover, the event would be seemless. 
 They were surprised that the failover had production traffic impact and were cautious what to expect in the future.
 
 In this lab we will create a BIG-IP active/standby pair with best practices.
@@ -55,7 +55,7 @@ HA interface
 The HA IP interface will be used for HA information, like connection mirroring, HA status updates, config sync and others.
 
 For a secure HA setup, it is recommended that the ConfigSync & Mirroring information is **NOT** sent over a data interface/VLAN.
-Therefore, customers should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
+Therefore, customer(s) should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
 
 The HA VLAN self-IP should have port lockdown set to default. The self-IP should be in a IPv4 /29 network CIDR range.
 
@@ -100,7 +100,7 @@ If your architecture uses one physical interface for external and one physical i
 
 So the trunk object allows BIG-IP TMOS to failover if the one interface in the trunk goes down.
 
-.. note:: **Remember**: Always create a Trunk first. Do not assing VLANs to physical interfaces, assign them to Trunks.
+.. note:: **Remember**: Always create a Trunk first. Do not assign VLANs to physical interfaces, assign them to Trunks.
 
 Physical interfaces that use a multiple VLANs 
 +++++++++++++++++++++++++++++++++++++++++++++

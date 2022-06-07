@@ -284,12 +284,7 @@ Use the following table to create & define your three Self IPs:
      - 255.255.255.0
      - ext_vlan_20
      - Allow None (default)
-   * - bigipA
-     - self_vlan30_float
-     - 10.1.30.240
-     - 255.255.255.0
-     - HA_vlan_30
-     - Allow None (default)
+
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
@@ -304,10 +299,6 @@ Use the following table to create & define your three Self IPs:
    VLAN 20 Float:
 
    .. image:: ../images/image145.png
-
-   VLAN 30 Float:
-
-   .. image:: ../images/image146.png
 
    After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
    

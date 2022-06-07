@@ -95,12 +95,12 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
       :align: center
       :header-rows: 0
    
-      * - **GUI**
-        - **Navigate to**: Help, expand Port Lockdown, and review
-        - .. image:: ../images/image47.png
       * - **CLI**
         - tmsh list net self-allow one-line
         - ``net self-allow { defaults { igmp:any ospf:any pim:any tcp:domain tcp:f5-iquery tcp:https tcp:snmp tcp:ssh udp:520 udp:cap udp:domain udp:f5-iquery udp:snmp } }``
+
+   For more information check following K-Article: https://support.f5.com/csp/article/K17333
+   
 
 Task 2: Verify an Active / Standby "In Sync" State
 ==================================================

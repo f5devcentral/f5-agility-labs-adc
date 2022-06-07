@@ -116,7 +116,7 @@ The Active Bonus is added for two reasons:
 
 One use-case is:
    
-   - If there are multiple links in the HA trunk and one interface goes down, but the remaining links can still handle the traffic, then the Admin might decide that this is not a reason to failover because of service stability.
+- If there are multiple links in the HA trunk and one interface goes down, but the remaining links can still handle the traffic, then the Admin might decide that this is not a reason to failover because of service stability.
 
 
 For detailed information and HA Best Practices, see following K-article: `K16947: F5 recommended practices for the HA group feature <https://support.f5.com/csp/article/K16947>`_
@@ -160,7 +160,8 @@ You will complete this task on both BIG-IP devices.  Perform this same procedure
 Lab Summary
 ===========
 In this lab, you enhanced your HA configuration to leverage HA Groups.  
-HA Groups provide the ability to monitor an "object" and take action upon an event.  
+HA Groups provide the ability to monitor an "object" and take action upon an event. An important object is the status of a physical link. This is monitored though the number of trunk members.
+ 
 After completion of these lab tasks, your BIG-IP should be leveraging HA Groups for Failover.  In the following lab, we will test & validate how this configuration enhances the failover timing.
 
 This completes Lab 5.

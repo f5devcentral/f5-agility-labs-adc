@@ -28,7 +28,9 @@ to see logging data in real-time:
 
 -  Run the following command at shell prompt:
 
-   **tail -f /var/log/ltm**
+   .. code-block:: bash
+   
+     tail -f /var/log/ltm
 
    BIG-IP-A:
 
