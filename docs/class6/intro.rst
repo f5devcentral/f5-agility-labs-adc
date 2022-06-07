@@ -54,8 +54,8 @@ HA interface
 
 The HA IP interface will be used for HA information, like connection mirroring, HA status updates, config sync and others.
 
-For a secure HA setup, it is recommended that the ConfigSync & Mirroring information is not send over a data interface/VLAN.
-Therefore customer should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
+For a secure HA setup, it is recommended that the ConfigSync & Mirroring information is **NOT** sent over a data interface/VLAN.
+Therefore, customers should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
 
 The HA VLAN self-IP should have port lockdown set to default. The self-IP should be in a IPv4 /29 network CIDR range.
 
@@ -262,11 +262,11 @@ https://support.f5.com/csp/article/K84303332
 Persistance mirroring
 ---------------------
 
-Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be send to the same pool member.
-It is important that the persistence information is copied to the standby device, to prevent the same client to be send to another pool member after the failover.
+Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be sent to the same pool member.
+It is important that the persistence information is copied to the standby device, to prevent the same client to be sent to another pool member after the failover.
 Persistence mirroring is used that.
 
-Persistence information is only send when a new persistence record is created or an old record expired. It has less performance impact on BIG-IP than connection mirroring.
+Persistence information is only sent when a new persistence record is created or an old record expired. It has less performance impact on BIG-IP than connection mirroring.
 
 .. toctree::
    :maxdepth: 1
