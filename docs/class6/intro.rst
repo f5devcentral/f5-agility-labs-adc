@@ -54,8 +54,8 @@ HA interface
 
 The HA IP interface will be used for HA information, like connection mirroring, HA status updates, config sync and others.
 
-For a secure HA setup it is recommended that the failover information is not send over a data interface/VLAN.
-Therefore customer should always use a dedicated HA VLAN. 
+For a secure HA setup, it is recommended that the ConfigSync & Mirroring information is not send over a data interface/VLAN.
+Therefore customer should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
 
 The HA VLAN self-IP should have port lockdown set to default. The self-IP should be in a IPv4 /29 network CIDR range.
 
