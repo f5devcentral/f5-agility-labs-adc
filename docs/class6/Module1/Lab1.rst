@@ -13,6 +13,22 @@ Lab Tasks:
 Task 1: Create BIG-IP Trunks
 ============================
 
+The BIG-IP platform consists of the underlying CENTOS linux that is mainly used to boot TMOS (Traffic Managment Operating System). 
+TMOS is the high performance proxy dataplane of BIG-IP. It handles all packets going into and leaving BIG-IP.
+
+A big challenge is that BIG-IP TMOS has no exposure to the physical link state. It does not know if a link is up or down. 
+
+In the past this limitation was handled by a feature called "VLAN Failsafe". 
+VLAN Failsafe monitored the traffic on a specific VLAN and acted if no traffic was received. This method took between 10 and 40 seconds to detect a physical link failure.
+
+A better way to failover on Layer 2 link failure is the use of Trunks and High availability (HA) groups.
+
+A trunk can be used for Link Aggregation or channeling of multiple physical interfaces in one bigger pipe.
+At the same time a trunk can have only a single interface applied. 
+
+BIG-IP TMOS can see the number of interfaces in a trunk. So we will use this ability to track the link status if a physical interface is up or down. 
+
+
 In Task 1, we will define BIG-IP trunks.  These trunks will be used in subsequent labs, becoming part of our HA Group configuration.
 
 #. On both BIG-IP devices, configure trunks under the Network configuration section.
@@ -71,19 +87,19 @@ Task 2: Create BIG-IP VLANs
 
 In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associated with their respective trunk from Task 1.
 
-#. On both BIG-IP devices, configure VLANs under the Network configuration section.
+On both BIG-IP devices, configure VLANs under the Network configuration section.
 
-   Use the following table to create & define your three VLANs:
+Use the following table to create & define your three VLANs:
 
-   +------------+----+-----------+----------+
-   |Name        |Tag |Interface  | Tagging  |
-   +============+====+===========+==========+
-   |int_vlan_10 | 10 |int_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |ext_vlan_20 | 20 |ext_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |HA_vlan_30  | 30 |HA_trunk   | Untagged |
-   +------------+----+-----------+----------+
++------------+----+-----------+----------+
+|Name        |Tag |Interface  | Tagging  |
++============+====+===========+==========+
+|int_vlan_10 | 10 |int_trunk  | Untagged |
++------------+----+-----------+----------+
+|ext_vlan_20 | 20 |ext_trunk  | Untagged |
++------------+----+-----------+----------+
+|HA_vlan_30  | 30 |HA_trunk   | Untagged |
++------------+----+-----------+----------+
 
 #. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN:
 
@@ -114,58 +130,57 @@ Task 3: Create BIG-IP Self IPs
 
 In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will be our L3 connectivity to our BIG-IP networks.
 
-#. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
+On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
 
-   Use the following table to create & define your three Self IPs:
+Use the following table to create & define your three Self IPs:
 
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
-   
-      * - BIG-IP
-        - Name
-        - IP address
-        - Netmask
-        - VLAN
-        - Port Lockdown
-      * - bigipA
-        - self_vlan10
-        - 10.1.10.241
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipA
-        - self_vlan20
-        - 10.1.20.241
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipA
-        - self_vlan30
-        - 10.1.30.241
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-      * - bigipB
-        - self_vlan10
-        - 10.1.10.242
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipB
-        - self_vlan20
-        - 10.1.20.242
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipB
-        - self_vlan30
-        - 10.1.30.242
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
+.. list-table:: 
+   :widths: auto
+   :align: center
+   :header-rows: 1
 
+   * - BIG-IP
+     - Name
+     - IP address
+     - Netmask
+     - VLAN
+     - Port Lockdown
+   * - bigipA
+     - self_vlan10
+     - 10.1.10.241
+     - 255.255.255.0
+     - int_vlan_10
+     - Allow None (default)
+   * - bigipA
+     - self_vlan20
+     - 10.1.20.241
+     - 255.255.255.0
+     - ext_vlan_20
+     - Allow None (default)
+   * - bigipA
+     - self_vlan30
+     - 10.1.30.241
+     - 255.255.255.0
+     - HA_vlan_30
+     - Allow None (default)
+   * - bigipB
+     - self_vlan10
+     - 10.1.10.242
+     - 255.255.255.0
+     - int_vlan_10
+     - Allow None (default)
+   * - bigipB
+     - self_vlan20
+     - 10.1.20.242
+     - 255.255.255.0
+     - ext_vlan_20
+     - Allow None (default)
+   * - bigipB
+     - self_vlan30
+     - 10.1.30.242
+     - 255.255.255.0
+     - HA_vlan_30
+     - Allow None (default)
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
