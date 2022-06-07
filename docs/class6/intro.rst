@@ -1,5 +1,5 @@
-BIG-IP HA - do it the proper way
-================================
+Intro to: BIG-IP HA - do it the proper way
+==========================================
 
 Time and time again we have seen customers setting up a basic HA setup.
 Customer expactation was that in case of a failover, the event would be seemless. 
