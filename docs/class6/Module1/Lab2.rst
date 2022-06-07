@@ -22,19 +22,19 @@ In Task 1, we will define our respective DSC configuration items on each respect
 
 Use the following table for the respective configuration objects:
 
-   +-----------------------------------------+---------------------------+-----------------+------------------+
-   |Device Management Settings:              |Configuration Item / Object|BIG-IP-A Setting | BIG-IP-B Setting |
-   +=========================================+===========================+=================+==================+
-   |ConfigSync [Local Address]               | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
-   +-----------------------------------------+---------------------------+-----------------+------------------+
-   |Failover Network [Unicast Config]        | Management Address:       |10.1.1.5         | 10.1.1.6         |
-   |                                         |                           |                 |                  |
-   |                                         | int_vlan_10:              |10.1.10.241      | 10.1.10.242      |
-   |                                         |                           |                 |                  |
-   |                                         | ext_vlan_20:              |10.1.20.241      | 10.1.20.242      |
-   +-----------------------------------------+---------------------------+-----------------+------------------+
-   |Mirroring [Primary Local Mirror Address] | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
-   +-----------------------------------------+---------------------------+-----------------+------------------+
++-----------------------------------------+---------------------------+-----------------+------------------+
+|Device Management Settings:              |Configuration Item / Object|BIG-IP-A Setting | BIG-IP-B Setting |
++=========================================+===========================+=================+==================+
+|ConfigSync [Local Address]               | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
++-----------------------------------------+---------------------------+-----------------+------------------+
+|Failover Network [Unicast Config]        | Management Address:       |10.1.1.5         | 10.1.1.6         |
+|                                         |                           |                 |                  |
+|                                         | int_vlan_10:              |10.1.10.241      | 10.1.10.242      |
+|                                         |                           |                 |                  |
+|                                         | ext_vlan_20:              |10.1.20.241      | 10.1.20.242      |
++-----------------------------------------+---------------------------+-----------------+------------------+
+|Mirroring [Primary Local Mirror Address] | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
++-----------------------------------------+---------------------------+-----------------+------------------+
 
 #. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
 
@@ -203,9 +203,31 @@ both BIG-IP systems.
 Task 4:  Setup MAC Masquerade on BIG-IP-A
 =========================================
 
-In Task 4, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+BIG-IP's default failover mechanism is based on gratuitous ARP.
+In case of a failover, BIG-IP has to send a gratuitous ARP for every floating IP and service IP address like virtual server IP address and SNAT address.
+The gratuitous ARP contains the physical MAC address of the new primary BIG-IP.
+With gratuitous ARP, the device that takes over sends gratuitous ARP packets, which asks all hosts on the LAN segment to update their ARP table. 
+After the hosts updated their ARP table with the MAC address of the new primary BIG-IP, they send all traffic to the now active BIG-IP.
 
-To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic groups on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
+Sometimes hosts like Firewalls or routers do not update their ARP table when they receive a gratuitous ARP.
+In this case the firewall or router will keep sending traffic to the old MAC address, which leads to service intererruption.
+
+This issue can be addressed with MAC masquerade.
+
+With MAC masquerade configured, BIG-IP devices will use a configurable MAC masquerade address as source MAC for packets leaving BIG-IP.
+In case of a failover, the MAC address will not change.
+The new active BIG-IP will start using the MAC masquerade MAC address.
+Now there is no need to update the hosts ARP table. 
+
+The MAC address used for MAC masquerade is free configurable. 
+A best practices guide how to choose the MAC masquerade MAC address is described in K-Article K3523. https://support.f5.com/csp/article/K3523
+
+For more information on MAC masquerade see K-Article K13502
+https://support.f5.com/csp/article/K13502
+
+In this Task, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+
+To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic group on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
 
 In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
 
@@ -233,7 +255,7 @@ For addtional details on creating a unique L2 MAC Address, please see Article `K
 Task 5:  Create Floating Self IPs on BIG-IP-A
 =============================================
 
-In Task 5, we will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
+We will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
 
 On the BIG-IP-A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
 
