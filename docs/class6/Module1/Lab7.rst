@@ -74,14 +74,14 @@ We will create an LTM Pool Configuration object, which will be used for the back
      -  **Name:** server_pool
      -  **Health Monitors:** gateway_icmp
      -  Within the Resources Section:
-        -  **New Node Address:** 10.1.10.200
-        -  **Service Port:** \* All Services
-        
-        Click the Add button
+  
+        - **New Node Address:** 10.1.10.200
+        - **Service Port:** \* All Services
+        - Click the **Add** button
  
         .. image:: ../images/image123.png
 
-   Click the "Finished" Button:
+   Click the **Finished** Button:
 
    .. image:: ../images/image135.png
 
@@ -90,31 +90,33 @@ We will create an LTM Pool Configuration object, which will be used for the back
 
    .. image:: ../images/image127.png
 
-Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
-=========================================================================================
+Task 3:  Configure Connection mirroring
+=======================================
 
-In Task 3, we will create a simple HTTP Virtual Server object.  This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+.. note:: 
+   Connection mirroring is configured at the Virtual servers itself.
 
-#. **Navigate to**: Local Traffic > Virtual Servers > Virtual Server List, then click the "+" sign:
-    -   .. image:: ../images/image128.png
+We will create a simple HTTP Virtual Server object.  
+This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+
+#. **Navigate to**: Local Traffic > Virtual Servers > Virtual Server List, then click the **"+"** button:
+
+   .. image:: ../images/image128.png
 
 #. Create the Virtual Server with the following settings:
-    - General Properties:
-       -  **Name:**  test_http_vs
-       -  **Type:**  Standard
-       -  **Destination Address/Mask:**  10.1.10.55
-       -  **Service Port:**  80 (HTTP)    
-          .. image:: ../images/image129.png
+
+   - General Properties:
+
+     -  **Name:**  test_http_vs
+     -  **Type:**  Standard
+     -  **Destination Address/Mask:**  10.1.10.55
+     -  **Service Port:**  80 (HTTP)    
+
+        .. image:: ../images/image129.png
 
 #. From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
 
-   .. image:: ../images/image140.png
-
-   - **HTTP Profile (Client):**  http
-  
-   - **Source Address Translation:**  From the drop-down, select AutoMap:
-
-     .. image:: ../images/image148.png
+   .. image:: ../images/image140a.png
 
    - **Connection Mirroring:**  Place a checkmark on this setting
 
@@ -122,7 +124,12 @@ In Task 3, we will create a simple HTTP Virtual Server object.  This will be use
 
      .. image:: ../images/image143.png
           
-     - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
+   
+      - **Source Address Translation:**  From the drop-down, select AutoMap:
+
+     .. image:: ../images/image148.png
+   
+   - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
      
        - **Default Pool:**  server_pool
        - **Default Persistence Profile:**  source_addr_mirror_persist
@@ -138,7 +145,7 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
 **On the ACTIVE BIG-IP**
 
-#. Notice the "Changes Pending" in the upper-left corner
+#. Notice the **Changes Pending** in the upper-left corner
 
    .. image:: ../images/image52.png
 
