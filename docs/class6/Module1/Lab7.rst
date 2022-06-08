@@ -14,13 +14,14 @@ Lab Tasks:
 Task 1: Persistence Mirroring Profile
 =====================================
 
-In Task 1, we will create a new Persistence Profile, enabling persistence mirroring.
+We will create a new Persistence Profile, enabling persistence mirroring.
 
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
 
 .. note:: 
     
-    - By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
+    - By default, persistence mirroring is **NOT** enabled.  
+    - You will need to create a dedicated persistence profile that has this setting enabled.
 
 .. note:: 
     
@@ -28,23 +29,22 @@ Persistance mirroring is used to share persistence information between BIG-IP's 
     - Always create a new profile with the desired settings and use the default profile as parent profiles
     - Default profiles will be overwritten with the next software update
 
-#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the "+" button to create a new profile:
+#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the **"+"** button to create a new profile:
 
 
    .. image:: ../images/image136.png
 
 #. Configure the following Settings for your Custom Persistence Profile:
  
-   - **Name:** *source_addr_mirror_persist*
+   - **Name:** "source_addr_mirror_persist"
    - **Persitence Type:** Select Source Address Affinity from the Persistnece Type drop-down
-   - **Parent Profile:** Ensure the Parent Profile is set to *source_addr*
+   - **Parent Profile:** Ensure the Parent Profile is set to **source_addr**
     
-   You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
+   You will need to place a **checkmark** under the Custom setting for Mirror Persistence:
 
    .. image:: ../images/image137.png
 
-   
-   Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
+   Place a **checkmark** in the Mirror Persistence field, and Click the **Finished** button:
 
    .. image:: ../images/image138.png
 
@@ -56,11 +56,14 @@ Persistance mirroring is used to share persistence information between BIG-IP's 
 Task 2: Create LTM Pool Configuration Objects 
 =============================================
 
-In Task 2, we will create an LTM Pool Configuration object, which will be used for the backend server pool for our Virtual Server.
+We will create an LTM Pool Configuration object, which will be used for the backend server pool for our Virtual Server.
 
-**On the ACTIVE BIG-IP, Create Pool & Node Objects:**
+.. note:: 
+    
+    - These steps will be completed on the ACTIVE BIG-IP
 
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
+
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the **"+"** sign to create a new pool:
 
    .. image:: ../images/image114.png
 
