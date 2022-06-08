@@ -65,9 +65,8 @@ In Task 2, we will create HA Group configurations on each BIG-IP.
 
    - Under the Trunks section, click the **Add** button:
       
-     .. image:: ../images/image65.png
+     .. image:: ../images/image65a.png
    
-
 #. From the drop-down, select the the External Trunk object (ext_trunk), and click the "Add" button:
   
    .. image:: ../images/image133.png
