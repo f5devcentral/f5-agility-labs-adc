@@ -103,9 +103,11 @@ The HA Group score is being calculated by the sum of all active trunks and pool 
 
 In addition, there is an "Active Bonus" value that is added to the **Active** device, preventing a race-condition of both devices having the same score when all HA objects are "up."
 
-.. note:: The Active Bonus is added for two reasons:
-  * To prevent an active-active split-brain scenario
-  * To allow the active device to stay active in specific use cases.
+.. note:: 
+   The Active Bonus is added for two reasons:
+
+   - To prevent an active-active split-brain scenario
+   - To allow the active device to stay active in specific use cases.
 
 One use-case is:
    
@@ -127,7 +129,7 @@ You will complete this task on both BIG-IP devices.  Perform this same procedure
    
    .. image:: ../images/image70.png
 
-#. From the "Health Monitor" Section, select the drop-down for "HA Group:"
+#. From the **Health Monitor** Section, select the drop-down for **HA Group:**
 
    .. image:: ../images/image71.png
 
@@ -136,19 +138,20 @@ You will complete this task on both BIG-IP devices.  Perform this same procedure
    .. image:: ../images/image72.png
 
 
-#. Under the Failover Configuration section, select the radio button for "Failover to Device With Best HA Score," then click the "**Save**" button:
+#. Under the Failover Configuration section, select the radio button for **Failover to Device With Best HA Score**, then click the **Save** button:
 
    .. image:: ../images/image73.png
 
 
 #. Review the Traffic Groups screen, and verify the Failover Method is set to HA Score:
-    - BIG-IP-A:
 
-      .. image:: ../images/image74.png
+   - BIG-IP-A:
+
+     .. image:: ../images/image74.png
     
-    - BIG-IP-B:
+   - BIG-IP-B:
 
-      .. image:: ../images/image155.png
+     .. image:: ../images/image155.png
 
 Lab Summary
 ===========
