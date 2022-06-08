@@ -1,9 +1,8 @@
 
-Lab 6: Validating, Testing & Troubleshooting HA Group Functionality
--------------------------------------------------------------------
+Lab 6: Validating & Testing HA Group Functionality
+--------------------------------------------------
 
-Now that we have succesfully configured HA Groups we will perform a series of validation tests, as well as provide tips for troubleshooting.
-
+Now that we have succesfully configured HA Groups we will perform a series of validation tests.
 
 Lab Tasks:
 ==========
@@ -17,14 +16,13 @@ Task 1: Disable an interface to force HA Group actions
 
 In this task we will: 
 
-* Manipulate an interface on the active BIG-IP
-* Disable an interface and observe BIG-IP behavior during failover
+* Manipulate (Disable) an interface and observe BIG-IP behavior during failover
 * Monitor logs to review the failover process
 
 
 On the active BIG-IP: 
 
-* Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+* **Navigate to**: Network > Interfaces, and place checkmark next to interface 1.1 then click on the **Disable** button.
 
 
   .. image:: ../images/image100.PNG
