@@ -28,11 +28,11 @@ We will use this pool object as a failover event trigger in Task 2 of our HA Gro
     -  **Health Monitors:** gateway_icmp
    
     - Within the Resources Section:
-       -  **New Node Address:** 10.1.20.1
-       -  **Service Port:** \* All Services
-    - Click the Add button
+       - **New Node Address:** 10.1.20.1
+       - **Service Port:** \* All Services
+       - Click the **Add** button
   
-      .. image:: ../images/image156.png
+         .. image:: ../images/image156.png
 
 
     - Click the **Finished** Button:
@@ -45,13 +45,9 @@ Task 2: Create HA Groups
 
 In Task 2, we will create HA Group configurations on each BIG-IP.
 
-**NOTES:**
-
--  HA group configuration is device specific and is not synced between
-   members of a DSC group.
-
-   -  You **MUST** create a separate HA group on every device in the device
-      group for this traffic group.
+.. note:: 
+   - HA group configuration is device specific and is not synced between members of a DSC group.
+   - You **MUST** create a separate HA group on every device in the device group for this traffic group.
 
 
 #. On each BIG-IP, create an HA Group:
@@ -65,20 +61,9 @@ In Task 2, we will create HA Group configurations on each BIG-IP.
 
    .. image:: ../images/image64.png
 
-#. Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
-   
-   - Click the "Add" button
+#. First, we will add our Trunk links to our HA Group Configuration:
 
-     .. image:: ../images/image131.png
-
-#. In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
-       
-   .. image:: ../images/image132.png
-
-
-#. Next, we will add our Trunk links to our HA Group Configuration:
-
-   - Under the Trunks section, click the "Add" button:
+   - Under the Trunks section, click the **Add** button:
       
      .. image:: ../images/image65.png
    
@@ -91,7 +76,17 @@ In Task 2, we will create HA Group configurations on each BIG-IP.
       
    .. image:: ../images/image134.png
 
-#. Verify that your HA Group Trunk configuration reflects the following, and Click the "Create HA Group" button:
+#. Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
+   
+   - Click the **Add** button
+
+     .. image:: ../images/image131.png
+
+#. In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
+       
+   .. image:: ../images/image132.png
+
+#. Verify that your HA Group Trunk configuration reflects the following, and Click the **Create HA Group** button:
 
    .. image:: ../images/image67.png
 
@@ -109,10 +104,9 @@ The HA Group score is being calculated by the sum of all active trunks and pool 
 
 In addition, there is an "Active Bonus" value that is added to the **Active** device, preventing a race-condition of both devices having the same score when all HA objects are "up."
 
-The Active Bonus is added for two reasons:
-
-* To prevent an active-active split-brain scenario
-* To allow the active device to stay active in specific use cases.
+.. note:: The Active Bonus is added for two reasons:
+  * To prevent an active-active split-brain scenario
+  * To allow the active device to stay active in specific use cases.
 
 One use-case is:
    

@@ -109,6 +109,9 @@ In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 Lab Summary
 ===========
 
-In this lab, you tested & validated bringing down BIG-IP interfaces on the ACTIVE BIG-IP, simulating a "network link failure," and how that affects a failover event.  After completion of these lab tasks, you should have an understanding of how the BIG-IP behaves in a typical HA design.  The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
+In this lab, you tested & validated bringing down BIG-IP interfaces on the ACTIVE BIG-IP, simulating a "network link failure," and how that affects a failover event.  
+
+What you should see is that the basic HA config does not take into account a link failure.
+The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
 
 This completes Lab 4.
