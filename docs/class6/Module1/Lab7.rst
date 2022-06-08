@@ -18,10 +18,15 @@ In Task 1, we will create a new Persistence Profile, enabling persistence mirror
 
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
 
-By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
+.. note:: 
+    
+    - By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
 
-**DO NOT** edit default BIG-IP profiles. Always create a new profile with the desired settings and use the default profile as parent profiles. 
-Default profiles will be overwritten with the next software update.
+.. note:: 
+    
+    - **DO NOT** edit default BIG-IP profiles
+    - Always create a new profile with the desired settings and use the default profile as parent profiles
+    - Default profiles will be overwritten with the next software update
 
 #. **Navigate to**: Local Traffic > Profiles > Persistence, and click the "+" button to create a new profile:
 
