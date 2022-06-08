@@ -26,7 +26,7 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
 **On each BIG-IP:**
 
-*NOTE Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
+.. note:: Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
 
 
 #. **Navigate to**: Network > Self IPs
@@ -66,27 +66,6 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
       .. image:: ../images/image113.png
 
    - Repeat this step on the External VLAN
-
-
-
-
-
-
-
-#. On BIG-IP-A, modify the Floating Self IPs per the previous steps:
-    - Floating VLAN 30 = Allow Default, then Click Update:
-  
-      .. image:: ../images/image150.png
-
-    - Floating VLAN 10 & 20 = Allow Custom, UDP port 1026, then Click Update:
-      
-      -  VLAN 10:
-    
-         .. image:: ../images/image151.png
-
-      -  VLAN 20:
-  
-         .. image:: ../images/image152.png
 
 
    .. list-table:: 
@@ -137,6 +116,7 @@ In Task 2, we will perform a BIG-IP device synchronization.  This will validate 
 Lab Summary
 ===========
 
-In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
+In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  
+After completion of these lab tasks, you should have a basic Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
 
 This completes Lab 3.
