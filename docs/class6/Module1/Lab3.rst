@@ -26,6 +26,9 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
 **On each BIG-IP:**
 
+*NOTE Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
+
+
 #. **Navigate to**: Network > Self IPs
 
 #. Click the VLAN 30 Self IP hyperlink
@@ -50,7 +53,11 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    -  Change from "Allow None" to **"Allow Custom"**
       
-      From the Port Lockdown drop-down, select "Allow Custom."  Click the radio button for UDP.  Click the radio button for Port.  In the Port field, enter 1026.  Click Add.
+      - From the Port Lockdown drop-down, select "Allow Custom." 
+      - Click the radio button for UDP.  
+      - Click the radio button for Port.  
+      - In the Port field, enter 1026.  
+      - Click Add.
       
       .. image:: ../images/image112.png
       
@@ -59,6 +66,12 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
       .. image:: ../images/image113.png
 
    - Repeat this step on the External VLAN
+
+
+
+
+
+
 
 #. On BIG-IP-A, modify the Floating Self IPs per the previous steps:
     - Floating VLAN 30 = Allow Default, then Click Update:

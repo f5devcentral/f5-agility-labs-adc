@@ -23,7 +23,7 @@ In Task 1, we will define our respective DSC configuration items on each respect
 Use the following table for the respective configuration objects:
 
 +-----------------------------------------+---------------------------+-----------------+------------------+
-|Device Management Settings:              |Configuration Item / Object|BIG-IP-A Setting | BIG-IP-B Setting |
+|Device Management Settings:              |Configuration Item / Object|BIG-IP-A IP's    | BIG-IP-B IP's    |
 +=========================================+===========================+=================+==================+
 |ConfigSync [Local Address]               | HA_vlan_30                |10.1.30.241      | 10.1.30.242      |
 +-----------------------------------------+---------------------------+-----------------+------------------+
@@ -182,15 +182,12 @@ both BIG-IP systems.
 #. Create a Device Group using the following information, and then click Finished
 
    +-------------+-------------------------------------------------------+
-   | Name        | [give device group a name]                            |
-   |             |                                                       |
-   |             | Example: bigip-a_bigip-b_dg                           |
-   +=============+=======================================================+
+   | Name        | bigip-a_bigip-b_dg                                    |
+   +-------------+-------------------------------------------------------+
    | Group Type  | Sync-Failover                                         |
    +-------------+-------------------------------------------------------+
-   | Description | [OPTIONAL] provide a description                      |
-   |             |                                                       |
-   |             | Example: Sync-failover Device Group for BIG-IP A & B  |
+   | Description |  Sync-failover Device Group for BIG-IP A & B          |
+   | [OPTIONAL]  |                                                       |
    +-------------+-------------------------------------------------------+
    | Members     | Move both bipipA & bipipB *from the Available* column |
    |             | to the *Includes* column                              |
@@ -233,7 +230,7 @@ In Virtualized environments, there are some configuration caveats to be aware of
 
 First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
 
-For addtional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
+For additional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
 
 1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
    
