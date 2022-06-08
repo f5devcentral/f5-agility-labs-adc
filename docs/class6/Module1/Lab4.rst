@@ -1,14 +1,15 @@
 Lab 4:  Test & Validate a Failover Scenario
 -------------------------------------------
 
-In Lab 4, we will manipulate a BIG-IP interface to see how it affects basic failover events.
+In Lab 4, we will manipulate BIG-IP interfaces to see how it affects basic failover events.
 
 Lab Tasks:
-**********
-* Task 1: Disable a BIG-IP Interface
+==========
+
+* Task 1: Disable BIG-IP Interfaces
 * Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
-Task 1: Disable a BIG-IP Interface
+Task 1: Disable BIG-IP Interfaces
 ==================================
 
 In Task 1, we will simulate a "link down" failure on the ACTIVE
@@ -27,7 +28,9 @@ to see logging data in real-time:
 
 -  Run the following command at shell prompt:
 
-   **tail -f /var/log/ltm**
+   .. code-block:: bash
+   
+     tail -f /var/log/ltm
 
    BIG-IP-A:
 
@@ -104,7 +107,11 @@ In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
    .. image:: ../images/image62.png
 
 Lab Summary
-***********
-In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event.  After completion of these lab tasks, you should have an understanding of how the BIG-IP behaves in a typical HA design.  The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
+===========
+
+In this lab, you tested & validated bringing down BIG-IP interfaces on the ACTIVE BIG-IP, simulating a "network link failure," and how that affects a failover event.  
+
+What you should see is that the basic HA config does not take into account a link failure.
+The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
 
 This completes Lab 4.

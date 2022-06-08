@@ -1,9 +1,8 @@
 
-Lab 6: Validating, Testing & Troubleshooting HA Group Functionality
--------------------------------------------------------------------
+Lab 6: Validating & Testing HA Group Functionality
+--------------------------------------------------
 
-Now that we have succesfully configured HA Groups we will perform a series of validation tests, as well as provide tips for troubleshooting.
-
+Now that we have succesfully configured HA Groups we will perform a series of validation tests.
 
 Lab Tasks:
 ==========
@@ -17,38 +16,32 @@ Task 1: Disable an interface to force HA Group actions
 
 In this task we will: 
 
-* Manipulate an interface on the active BIG-IP
-* Disable an interface and observe BIG-IP behavior during failover
+* Manipulate (Disable) an interface and observe BIG-IP behavior during failover
 * Monitor logs to review the failover process
 
 
 On the active BIG-IP: 
 
-* Navigate to Network, Interfaces, and place  checkmark next to interface 1.1 then click on the **Disable** button.
+#. **Navigate to**: Network > Interfaces, and place checkmark next to interface 1.1 then click on the **Disable** button.
 
+   .. image:: ../images/image100.PNG
 
-  .. image:: ../images/image100.PNG
+#. During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
 
+   .. image:: ../images/image101.png
 
+   .. image:: ../images/image102.png
 
-* During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
-
-  .. image:: ../images/image101.png
-
-  .. image:: ../images/image102.png
-
-  Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active
-      device.
+   Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active device.
 
   .. image:: ../images/image91.png
 
   .. image:: ../images/image92.png
 
-
 Task 2: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
 
-In Task 2, we will now re-enable Interface 1.1 on the Standby BIG-IP by performing the following step.
+We will now re-enable Interface 1.1 on the Standby BIG-IP.
 
 #. On the standby BIG-IP, **Navigate to**: Network > Interfaces > Interface List, and place checkmark next to interface 1.1 then click the **Enable** button.
   
@@ -72,6 +65,7 @@ Supplemental Resources:
 - `Archived - K41983050: The HA group score displayed with tmsh shows that the sys ha-group command no longer includes the active bonus <https://support.f5.com/csp/article/K41983050>`_
 
 
-**NOTE**:
-   Ports	Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended).
-   BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128
+.. note:: 
+  
+   * Device group members should be able to communicate over ports 443, 4353, 1026 (UDP), and 22 (recommended)
+   * BIG-IP ASM requires the following additional Policy Sync TCP ports: 6123-6128

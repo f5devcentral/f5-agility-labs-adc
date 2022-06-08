@@ -1,8 +1,8 @@
-BIG-IP HA - do it the proper way
-================================
+Intro to: BIG-IP HA - do it the proper way
+==========================================
 
 Time and time again we have seen customers setting up a basic HA setup.
-Customer expactation was that in case of a failover, the event would be seemless. 
+Customer expectation was that in case of a failover, the event would be seemless. 
 They were surprised that the failover had production traffic impact and were cautious what to expect in the future.
 
 In this lab we will create a BIG-IP active/standby pair with best practices.
@@ -16,7 +16,7 @@ In order to achieve this, we will address following BIG-IP topics:
 4. HA Basics 
 5. MAC masquerade
 6. High avalability (HA) Groups 
-7. GW pool
+7. Gateway pool
 8. Connection mirroring 
 9. Persistance mirroring
 
@@ -54,8 +54,8 @@ HA interface
 
 The HA IP interface will be used for HA information, like connection mirroring, HA status updates, config sync and others.
 
-For a secure HA setup it is recommended that the failover information is not send over a data interface/VLAN.
-Therefore customer should always use a dedicated HA VLAN. 
+For a secure HA setup, it is recommended that the ConfigSync & Mirroring information is **NOT** sent over a data interface/VLAN.
+Therefore, customer(s) should always use a dedicated HA VLAN for ConfigSync & Mirroring configuration.
 
 The HA VLAN self-IP should have port lockdown set to default. The self-IP should be in a IPv4 /29 network CIDR range.
 
@@ -100,7 +100,7 @@ If your architecture uses one physical interface for external and one physical i
 
 So the trunk object allows BIG-IP TMOS to failover if the one interface in the trunk goes down.
 
-.. note:: **Remember**: Always create a Trunk first. Do not assing VLANs to physical interfaces, assign them to Trunks.
+.. note:: **Remember**: Always create a Trunk first. Do not assign VLANs to physical interfaces, assign them to Trunks.
 
 Physical interfaces that use a multiple VLANs 
 +++++++++++++++++++++++++++++++++++++++++++++
@@ -262,11 +262,11 @@ https://support.f5.com/csp/article/K84303332
 Persistance mirroring
 ---------------------
 
-Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be send to the same pool member.
-It is important that the persistence information is copied to the standby device, to prevent the same client to be send to another pool member after the failover.
+Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be sent to the same pool member.
+It is important that the persistence information is copied to the standby device, to prevent the same client to be sent to another pool member after the failover.
 Persistence mirroring is used that.
 
-Persistence information is only send when a new persistence record is created or an old record expired. It has less performance impact on BIG-IP than connection mirroring.
+Persistence information is only sent when a new persistence record is created or an old record expired. It has less performance impact on BIG-IP than connection mirroring.
 
 .. toctree::
    :maxdepth: 1

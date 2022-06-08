@@ -4,7 +4,8 @@ Lab 3:  Modify BIG-IP settings, Sync, & Perform Validation
 In Lab 3, we will modify port lockdown settings, and validate BIG-IP configuration synchronization.
 
 Lab Tasks:
-**********
+==========
+
 * Task 1: Modify Self IP Port Lockdown
 * Task 2: Verify an Active / Standby "In Sync" State
 
@@ -24,6 +25,9 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
 
 **On each BIG-IP:**
+
+.. note:: Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
+
 
 #. **Navigate to**: Network > Self IPs
 
@@ -49,7 +53,11 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    -  Change from "Allow None" to **"Allow Custom"**
       
-      From the Port Lockdown drop-down, select "Allow Custom."  Click the radio button for UDP.  Click the radio button for Port.  In the Port field, enter 1026.  Click Add.
+      - From the Port Lockdown drop-down, select "Allow Custom." 
+      - Click the radio button for UDP.  
+      - Click the radio button for Port.  
+      - In the Port field, enter 1026.  
+      - Click Add.
       
       .. image:: ../images/image112.png
       
@@ -58,21 +66,6 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
       .. image:: ../images/image113.png
 
    - Repeat this step on the External VLAN
-
-#. On BIG-IP-A, modify the Floating Self IPs per the previous steps:
-    - Floating VLAN 30 = Allow Default, then Click Update:
-  
-      .. image:: ../images/image150.png
-
-    - Floating VLAN 10 & 20 = Allow Custom, UDP port 1026, then Click Update:
-      
-      -  VLAN 10:
-    
-         .. image:: ../images/image151.png
-
-      -  VLAN 20:
-  
-         .. image:: ../images/image152.png
 
 
    .. list-table:: 
@@ -94,12 +87,12 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
       :align: center
       :header-rows: 0
    
-      * - **GUI**
-        - **Navigate to**: Help, expand Port Lockdown, and review
-        - .. image:: ../images/image47.png
       * - **CLI**
         - tmsh list net self-allow one-line
         - ``net self-allow { defaults { igmp:any ospf:any pim:any tcp:domain tcp:f5-iquery tcp:https tcp:snmp tcp:ssh udp:520 udp:cap udp:domain udp:f5-iquery udp:snmp } }``
+
+   For more information check following K-Article: https://support.f5.com/csp/article/K17333
+   
 
 Task 2: Verify an Active / Standby "In Sync" State
 ==================================================
@@ -121,7 +114,9 @@ In Task 2, we will perform a BIG-IP device synchronization.  This will validate 
 
 
 Lab Summary
-***********
-In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  After completion of these lab tasks, you should have an Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
+===========
+
+In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  
+After completion of these lab tasks, you should have a basic Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
 
 This completes Lab 3.

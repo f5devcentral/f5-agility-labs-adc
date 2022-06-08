@@ -6,40 +6,45 @@ In Lab 7, we will continue to enhance & optimize the BIG-IP configuration.  We w
 Lab Tasks:
 ==========
 
-* Task 1: Persistence Mirroring Profile
+* Task 1: Configure Persistence Mirroring Profiles
 * Task 2: Create LTM Pool Configuration Objects
-* Task 3: Create LTM Virtual Server Configuration Object with connection mirroring enabled
-* Task 4:  Perform a Configuration Synchronization between BIG-IPs
+* Task 3: Configure Connection mirroring
+* Task 4: Perform a Configuration Synchronization between BIG-IPs
 
-Task 1: Persistence Mirroring Profile
-=====================================
+Task 1: Configure Persistence Mirroring Profiles
+================================================
 
-In Task 1, we will create a new Persistence Profile, enabling persistence mirroring.
+We will create a new Persistence Profile, enabling persistence mirroring.
 
 Persistance mirroring is used to share persistence information between BIG-IP's in a cluster.
 
-By default, persistence mirroring is **NOT** enabled.  You will need to create a dedicated persistence profile that has this setting enabled.
+.. note:: 
+    
+    - By default, persistence mirroring is **NOT** enabled.  
+    - You will need to create a dedicated persistence profile that has this setting enabled.
 
-**DO NOT** edit default BIG-IP profiles. Always create a new profile with the desired settings and use the default profile as parent profiles. 
-Default profiles will be overwritten with the next software update.
+.. note:: 
+    
+    - **DO NOT** edit default BIG-IP profiles
+    - Always create a new profile with the desired settings and use the default profile as parent profiles
+    - Default profiles will be overwritten with the next software update
 
-#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the "+" button to create a new profile:
+#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the **"+"** button to create a new profile:
 
 
    .. image:: ../images/image136.png
 
 #. Configure the following Settings for your Custom Persistence Profile:
  
-   - **Name:** *source_addr_mirror_persist*
+   - **Name:** "source_addr_mirror_persist"
    - **Persitence Type:** Select Source Address Affinity from the Persistnece Type drop-down
-   - **Parent Profile:** Ensure the Parent Profile is set to *source_addr*
+   - **Parent Profile:** Ensure the Parent Profile is set to **source_addr**
     
-   You will need to place a "checkmark" Under the Custom setting for Mirror Persistence:
+   You will need to place a **checkmark** under the Custom setting for Mirror Persistence:
 
    .. image:: ../images/image137.png
 
-   
-   Place checkmarks in the Mirror Persistence field, and Click the "Save" button:
+   Place a **checkmark** in the Mirror Persistence field, and Click the **Finished** button:
 
    .. image:: ../images/image138.png
 
@@ -51,11 +56,14 @@ Default profiles will be overwritten with the next software update.
 Task 2: Create LTM Pool Configuration Objects 
 =============================================
 
-In Task 2, we will create an LTM Pool Configuration object, which will be used for the backend server pool for our Virtual Server.
+We will create an LTM Pool Configuration object, which will be used for the backend server pool for our Virtual Server.
 
-**On the ACTIVE BIG-IP, Create Pool & Node Objects:**
+.. note:: 
+    
+    - These steps will be completed on the ACTIVE BIG-IP
 
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
+
+#. **Navigate to**: Local Traffic > Pools > Pool List > click the **"+"** sign to create a new pool:
 
    .. image:: ../images/image114.png
 
@@ -66,14 +74,14 @@ In Task 2, we will create an LTM Pool Configuration object, which will be used f
      -  **Name:** server_pool
      -  **Health Monitors:** gateway_icmp
      -  Within the Resources Section:
-        -  **New Node Address:** 10.1.10.200
-        -  **Service Port:** \* All Services
-        
-        Click the Add button
+  
+        - **New Node Address:** 10.1.10.200
+        - **Service Port:** \* All Services
+        - Click the **Add** button
  
         .. image:: ../images/image123.png
 
-   Click the "Finished" Button:
+   Click the **Finished** Button:
 
    .. image:: ../images/image135.png
 
@@ -82,44 +90,55 @@ In Task 2, we will create an LTM Pool Configuration object, which will be used f
 
    .. image:: ../images/image127.png
 
-Task 3:  Create LTM Virtual Server Configuration Object with connection mirroring enabled
-=========================================================================================
+Task 3:  Configure Connection mirroring
+=======================================
 
-In Task 3, we will create a simple HTTP Virtual Server object.  This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+.. note:: 
+   Connection mirroring is configured at the Virtual servers itself.
 
-#. **Navigate to**: Local Traffic > Virtual Servers > Virtual Server List, then click the "+" sign:
-    -   .. image:: ../images/image128.png
+We will create a simple HTTP Virtual Server object.  
+This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
+
+#. **Navigate to**: Local Traffic > Virtual Servers > Virtual Server List, then click the **"+"** button:
+
+   .. image:: ../images/image128.png
 
 #. Create the Virtual Server with the following settings:
-    - General Properties:
-       -  **Name:**  test_http_vs
-       -  **Type:**  Standard
-       -  **Destination Address/Mask:**  10.1.10.55
-       -  **Service Port:**  80 (HTTP)    
-          .. image:: ../images/image129.png
 
-#. From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
+   - General Properties:
 
-   .. image:: ../images/image140.png
+     -  **Name:**  test_http_vs
+     -  **Type:**  Standard
+     -  **Destination Address/Mask:**  10.1.10.55
+     -  **Service Port:**  80 (HTTP)    
 
-   - **HTTP Profile (Client):**  http
-  
-   - **Source Address Translation:**  From the drop-down, select AutoMap:
+        .. image:: ../images/image129.png
 
-     .. image:: ../images/image148.png
+#. From the Configuration section, at the Basic drop-down, select **Advanced**, and configure the following settings:
 
-   - **Connection Mirroring:**  Place a checkmark on this setting
+   .. image:: ../images/image140a.png
+
+   - **Connection Mirroring:**  Place a **checkmark** on this setting
 
      .. image:: ../images/image141.png
 
      .. image:: ../images/image143.png
           
-     - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
+   
+   .. note:: 
+      We now finished the configuration for connection mirroring. 
+      The following steps are required to finish the virtual server configuration so you can test the service. 
+
+   - **Source Address Translation:**  From the drop-down, select AutoMap:
+
+     .. image:: ../images/image148.png
+   
+   - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
      
-       - **Default Pool:**  server_pool
-       - **Default Persistence Profile:**  source_addr_mirror_persist
+     - **Default Pool:**  server_pool
+     - **Default Persistence Profile:**  source_addr_mirror_persist
   
-         .. image:: ../images/image142.png
+       .. image:: ../images/image142.png
 
 You should be presented with the following Virtual Server object after creation:
 
@@ -130,7 +149,8 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
 **On the ACTIVE BIG-IP**
 
-#. Notice the "Changes Pending" in the upper-left corner
+#. Notice the **Changes Pending** in the upper-left corner
+
 
    .. image:: ../images/image52.png
 
@@ -140,11 +160,11 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
    .. image:: ../images/image53.png
 
-#. While the configuration is being pushed, you will see a "Syncing" icon display in the middle:
+#. While the configuration is being pushed, you will see a **Syncing** icon display in the middle:
 
    .. image:: ../images/image54.png
 
-#. Once the ConfigSync process is complete, your BIG-IPs should indicate an "In Sync" state, and be in an Active / Standby cluster
+#. Once the ConfigSync process is complete, your BIG-IPs should indicate an **In Sync** state, and be in an Active / Standby cluster
 
 #. Verify the sync state:
 
@@ -154,9 +174,9 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 Lab Summary
 ===========
 
-In this lab, you enhanced your HA configuration to leverage HA Groups.  
-HA Groups provide the ability to monitor an "object" and take action upon an event.  
-After completion of these lab tasks, your BIG-IP should be leveraging HA Groups for Failover.  In the following lab, we will test & validate how this configuration enhances the failover timing.
+In this lab, you enhanced your HA configuration to leverage HA Groups with connection mirroring and persistence mirroring. 
+
+With persistance mirroring and connection mirroring you enable your BIG-IP HA Cluster for a seemless failover without client interruption.
 
 This completes lab 7, and concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
 
