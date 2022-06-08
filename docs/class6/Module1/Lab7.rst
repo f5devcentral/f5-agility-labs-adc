@@ -6,13 +6,13 @@ In Lab 7, we will continue to enhance & optimize the BIG-IP configuration.  We w
 Lab Tasks:
 ==========
 
-* Task 1: Persistence Mirroring Profile
+* Task 1: Configure Persistence Mirroring Profiles
 * Task 2: Create LTM Pool Configuration Objects
-* Task 3: Create LTM Virtual Server Configuration Object with connection mirroring enabled
-* Task 4:  Perform a Configuration Synchronization between BIG-IPs
+* Task 3: Configure Connection mirroring
+* Task 4: Perform a Configuration Synchronization between BIG-IPs
 
-Task 1: Persistence Mirroring Profile
-=====================================
+Task 1: Configure Persistence Mirroring Profiles
+================================================
 
 We will create a new Persistence Profile, enabling persistence mirroring.
 
@@ -114,27 +114,31 @@ This will be used to demonstrate the additional failover features you can apply 
 
         .. image:: ../images/image129.png
 
-#. From the Configuration section, at the Basic drop-down, select Advanced, and Configure the following settings:
+#. From the Configuration section, at the Basic drop-down, select **Advanced**, and configure the following settings:
 
    .. image:: ../images/image140a.png
 
-   - **Connection Mirroring:**  Place a checkmark on this setting
+   - **Connection Mirroring:**  Place a **checkmark** on this setting
 
      .. image:: ../images/image141.png
 
      .. image:: ../images/image143.png
           
    
-      - **Source Address Translation:**  From the drop-down, select AutoMap:
+   .. note:: 
+      We now finished the configuration for connection mirroring. 
+      The following steps are required to finish the virtual server configuration so you can test the service. 
+
+   - **Source Address Translation:**  From the drop-down, select AutoMap:
 
      .. image:: ../images/image148.png
    
    - Under the  **Resources:** Section, Define the following settings, and Click the "Finished" Button:
      
-       - **Default Pool:**  server_pool
-       - **Default Persistence Profile:**  source_addr_mirror_persist
+     - **Default Pool:**  server_pool
+     - **Default Persistence Profile:**  source_addr_mirror_persist
   
-         .. image:: ../images/image142.png
+       .. image:: ../images/image142.png
 
 You should be presented with the following Virtual Server object after creation:
 
@@ -147,6 +151,7 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
 #. Notice the **Changes Pending** in the upper-left corner
 
+
    .. image:: ../images/image52.png
 
 #. Click this hyperlink to go to the Overview screen.
@@ -155,11 +160,11 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
    .. image:: ../images/image53.png
 
-#. While the configuration is being pushed, you will see a "Syncing" icon display in the middle:
+#. While the configuration is being pushed, you will see a **Syncing** icon display in the middle:
 
    .. image:: ../images/image54.png
 
-#. Once the ConfigSync process is complete, your BIG-IPs should indicate an "In Sync" state, and be in an Active / Standby cluster
+#. Once the ConfigSync process is complete, your BIG-IPs should indicate an **In Sync** state, and be in an Active / Standby cluster
 
 #. Verify the sync state:
 
@@ -169,9 +174,9 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 Lab Summary
 ===========
 
-In this lab, you enhanced your HA configuration to leverage HA Groups.  
-HA Groups provide the ability to monitor an "object" and take action upon an event.  
-After completion of these lab tasks, your BIG-IP should be leveraging HA Groups for Failover.  In the following lab, we will test & validate how this configuration enhances the failover timing.
+In this lab, you enhanced your HA configuration to leverage HA Groups with connection mirroring and persistence mirroring. 
+
+With persistance mirroring and connection mirroring you enable your BIG-IP HA Cluster for a seemless failover without client interruption.
 
 This completes lab 7, and concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
 
