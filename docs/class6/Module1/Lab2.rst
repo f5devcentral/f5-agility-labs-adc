@@ -94,25 +94,24 @@ Use the following table for the respective configuration objects:
 
 
        - BIG-IP-A:
-          .. image:: ../images/image160.png
+
+         .. image:: ../images/image160.png
     
        - BIG-IP-B:
         
-          .. image:: ../images/image160.png
+         .. image:: ../images/image160.png
 
-#. Now, we will add our Management Address to our Failover Unicast Configuration.  This will establish failover comunication, as there is no management port lockdwon.
+#. Now, we will add our Management Address to our Failover Unicast Configuration.  This will establish failover comunication, as there is no management port lockdwon.  After this step, you should observe your BIG-IPs going into an Active/Standby state, as we can now communicate across our Failover network.
 
     - **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
 
        - From the Address drop-down, select the Management Address, and click the **Finished** button:
 
-          .. image:: ../images/image162.png
+         .. image:: ../images/image162.png
 
-       - From the Address drop-down, select the Management Address, and click the **Finished** button:
 
-          .. image:: ../images/image162.png
 
-#. This should be your Failover Unicast view after configuration completion (example from BIG-IP-A)
+#. This should be your Failover Unicast view after configuration completion (example from BIG-IP-A):
 
    .. image:: ../images/image163.png
 
@@ -121,7 +120,7 @@ Use the following table for the respective configuration objects:
    .. image:: ../images/image110.png
 
 
-#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
+#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the **Update** button:
 
    .. image:: ../images/image111.png
 
