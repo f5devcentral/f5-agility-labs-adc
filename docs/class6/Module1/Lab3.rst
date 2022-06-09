@@ -58,7 +58,7 @@ For additional details on creating a unique L2 MAC Address, please see Article `
    
     .. image:: ../images/image118.png
 
-    Replace the "52" with "02" and click Save
+    Replace the "52" with "02" and click the **Save** button:
 
     .. image:: ../images/image119.png
 
@@ -72,20 +72,31 @@ In Task 2, we will perform a BIG-IP device synchronization.  This will validate 
 
    -  BIG-IP-A:
 
-      .. image:: ../images/image48.png
+      .. image:: ../images/image183.png
 
    -  BIG-IP-B:
 
-      .. image:: ../images/image49.png
+      .. image:: ../images/image182.png
 
 
-#. If your BIG-IPs are in a state other than the above, please review the previous steps to ensure correct configuration.
+#. On the **ACTIVE** BIG-IP, click the **Changes Pending** hyperlink, and proceed with the recommended synchronization action:
 
+.. image:: ../images/image184.png
+
+#. Validate your BIG-IPs are In Sync:
+
+   -  BIG-IP-A:
+
+      .. image:: ../images/image186.png
+
+   -  BIG-IP-B:
+
+      .. image:: ../images/image185.png
 
 Lab Summary
 ===========
 
-In this lab, you modified BIG-IP Self IP port lockdown configuration settings.  
-After completion of these lab tasks, you should have a basic Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects, that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
+In this lab, you configured MAC Masquerade.  This feature can enhance failover timing with upstream devcies.
+After completion of these lab tasks, you should have a basic Active/Standby High-Availability (HA) BIG-IP configuration, with Local Traffic Manager (LTM) objects (Floating Self IPs), that are synchronized between the BIG-IPs.  These configuration objects will assist with the following labs.
 
 This completes Lab 3.
