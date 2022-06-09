@@ -40,11 +40,11 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image18.png
 
-#. If your device name is still the default name *"bipip1,"* click the "Change Device Name" button:
+#. If your device name is still the default name *"bipip1,"* click the **Change Device Name** button:
 
    .. image:: ../images/image153.png
 
-#. Provide the BIG-IP FQDN as the "New Name," change the Certificate drop-down to *Generate New Self-Signed Authority*, and click the "Update" button:
+#. Provide the BIG-IP FQDN as the "New Name," change the Certificate drop-down to *Generate New Self-Signed Authority*, and click the **Update** button:
 
 
    .. image:: ../images/image154.png
@@ -54,30 +54,59 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image19.png
 
-#. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
+#. Under the Local Address drop-down, select the HA VLAN 30 address, then click the **Update** button:
 
    .. image:: ../images/image20.png
 
-#. Click the "Failover Network" banner, then the "Add" button:
+#. Now, we will **ONLY** add our Data Interfaces to our Failover Network configuration, initially.  We will observe the BIG-IP behavior afterwards.  This will showcase failover communication.
+
+#. Click the "Failover Network" banner, then the **Add** button:
 
    .. image:: ../images/image21.png
 
-#. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
 
-   .. image:: ../images/image115.png
-
-
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
+#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the **Repeat** button:
 
    .. image:: ../images/image22.png
 
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the "Finished" button:
+#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the **Finished** button:
 
    .. image:: ../images/image23.png
 
-#. View of the Failover Unicast Configuration:
+#. View of the Failover Unicast Configuration, with only the Data Interfaces:
 
-   .. image:: ../images/image24.png
+   .. image:: ../images/image157.png
+
+#.  Observe the current state of each BIG-IP:
+  
+    .. image:: ../images/image158.png
+    .. image:: ../images/image159.png
+
+    - Question:  Why are both BIG-IPs still ACTIVE/ACTIVE?
+    - Answer:  Currently, failover communication is being blocked on the Data VLANs, specifically UDP port 1026.  This is due to our **Allow None** Self IP port lockdown behavior.
+    - Question:  How can we correct this?
+    - Answer:  We can approach this in a few ways.  First, we will proceed in the next Step by adding the Management Interface into the Failover Unicast configuration.  You could also correct this by allowing UDP port 1026 on the Data VLANs (which will be covered in a future lab)
+
+#.  Also, observe the current Device status from each BIG-IP, which will also prove our failover communication is failing between BIG-IPs.
+#.  **Navigate** to:  Device Management > Devices:
+    - BIG-IP-A:
+      .. image:: ../images/image160.png
+    - BIG-IP-B:
+      .. image:: ../images/image160.png
+
+#. Now, we will add our Management Address to our Failover Unicast Configuration.  This will establish failover comunication, as there is no management port lockdwon.
+#. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
+#. From the Address drop-down, select the Management Address, and click the **Finished** button:
+
+   .. image:: ../images/image162.png
+
+#. From the Address drop-down, select the Management Address, and click the **Finished** button:
+
+   .. image:: ../images/image162.png
+
+#. This should be your Failover Unicast view after configuration completion (example from BIG-IP-A)
+
+   .. image:: ../images/image162.png
 
 #. Click the "Mirroring" banner:
 
