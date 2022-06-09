@@ -317,21 +317,24 @@ In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, 
      - Netmask
      - VLAN
      - Port Lockdown
+     - Traffic Group
    * - [Active]bigip
      - self_vlan10_float
      - 10.1.10.240
      - 255.255.255.0
      - int_vlan_10
      - Allow None (default)
+     - traffic-group-1 (floating)
    * - [Active]bigip
      - self_vlan20_float
      - 10.1.20.240
      - 255.255.255.0
      - ext_vlan_20
      - Allow None (default)
+     - traffic-group-1 (floating)
 
 
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
+#. **Navigate to**: Network > Self IPs, then click the **"+"** button to create a new Self IP:
 
    .. image:: ../images/image13.png
 
