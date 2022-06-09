@@ -1,98 +1,67 @@
-Lab 3:  Modify BIG-IP settings, Sync, & Perform Validation
-----------------------------------------------------------
+Lab 3:  Configure MAC Masquerade
+--------------------------------
 
-In Lab 3, we will modify port lockdown settings, and validate BIG-IP configuration synchronization.
+In Lab 3, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group, and validate BIG-IP configuration synchronization.  
+
 
 Lab Tasks:
 ==========
 
-* Task 1: Modify Self IP Port Lockdown
+* Task 1: Configure MAC Masquerade
 * Task 2: Verify an Active / Standby "In Sync" State
 
-Task 1:  Modify Self IP Port Lockdown
+Task 1:  Configure MAC Masquerade
 =====================================
 
-In Task 1, we will modify our "Allow None" Self IP port lockdown behavior; we will define a Custom Port Lockdown configuration on the respective Self IPs.
+In Task 1, we will configure & setup MAC Masquerade.
 
-For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.
-
-* For our HA VLAN, we will select **"Allow Default"**
-* For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port 1026.
-
-There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
- 
-In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
+To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic group on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
 
 
-**On each BIG-IP:**
+BIG-IP's default failover mechanism is based on gratuitous ARP.
+In case of a failover, BIG-IP has to send a gratuitous ARP for every floating IP and service IP address like virtual server IP address and SNAT address.
+The gratuitous ARP contains the physical MAC address of the new primary BIG-IP.
+With gratuitous ARP, the device that takes over sends gratuitous ARP packets, which asks all hosts on the LAN segment to update their ARP table. 
+After the hosts updated their ARP table with the MAC address of the new primary BIG-IP, they send all traffic to the now active BIG-IP.
 
-.. note:: Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
+Sometimes hosts like Firewalls or routers do not update their ARP table when they receive a gratuitous ARP.
+In this case the firewall or router will keep sending traffic to the old MAC address, which leads to service intererruption.
 
+This issue can be addressed with MAC masquerade.
 
-#. **Navigate to**: Network > Self IPs
+With MAC masquerade configured, BIG-IP devices will use a configurable MAC masquerade address as source MAC for packets leaving BIG-IP.
+In case of a failover, the MAC address will not change.
+The new active BIG-IP will start using the MAC masquerade MAC address.
+Now there is no need to update the hosts ARP table. 
 
-#. Click the VLAN 30 Self IP hyperlink
+The MAC address used for MAC masquerade is free configurable. 
+A best practices guide how to choose the MAC masquerade MAC address is described in K-Article K3523. https://support.f5.com/csp/article/K3523
 
-   .. image:: ../images/image45.png
+For more information on MAC masquerade see K-Article K13502
+https://support.f5.com/csp/article/K13502
 
-#. Under the Port Lockdown drop-down, change the value to "Allow Default," then click the Update button
+In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
 
-   .. image:: ../images/image46.png
+First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
 
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
+For additional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
+
+1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
    
-      * - Question:
-        - Are the devices Active / Standby? Why or why not?
-      * - Answer:
-        - No, still Active / Active - Failover via unicast Self IPs & port lockdown
+    .. image:: ../images/image116.png
 
-#. On both BIG-IPs, modify both the Internal & External Self IP Port Lockdown settings
-
-   -  Change from "Allow None" to **"Allow Custom"**
-      
-      - From the Port Lockdown drop-down, select "Allow Custom." 
-      - Click the radio button for UDP.  
-      - Click the radio button for Port.  
-      - In the Port field, enter 1026.  
-      - Click Add.
-      
-      .. image:: ../images/image112.png
-      
-      You should see "1026" listed in the UDP Custom List section.  Click Update.
-         
-      .. image:: ../images/image113.png
-
-   - Repeat this step on the External VLAN
-
-
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
+2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
    
-      * - Question:
-        - Are the devices Active / Standby? Why or why not?
-      * - Answer:
-        - Yes, they are now Active / Standby for Failover
-      * - Log Example:
-        - ``Apr 28 12:34:47 bigipB.f5demo.com info sod[7297]: 010c0085:6: First failover status message received from device bigipA.f5demo.com (10.1.1.5) (unicast: -> 10.1.20.242).Apr 28 12:34:47 bigipB.f5demo.com warning sod[7297]: 010c0084:4: Failover status message received after 3977.100 second gap, from device bigipA.f5demo.com (10.1.1.5) (unicast: -> 10.1.20.242).``
+    .. image:: ../images/image117.png
 
-#. **Bonus Question:** How do you know what "ports" are allowed in the "default" port-lockdown list?
-
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 0
+3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
    
-      * - **CLI**
-        - tmsh list net self-allow one-line
-        - ``net self-allow { defaults { igmp:any ospf:any pim:any tcp:domain tcp:f5-iquery tcp:https tcp:snmp tcp:ssh udp:520 udp:cap udp:domain udp:f5-iquery udp:snmp } }``
+    .. image:: ../images/image118.png
 
-   For more information check following K-Article: https://support.f5.com/csp/article/K17333
-   
+    Replace the "52" with "02" and click Save
+
+    .. image:: ../images/image119.png
+
 
 Task 2: Verify an Active / Standby "In Sync" State
 ==================================================
