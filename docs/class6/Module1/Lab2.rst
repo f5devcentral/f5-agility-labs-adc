@@ -302,9 +302,9 @@ In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, 
 
 .. note:: Only creating Floating Self IPs on **ACTIVE** BIG-IP. We will then synchronize these settings, proving our DSC communication.
 
-#. Create the following Floating Self IP Objects.
+#. Use the following table to create the Floating Self IP Objects:
 
-Use the following table to create & define your three Self IPs:
+.. note:: **DO NOT** modify the Floating Self IP Address port lockdown. The Floating Self IP address port lockdown status has to be **Allow None"**
 
 .. list-table:: 
    :widths: auto
