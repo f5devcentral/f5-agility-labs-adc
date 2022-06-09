@@ -88,11 +88,14 @@ Use the following table for the respective configuration objects:
     - Answer:  We can approach this in a few ways.  First, we will proceed in the next Step by adding the Management Interface into the Failover Unicast configuration.  You could also correct this by allowing UDP port 1026 on the Data VLANs (which will be covered in a future lab)
 
 #.  Also, observe the current Device status from each BIG-IP, which will also prove our failover communication is failing between BIG-IPs.
-#.  **Navigate** to:  Device Management > Devices:
-    - BIG-IP-A:
-      .. image:: ../images/image160.png
-    - BIG-IP-B:
-      .. image:: ../images/image160.png
+    
+    - **Navigate** to:  Device Management > Devices:
+       - BIG-IP-A:
+          .. image:: ../images/image160.png
+    
+       - BIG-IP-B:
+        
+          .. image:: ../images/image160.png
 
 #. Now, we will add our Management Address to our Failover Unicast Configuration.  This will establish failover comunication, as there is no management port lockdwon.
 #. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
