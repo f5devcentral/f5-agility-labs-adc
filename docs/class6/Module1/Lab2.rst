@@ -84,8 +84,12 @@ Use the following table for the respective configuration objects:
     .. image:: ../images/image165.png
     .. image:: ../images/image166.png
 
-    - Question:  Why are both BIG-IPs still **ACTIVE / Standalone**?
-    - Answer:  Currently, there is no Device Trust between BIG-IPs, so they do not "see" one another.  We must establish Device Trust in the next Task.
+
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| Question: | Why are both BIG-IPs still **ACTIVE / Standalone**?                                                                                     |
++===========+=========================================================================================================================================+
+| Answer:   | Currently, there is no Device Trust between BIG-IPs, so they do not "see" one another. We must establish Device Trust in the next Task. |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------+
 
 #. Click the "Mirroring" banner:
 
