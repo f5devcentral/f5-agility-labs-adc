@@ -22,6 +22,8 @@ In Task 1, we will define our respective DSC configuration items on each respect
 
 Use the following table for the respective configuration objects:
 
+.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task X
+
 +-----------------------------------------+---------------------------+-----------------+------------------+
 |Device Management Settings:              |Configuration Item / Object|BIG-IP-A IP's    | BIG-IP-B IP's    |
 +=========================================+===========================+=================+==================+
@@ -96,7 +98,7 @@ Use the following table for the respective configuration objects:
 
 Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby BIG-IP HA pair.
 
-To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
+.. note:: To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
 
 For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
 
