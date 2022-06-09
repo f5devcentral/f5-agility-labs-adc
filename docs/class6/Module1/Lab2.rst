@@ -79,41 +79,11 @@ Use the following table for the respective configuration objects:
 
 #.  Observe the current state of each BIG-IP:
   
-    .. image:: ../images/image158.png
-    .. image:: ../images/image159.png
+    .. image:: ../images/image165.png
+    .. image:: ../images/image166.png
 
-    - Question:  Why are both BIG-IPs still ACTIVE/ACTIVE?
-    - Answer:  Currently, failover communication is being blocked on the Data VLANs, specifically UDP port 1026.  This is due to our **Allow None** Self IP port lockdown behavior.
-    - Question:  How can we correct this?
-    - Answer:  We can approach this in a few ways.  First, we will proceed in the next Step by adding the Management Interface into the Failover Unicast configuration.  You could also correct this by allowing UDP port 1026 on the Data VLANs (which will be covered in a future lab)
-
-#.  Also, observe the current Device status from each BIG-IP, which will also prove our failover communication is failing between BIG-IPs.
-
-
-    - **Navigate** to:  Device Management > Devices:
-
-
-       - BIG-IP-A:
-
-         .. image:: ../images/image160.png
-    
-       - BIG-IP-B:
-        
-         .. image:: ../images/image160.png
-
-#. Now, we will add our Management Address to our Failover Unicast Configuration.  This will establish failover comunication, as there is no management port lockdwon.  After this step, you should observe your BIG-IPs going into an Active/Standby state, as we can now communicate across our Failover network.
-
-    - **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
-
-       - From the Address drop-down, select the Management Address, and click the **Finished** button:
-
-         .. image:: ../images/image162.png
-
-
-
-#. This should be your Failover Unicast view after configuration completion (example from BIG-IP-A):
-
-   .. image:: ../images/image163.png
+    - Question:  Why are both BIG-IPs still **ACTIVE / Standalone**?
+    - Answer:  Currently, there is no Device Trust between BIG-IPs, so they do not "see" one another.  We must establish Device Trust in the next Task.
 
 #. Click the "Mirroring" banner:
 
@@ -124,7 +94,7 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image111.png
 
-Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby HA BIG-IP pair.
+Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby BIG-IP HA pair.
 
 To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
 
@@ -140,7 +110,7 @@ In Task 2, we will define the configuration to establish our device-trust betwee
 
 On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
 
-NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **Active / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
+NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **ACTIVE / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
 
 .. list-table:: 
    :widths: auto
@@ -164,31 +134,31 @@ NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are bo
      -  .. image:: ../images/image29.png
      -  .. image:: ../images/image30.png
 
-#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device:
+#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the **"+"** button to create a new Peer Device:
 
    .. image:: ../images/image31.png
 
 #. Retrieve Device Credentials (Step 1 of 3):
 
-   Fill in the respective form items for *bigipA.f5demo.com*, then click the *Retrieve Device Information* button
+   Fill in the respective configuration items for *bigipA.f5demo.com*, then click the **Retrieve Device Information** button
 
    .. image:: ../images/image32.png
 
 #. Verify Device Certificate (Step 2 of 3):
 
-   Confirm the device certificate information, then click the *Device Certificate Matches* button
+   Confirm the device certificate information, then click the **Device Certificate Matches** button
 
    .. image:: ../images/image33.png
 
 #. Add Device (Step 3 of 3):
 
-   Verify the device name, and click the *Add Device* button
+   Verify the device name, and click the **Add Device** button
 
    .. image:: ../images/image34.png
 
 #. Verify *bigipA.f5demo.com*
 
-   Navigate to: Device Management --> Device Trust --> Device Trust Members
+   **Navigate to**: Device Management > Device Trust > Device Trust Members
 
    .. image:: ../images/image35.png
 
@@ -197,7 +167,7 @@ NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are bo
    .. image:: ../images/image36.png
 
 +-----------+---------------------------------------------------------+
-| Question: | Why are both BIG-IPs Active?                            |
+| Question: | Why are both BIG-IPs Active / In Sync?                  |
 +===========+=========================================================+
 | Answer:   | There is no Device Group established between the        |
 |           | BIG-IPs yet . . . See next task                         |
@@ -211,11 +181,11 @@ In Task 3, we will define the device group on the BIG-IPs.
 On *bigipA.f5demo.com*, set up the new Device Group that will be used by
 both BIG-IP systems.
 
-#. **Navigate to**: Device Management > Device Groups page, and then click the "+" button:
+#. **Navigate to**: Device Management > Device Groups page, and then click the **"+"** button:
 
    .. image:: ../images/image37.png
 
-#. Create a Device Group using the following information, and then click Finished
+#. Create a Device Group using the following information, and then click **Finished** button:
 
    +-------------+-------------------------------------------------------+
    | Name        | bigip-a_bigip-b_dg                                    |
@@ -232,6 +202,15 @@ both BIG-IP systems.
    .. image:: ../images/image38.png
 
    .. image:: ../images/image39.png
+
+#.  Observe the current state of each BIG-IP.
+   .. image:: ../images/image168.png
+
+   
+   .. image:: ../images/image169.png
+
+
+
 
 Task 4:  Setup MAC Masquerade on BIG-IP-A
 =========================================
