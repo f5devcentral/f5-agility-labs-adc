@@ -12,8 +12,9 @@ Lab Tasks:
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
 * Task 4: Modify Self IP Port Lockdown on Data Self IPs
-* Task 5: Create Floating Self IPs on BIG-IP-A
-* Task 6: Validate the Device Group Status
+* Task 5: Add the Management Address to the Failover Network
+* Task 6: Create Floating Self IPs on BIG-IP-A
+* Task 7: Validate the Device Group Status
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -103,8 +104,8 @@ Use the following table for the respective configuration objects:
 Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby BIG-IP HA pair.
 
 .. note:: 
-   - To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  
-   - We will address this configuration in Lab 3.  For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
+   - To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server. We will address this configuration in Lab 3.
+   - For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
    - For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
 
 
@@ -236,21 +237,16 @@ In Task 4, we will modify our "Allow None" Self IP port lockdown behavior of the
 
 For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.
 
-* For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port **1026**.
+.. note:: For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port **1026**
 
 There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
  
 In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
 
 
-**On each BIG-IP:**
+#. On each BIG-IP, **Navigate to**: Network > Self IPs:
 
-.. note:: Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
-
-
-#. **Navigate to**: Network > Self IPs:
-
-#. On both BIG-IPs, modify both the Internal & External Self IP Port Lockdown settings by clicking their respective hyperlink to modify the item.
+#. Modify both the Internal & External Self IP Port Lockdown settings by clicking their respective hyperlink to modify the item.
 
    -  Change from "Allow None" to **"Allow Custom"**
       
@@ -268,21 +264,34 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    - Repeat this step on the External VLAN
 
-#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
+#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
 
   - BIG-IP-A (is Standby)
 
-
-   .. image:: ../images/image173.png
+.. image:: ../images/image173.png
 
   - BIG-IP-B (is Active)
 
-   .. image:: ../images/image172.png
+.. image:: ../images/image172.png
 
-This task validates that your Failover communication must be allowed between BIG-IP Self IPs.
+This task validates that your Failover communication must be allowed between BIG-IP
 
+Task 5:  Add the Management Address to the Failover Network
+===========================================================
 
-Task 5:  Create Floating Self IPs on BIG-IP-A
+In Task 5, we will add an addtional address to our Failover Network configuration. We will add the Management Address, which will provide an addtional failover path for communication on UDP port 1026.
+
+.. note:: BIG-IP Management Address does not have any default port lockdown settings. If we were to have added this in Task 1, we would have formed a failover communication path on the management IP, allowing the BIG-IPs to communicate. We wanted you to observe how port lockdown settings can affect BIG-IP communication.
+
+#. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
+   
+   .. image:: ../images/image174.png
+
+- From the Address drop-down, select the Management Address, and click the **Finished** button:
+
+   .. image:: ../images/image162.png
+
+Task 6:  Create Floating Self IPs on BIG-IP-A
 =============================================
 
 We will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
