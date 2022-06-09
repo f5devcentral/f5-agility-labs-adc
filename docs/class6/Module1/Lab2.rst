@@ -14,7 +14,7 @@ Lab Tasks:
 * Task 4: Modify Self IP Port Lockdown on Data Self IPs
 * Task 5: Add the Management Address to the Failover Network
 * Task 6: Create Floating Self IPs
-* Task 7: Validate the Device Group Status
+* Task 7: Synchronize BIG-IPs & Validate the Device Group Status
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -300,6 +300,10 @@ Task 6:  Create Floating Self IPs
 
 In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, which are shared objects between an Active/Standby BIG-IP pair.  
 
+Floating Self IPs are shared objects between BIG-IPs, passing data traffic to the respective **ACTIVE** BIG-IP.  It is a recommended best practice to define a respective floating Self IP object per data segment/VLAN.
+
+For more detailed information regarding Floating Self IPs, please refer to this article:  `Self IP Addresses <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-tmos-routing-administration-14-1-0/self-ip-addresses.html>`_
+
 .. note:: Only creating Floating Self IPs on **ACTIVE** BIG-IP. We will then synchronize these settings, proving our DSC communication.
 
 #. Use the following table to create the Floating Self IP Objects:
@@ -352,22 +356,34 @@ In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, 
    
    .. image:: ../images/image147.png
 
-Task 6:  Validate the Device Group Status
-=========================================
+Task 7:  Synchronize BIG-IPs & Validate the Device Group Status
+===============================================================
 
-In Task 6, you will observe the current Active/Standby HA state.
+In this lab, we have setup BIG-IP Device Trust, and we have created "shared BIG-IP" objects.
+
+In this task, you will observe the current Active/Standby HA state, and synchronize the BIG-IP HA pair.
 
 #. Observe the state of each BIG-IP after Device Group creation
 
    - bigipA:
 
-     .. image:: ../images/image40.png
+     .. image:: ../images/image177.png
 
    - bigipB:
 
-     .. image:: ../images/image41.png
+     .. image:: ../images/image176.png
 
 #. Review the Device Management Overview screen
+
+- **Navigate to**: Device Management > Overview
+
+   - bigipA:
+
+     .. image:: ../images/image179.png
+
+   - bigipB:
+
+     .. image:: ../images/image178.png
 
 #. Attempt the "Recommendation action", and "Sync."
 
