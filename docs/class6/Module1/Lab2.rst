@@ -14,7 +14,7 @@ Lab Tasks:
 * Task 4: Modify Self IP Port Lockdown on Data Self IPs
 * Task 5: Add the Management Address to the Failover Network
 * Task 6: Create Floating Self IPs
-* Task 7: Synchronize BIG-IPs & Validate the Device Group Status
+* Task 7: Validate the Device Group Status & Synchronize BIG-IPs
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -356,7 +356,7 @@ For more detailed information regarding Floating Self IPs, please refer to this 
    
    .. image:: ../images/image147.png
 
-Task 7:  Synchronize BIG-IPs & Validate the Device Group Status
+Task 7:  Validate the Device Group Status & Synchronize BIG-IPs
 ===============================================================
 
 In this lab, we have setup BIG-IP Device Trust, and we have created "shared BIG-IP" objects.
@@ -408,16 +408,9 @@ In this task, you will observe the current Active/Standby HA state, and synchron
      .. image:: ../images/image180.png
 
 
-   +-----------+---------------------------------------------------------+
-   | Question: | Why are both BIG-IPs still ACTIVE?                      |
-   +===========+=========================================================+
-   | Answer:   | Both devices view their peer as "Device is Offline" due |
-   |           | to the current Self IP Port Lockdown behavior on the HA |
-   |           | VLAN.                                                   |
-   +-----------+---------------------------------------------------------+
 
 Lab Summary
 ***********
-In this lab, you setup BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  These configuration objects will assist with the subsequent labs.
+In this lab, you setup basic BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  Upon completion of this Lab, you should have an **Active/Standby, In Sync** BIG-IP HA pair.
 
 This completes Lab 2.
