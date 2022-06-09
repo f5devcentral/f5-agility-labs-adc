@@ -13,7 +13,7 @@ Lab Tasks:
 * Task 3: Configure the Device Group
 * Task 4: Modify Self IP Port Lockdown on Data Self IPs
 * Task 5: Add the Management Address to the Failover Network
-* Task 6: Create Floating Self IPs on BIG-IP-A
+* Task 6: Create Floating Self IPs
 * Task 7: Validate the Device Group Status
 
 Task 1:  Define Device Service Cluster High-Availability Settings
@@ -295,12 +295,14 @@ In Task 5, we will add an addtional address to our Failover Network configuratio
 
 .. image:: ../images/image175.png
 
-Task 6:  Create Floating Self IPs on BIG-IP-A
-=============================================
+Task 6:  Create Floating Self IPs
+=================================
 
-We will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
+In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, which are shared objects between an Active/Standby BIG-IP pair.  
 
-On the BIG-IP-A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
+.. note:: Only creating Floating Self IPs on **ACTIVE** BIG-IP. We will then synchronize these settings, proving our DSC communication.
+
+#. Create the following Floating Self IP Objects.
 
 Use the following table to create & define your three Self IPs:
 
@@ -315,13 +317,13 @@ Use the following table to create & define your three Self IPs:
      - Netmask
      - VLAN
      - Port Lockdown
-   * - bigipA
+   * - [Active]bigip
      - self_vlan10_float
      - 10.1.10.240
      - 255.255.255.0
      - int_vlan_10
      - Allow None (default)
-   * - bigipA
+   * - [Active]bigip
      - self_vlan20_float
      - 10.1.20.240
      - 255.255.255.0
