@@ -266,10 +266,13 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 #. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
 
   - BIG-IP-A (is Standby)
-      .. image:: ../images/image172.png
+
+
+   .. image:: ../images/image173.png
 
   - BIG-IP-B (is Active)
-      .. image:: ../images/image172.png
+
+   .. image:: ../images/image172.png
 
 This task validates that your Failover communication must be allowed between BIG-IP Self IPs.
 
