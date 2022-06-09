@@ -11,7 +11,7 @@ Lab Tasks:
 * Task 1: Define DSC HA Settings
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
-* Task 4: Setup MAC Masquerade on BIG-IP-A
+* Task 4: Modify Self IP Port Lockdown on Data Self IPs
 * Task 5: Create Floating Self IPs on BIG-IP-A
 * Task 6: Validate the Device Group Status
 
@@ -224,56 +224,54 @@ both BIG-IP systems.
    
    - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
 
-Task 4:  Setup MAC Masquerade on BIG-IP-A
-=========================================
+Task 4: Modify Self IP Port Lockdown on Data Self IPs:
+======================================================
 
-BIG-IP's default failover mechanism is based on gratuitous ARP.
-In case of a failover, BIG-IP has to send a gratuitous ARP for every floating IP and service IP address like virtual server IP address and SNAT address.
-The gratuitous ARP contains the physical MAC address of the new primary BIG-IP.
-With gratuitous ARP, the device that takes over sends gratuitous ARP packets, which asks all hosts on the LAN segment to update their ARP table. 
-After the hosts updated their ARP table with the MAC address of the new primary BIG-IP, they send all traffic to the now active BIG-IP.
+In Task 4, we will modify our "Allow None" Self IP port lockdown behavior of the Data Self IPs; we will define a Custom Port Lockdown configuration on the respective Self IPs.
 
-Sometimes hosts like Firewalls or routers do not update their ARP table when they receive a gratuitous ARP.
-In this case the firewall or router will keep sending traffic to the old MAC address, which leads to service intererruption.
+For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.
 
-This issue can be addressed with MAC masquerade.
+* For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port **1026**.
 
-With MAC masquerade configured, BIG-IP devices will use a configurable MAC masquerade address as source MAC for packets leaving BIG-IP.
-In case of a failover, the MAC address will not change.
-The new active BIG-IP will start using the MAC masquerade MAC address.
-Now there is no need to update the hosts ARP table. 
+There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
+ 
+In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
 
-The MAC address used for MAC masquerade is free configurable. 
-A best practices guide how to choose the MAC masquerade MAC address is described in K-Article K3523. https://support.f5.com/csp/article/K3523
 
-For more information on MAC masquerade see K-Article K13502
-https://support.f5.com/csp/article/K13502
+**On each BIG-IP:**
 
-In this Task, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
+.. note:: Do the modifications only on the SELF-IP. **DO NOT** modify the floating IP Address port lockdown. The floating IP address port lockdown status has to be **"none"**
 
-To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic group on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
 
-In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
+#. **Navigate to**: Network > Self IPs:
 
-First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
+#. On both BIG-IPs, modify both the Internal & External Self IP Port Lockdown settings by clicking their respective hyperlink to modify the item.
 
-For additional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
+   -  Change from "Allow None" to **"Allow Custom"**
+      
+      - From the Port Lockdown drop-down, select "Allow Custom." 
+      - Click the radio button for UDP.  
+      - Click the radio button for Port.  
+      - In the Port field, enter 1026.  
+      - Click Add.
+      
+      .. image:: ../images/image112.png
+      
+      You should see "1026" listed in the UDP Custom List section.  Click the **Update** button:
+         
+      .. image:: ../images/image113.png
 
-1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
-   
-    .. image:: ../images/image116.png
+   - Repeat this step on the External VLAN
 
-2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
-   
-    .. image:: ../images/image117.png
+#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
 
-3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
-   
-    .. image:: ../images/image118.png
+  - BIG-IP-A (is Standby)
+      .. image:: ../images/image172.png
 
-    Replace the "52" with "02" and click Save
+  - BIG-IP-B (is Active)
+      .. image:: ../images/image172.png
 
-    .. image:: ../images/image119.png
+This task validates that your Failover communication must be allowed between BIG-IP Self IPs.
 
 
 Task 5:  Create Floating Self IPs on BIG-IP-A
