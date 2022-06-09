@@ -204,13 +204,22 @@ both BIG-IP systems.
    .. image:: ../images/image39.png
 
 #.  Observe the current state of each BIG-IP.
+
+
    .. image:: ../images/image168.png
 
    
    .. image:: ../images/image169.png
 
+    - Question:  Why are both BIG-IPs **ACTIVE** and *Awaiting Initial Sync*?
+    - Answer:  Both BIG-IPs still cannot "see" their peer due to the current port lockdown settings on the Data Self IPs.
+    - To observe this, **Navigate to**: Device Management > Devices:
+   
+   .. image:: ../images/image170.png
+   
+   .. image:: ../images/image171.png
 
-
+    - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
 
 Task 4:  Setup MAC Masquerade on BIG-IP-A
 =========================================
