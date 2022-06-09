@@ -375,7 +375,7 @@ In this task, you will observe the current Active/Standby HA state, and synchron
 
 #. Review the Device Management Overview screen
 
-- **Navigate to**: Device Management > Overview
+- **Navigate to**: Device Management > Overview:
 
    - bigipA:
 
@@ -385,25 +385,27 @@ In this task, you will observe the current Active/Standby HA state, and synchron
 
      .. image:: ../images/image178.png
 
-#. Attempt the "Recommendation action", and "Sync."
+#. Attempt the "Recommendation action", and click the **Sync** button:
 
-   .. image:: ../images/image42.png
+   .. image:: ../images/image180.png
 
-   +-----------+---------------------------------------------------------+
-   | Question: | Were you able to syncronize the devices?                |
-   +===========+=========================================================+
-   | Answer:   |                                                         |
-   +-----------+---------------------------------------------------------+
 
-#. Review the Overview status screen
++-----------+-------------------------------------------------------------------+
+| Question: | Were you able to syncronize the devices?                          |
++===========+===================================================================+
+| Answer:   | Yes, we have established successful communication between BIG-IPs |
++-----------+-------------------------------------------------------------------+
+
+
+#. Validate Devices are In Sync from the Overview page:
 
    - bigipA:
 
-     .. image:: ../images/image43.png
+     .. image:: ../images/image181.png
 
    - bigipB:
 
-     .. image:: ../images/image44.png
+     .. image:: ../images/image180.png
 
 
    +-----------+---------------------------------------------------------+
