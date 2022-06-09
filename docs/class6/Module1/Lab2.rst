@@ -285,11 +285,15 @@ In Task 5, we will add an addtional address to our Failover Network configuratio
 
 #. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
    
-   .. image:: ../images/image174.png
+.. image:: ../images/image174.png
 
 - From the Address drop-down, select the Management Address, and click the **Finished** button:
 
-   .. image:: ../images/image162.png
+.. image:: ../images/image162.png
+
+- Upon completion of this Task, you should have three IPs in your Failover Unicast Configuration
+
+.. image:: ../images/image175.png
 
 Task 6:  Create Floating Self IPs on BIG-IP-A
 =============================================
