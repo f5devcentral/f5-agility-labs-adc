@@ -25,7 +25,7 @@ Architecture
 
 Our lab Architecture looks like this:
 
-.. image:: ./images/image90.png
+.. image:: ./images/image164.png
 
 Network Setup
 -------------

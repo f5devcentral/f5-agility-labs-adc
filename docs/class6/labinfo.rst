@@ -1,11 +1,11 @@
 Getting Started
 ---------------
 
-You will be using our Unified Demo Framework (UDF) environment to complete the tasks in this lab.  All configuration can be completed from a Web browser.
+You will be using our Unified Demo Framework (UDF) environment to complete the tasks in this lab.  All configuration can be completed from a Web browser.  Chrome is the preferred browser.
 
 Lab Topology Diagram
 --------------------
-.. image:: images/image90.png
+.. image:: images/image164.png
 
 The following components have been included in your lab environment:
 
@@ -15,6 +15,7 @@ The following components have been included in your lab environment:
 
 #. Windows Jumphost
 
+#. Ubuntu LAMP Server
 
 Lab Components
 ---------------
@@ -38,3 +39,6 @@ The following table lists the management IP addresses and credentials for all co
    * - Windows Jumpbox
      - 10.1.1.4
      - **external_user**:admin.F5demo.com
+   * - Ubuntu LAMP Server
+     - 10.1.1.7
+     - N/A; access via Webshell from UDF
