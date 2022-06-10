@@ -80,10 +80,10 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image157.png
 
-#.  Observe the current state of each BIG-IP:
+#. Observe the current state of each BIG-IP:
   
-    .. image:: ../images/image165.png
-    .. image:: ../images/image166.png
+   .. image:: ../images/image165.png
+   .. image:: ../images/image166.png
 
 
 +-----------+-----------------------------------------------------------------------------------------------------------------------------------------+
@@ -112,7 +112,7 @@ Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **
 Task 2: Configure & Verify Device Trust between BIG-IPs
 =======================================================
 
-In Task 2, we will define the configuration to establish our device-trust between BIG-IPs.
+Now we will define the configuration to establish our device-trust between BIG-IPs.
 
 On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
 
@@ -221,11 +221,11 @@ both BIG-IP systems.
 | Answer:   | Both BIG-IPs still cannot "see" their peer due to the current port lockdown settings on the Data Self IPs. |
 +-----------+------------------------------------------------------------------------------------------------------------+
 
-#.  To confirm each BIG-IP cannot "see" its peer, **Navigate to**: Device Management > Devices, and review the **Status** of the respective BIG-IP peer:
+#. To confirm each BIG-IP cannot "see" its peer, **Navigate to**: Device Management > Devices, and review the **Status** of the respective BIG-IP peer:
    
-    .. image:: ../images/image170.png
+   .. image:: ../images/image170.png
    
-    .. image:: ../images/image171.png
+   .. image:: ../images/image171.png
 
    
    - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
@@ -266,13 +266,13 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
 #. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
 
-  - BIG-IP-A (is Standby)
+   - BIG-IP-A (is Standby)
 
-.. image:: ../images/image173.png
+   .. image:: ../images/image173.png
 
-  - BIG-IP-B (is Active)
+   - BIG-IP-B (is Active)
 
-.. image:: ../images/image172.png
+   .. image:: ../images/image172.png
 
 This task validates that your Failover communication must be allowed between BIG-IP
 
@@ -377,13 +377,13 @@ In this task, you will observe the current Active/Standby HA state, and synchron
 
 - **Navigate to**: Device Management > Overview:
 
-   - bigipA:
+  - bigipA:
 
-     .. image:: ../images/image179.png
+    .. image:: ../images/image179.png
 
-   - bigipB:
+  - bigipB:
 
-     .. image:: ../images/image178.png
+    .. image:: ../images/image178.png
 
 #. Attempt the "Recommendation action", and click the **Sync** button:
 
