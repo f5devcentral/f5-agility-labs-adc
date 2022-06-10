@@ -64,7 +64,7 @@ Automate Pre Master Secret File Creation
       
       "c:\Program Files\Wireshark"\tshark.exe -r c:\users\user\Documents\hackazon-ssl.pcap -Y "f5ethtrailer.tls.keylog" -T fields -e f5ethtrailer.tls.keylog >> c:\users\user\Documents\session.pms
 
-   .. NOTE:: The command is in the format of: **"tshark.exe -r <packet capture file> -Y "f5ethtrailer.tls.keylog" -T fields -e f5.ethtrailers.tls.keylog >> <file to write to>"**
+   .. NOTE:: The command is in the format of: **"tshark.exe -r <packet capture file> -Y "f5ethtrailer.tls.keylog" -T fields -e f5.ethtrailer.tls.keylog >> <file to write to>"**
              
              The -Y sets a display filter, the -T says to look for Field values, -e pulls tha values from the fields.
 
