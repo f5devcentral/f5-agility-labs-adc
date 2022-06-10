@@ -1,41 +1,41 @@
-Intro to: BIG-IP HA - do it the proper way
+Intro to: BIG-IP HA - Do it the Proper Way
 ==========================================
 
-Time and time again we have seen customers setting up a basic HA setup.
-Customer expectation was that in case of a failover, the event would be seemless. 
-They were surprised that the failover had production traffic impact and were cautious what to expect in the future.
+Time and time again, we have seen customers setting up a basic HA setup.
+Customer expectations were, that in case of a failover, the event would be seamless. 
+They were surprised that the failover had production traffic impacts, and were cautious what to expect in the future.
 
-In this lab we will create a BIG-IP active/standby pair with best practices.
+In this lab, we will create a BIG-IP Active/Standby pair with best practices.
 The result is a failover configuration that allows minimal impact in case of a failover event.
 
-In order to achieve this, we will address following BIG-IP topics:
+In order to achieve this, we will address the following BIG-IP topics:
 
 1. Architecture
 2. Network setup
-3. Layer 2 link failure detection
-4. HA Basics 
-5. MAC masquerade
-6. High avalability (HA) Groups 
-7. Gateway pool
-8. Connection mirroring 
-9. Persistance mirroring
+3. Layer 2 Link Failure Detection
+4. HA Basics
+5. MAC Masquerade
+6. High-Avalability (HA) Groups 
+7. Gateway Pool
+8. Connection Mirroring 
+9. Persistence Mirroring
 
 Architecture
 ------------
 
-Our lab Architecture look like this:
+Our lab Architecture looks like this:
 
-.. image:: ./images/image90.png
+.. image:: ./images/image164.png
 
-Network setup
+Network Setup
 -------------
 
 BIG-IP TMOS (Traffic Managment Operating System) classical network configuration steps are:
 
-1. create VLANS and assigns VLANs to physical interfaces. 
-2. create SelfIP and assigns IP interfaces to VLANS. 
+1. Create VLANS, and assigns VLANs to physical interfaces. 
+2. Create Self IPs, and assign IP interfaces to VLANS.
 
-Each IP interface has a configuration object that is called Port lockdown. Port lockdown determines which BIG-IP System service (like Web UI, API, SSH Access etc) the BIG-IP will allow on that IP interface. 
+Each Self IP interface has a configuration object called Port lockdown. Port lockdown determines which BIG-IP System service (like Web UI, API, SSH Access, etc.) the BIG-IP will allow on that IP interface. 
 
 For a best practice HA setup, the BIG-IPs will have three type of IP interfaces: 
 
@@ -70,7 +70,7 @@ The management interface is used to manage the BIG-IP.
 It should be in a dedicated subnet and not be exposed to the public or unauthorized users.
 
 
-Layer 2 link failure detection
+Layer 2 Link Failure Detection
 ------------------------------
 
 BIG-IP TMOS has no exposure to the physical link state. It does not know if a link is up or down. 
@@ -90,9 +90,9 @@ BIG-IP TMOS can see the number of interfaces in a trunk. So we will use this abi
 
 Based on this, the best practice network configuration steps of a BIG-IP are:
 
-1. create Trunks and assign physical interfaces to Trunks 
-2. create VLANS and assigns VLANs to trunks. 
-3. create SelfIP and assigns IP interfaces to VLANS. 
+1. Create Trunks and assign physical interfaces to Trunks 
+2. Create VLANS and assigns VLANs to trunks. 
+3. Create SelfIP and assigns IP interfaces to VLANS. 
 
 **Every physical interface will be part of a trunk.** 
 
@@ -115,12 +115,12 @@ With the basic HA setup we will create the BIG-IP HA Cluster. Once the HA cluste
 
 The steps for a basic HA setup are:
 
-1. create device trust
-2. configure config sync
-3. configure failover network
-4. configure mirroring
-5. configure device group
-6. configure MAC masquerade - where applicable
+1. Create device trust
+2. Configure config sync
+3. Configure failover network
+4. Configure mirroring
+5. Configure device group
+6. Configure MAC masquerade - where applicable
 
 
 Device Trust
@@ -184,7 +184,7 @@ Architectures that are recomended for MAC masquerade:
 
 Traditional Datacenter deployments with BIG-IP applicances, Viprion or Velos Chassis
 
-Architectures that are not recommended for MAC masquerade:
+Architectures that are **NOT** recommended for MAC masquerade:
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 BIG-IP Virtual Edition deployments on VMWare ESXi.
@@ -198,7 +198,7 @@ Architectures that do not support MAC masquerade:
 
 BIG-IP VE deployments in public cloud providers like AWS, Azure and GCP
 
-High availability (HA) Groups
+High-Availability (HA) Groups
 -----------------------------
 
 An HA group is a high availability feature that allows you to specify a set of configuration objects such as trunks, pools, and VIPRION clusters that may be used to raise failover for redundant BIG-IP systems. 
@@ -208,7 +208,7 @@ This HA health score determines the device that should be active at any given ti
 Best practices on HA groups:
 https://support.f5.com/csp/article/K16947
 
-GW pool
+GW Pool
 -------
 
 We will use a pool object to facilitate failover for a HA Group. 
@@ -221,7 +221,7 @@ These settigns will allow BIG-IP to failover within 4 seconds if it cannot reach
 Alernative to the default gateway, there can be other IP endpoints within the network that can be monitored within this pool.
 As long as there are pool members available, BIG-IP will assume the network layer is reachable and not use this as a failover trigger.
 
-Connection mirroring
+Connection Mirroring
 --------------------
 
 BIG-IP TMOS is a statefull proxy. 
@@ -238,7 +238,7 @@ Other protocols like FTP are more sensitive, because a large file download might
 Per default the connection information is not mirrored to the standby BIG-IP. This has to be done for each Virtual server. 
 This allows customers to decide which Virtual IP to mirror and which not.
 
-Performance Impact of connection mirroring
+Performance Impact of Connection Mirroring
 ++++++++++++++++++++++++++++++++++++++++++
 
 Enabling connection mirroring can have a performance impact in terms of higher CPU load.
@@ -259,7 +259,7 @@ More information on connection mirroring
 https://support.f5.com/csp/article/K84303332
 
 
-Persistance mirroring
+Persistance Mirroring
 ---------------------
 
 Applications can require that once a client is load balanced to a specific pool member, subsequent requests will be sent to the same pool member.

@@ -11,9 +11,10 @@ Lab Tasks:
 * Task 1: Define DSC HA Settings
 * Task 2: Configure & Verify Device Trust
 * Task 3: Configure the Device Group
-* Task 4: Setup MAC Masquerade on BIG-IP-A
-* Task 5: Create Floating Self IPs on BIG-IP-A
-* Task 6: Validate the Device Group Status
+* Task 4: Modify Self IP Port Lockdown on Data Self IPs
+* Task 5: Add the Management Address to the Failover Network
+* Task 6: Create Floating Self IPs
+* Task 7: Validate the Device Group Status & Synchronize BIG-IPs
 
 Task 1:  Define Device Service Cluster High-Availability Settings
 =================================================================
@@ -21,6 +22,8 @@ Task 1:  Define Device Service Cluster High-Availability Settings
 In Task 1, we will define our respective DSC configuration items on each respective BIG-IP.
 
 Use the following table for the respective configuration objects:
+
+.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task X
 
 +-----------------------------------------+---------------------------+-----------------+------------------+
 |Device Management Settings:              |Configuration Item / Object|BIG-IP-A IP's    | BIG-IP-B IP's    |
@@ -40,11 +43,11 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image18.png
 
-#. If your device name is still the default name *"bipip1,"* click the "Change Device Name" button:
+#. If your device name is still the default name *"bipip1,"* click the **Change Device Name** button:
 
    .. image:: ../images/image153.png
 
-#. Provide the BIG-IP FQDN as the "New Name," change the Certificate drop-down to *Generate New Self-Signed Authority*, and click the "Update" button:
+#. Provide the BIG-IP FQDN as the "New Name," change the Certificate drop-down to *Generate New Self-Signed Authority*, and click the **Update** button:
 
 
    .. image:: ../images/image154.png
@@ -54,57 +57,66 @@ Use the following table for the respective configuration objects:
 
    .. image:: ../images/image19.png
 
-#. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
+#. Under the Local Address drop-down, select the HA VLAN 30 address, then click the **Update** button:
 
    .. image:: ../images/image20.png
 
-#. Click the "Failover Network" banner, then the "Add" button:
+#. Now, we will **ONLY** add our Data Interfaces to our Failover Network configuration, initially.  We will observe the BIG-IP behavior afterwards.  This will showcase failover communication.
+
+#. Click the "Failover Network" banner, then the **Add** button:
 
    .. image:: ../images/image21.png
 
-#. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
 
-   .. image:: ../images/image115.png
-
-
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
+#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the **Repeat** button:
 
    .. image:: ../images/image22.png
 
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the "Finished" button:
+#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the **Finished** button:
 
    .. image:: ../images/image23.png
 
-#. View of the Failover Unicast Configuration:
+#. View of the Failover Unicast Configuration, with only the Data Interfaces:
 
-   .. image:: ../images/image24.png
+   .. image:: ../images/image157.png
+
+#. Observe the current state of each BIG-IP:
+  
+   .. image:: ../images/image165.png
+   .. image:: ../images/image166.png
+
+
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------+
+| Question: | Why are both BIG-IPs still **ACTIVE / Standalone**?                                                                                     |
++===========+=========================================================================================================================================+
+| Answer:   | Currently, there is no Device Trust between BIG-IPs, so they do not "see" one another. We must establish Device Trust in the next Task. |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------+
 
 #. Click the "Mirroring" banner:
 
    .. image:: ../images/image110.png
 
 
-#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
+#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the **Update** button:
 
    .. image:: ../images/image111.png
 
-Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby HA BIG-IP pair.
+Upon completion of this Task, both BIG-IPs should remain in an **ACTIVE** and **Standalone** state.  We must establish the Device Trust in the next Task to successfully create our Active/Standby BIG-IP HA pair.
 
-To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
-
-For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
-
-For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
+.. note:: 
+   - To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server. We will address this configuration in Lab 3.
+   - For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
+   - For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
 
 
 Task 2: Configure & Verify Device Trust between BIG-IPs
 =======================================================
 
-In Task 2, we will define the configuration to establish our device-trust between BIG-IPs.
+Now we will define the configuration to establish our device-trust between BIG-IPs.
 
 On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
 
-NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **Active / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
+NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **ACTIVE / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
 
 .. list-table:: 
    :widths: auto
@@ -128,31 +140,31 @@ NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are bo
      -  .. image:: ../images/image29.png
      -  .. image:: ../images/image30.png
 
-#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device:
+#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the **"+"** button to create a new Peer Device:
 
    .. image:: ../images/image31.png
 
 #. Retrieve Device Credentials (Step 1 of 3):
 
-   Fill in the respective form items for *bigipA.f5demo.com*, then click the *Retrieve Device Information* button
+   Fill in the respective configuration items for *bigipA.f5demo.com*, then click the **Retrieve Device Information** button
 
    .. image:: ../images/image32.png
 
 #. Verify Device Certificate (Step 2 of 3):
 
-   Confirm the device certificate information, then click the *Device Certificate Matches* button
+   Confirm the device certificate information, then click the **Device Certificate Matches** button
 
    .. image:: ../images/image33.png
 
 #. Add Device (Step 3 of 3):
 
-   Verify the device name, and click the *Add Device* button
+   Verify the device name, and click the **Add Device** button
 
    .. image:: ../images/image34.png
 
 #. Verify *bigipA.f5demo.com*
 
-   Navigate to: Device Management --> Device Trust --> Device Trust Members
+   **Navigate to**: Device Management > Device Trust > Device Trust Members
 
    .. image:: ../images/image35.png
 
@@ -161,7 +173,7 @@ NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are bo
    .. image:: ../images/image36.png
 
 +-----------+---------------------------------------------------------+
-| Question: | Why are both BIG-IPs Active?                            |
+| Question: | Why are both BIG-IPs Active / In Sync?                  |
 +===========+=========================================================+
 | Answer:   | There is no Device Group established between the        |
 |           | BIG-IPs yet . . . See next task                         |
@@ -175,11 +187,11 @@ In Task 3, we will define the device group on the BIG-IPs.
 On *bigipA.f5demo.com*, set up the new Device Group that will be used by
 both BIG-IP systems.
 
-#. **Navigate to**: Device Management > Device Groups page, and then click the "+" button:
+#. **Navigate to**: Device Management > Device Groups page, and then click the **"+"** button:
 
    .. image:: ../images/image37.png
 
-#. Create a Device Group using the following information, and then click Finished
+#. Create a Device Group using the following information, and then click **Finished** button:
 
    +-------------+-------------------------------------------------------+
    | Name        | bigip-a_bigip-b_dg                                    |
@@ -197,66 +209,106 @@ both BIG-IP systems.
 
    .. image:: ../images/image39.png
 
-Task 4:  Setup MAC Masquerade on BIG-IP-A
-=========================================
+#.  Observe the current state of each BIG-IP.
 
-BIG-IP's default failover mechanism is based on gratuitous ARP.
-In case of a failover, BIG-IP has to send a gratuitous ARP for every floating IP and service IP address like virtual server IP address and SNAT address.
-The gratuitous ARP contains the physical MAC address of the new primary BIG-IP.
-With gratuitous ARP, the device that takes over sends gratuitous ARP packets, which asks all hosts on the LAN segment to update their ARP table. 
-After the hosts updated their ARP table with the MAC address of the new primary BIG-IP, they send all traffic to the now active BIG-IP.
+   .. image:: ../images/image168.png
 
-Sometimes hosts like Firewalls or routers do not update their ARP table when they receive a gratuitous ARP.
-In this case the firewall or router will keep sending traffic to the old MAC address, which leads to service intererruption.
+   .. image:: ../images/image169.png
 
-This issue can be addressed with MAC masquerade.
++-----------+------------------------------------------------------------------------------------------------------------+
+| Question: | Why are both BIG-IPs **ACTIVE** and *Awaiting Initial Sync*?                                               |
++===========+============================================================================================================+
+| Answer:   | Both BIG-IPs still cannot "see" their peer due to the current port lockdown settings on the Data Self IPs. |
++-----------+------------------------------------------------------------------------------------------------------------+
 
-With MAC masquerade configured, BIG-IP devices will use a configurable MAC masquerade address as source MAC for packets leaving BIG-IP.
-In case of a failover, the MAC address will not change.
-The new active BIG-IP will start using the MAC masquerade MAC address.
-Now there is no need to update the hosts ARP table. 
-
-The MAC address used for MAC masquerade is free configurable. 
-A best practices guide how to choose the MAC masquerade MAC address is described in K-Article K3523. https://support.f5.com/csp/article/K3523
-
-For more information on MAC masquerade see K-Article K13502
-https://support.f5.com/csp/article/K13502
-
-In this Task, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
-
-To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic group on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
-
-In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
-
-First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
-
-For additional details on creating a unique L2 MAC Address, please see Article `K3523: Choosing a unique MAC address for MAC masquerade <https://support.f5.com/csp/article/K3523>`_
-
-1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
+#. To confirm each BIG-IP cannot "see" its peer, **Navigate to**: Device Management > Devices, and review the **Status** of the respective BIG-IP peer:
    
-    .. image:: ../images/image116.png
-
-2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
+   .. image:: ../images/image170.png
    
-    .. image:: ../images/image117.png
+   .. image:: ../images/image171.png
 
-3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
    
-    .. image:: ../images/image118.png
+   - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
 
-    Replace the "52" with "02" and click Save
+Task 4: Modify Self IP Port Lockdown on Data Self IPs:
+======================================================
 
-    .. image:: ../images/image119.png
+In Task 4, we will modify our "Allow None" Self IP port lockdown behavior of the Data Self IPs; we will define a Custom Port Lockdown configuration on the respective Self IPs.
+
+For optimal security, F5 recommends that you use the port lockdown feature to allow only the protocols or services required for a self IP address.
+
+.. note:: For our Data VLANs (internal & external), we will **"Allow Custom"**, allowing **UDP** protocol on port **1026**
+
+There are port lockdown exceptions to be aware of.  Please review Knowledge Article `K17333 <https://support.f5.com/csp/article/K17333>`_ for further details.
+ 
+In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None" port lockdown behavior.  As a result of this, the BIG-IP is preventing DSC communication between BIG-IPs.  In this Task, we will modify our port lockdown configuration, which will allow DSC communication between BIG-IPs.
 
 
-Task 5:  Create Floating Self IPs on BIG-IP-A
-=============================================
+#. On each BIG-IP, **Navigate to**: Network > Self IPs:
 
-We will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
+#. Modify both the Internal & External Self IP Port Lockdown settings by clicking their respective hyperlink to modify the item.
 
-On the BIG-IP-A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
+   -  Change from "Allow None" to **"Allow Custom"**
+      
+      - From the Port Lockdown drop-down, select "Allow Custom." 
+      - Click the radio button for UDP.  
+      - Click the radio button for Port.  
+      - In the Port field, enter 1026.  
+      - Click Add.
+      
+      .. image:: ../images/image112.png
+      
+      You should see "1026" listed in the UDP Custom List section.  Click the **Update** button:
+         
+      .. image:: ../images/image113.png
 
-Use the following table to create & define your three Self IPs:
+   - Repeat this step on the External VLAN
+
+#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
+
+   - BIG-IP-A (is Standby)
+
+   .. image:: ../images/image173.png
+
+   - BIG-IP-B (is Active)
+
+   .. image:: ../images/image172.png
+
+This task validates that your Failover communication must be allowed between BIG-IP
+
+Task 5:  Add the Management Address to the Failover Network
+===========================================================
+
+In Task 5, we will add an addtional address to our Failover Network configuration. We will add the Management Address, which will provide an addtional failover path for communication on UDP port 1026.
+
+.. note:: BIG-IP Management Address does not have any default port lockdown settings. If we were to have added this in Task 1, we would have formed a failover communication path on the management IP, allowing the BIG-IPs to communicate. We wanted you to observe how port lockdown settings can affect BIG-IP communication.
+
+#. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
+   
+.. image:: ../images/image174.png
+
+- From the Address drop-down, select the Management Address, and click the **Finished** button:
+
+.. image:: ../images/image162.png
+
+- Upon completion of this Task, you should have three IPs in your Failover Unicast Configuration
+
+.. image:: ../images/image175.png
+
+Task 6:  Create Floating Self IPs
+=================================
+
+In this task, we will define Floating Self IP Objects on the **ACTIVE** BIG-IP, which are shared objects between an Active/Standby BIG-IP pair.  
+
+Floating Self IPs are shared objects between BIG-IPs, passing data traffic to the respective **ACTIVE** BIG-IP.  It is a recommended best practice to define a respective floating Self IP object per data segment/VLAN.
+
+For more detailed information regarding Floating Self IPs, please refer to this article:  `Self IP Addresses <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-tmos-routing-administration-14-1-0/self-ip-addresses.html>`_
+
+.. note:: Only creating Floating Self IPs on **ACTIVE** BIG-IP. We will then synchronize these settings, proving our DSC communication.
+
+#. Use the following table to create the Floating Self IP Objects:
+
+.. note:: **DO NOT** modify the Floating Self IP Address port lockdown. The Floating Self IP address port lockdown status has to be **Allow None"**
 
 .. list-table:: 
    :widths: auto
@@ -269,21 +321,24 @@ Use the following table to create & define your three Self IPs:
      - Netmask
      - VLAN
      - Port Lockdown
-   * - bigipA
+     - Traffic Group
+   * - [Active]bigip
      - self_vlan10_float
      - 10.1.10.240
      - 255.255.255.0
      - int_vlan_10
      - Allow None (default)
-   * - bigipA
+     - traffic-group-1 (floating)
+   * - [Active]bigip
      - self_vlan20_float
      - 10.1.20.240
      - 255.255.255.0
      - ext_vlan_20
      - Allow None (default)
+     - traffic-group-1 (floating)
 
 
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
+#. **Navigate to**: Network > Self IPs, then click the **"+"** button to create a new Self IP:
 
    .. image:: ../images/image13.png
 
@@ -301,54 +356,61 @@ Use the following table to create & define your three Self IPs:
    
    .. image:: ../images/image147.png
 
-Task 6:  Validate the Device Group Status
-=========================================
+Task 7:  Validate the Device Group Status & Synchronize BIG-IPs
+===============================================================
 
-In Task 6, you will observe the current Active/Standby HA state.
+In this lab, we have setup BIG-IP Device Trust, and we have created "shared BIG-IP" objects.
+
+In this task, you will observe the current Active/Standby HA state, and synchronize the BIG-IP HA pair.
 
 #. Observe the state of each BIG-IP after Device Group creation
 
    - bigipA:
 
-     .. image:: ../images/image40.png
+     .. image:: ../images/image177.png
 
    - bigipB:
 
-     .. image:: ../images/image41.png
+     .. image:: ../images/image176.png
 
 #. Review the Device Management Overview screen
 
-#. Attempt the "Recommendation action", and "Sync."
+- **Navigate to**: Device Management > Overview:
 
-   .. image:: ../images/image42.png
+  - bigipA:
 
-   +-----------+---------------------------------------------------------+
-   | Question: | Were you able to syncronize the devices?                |
-   +===========+=========================================================+
-   | Answer:   |                                                         |
-   +-----------+---------------------------------------------------------+
+    .. image:: ../images/image179.png
 
-#. Review the Overview status screen
+  - bigipB:
+
+    .. image:: ../images/image178.png
+
+#. Attempt the "Recommendation action", and click the **Sync** button:
+
+   .. image:: ../images/image180.png
+
+
++-----------+-------------------------------------------------------------------+
+| Question: | Were you able to syncronize the devices?                          |
++===========+===================================================================+
+| Answer:   | Yes, we have established successful communication between BIG-IPs |
++-----------+-------------------------------------------------------------------+
+
+
+#. Validate Devices are In Sync from the Overview page:
 
    - bigipA:
 
-     .. image:: ../images/image43.png
+     .. image:: ../images/image181.png
 
    - bigipB:
 
-     .. image:: ../images/image44.png
+     .. image:: ../images/image180.png
 
 
-   +-----------+---------------------------------------------------------+
-   | Question: | Why are both BIG-IPs still ACTIVE?                      |
-   +===========+=========================================================+
-   | Answer:   | Both devices view their peer as "Device is Offline" due |
-   |           | to the current Self IP Port Lockdown behavior on the HA |
-   |           | VLAN.                                                   |
-   +-----------+---------------------------------------------------------+
 
 Lab Summary
 ***********
-In this lab, you setup BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  These configuration objects will assist with the subsequent labs.
+In this lab, you setup basic BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  Upon completion of this Lab, you should have an **Active/Standby, In Sync** BIG-IP HA pair.
 
 This completes Lab 2.
