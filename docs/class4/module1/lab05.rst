@@ -17,7 +17,7 @@ Let's take the information we have gathered so far and take a packet capture fro
 
    .. code-block:: bash
       
-      tcpdump -nni 0.0:nnnp -s0 -w /var/tmp/hackazon.pcap host 10.1.20.103
+      tcpdump -nni 0.0:nnn -s0 -w /var/tmp/hackazon.pcap host 10.1.20.103
 
 #. After starting the capture, start Chrome and click on the Hackazon bookmark.  Browse around the site following a couple links.  Next go to the address bar and type in: "http://10.1.20.103:8443".  Then stop the capture in the putty session by using 'Ctrl+c'.
 

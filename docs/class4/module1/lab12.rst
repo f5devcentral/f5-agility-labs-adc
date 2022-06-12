@@ -63,7 +63,7 @@ SSL Decrypt from Windows Client
 
 #. In our lab environment there is a shortcut on the desktop to connect to the environment variables.
 
-#. Now start the tcpdump on the F5 box similar to: 'tcpdump -nni 0.0:nnnp -s0 -w /var/tmp/ssl.pcap host 10.1.20.103'
+#. Now start the tcpdump on the F5 box similar to: 'tcpdump -nni 0.0:nnn -s0 -w /var/tmp/ssl.pcap host 10.1.20.103'
 
 #. Once the system variable has been put in place you can then launch a web browser and start the traffic that you want to analyze.
 
