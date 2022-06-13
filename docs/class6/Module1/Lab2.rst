@@ -241,7 +241,7 @@ both BIG-IP systems.
    .. image:: ../images/image171a.png
 
    
-   - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
+#. In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
 
 Task 4: Modify Self IP Port Lockdown on Data Self IPs:
 ======================================================
@@ -278,6 +278,7 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
    - Repeat this step on the External VLAN
 
 #. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY**, *Awaiting Initial Sync* state after this task:
+
    - BIG-IP-A (is Standby)
 
    .. image:: ../images/image187.png
@@ -297,7 +298,7 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    .. image:: ../images/image172.png
 
-This task validates that your Failover communication must be allowed between BIG-IP
+#. This task validates that your Failover communication must be allowed on UDP port 1026 between BIG-IPs.
 
 Task 5:  Add the Management Address to the Failover Network
 ===========================================================
