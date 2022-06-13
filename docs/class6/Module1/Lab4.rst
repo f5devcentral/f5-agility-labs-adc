@@ -44,56 +44,42 @@ to see logging data in real-time:
 
    .. image:: ../images/image59.png
 
-+-------------+-------------------------------------------------------+
-| Question:   | Did the BIG-IP failover? Why or why not?              |
-+=============+=======================================================+
-| Answer:     | No, the BIG-IP did not failover, as the interface     |
-|             | objects are not part of the HA configuration.         |
-+-------------+-------------------------------------------------------+
-| Log Output: | Apr 28 15:13:47 bigipB.f5demo.com info lacpd[7293]:   |
-|             | 01160016:6: Interface 1.1, link admin status:         |
-|             | disabled, link status: up, duplex mode: full, lacp    |
-|             | operation state: down                                 |
-|             | Apr 28 15:13:47 bigipB.f5demo.com info lacpd[7293]:   |
-|             | 01160010:6: Link 1.1 removed from aggregation         |
-|             | Apr 28 15:13:47 bigipB.f5demo.com notice mcpd[4745]:  |
-|             | 01bb0003:5: Trunk: int_trunk is DOWN                  |
-|             | Apr 28 15:13:47 bigipB.f5demo.com notice mcpd[4745]:  |
-|             | 01b5004a:5: Link: 1.1 is DISABLED                     |
-|             | Apr 28 15:13:50 bigipB.f5demo.com warning sod[7297]:  |
-|             | 010c0083:4: No failover status messages received for  |
-|             | 3.100 seconds, from device bigipA.f5demo.com          |
-|             | (10.1.1.5) (unicast: -> 10.1.10.242).                 |
-+-------------+-------------------------------------------------------+
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question:    | Did the BIG-IP failover? Why or why not?                                                                                                                                                      |
++==============+===============================================================================================================================================================================================+
+|| Answer:     || No, the BIG-IP did not failover, as the BIG-IP is not interface-aware; we are still sending failover communication across Interface 1.2 / Data Vlan 20.                                      |
+||             || We will address this with HA Group Configuration objects in the following lab.                                                                                                               |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|| Log Output: || Jun 13 11:18:59 bigipB.f5demo.com info lacpd[6714]: 01160016:6: Interface 1.1, link admin status: disabled, link status: up, duplex mode: full, lacp operation state: down                   |
+||             || Jun 13 11:18:59 bigipB.f5demo.com info lacpd[6714]: 01160010:6: Link 1.1 removed from aggregation                                                                                            |
+||             || Jun 13 11:18:59 bigipB.f5demo.com notice mcpd[7341]: 01bb0003:5: Trunk: int_trunk is DOWN                                                                                                    |
+||             || Jun 13 11:18:59 bigipB.f5demo.com notice mcpd[7341]: 01b5004a:5: Link: 1.1 is DISABLED                                                                                                       |
+||             || Jun 13 11:19:02 bigipB.f5demo.com warning sod[5345]: 010c0083:4: No failover status messages received for 3.100 seconds, from device bigipA.f5demo.com (10.1.1.5) (unicast: -> 10.1.10.242). |
++--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-#. Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
+#. Now, from the **ACTIVE** BIG-IP, Disable the 1.2 Interface.
 
    .. image:: ../images/image60.png
 
-+----------+----------------------------------------------------------+
-| Question | Did the BIG-IPs failover? Are they Active/Standby?       |
-+==========+==========================================================+
-| Answer   | No failover. Both BIG-IPs in an Active / Active state    |
-+----------+----------------------------------------------------------+
-| Logs:    | Apr 28 15:19:38 bigipB.f5demo.com info lacpd[7293]:      |
-|          | 01160016:6: Interface 1.2, link admin status: disabled,  |
-|          | link status: up, duplex mode: full, lacp operation       |
-|          | state: down                                              |
-|          | Apr 28 15:19:38 bigipB.f5demo.com info lacpd[7293]:      |
-|          | 01160010:6: Link 1.2 removed from aggregation            |
-|          | Apr 28 15:19:38 bigipB.f5demo.com notice mcpd[4745]:     |
-|          | 01bb0003:5: Trunk: ext_trunk is DOWN                     |
-|          | Apr 28 15:19:38 bigipB.f5demo.com notice mcpd[4745]:     |
-|          | 01b5004a:5: Link: 1.2 is DISABLED                        |
-|          | **Apr 28 15:19:41 bigipB.f5demo.com warning sod[7297]:   |
-|          | 010c0083:4: No failover status messages received for     |
-|          | 3.100 seconds, from device bigipA.f5demo.com (10.1.1.5)  |
-|          | (unicast: -> 10.1.20.242).                               |
-|          | Apr 28 15:19:41 bigipB.f5demo.com notice sod[7297]:      |
-|          | 010c007e:5: Not receiving status updates from peer       |
-|          | device bigipA.f5demo.com (10.1.1.5) (Disconnected).**    |
-+----------+----------------------------------------------------------+
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question | Did the BIG-IPs failover? Are they Active/Standby?                                                                                                                                            |
++==========+===============================================================================================================================================================================================+
+|| Answer  || No, the BIG-IPs did NOT failover; both BIG-IPs are in an Active / Standby, In Sync state.                                                                                                    |
+||         || The reason for this is, we are allowing/sending Failover communication across the management address. The F5 has an established                                                                                                                                                                                             |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|| Logs:   || Jun 13 11:26:46 bigipB.f5demo.com info lacpd[6714]: 01160016:6: Interface 1.2, link admin status: disabled, link status: up, duplex mode: full, lacp operation state: down                   |
+||         || Jun 13 11:26:46 bigipB.f5demo.com info lacpd[6714]: 01160010:6: Link 1.2 removed from aggregation                                                                                            |
+||         || Jun 13 11:26:46 bigipB.f5demo.com notice mcpd[7341]: 01bb0003:5: Trunk: ext_trunk is DOWN                                                                                                    |
+||         || Jun 13 11:26:46 bigipB.f5demo.com notice mcpd[7341]: 01b5004a:5: Link: 1.2 is DISABLED                                                                                                       |
+||         || Jun 13 11:26:49 bigipB.f5demo.com warning sod[5345]: 010c0083:4: No failover status messages received for 3.100 seconds, from device bigipA.f5demo.com (10.1.1.5) (unicast: -> 10.1.20.242). |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+.. note::
+   - You can perform a *tcpdump* on the management interface to validate this.
+   - This is an example of a tcpdump output, showing BIG-IP-B management communicating with BIG-IP-A management on 1026
+      - 11:39:08.158537 IP 10.1.1.6.39126 > 10.1.1.5.cap: failover_packet {
+   - For detailed information on failover messages, see Knowledge Article `K67120033: Overview of network failover messages <https://support.f5.com/csp/article/K67120033>`_
 
 .. image:: ../images/image61.png
 
