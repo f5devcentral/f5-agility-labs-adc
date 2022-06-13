@@ -16,10 +16,10 @@ We will start with what kind of unique information is gathered through the plugi
 
 #. In the capture above packet 53 shows the GET requests to the website.  In your capture it will be a different packet number but you can see in the Info area that it is a GET request.
 
-#. Right click on the GET request and go to protocol preferences, and then populate fields for other dissectors.  This option may already be set depending on the version of Wireshark you are running.  This makes it so when applying a display filter it applies to both the client and server sides of the F5 connection.  We will cover this in the F5 High Details section.  
+#. Right click on the GET request and go to protocol preferences, F5 Ethernet Trailer Protocol, and then populate fields for other dissectors.  This option may already be set depending on the version of Wireshark you are running.  This makes it so when applying a display filter it applies to both the client and server sides of the F5 connection.  We will cover this in the F5 High Details section.  
 
    .. image:: /_static/class4/dissectors.png
-      :scale: 50 %
+      :scale: 80 %
 
 Follow F5 Conversation
 ~~~~~~~~~~~~~~~~~~~~~~
