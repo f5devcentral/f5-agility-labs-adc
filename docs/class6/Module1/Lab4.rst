@@ -1,14 +1,15 @@
 Lab 4:  Test & Validate a Failover Scenario
 -------------------------------------------
 
-In Lab 4, we will manipulate a BIG-IP interface to see how it affects basic failover events.
+In Lab 4, we will manipulate BIG-IP interfaces to see how it affects basic failover events.
 
 Lab Tasks:
-**********
-* Task 1: Disable a BIG-IP Interface
+==========
+
+* Task 1: Disable BIG-IP Interfaces
 * Task 2: Enable both Interfaces on ACTIVE BIG-IP
 
-Task 1: Disable a BIG-IP Interface
+Task 1: Disable BIG-IP Interfaces
 ==================================
 
 In Task 1, we will simulate a "link down" failure on the ACTIVE
@@ -27,7 +28,9 @@ to see logging data in real-time:
 
 -  Run the following command at shell prompt:
 
-   **tail -f /var/log/ltm**
+   .. code-block:: bash
+   
+     tail -f /var/log/ltm
 
    BIG-IP-A:
 
@@ -40,8 +43,6 @@ to see logging data in real-time:
 #. From the **ACTIVE**, BIG-IP, **Navigate to**:  Network > Interfaces > place a checkmark next to 1.1 & click  the "Disable" button
 
    .. image:: ../images/image59.png
-      :width: 10.23125in
-      :height: 6.08333in
 
 +-------------+-------------------------------------------------------+
 | Question:   | Did the BIG-IP failover? Why or why not?              |
@@ -69,8 +70,6 @@ to see logging data in real-time:
 #. Now, from the *ACTIVE* BIG-IP, Disable the 1.2 Interface.
 
    .. image:: ../images/image60.png
-         :width: 7.57431in
-         :height: 2.90764in
 
 +----------+----------------------------------------------------------+
 | Question | Did the BIG-IPs failover? Are they Active/Standby?       |
@@ -96,12 +95,7 @@ to see logging data in real-time:
 |          | device bigipA.f5demo.com (10.1.1.5) (Disconnected).**    |
 +----------+----------------------------------------------------------+
 
-
-
 .. image:: ../images/image61.png
-      :width: 21.12014in
-      :height: 6.57431in
-
 
 Task 2: Enable both Interfaces on ACTIVE BIG-IP
 ===============================================
@@ -111,11 +105,13 @@ In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 #. **Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the "Enable" button:
 
    .. image:: ../images/image62.png
-      :width: 5.27778in
-      :height: 5.71319in
 
 Lab Summary
-***********
-In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event.  After completion of these lab tasks, you should have an understanding of how the BIG-IP behaves in a typical HA design.  The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
+===========
+
+In this lab, you tested & validated bringing down BIG-IP interfaces on the ACTIVE BIG-IP, simulating a "network link failure," and how that affects a failover event.  
+
+What you should see is that the basic HA config does not take into account a link failure.
+The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
 
 This completes Lab 4.
