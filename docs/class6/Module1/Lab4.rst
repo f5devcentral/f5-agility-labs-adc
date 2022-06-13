@@ -58,7 +58,7 @@ to see logging data in real-time:
 +--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-#. Now, from the **ACTIVE** BIG-IP, Disable the 1.2 Interface.
+#. Now, from the **ACTIVE** BIG-IP, place a checkmark next to interface 1.2, and click the **"Disable"** button: 
 
    .. image:: ../images/image60.png
 
@@ -81,23 +81,35 @@ to see logging data in real-time:
       - 11:39:08.158537 IP 10.1.1.6.39126 > 10.1.1.5.cap: failover_packet {
    - For detailed information on failover messages, see Knowledge Article `K67120033: Overview of network failover messages <https://support.f5.com/csp/article/K67120033>`_
 
-.. image:: ../images/image61.png
+#. Verify & Validate the current HA State:
+  
+  - BIG-IP-B (Active / In Sync): 
+    
+    .. image:: ../images/image189.png
+
+  - BIG-IP-A (Standby / In Sync):
+    
+    .. image:: ../images/image190.png
+
 
 Task 2: Enable both Interfaces on ACTIVE BIG-IP
 ===============================================
 
 In Task 2, we will re-enable our BIG-IP interfaces to restore connectivity.
 
-#. **Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the "Enable" button:
+#. **Navigate to**: Network > Interfaces > place checkmarks in 1.1 & 1.2, then click the **"Enable"** button:
 
    .. image:: ../images/image62.png
+
+#.  You should observe that failover did **NOT** occur when our data interfaces went "down." This is due to having our Management Address in our Failover configuration.
+
 
 Lab Summary
 ===========
 
 In this lab, you tested & validated bringing down BIG-IP interfaces on the ACTIVE BIG-IP, simulating a "network link failure," and how that affects a failover event.  
 
-What you should see is that the basic HA config does not take into account a link failure.
-The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA.
+What you should observe is that the basic HA configuration does not take into account a link failure.
+The following labs will enhance the failover configuration, building a deeper understanding of best practices for HA configuration.
 
 This completes Lab 4.
