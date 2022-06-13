@@ -40,7 +40,7 @@ to see logging data in real-time:
 
    .. image:: ../images/image58.png
 
-#. From the **ACTIVE**, BIG-IP, **Navigate to**:  Network > Interfaces > place a checkmark next to 1.1 & click  the "Disable" button
+#. From the **ACTIVE**, BIG-IP, **Navigate to**:  Network > Interfaces > place a checkmark next to 1.1 & click the **"Disable"** button:
 
    .. image:: ../images/image59.png
 
