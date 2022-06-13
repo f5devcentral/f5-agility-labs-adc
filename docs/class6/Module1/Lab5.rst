@@ -19,9 +19,11 @@ In Task 1, we will create a pool that contains the default gateway as the pool m
 
 We will use this pool object as a failover event trigger in Task 2 of our HA Group configuration.
 
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
+#. On the **ACTIVE** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List > click the **"+"** button to create a new pool:
 
    .. image:: ../images/image114.png
+
+
 
 #. Create a Gateway Pool with the following settings:
     -  **Name:** ext_gw_pool
@@ -46,13 +48,22 @@ Task 2: Create HA Groups
 In Task 2, we will create HA Group configurations on each BIG-IP.
 
 .. note:: 
-   - HA group configuration is device specific and is not synced between members of a DSC group.
+   - HA group configuration is device-specific and is **NOT** synced between members of a DSC group.
    - You **MUST** create a separate HA group on every device in the device group for this traffic group.
 
 
 #. On each BIG-IP, create an HA Group:
 
-#. **Navigate to**: System > High Availability > HA Group List >  click the "+" button:
+.. note::
+   - If your TMUI is **NOT** showing the "HA Group List" in the fan-out, you may Navigate to System > High Availability; you can then select the HA Group List:
+   - Example of TMUI missing this fan-out:
+     
+     .. image:: ../images/image191.png
+   - **Navigate to**: System > High Availability, click the "HA Group List"
+     
+     .. image:: ../images/image192.png
+
+#. **Navigate to**: System > High Availability > HA Group List >  click the **"+"** button:
 
    .. image:: ../images/image63.png
       
