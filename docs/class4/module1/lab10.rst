@@ -8,8 +8,8 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 #. Enable the **tcpdump.sslprovider** db varialbe.
 
    .. code-block:: bash
-            
-      tmsh modify sys db tcpdump.sslprovider value enable 
+
+      tmsh modify sys db tcpdump.sslprovider value enable
 
 #. Now when you take a packet capture you need to add **--f5 ssl** to the end of your command like this:
 
