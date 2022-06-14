@@ -83,7 +83,7 @@ We will create an LTM Pool Configuration object, which will be used for the back
  
         .. image:: ../images/image123.png
 
-   Click the **Finished** Button:
+#. Click the **Finished** Button:
 
    .. image:: ../images/image135.png
 
@@ -92,11 +92,11 @@ We will create an LTM Pool Configuration object, which will be used for the back
 
    .. image:: ../images/image127.png
 
-Task 3:  Configure Connection mirroring
+Task 3:  Configure Connection Mirroring
 =======================================
 
 .. note:: 
-   Connection mirroring is configured at the Virtual servers itself.
+    - Connection mirroring is configured at the Virtual servers itself.
 
 We will create a simple HTTP Virtual Server object.  
 This will be used to demonstrate the additional failover features you can apply at the Virtual Server level.
