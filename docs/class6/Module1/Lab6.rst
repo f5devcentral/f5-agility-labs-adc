@@ -55,8 +55,17 @@ Task 2: Verify BIG-IP Logs
 
   .. image:: ../images/image197.png
 
+#. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
 
-#. Log output from CLI:
+  - BIG-IP-A (now **STANDBY**):
+  
+  .. image:: ../images/image195.png
+
+  - BIG-IP-B (now **ACTIVE**):
+  
+  .. image:: ../images/image196.png
+
+#. Log output example from CLI (/var/log/ltm):
 
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 || CLI Logs: || **BIG-IP-A:**                                                                                                                                                              |
@@ -76,16 +85,6 @@ Task 2: Verify BIG-IP Logs
 ||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0019:5: Active                                                                                                     |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-
-#. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
-
-  - BIG-IP-A (now **STANDBY**):
-  
-  .. image:: ../images/image195.png
-
-  - BIG-IP-B (now **ACTIVE**):
-  
-  .. image:: ../images/image196.png
 
 
 Task 3: Verify HA Score
