@@ -11,6 +11,8 @@ Lab Tasks:
 * Task 2: Verify HA Score
 * Task 3: Re-enable Interface, and Observe BIG-IP Behavior
 * Task 4: Test & Validate Gateway Pool Failure
+* Task 5: Verify HA Score
+* Task 6: Restore GW Pool & Sync BIG-IPs
 
 Task 1: Disable an interface to force HA Group actions
 ======================================================
@@ -149,14 +151,19 @@ We will **force offline** our gateway pool member to force the pool to fail, cau
 ||         || You can validate this by reviewing the HA Group Score and/or logs.                                                                                                            |
 +----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-#. Validate HA Group Score on both BIG-IPs. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
+Task 5: Verify HA Score
+=======================
+
+In this Task, we will validate HA Group Score on both BIG-IPs.
+
+#. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
 
 .. image:: ../images/image198.png
 
 
 .. image:: ../images/image199.png
 
-#. Observe the Pool object on **STANDBY** BIG-IP.  Due to the failure, it is **NOT** contributing to the HA Score.
+#. Observe the Pool object on **STANDBY** BIG-IP.  Due to the gateway member failure (forced offline), it is **NOT** contributing to the HA Score.
 
 BIG-IP-B (now STANDBY):
 
@@ -166,10 +173,45 @@ BIG-IP-A (now ACTIVE)
 
 .. image:: ../images/image209.png
 
+Task 6: Restore GW Pool & Sync BIG-IPs
+======================================
+
+In this Task, prior to proceeding to Lab 7, we need to restore our gateway pool member on the **STANDBY** BIG-IP, and synchronize BIG-IP configurations.
+
+#. On the **STANDBY** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List, and click the **ext_gw_pool** hyperlink:
+ 
+   
+.. image:: ../images/image210.png
+
+#. Click the **Members** tab:
+
+
+.. image:: ../images/image211.png
+
+
+#. Place a checkmark next to the Member, and click the **Enable** button:
+
+.. image:: ../images/image212.png
+
+#. Refresh the **Members** page, and confirm a green pool member resource:
+
+.. image:: ../images/image213.png
+
+#. Click the **Changes Pending** hyperlink, and review the recommendations.  Perform the recommendations, and Sync BIG-IPs:
+
+.. image:: ../images/image214.png
+
+.. image:: ../images/image215.png
+
+After this Task, your BIG-IPs should be **In Sync** and **Active/Standby**.
 
 Lab Summary
 ===========
-In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event with HA Groups.  After completion of these lab tasks, you should have a better understanding of how the BIG-IP behaves with an advanced HA Group Configuration.
+In this lab, you tested & validated bringing down a BIG-IP interface, simulating a "link failure," and how that affects a failover event with HA Groups.  
+
+We also observed how a gateway pool can affect the HA Score, and Failover timing.  These HA Group objects contribute to the overall HA Score health, with the highest HA Score becoming the **ACTIVE** BIG-IP.
+
+After completion of these lab tasks, you should have a better understanding of how the BIG-IP behaves with an advanced HA Group Configuration.
 
 This completes Lab 6.
 
