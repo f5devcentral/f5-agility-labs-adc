@@ -245,31 +245,32 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 
 .. note::  For a better understanding of BIG-IP connection table, see Knowlege Article `K40033505: Explaining the output of tmsh show sys connection <https://support.f5.com/csp/article/K40033505>`_
 
-Connection Table Legend:
+**Connection Table Legend:**
 
-+------------+----------------+---------------------------------------------------+
-| **Column** | **IP Address** | **Info / Descrip.**                               |
-+------------+----------------+---------------------------------------------------+
-| 1st Column | 10.1.10.199    | Client IP; Windows Jumphost accessing application |
-+------------+----------------+---------------------------------------------------+
-| 2nd Column | 10.1.10.55     | BIG-IP Virtual Server Address                     |
-+------------+----------------+---------------------------------------------------+
-| 3rd Column | 10.1.10.240    | BIG-IP VLAN 10 (internal) Floating Self IP        |
-+------------+----------------+---------------------------------------------------+
-| 4th Column | 10.1.10.200    | Ubuntun NGINX Web Server (back-end server)        |
-+------------+----------------+---------------------------------------------------+
++-------------+----------------+---------------------------------------------------+
+| **Column**  | **IP Address** | **Info / Descrip.**                               |
++-------------+----------------+---------------------------------------------------+
+| 1st Column  | 10.1.10.199    | Client IP; Windows Jumphost accessing application |
++-------------+----------------+---------------------------------------------------+
+| 2nd Column  | 10.1.10.55     | BIG-IP Virtual Server Address                     |
++-------------+----------------+---------------------------------------------------+
+|| 3rd Column || 10.1.10.240   || BIG-IP VLAN 10 (internal) Floating Self IP       |
+||            ||               || This is due to AutoMap SNAT setting on the VS    |
++-------------+----------------+---------------------------------------------------+
+| 4th Column  | 10.1.10.200    | Ubuntun NGINX Web Server (back-end server)        |
++-------------+----------------+---------------------------------------------------+
 
 
 
-BIG-IP-A (Standby):
+    - BIG-IP-A (Standby):
    
-   .. image:: ../images/image227.png
+.. image:: ../images/image227.png
 
 
-BIG-IP-B (Active):
+    - BIG-IP-B (Active):
    
    
-   .. image:: ../images/image228.png
+.. image:: ../images/image228.png
 
 #. Verify Persistence Records
 
