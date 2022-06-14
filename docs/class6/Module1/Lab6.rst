@@ -88,17 +88,19 @@ In this Task, we will verify the BIG-IP HA Score values.
 
   .. image:: ../images/image199.png
 
-#. Observe how each BIG-IP is honoring their HA Group objects to contribute to their HA Score. The highest score will be **ACTIVE**:abbreviation:
+#. Observe how each BIG-IP is honoring their HA Group objects to contribute to their HA Score. The highest score will be **ACTIVE**:
   
-  BIG-IP-A:
-  .. image:: ../images/image200.png
+   - BIG-IP-A:
 
-  BIG-IP-B:
-  .. image:: ../images/image201.png
+.. image:: ../images/image200.png
+
+   - BIG-IP-B:
+
+.. image:: ../images/image201.png
 
 .. note:: 
    - You can also view this information from CLI with the following *tmsh* command:
-   - *tmsh show sys ha-group detail*
+       - *tmsh show sys ha-group detail*
 
 Task 3: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
