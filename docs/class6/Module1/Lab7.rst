@@ -205,7 +205,7 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 
 .. image:: ../images/image221.png
 
-#. If presented with a Security Warning, please click accept by clicking the **YES** button: 
+#. If presented with a Security Warning, please accept by clicking the **YES** button: 
 
    .. image:: ../images/image222.png
 
