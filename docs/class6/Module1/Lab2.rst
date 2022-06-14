@@ -23,7 +23,7 @@ In Task 1, we will define our respective DSC configuration items on each respect
 
 Use the following table for the respective configuration objects:
 
-.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task X
+.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task 5 below.
 
 +-----------------------------------------+---------------------------+-----------------+------------------+
 |Device Management Settings:              |Configuration Item / Object|BIG-IP-A IP's    | BIG-IP-B IP's    |
