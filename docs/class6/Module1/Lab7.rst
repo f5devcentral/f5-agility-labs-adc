@@ -205,11 +205,13 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 
 .. image:: ../images/image221.png
 
-#. If presented with a Security Warning, please click **YES** button: 
+#. If presented with a Security Warning, please click accept by clicking the **YES** button: 
 
    .. image:: ../images/image222.png
 
-#. You should now be logged into your RDP Jumphost; open Chrome browser from the Taskbar, and connect to BIG-IP Virtual Server http://10.1.10.55:
+#. You should now be logged into your RDP Jumphost.
+
+#. Open Chrome browser from the Taskbar, and connect to BIG-IP Virtual Server http://10.1.10.55:
 
    .. image:: ../images/image223.png
 
@@ -270,9 +272,9 @@ BIG-IP-B (Active):
 Lab Summary
 ===========
 
-In this lab, you enhanced your HA configuration to leverage HA Groups with connection mirroring and persistence mirroring. 
+In this lab, you enhanced your HA configuration to leverage connection mirroring and persistence mirroring at the Virtual Server level.
 
-With persistance mirroring and connection mirroring you enable your BIG-IP HA Cluster for a seemless failover without client interruption.
+With persistance mirroring and connection mirroring, you enable your BIG-IP HA Cluster for a seemless failover without client traffic interruption.
 
 This completes lab 7, and concludes the **BIG-IP HA Failover - Do it the Proper Way** lab.
 
