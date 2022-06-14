@@ -8,7 +8,8 @@ Lab Tasks:
 ==========
 
 * Task 1: Disable an interface to force HA Group actions
-* Task 2: Re-enable Interface, and Observe BIG-IP Behavior
+* Task 2: Verify HA Score
+* Task 3: Re-enable Interface, and Observe BIG-IP Behavior
 
 
 Task 1: Disable an interface to force HA Group actions
@@ -75,7 +76,31 @@ On the **ACTIVE** BIG-IP:
   
   .. image:: ../images/image196.png
 
-Task 2: Re-enable Interface, and Observe BIG-IP Behavior
+
+Task 2: Verify HA Score
+=======================
+
+In this Task, we will verify the BIG-IP HA Score values.
+
+#. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
+
+  .. image:: ../images/image198.png
+
+  .. image:: ../images/image199.png
+
+#. Observe how each BIG-IP is honoring their HA Group objects to contribute to their HA Score. The highest score will be **ACTIVE**:abbreviation:
+  
+  BIG-IP-A:
+  .. image:: ../images/image200.png
+
+  BIG-IP-B:
+  .. image:: ../images/image201.png
+
+.. note:: 
+   - You can also view this information from CLI with the following *tmsh* command:
+   - *tmsh show sys ha-group detail*
+
+Task 3: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
 
 We will now re-enable Interface 1.1 on the Standby BIG-IP.
@@ -84,7 +109,11 @@ We will now re-enable Interface 1.1 on the Standby BIG-IP.
   
    .. image:: ../images/image93.png
 
-#. Did a failover event occur?   If so, why or why not?
++----------+----------------------------------------------------+
+| Question | Did a failover event occur? If so, why or why not? |
++==========+====================================================+
+| Answer   | (FILL IN THIS AREA)                                |
++----------+----------------------------------------------------+
 
 Lab Summary
 ===========
