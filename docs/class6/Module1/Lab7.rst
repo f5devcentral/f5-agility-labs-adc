@@ -142,7 +142,8 @@ This will be used to demonstrate the additional failover features you can apply 
   
        .. image:: ../images/image142.png
 
-You should be presented with the following Virtual Server object after creation:
+
+#. You should be presented with the following Virtual Server object after creation:
 
 .. image:: ../images/image149.png
 
@@ -151,14 +152,13 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
 **On the ACTIVE BIG-IP**
 
-#. Notice the **Changes Pending** in the upper-left corner
-
+#. Notice the **Changes Pending** in the upper-left corner:
 
    .. image:: ../images/image52.png
 
-#. Click this hyperlink to go to the Overview screen.
+#. Click this hyperlink to go to the **Overview** screen.
 
-#. Review the recommendations, and perform a ConfigSync to peer
+#. Review the recommendations, and perform a ConfigSync to peer:
 
    .. image:: ../images/image53.png
 
@@ -166,7 +166,7 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 
    .. image:: ../images/image54.png
 
-#. Once the ConfigSync process is complete, your BIG-IPs should indicate an **In Sync** state, and be in an Active / Standby cluster
+#. Once the ConfigSync process is complete, your BIG-IPs should indicate an **In Sync** state, and be in an **Active / Standby** cluster:
 
 #. Verify the sync state:
 
@@ -190,9 +190,8 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 
 #. Launch / click the RDP file extension, and Click the **Connect** button at the pop-up prompt:
 
-.. image:: ../images/image217.png
-
-.. image:: ../images/image218.png
+   .. image:: ../images/image217.png
+   .. image:: ../images/image218.png
 
 #. At the "Enter your Credentials" window prompt, select the **More Choices** option, and choose **Use a different account**:
 
