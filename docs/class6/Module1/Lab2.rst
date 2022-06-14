@@ -179,15 +179,12 @@ On device **bigipB.f5demo.com**, setup the Device Trust that will be used betwee
 ||          || There is no Device Group established between the BIG-IPs yet, so they remain in an Active/Active state. We will establish Device Group in the next task.                                              |
 +-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ||  Bonus:  || The local mcpd process connects to the local TMM process using TCP port 6699. The local TMM then creates secure connections to remote CMI peer TMMs using TCP port 4353.                              |
-||          ||                                                                                                                                                                                                       |
 ||          || Note: CMI is also referred to as device service clustering (DSC).                                                                                                                                     |
 ||          ||                                                                                                                                                                                                       |
-||          ||  .. code:: bash                                                                                                                                                                                       |
 ||          ||                                                                                                                                                                                                       |
-||          ||      08:39:05.368035 IP 10.1.30.241.f5-iquery > 10.1.30.242.64426: Flags [.], ack 408, win 24252, length 0 in slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=HA_trunk trunk=        |
-||          ||      08:39:05.368155 IP 10.1.30.242.64426 > 10.1.30.241.f5-iquery: Flags [.], ack 151, win 15559, length 0 out slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=1.3 trunk=HA_trunk    |
+||          ||     08:39:05.368035 IP 10.1.30.241.4353 > 10.1.30.242.64426: Flags [.], ack 408, win 24252, length 0 in slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=HA_trunk trunk=              |
+||          ||     08:39:05.368155 IP 10.1.30.242.64426 > 10.1.30.241.4353: Flags [.], ack 151, win 15559, length 0 out slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=1.3 trunk=HA_trunk          |
 ||          ||                                                                                                                                                                                                       |
-||          ||  .. code:: bash                                                                                                                                                                                       |
 ||          ||                                                                                                                                                                                                       |
 ||          ||     [root@bigipB:Active:In Sync (Trust Domain Only)] config # netstat -a | grep 6699                                                                                                                  |
 ||          ||     tcp6 0 0 localhost.localdom:6699 [::]:* LISTEN                                                                                                                                                    |
@@ -195,6 +192,8 @@ On device **bigipB.f5demo.com**, setup the Device Trust that will be used betwee
 ||          ||     tcp6 0 0 localhost.localdom:6699 10.1.30.241:42792 ESTABLISHED                                                                                                                                    |
 ||          ||                                                                                                                                                                                                       |
 +-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 
 Task 3:  Configure the Device Group
 ===================================

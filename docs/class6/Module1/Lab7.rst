@@ -176,13 +176,13 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 Task 5: Test Virtual Server
 ===========================
 
-Pending time, this Task is optional.  This Task will validate how you can verify persistence records & information.
+Pending time, Tasks 5 & 6 are optional.  These Tasks will validate how you can verify persistence records & information.
 
-In a typical HA design, without connection mirroring enabled, only the **ACTIVE** BIG-IP is state-aware.  However, in this lab, we enabled Connection Persistence & Mirroring.
+In a typical HA design, without connection mirroring enabled, only the **ACTIVE** BIG-IP is state-aware of client's sessions.  However, in this lab, we enabled Connection Persistence & Mirroring.
 
-We can test to our Virtual Server, and review BIG-IP details to confirm each BIG-IP has sessions (i.e. mirrored configuration).
+We can test & validate these settings by connecting to our Virtual Server, and review the BIG-IP details to confirm each BIG-IP has sessions (i.e. mirrored configuration).
 
-You will access our Windows Jumphost for this Task.
+You will access our UDF Windows Jumphost via RDP for this Task.
 
 #. From UDF, navigate to your components tab, find the Windows Jumphost under Systems, and click the drop-down for **Access**. Select your preferred RDP session.
 
@@ -221,6 +221,50 @@ You will access our Windows Jumphost for this Task.
 
 Task 6: Validate Persistence Information
 ========================================
+
+In this Task, we will confirm mirroring & persistence configuration is present on the BIG-IPs.  We will perform these validation tasks from our traffic management shell (tmsh).
+
+#.  From UDF, in your Components list, use the drop-down under Access of each BIG-IP and open a Web Shell:
+
+   .. image:: ../images/image225.png
+
+#. From each BIG-IP, enter into the traffic-management shell (tmsh); type **tmsh** and hit Enter; you should be placed into (tmos) prompt:
+
+   .. image:: ../images/image226.png
+
+#. Verify the Client Connection to the Virtual Server:
+
+.. note:: If you are **NOT** seeing connection information, you may have to generate additonal traffic to your Virtual Server from your RDP Jumphost. Keep refreshing the web browser to create a session.
+
+  .. code-block:: show sys connection cs-server-addr 10.1.10.55
+
+#. Observer that **EACH** BIG-IP is session-aware of this client session to the Virtual Server. Typically, without connetion mirroring, only the **ACTIVE** BIG-IP would have this session:
+
+BIG-IP-A (Standby):
+   
+   .. image:: ../images/image227.png
+
+
+BIG-IP-B (Active):
+   
+   
+   .. image:: ../images/image228.png
+
+#. Verify Persistence Records
+
+Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
+
+.. code-block:: show ltm persistence persist-records all-properties
+
+BIG-IP-A (Standby):
+   
+   .. image:: ../images/image229.png
+
+
+BIG-IP-B (Active):
+   
+   
+   .. image:: ../images/image230.png
 
 
 Lab Summary
