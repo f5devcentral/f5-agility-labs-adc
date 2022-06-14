@@ -8,11 +8,12 @@ Lab Tasks:
 ==========
 
 * Task 1: Disable an interface to force HA Group actions
-* Task 2: Verify HA Score
-* Task 3: Re-enable Interface, and Observe BIG-IP Behavior
-* Task 4: Test & Validate Gateway Pool Failure
-* Task 5: Verify HA Score
-* Task 6: Restore GW Pool & Sync BIG-IPs
+* Task 2: Verify BIG-IP Logs
+* Task 3: Verify HA Score
+* Task 4: Re-enable Interface, and Observe BIG-IP Behavior
+* Task 5: Test & Validate Gateway Pool Failure
+* Task 6: Verify HA Score
+* Task 7: Restore GW Pool & Sync BIG-IPs
 
 Task 1: Disable an interface to force HA Group actions
 ======================================================
@@ -37,10 +38,26 @@ On the **ACTIVE** BIG-IP:
    .. image:: ../images/image102a.png
 
 
-+------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Question   | Did a failover event occur, and did the BIG-IP state change?                                                                                                                |
-+============+=============================================================================================================================================================================+
-| Answer     | Yes, failover occurred immediately upon a link down failure. BIG-IP-A went from **ACTIVE** to **Standby**                                                                   |
++----------+-----------------------------------------------------------------------------------------------------------+
+| Question | Did a failover event occur, and did the BIG-IP state change?                                              |
++==========+===========================================================================================================+
+| Answer   | Yes, failover occurred immediately upon a link down failure. BIG-IP-A went from **ACTIVE** to **Standby** |
++----------+-----------------------------------------------------------------------------------------------------------+
+
+Task 2: Verify BIG-IP Logs
+==========================
+
+#. Observe the log messages from each BIG-IP.
+
+#. **Navigate to**: System > Logs > Local Traffic, enter the text *score* into the free-form text field, and click the **Search** button:
+
+  .. image:: ../images/image194.png
+
+  .. image:: ../images/image197.png
+
+
+#. Log output from CLI:
+
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 || CLI Logs: || **BIG-IP-A:**                                                                                                                                                              |
 ||           ||                                                                                                                                                                            |
@@ -59,14 +76,6 @@ On the **ACTIVE** BIG-IP:
 ||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0019:5: Active                                                                                                     |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-#. Observe the log messages from each BIG-IP.
-
-#. **Navigate to**: System > Logs > Local Traffic, enter the text *score* into the free-form text field, and click the **Search** button:
-
-  .. image:: ../images/image194.png
-
-  .. image:: ../images/image197.png
-
 
 #. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
 
@@ -79,7 +88,7 @@ On the **ACTIVE** BIG-IP:
   .. image:: ../images/image196.png
 
 
-Task 2: Verify HA Score
+Task 3: Verify HA Score
 =======================
 
 In this Task, we will verify the BIG-IP HA Score values.
@@ -106,7 +115,7 @@ In this Task, we will verify the BIG-IP HA Score values.
    - You can also view this information from CLI with the following *tmsh* command:
        - *tmsh show sys ha-group detail*
 
-Task 3: Re-enable Interface, and Observe BIG-IP Behavior
+Task 4: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
 
 We will now re-enable Interface 1.1 on the **STANDBY** BIG-IP.
@@ -121,7 +130,7 @@ We will now re-enable Interface 1.1 on the **STANDBY** BIG-IP.
 | Answer   | No, the BIG-IPs did not failover because the **ACTIVE** BIG-IP HA Score did **NOT** change; the **ACTIVE** bonus kept this device **ACTIVE** |
 +----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
-Task 4: Test & Validate Gateway Pool Failure
+Task 5: Test & Validate Gateway Pool Failure
 ============================================
 
 In this Task, we will manipulate our upstream gateway pool to simulate an upstream network / path failure. This will validate an addtional HA Group object, and how it affects BIG-IP HA failover.
@@ -151,7 +160,7 @@ We will **force offline** our gateway pool member to force the pool to fail, cau
 ||         || You can validate this by reviewing the HA Group Score and/or logs.                                                                                                            |
 +----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Task 5: Verify HA Score
+Task 6: Verify HA Score
 =======================
 
 In this Task, we will validate HA Group Score on both BIG-IPs.
@@ -173,7 +182,7 @@ BIG-IP-A (now ACTIVE)
 
 .. image:: ../images/image209.png
 
-Task 6: Restore GW Pool & Sync BIG-IPs
+Task 7: Restore GW Pool & Sync BIG-IPs
 ======================================
 
 In this Task, prior to proceeding to Lab 7, we need to restore our gateway pool member on the **STANDBY** BIG-IP, and synchronize BIG-IP configurations.
