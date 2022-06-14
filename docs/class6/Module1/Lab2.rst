@@ -368,13 +368,13 @@ For more detailed information regarding Floating Self IPs, please refer to this 
 
 #. Create the respective Self IPs per the table above.
 
-    VLAN 10 Float:
+   VLAN 10 Float:
 
-    .. image:: ../images/image144.png
+   .. image:: ../images/image144.png
 
-    VLAN 20 Float:
+   VLAN 20 Float:
 
-    .. image:: ../images/image145.png
+   .. image:: ../images/image145.png
 
 #. After creation of your Floating Self IPs, your Self IP List should reflect the following on the **ACTIVE** BIG-IP:
    
