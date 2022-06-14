@@ -33,6 +33,7 @@ On the **ACTIVE** BIG-IP:
 
    .. image:: ../images/image102b.png
 
+
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Question   | Did a failover event occur, and did the BIG-IP state change?                                                                                                                |
 +============+=============================================================================================================================================================================+
@@ -60,6 +61,9 @@ On the **ACTIVE** BIG-IP:
 #. **Navigate to**: System > Logs > Local Traffic, enter the text *score* into the free-form text field, and click the **Search** button:
 
   .. image:: ../images/image194.png
+
+  .. image:: ../images/image197.png
+
 
 #. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
 
