@@ -62,7 +62,7 @@ We will create an LTM Pool Configuration object, which will be used for the back
 
 .. note:: 
     
-    - These steps will be completed on the ACTIVE BIG-IP
+    - These steps will be completed on the **ACTIVE** BIG-IP
 
 
 #. **Navigate to**: Local Traffic > Pools > Pool List > click the **"+"** sign to create a new pool:
