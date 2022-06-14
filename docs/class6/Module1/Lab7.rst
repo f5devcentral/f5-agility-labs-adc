@@ -128,9 +128,8 @@ This will be used to demonstrate the additional failover features you can apply 
           
    
 .. note:: 
-    - We have now finished the configuration for connection mirroring.
-    - The following steps are required to finish the virtual server configuration so you can test the service. 
-
+   - We have now finished the configuration for connection mirroring.
+   - The following steps are required to finish the virtual server configuration so you can test the service.
 
    - **Source Address Translation:**  From the drop-down, select AutoMap:
 
