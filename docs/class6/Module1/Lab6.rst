@@ -20,23 +20,56 @@ In this task we will:
 * Monitor logs to review the failover process
 
 
-On the active BIG-IP: 
+On the **ACTIVE** BIG-IP: 
 
 #. **Navigate to**: Network > Interfaces, and place checkmark next to interface 1.1 then click on the **Disable** button.
 
    .. image:: ../images/image100.PNG
 
-#. During this time observe the BIG-IP status in the upper-left corner of each BIG-IP.  Did a failover event occur and did state change?
+#. During this time, observe the BIG-IP status in the upper-left corner of each BIG-IP.
 
-   .. image:: ../images/image101.png
+   .. image:: ../images/image101a.png
 
-   .. image:: ../images/image102.png
 
-   Observe the log messages from each BIG-IP.  Previously, BIG-IP A was the Standby device.   Conversely, BIG-IP B was previously the Active device.
+   .. image:: ../images/image102b.png
 
-  .. image:: ../images/image91.png
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question   | Did a failover event occur, and did the BIG-IP state change?                                                                                                                |
++============+=============================================================================================================================================================================+
+| Answer     | Yes, failover occurred immediately upon a link down failure. BIG-IP-A went from **ACTIVE** to **Standby**                                                                   |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|| CLI Logs: || **BIG-IP-A:**                                                                                                                                                              |
+||           ||                                                                                                                                                                            |
+||           || Jun 14 07:42:38 bigipA.f5demo.com info lacpd[5031]: 01160016:6: Interface 1.1, link admin status: disabled, link status: up, duplex mode: full, lacp operation state: down |
+||           || Jun 14 07:42:38 bigipA.f5demo.com info lacpd[5031]: 01160010:6: Link 1.1 removed from aggregation                                                                          |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 01bb0003:5: Trunk: int_trunk is DOWN                                                                                  |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 010719fb:5: HA Group bigip-ha-group score updated from 30 to 0.                                                       |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 01b5004a:5: Link: 1.1 is DISABLED                                                                                     |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0045:5: Leaving active, group score 0 peer group score 30.                                                         |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0052:5: Standby for traffic group traffic-group-1.                                                                 |
+||           ||                                                                                                                                                                            |
+||           || **BIG-IP-B:**                                                                                                                                                              |
+||           ||                                                                                                                                                                            |
+||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c006d:5: Leaving Standby for Active (best ha score).                                                                |
+||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0053:5: Active for traffic group traffic-group-1.                                                                  |
+||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0019:5: Active                                                                                                     |
++------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-  .. image:: ../images/image92.png
+#. Observe the log messages from each BIG-IP.
+
+#. **Navigate to**: System > Logs > Local Traffic, enter the text *score* into the free-form text field, and click the **Search** button:
+
+  .. image:: ../images/image194.png
+
+#. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
+
+  - BIG-IP-A (now **STANDBY**):
+  
+  .. image:: ../images/image195.png
+
+  - BIG-IP-B (now **ACTIVE**):
+  
+  .. image:: ../images/image196.png
 
 Task 2: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
