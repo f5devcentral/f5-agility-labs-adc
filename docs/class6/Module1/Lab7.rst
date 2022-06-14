@@ -236,10 +236,10 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 
 .. note:: If you are **NOT** seeing connection information, you may have to generate additonal traffic to your Virtual Server from your RDP Jumphost. Keep refreshing the web browser to create a session.
 
-  .. code-block:: 
-   show sys connection cs-server-addr 10.1.10.55
+    - Use the following command from (tmos) prompt:  
+..code-block::bash show sys connection cs-server-addr 10.1.10.55
 
-#. Observer that **EACH** BIG-IP is session-aware of this client session to the Virtual Server. Typically, without connetion mirroring, only the **ACTIVE** BIG-IP would have this session:
+#. Observe that **EACH** BIG-IP is session-aware of this client session to the Virtual Server. Typically, without connetion mirroring, only the **ACTIVE** BIG-IP would have this session:
 
 BIG-IP-A (Standby):
    
