@@ -23,7 +23,7 @@ In this task we will:
 
 On the **ACTIVE** BIG-IP: 
 
-#. **Navigate to**: Network > Interfaces, and place checkmark next to interface 1.1 then click on the **Disable** button.
+#. **Navigate to**: Network > Interfaces, and place checkmark next to interface 1.1 then click on the **Disable** button:
 
    .. image:: ../images/image100.PNG
 
@@ -84,17 +84,19 @@ In this Task, we will verify the BIG-IP HA Score values.
 
 #. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
 
-  .. image:: ../images/image198.png
+.. image:: ../images/image198.png
 
-  .. image:: ../images/image199.png
+
+.. image:: ../images/image199.png
 
 #. Observe how each BIG-IP is honoring their HA Group objects to contribute to their HA Score. The highest score will be **ACTIVE**:
   
-   - BIG-IP-A:
+    - BIG-IP-A:
 
 .. image:: ../images/image200.png
 
-   - BIG-IP-B:
+
+    - BIG-IP-B:
 
 .. image:: ../images/image201.png
 
