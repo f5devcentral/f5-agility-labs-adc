@@ -235,8 +235,7 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 #. Verify the Client Connection to the Virtual Server:
 
     - Use the following command from (tmos) prompt:  
-.. code-block:: bash 
-   show sys connection cs-server-addr 10.1.10.55
+       - *show sys connection cs-server-addr 10.1.10.55*
 
 .. note:: If you are **NOT** seeing connection information, you may have to generate additonal traffic to your Virtual Server from your RDP Jumphost. Keep refreshing the web browser to create a session.
 
@@ -255,10 +254,8 @@ BIG-IP-B (Active):
 
 #. Verify Persistence Records
 
-Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
-
-.. code-block:: 
-   show ltm persistence persist-records all-properties
+    - Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
+       - *show ltm persistence persist-records all-properties*
 
 BIG-IP-A (Standby):
    
