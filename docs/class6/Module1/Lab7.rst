@@ -190,21 +190,21 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 
 #. Launch / click the RDP file extension, and Click the **Connect** button at the pop-up prompt:
 
-   .. image:: ../images/image217.png
-         
-   .. image:: ../images/image218.png
+.. image:: ../images/image217.png
+
+.. image:: ../images/image218.png
 
 #. At the "Enter your Credentials" window prompt, select the **More Choices** option, and choose **Use a different account**:
 
-   .. image:: ../images/image219.png
+.. image:: ../images/image219.png
 
-   .. image:: ../images/image220.png
+.. image:: ../images/image220.png
 
 #. Use the following credentials, and click the **OK** button:
   - User Name = external_user
   - Password =  admin.F5demo.com
 
-   .. image:: ../images/image221.png
+.. image:: ../images/image221.png
 
 #. If presented with a Security Warning, please click **YES** button: 
 
@@ -214,7 +214,7 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 
    .. image:: ../images/image223.png
 
-#. You should be presented with a generic NGINX website!  You may "refresh" your page multiple times.
+#. You should be presented with a generic NGINX website!  You may "refresh" your page multiple times to generate traffic.
 
    .. image:: ../images/image224.png
 
@@ -236,7 +236,8 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 
 .. note:: If you are **NOT** seeing connection information, you may have to generate additonal traffic to your Virtual Server from your RDP Jumphost. Keep refreshing the web browser to create a session.
 
-  .. code-block:: show sys connection cs-server-addr 10.1.10.55
+  .. code-block:: 
+   show sys connection cs-server-addr 10.1.10.55
 
 #. Observer that **EACH** BIG-IP is session-aware of this client session to the Virtual Server. Typically, without connetion mirroring, only the **ACTIVE** BIG-IP would have this session:
 
@@ -254,7 +255,8 @@ BIG-IP-B (Active):
 
 Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
 
-.. code-block:: show ltm persistence persist-records all-properties
+.. code-block:: 
+   show ltm persistence persist-records all-properties
 
 BIG-IP-A (Standby):
    
