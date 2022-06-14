@@ -10,7 +10,7 @@ Lab Tasks:
 * Task 1: Disable an interface to force HA Group actions
 * Task 2: Verify HA Score
 * Task 3: Re-enable Interface, and Observe BIG-IP Behavior
-
+* Task 4: Test Gateway Pool Failure
 
 Task 1: Disable an interface to force HA Group actions
 ======================================================
@@ -107,17 +107,65 @@ In this Task, we will verify the BIG-IP HA Score values.
 Task 3: Re-enable Interface, and Observe BIG-IP Behavior
 ========================================================
 
-We will now re-enable Interface 1.1 on the Standby BIG-IP.
+We will now re-enable Interface 1.1 on the **STANDBY** BIG-IP.
 
-#. On the standby BIG-IP, **Navigate to**: Network > Interfaces > Interface List, and place checkmark next to interface 1.1 then click the **Enable** button.
+#. On the **STANDBY** BIG-IP, **Navigate to**: Network > Interfaces > Interface List, and place checkmark next to interface 1.1 then click the **Enable** button:
   
    .. image:: ../images/image93.png
 
-+----------+----------------------------------------------------+
-| Question | Did a failover event occur? If so, why or why not? |
-+==========+====================================================+
-| Answer   | (FILL IN THIS AREA)                                |
-+----------+----------------------------------------------------+
++----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+| Question | Did a failover event occur? If so, why or why not?                                                                                           |
++==========+==============================================================================================================================================+
+| Answer   | No, the BIG-IPs did not failover because the **ACTIVE** BIG-IP HA Score did **NOT** change; the **ACTIVE** bonus kept this device **ACTIVE** |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+Task 4: Test Gateway Pool Failure
+=================================
+
+In this Task, we will manipulate our upstream gateway pool to simulate an upstream network / path failure. This will validate an addtional HA Group object, and how it affects failover.
+
+We will **disable** our gateway pool member to force the pool to fail, causing a gateway pool failure.
+
+#. On the **ACTIVE** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List, and click the **ext_gw_pool** hyperlink:
+ 
+   
+.. image:: ../images/image202.png
+
+#. Click the **Members** tab:
+
+
+.. image:: ../images/image206.png
+
+#. Place a checkmark next to the Member, and click the **Force Offline** button:
+
+.. image:: ../images/image207.png
+
+#. Observe the BIG-IP HA state:
+
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question | Did a failover event occur? If so, why or why not?                                                                                                                             |
++==========+================================================================================================================================================================================+
+|| Answer  || Yes, forcing the gateway pool member offline causes a gateway pool failure on the **ACTIVE** BIG-IP, causing the HA Score to drop to "zero", causing a BIG-IP failover event. |
+||         || You can validate this by reviewing the HA Group Score and/or logs.                                                                                                                                                                              |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+#. Validate HA Group Score on both BIG-IPs. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
+
+.. image:: ../images/image198.png
+
+
+.. image:: ../images/image199.png
+
+#. Observe the Pool object on **STANDBY** BIG-IP.  Due to the failure, it is **NOT** contributing to the HA Score.
+
+BIG-IP-B (now STANDBY):
+
+.. image:: ../images/image208.png
+
+BIG-IP-A (now ACTIVE)
+
+.. image:: ../images/image209.png
+
 
 Lab Summary
 ===========
