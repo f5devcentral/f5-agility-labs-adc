@@ -44,15 +44,15 @@ On the **ACTIVE** BIG-IP:
 ||           || Jun 14 07:42:38 bigipA.f5demo.com info lacpd[5031]: 01160016:6: Interface 1.1, link admin status: disabled, link status: up, duplex mode: full, lacp operation state: down |
 ||           || Jun 14 07:42:38 bigipA.f5demo.com info lacpd[5031]: 01160010:6: Link 1.1 removed from aggregation                                                                          |
 ||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 01bb0003:5: Trunk: int_trunk is DOWN                                                                                  |
-||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 010719fb:5: HA Group bigip-ha-group score updated from 30 to 0.                                                       |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 010719fb:5: **HA Group bigip-ha-group score updated from 30 to 0.**                                                   |
 ||           || Jun 14 07:42:38 bigipA.f5demo.com notice mcpd[6517]: 01b5004a:5: Link: 1.1 is DISABLED                                                                                     |
-||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0045:5: Leaving active, group score 0 peer group score 30.                                                         |
-||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0052:5: Standby for traffic group traffic-group-1.                                                                 |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0045:5: **Leaving active, group score 0 peer group score 30.**                                                     |
+||           || Jun 14 07:42:38 bigipA.f5demo.com notice sod[4368]: 010c0052:5: **Standby for traffic group traffic-group-1.**                                                             |
 ||           ||                                                                                                                                                                            |
 ||           || **BIG-IP-B:**                                                                                                                                                              |
 ||           ||                                                                                                                                                                            |
-||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c006d:5: Leaving Standby for Active (best ha score).                                                                |
-||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0053:5: Active for traffic group traffic-group-1.                                                                  |
+||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c006d:5: **Leaving Standby for Active (best ha score).**                                                            |
+||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0053:5: **Active for traffic group traffic-group-1.**                                                              |
 ||           || Jun 14 07:42:38 bigipB.f5demo.com notice sod[5359]: 010c0019:5: Active                                                                                                     |
 +------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
