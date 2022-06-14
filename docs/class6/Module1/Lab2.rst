@@ -114,9 +114,9 @@ Task 2: Configure & Verify Device Trust between BIG-IPs
 
 Now we will define the configuration to establish our device-trust between BIG-IPs.
 
-On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
+On device **bigipB.f5demo.com**, setup the Device Trust that will be used between BIG-IP systems
 
-NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **ACTIVE / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
+.. note:: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **ACTIVE / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
 
 .. list-table:: 
    :widths: auto
@@ -162,22 +162,35 @@ NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are bo
 
    .. image:: ../images/image34.png
 
-#. Verify *bigipA.f5demo.com*
+#. On **bigipA.f5demo.com**, verify Device Trust shows BIG-IP-B:
 
    **Navigate to**: Device Management > Device Trust > Device Trust Members
 
    .. image:: ../images/image35.png
 
-#. Verify that *bigipB.f5demo.com* is shown in the Peer Device List:
+#. Verify that **bigipB.f5demo.com** is shown in the Peer Device List:
 
    .. image:: ../images/image36.png
 
-+-----------+---------------------------------------------------------+
-| Question: | Why are both BIG-IPs Active / In Sync?                  |
-+===========+=========================================================+
-| Answer:   | There is no Device Group established between the        |
-|           | BIG-IPs yet . . . See next task                         |
-+-----------+---------------------------------------------------------+
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
+| Question: | Why are both BIG-IPs Active / In Sync?                                                                                                                                                                                                |     |
++===========+=======================================================================================================================================================================================================================================+=====+
+|| Answer:  || ConfigSync is communicating across HA VLAN, allowing Centralized Management Infrastructure (CMI) communication on TCP port 4353 (iQuery), so both BIG-IPs think sync-state is good. There is no Device Group established between the ||    |
+||          || BIG-IPs yet, so they remain in an Active/Active state. We will establish Device Group in the next task.                                                                                                                              ||    |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
+|| Bonus:   || The local mcpd process connects to the local TMM process using TCP port 6699. The local TMM then creates secure connections to remote CMI peer TMMs using TCP port 4353.                                                             ||    |
+||          || Note: CMI is also referred to as device service clustering (DSC).                                                                                                                                                                    ||    |
+||          ||                                                                                                                                                                                                                                      ||    |
+||          || .. code-block::                                                                                                                                                                                                                      ||    |
+||          ||    08:39:05.368035 IP 10.1.30.241.f5-iquery > 10.1.30.242.64426: Flags [.], ack 408, win 24252, length 0 in slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=HA_trunk trunk=                                         ||    |
+||          ||    08:39:05.368155 IP 10.1.30.242.64426 > 10.1.30.241.f5-iquery: Flags [.], ack 151, win 15559, length 0 out slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=1.3 trunk=HA_trunk                                     ||    |
+||          ||                                                                                                                                                                                                                                      ||    |
+||          ||  [root@bigipB:Active:In Sync (Trust Domain Only)] config # netstat -a | grep 6699                                                                                                                                                    ||    |
+||          ||   tcp6       0      0 localhost.localdom:6699 [::]:*                  LISTEN                                                                                                                                                         ||    |
+||          ||   tcp6       0      0 10.1.30.242:53398       10.1.30.241:6699        ESTABLISHED                                                                                                                                                    ||    |
+||          ||   tcp6       0      0 localhost.localdom:6699 10.1.30.241:42792       ESTABLISHED                                                                                                                                                    ||    |
+||          ||                                                                                                                                                                                                                                      ||    |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
 
 Task 3:  Configure the Device Group
 ===================================
@@ -215,20 +228,20 @@ both BIG-IP systems.
 
    .. image:: ../images/image169.png
 
-+-----------+------------------------------------------------------------------------------------------------------------+
-| Question: | Why are both BIG-IPs **ACTIVE** and *Awaiting Initial Sync*?                                               |
-+===========+============================================================================================================+
-| Answer:   | Both BIG-IPs still cannot "see" their peer due to the current port lockdown settings on the Data Self IPs. |
-+-----------+------------------------------------------------------------------------------------------------------------+
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question: | Why are both BIG-IPs **ACTIVE** and *Awaiting Initial Sync*?                                                                                                                                                 |
++===========+==============================================================================================================================================================================================================+
+| Answer:   | Both BIG-IPs still cannot "see" their peer due to the current Self IP port lockdown settings on the Data Self IPs. Each BIG-IP sees its peer as "offline" from the Device Management > Devices overview page |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #. To confirm each BIG-IP cannot "see" its peer, **Navigate to**: Device Management > Devices, and review the **Status** of the respective BIG-IP peer:
    
-   .. image:: ../images/image170.png
+   .. image:: ../images/image170a.png
    
-   .. image:: ../images/image171.png
+   .. image:: ../images/image171a.png
 
    
-   - In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
+#. In the next Task, we will modify our Self IP port lockdown settings on our Data Self IPs.  This will allow the BIG-IPs to communicate across the Failover IPs.
 
 Task 4: Modify Self IP Port Lockdown on Data Self IPs:
 ======================================================
@@ -264,7 +277,18 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    - Repeat this step on the External VLAN
 
-#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate across on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY** state after this task.
+#. Upon completion of this Task, you should observe that the BIG-IPs can start to communicate on UDP port 1026.  Your BIG-IPs should be in an **ACTIVE/STANDBY**, *Awaiting Initial Sync* state after this task:
+
+   - BIG-IP-A (is Standby)
+
+   .. image:: ../images/image187.png
+
+   - BIG-IP-B (is Active)
+
+   .. image:: ../images/image188.png
+
+
+#. Perform the recommendation synchronization, and confirm your BIG-IPs are **ACTIVE/STANDBY** and **In Sync**:
 
    - BIG-IP-A (is Standby)
 
@@ -274,7 +298,7 @@ In Lab 1, when we created our Local Self IPs, we chose to select the "Allow None
 
    .. image:: ../images/image172.png
 
-This task validates that your Failover communication must be allowed between BIG-IP
+#. This task validates that your Failover communication must be allowed on UDP port 1026 between BIG-IPs.
 
 Task 5:  Add the Management Address to the Failover Network
 ===========================================================
@@ -283,7 +307,7 @@ In Task 5, we will add an addtional address to our Failover Network configuratio
 
 .. note:: BIG-IP Management Address does not have any default port lockdown settings. If we were to have added this in Task 1, we would have formed a failover communication path on the management IP, allowing the BIG-IPs to communicate. We wanted you to observe how port lockdown settings can affect BIG-IP communication.
 
-#. **Navigate to**: Device Management > Devices > click local BIG-IP hyperlink, then click the Failover Network banner, then click the **Add** button:
+#. **Navigate to**: Device Management > Devices > click local BIG-IP (Self) hyperlink, then click the Failover Network banner, then click the **Add** button:
    
 .. image:: ../images/image174.png
 
@@ -308,7 +332,7 @@ For more detailed information regarding Floating Self IPs, please refer to this 
 
 #. Use the following table to create the Floating Self IP Objects:
 
-.. note:: **DO NOT** modify the Floating Self IP Address port lockdown. The Floating Self IP address port lockdown status has to be **Allow None"**
+.. note:: **DO NOT** modify the Floating Self IP Address port lockdown. The Floating Self IP address port lockdown status has to be **Allow None**
 
 .. list-table:: 
    :widths: auto
@@ -344,15 +368,15 @@ For more detailed information regarding Floating Self IPs, please refer to this 
 
 #. Create the respective Self IPs per the table above.
 
-   VLAN 10 Float:
+    VLAN 10 Float:
 
-   .. image:: ../images/image144.png
+    .. image:: ../images/image144.png
 
-   VLAN 20 Float:
+    VLAN 20 Float:
 
-   .. image:: ../images/image145.png
+    .. image:: ../images/image145.png
 
-   After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
+#. After creation of your Floating Self IPs, your Self IP List should reflect the following on the **ACTIVE** BIG-IP:
    
    .. image:: ../images/image147.png
 

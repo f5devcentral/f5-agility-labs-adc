@@ -9,8 +9,9 @@ Lab Tasks:
 ==========
 
 * Task 1: Create a Gateway Pool
-* Task 2: Create HA Groups
-* Task 3: Enable HA Group as the Preferred Failover Method
+* Task 2: Synchronize BIG-IPs
+* Task 3: Create HA Groups
+* Task 4: Enable HA Group as the Preferred Failover Method
 
 Task 1: Create a Gateway Pool
 =============================
@@ -19,9 +20,11 @@ In Task 1, we will create a pool that contains the default gateway as the pool m
 
 We will use this pool object as a failover event trigger in Task 2 of our HA Group configuration.
 
-#. **Navigate to**: Local Traffic > Pools > Pool List > click the "+" sign to create a new pool:
+#. On the **ACTIVE** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List > click the **"+"** button to create a new pool:
 
    .. image:: ../images/image114.png
+
+
 
 #. Create a Gateway Pool with the following settings:
     -  **Name:** ext_gw_pool
@@ -40,19 +43,39 @@ We will use this pool object as a failover event trigger in Task 2 of our HA Gro
       .. image:: ../images/image126.png
 
 
-Task 2: Create HA Groups
+Task 2: Synchronize BIG-IPs
+===========================
+
+In Task 1, we created a shared pool object which will be used for our HA Group configuration. We must synchronize our BIG-IPs so that the Standby BIG-IP can use this object.
+
+#.  Synchronize BIG-IPs:
+
+Click the **Changes Pending** hyperlink, review the recommendations, and click the **Sync** button:
+
+ .. image:: ../images/image193.png
+
+Task 3: Create HA Groups
 ========================
 
-In Task 2, we will create HA Group configurations on each BIG-IP.
+In Task 3, we will create HA Group configurations on each BIG-IP.
 
 .. note:: 
-   - HA group configuration is device specific and is not synced between members of a DSC group.
+   - HA group configuration is device-specific and is **NOT** synced between members of a DSC group.
    - You **MUST** create a separate HA group on every device in the device group for this traffic group.
 
 
 #. On each BIG-IP, create an HA Group:
 
-#. **Navigate to**: System > High Availability > HA Group List >  click the "+" button:
+.. note::
+   - If your TMUI is **NOT** showing the "HA Group List" in the fan-out, you may Navigate to System > High Availability; you can then select the HA Group List:
+   - Example of TMUI missing this fan-out:
+     
+     .. image:: ../images/image191.png
+   - **Navigate to**: System > High Availability, click the "HA Group List"
+     
+     .. image:: ../images/image192.png
+
+#. **Navigate to**: System > High Availability > HA Group List >  click the **"+"** button:
 
    .. image:: ../images/image63.png
       
@@ -67,7 +90,7 @@ In Task 2, we will create HA Group configurations on each BIG-IP.
       
      .. image:: ../images/image65a.png
    
-#. From the drop-down, select the the External Trunk object (ext_trunk), and click the "Add" button:
+#. From the drop-down, select the the External Trunk object (ext_trunk), and click the **Add** button:
   
    .. image:: ../images/image133.png
    
@@ -77,11 +100,11 @@ In Task 2, we will create HA Group configurations on each BIG-IP.
 
 #. Next, we will add our External Gateway Pool we created earlier to the Pools HA Group Configuration:
    
-   - Click the **Add** button
+   - Under Pools, click the **Add** button:
 
      .. image:: ../images/image131.png
 
-#. In the Pool drop-down, select "ext_gw_pool," and click the "Add" button:
+#. In the Pool drop-down, select "ext_gw_pool," and click the **Add** button:
        
    .. image:: ../images/image132.png
 
@@ -118,7 +141,7 @@ For detailed information and HA Best Practices, see following K-article: `K16947
 
 
 
-Task 3: Enable HA Group as the Preferred Failover Method
+Task 4: Enable HA Group as the Preferred Failover Method
 ========================================================
 
 You will complete this task on both BIG-IP devices.  Perform this same procedure to setup the HA Group configuration on each BIG-IP.
