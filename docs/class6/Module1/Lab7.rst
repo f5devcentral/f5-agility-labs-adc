@@ -1,18 +1,20 @@
 Lab 7: Persistence Mirroring and Connection Mirroring
 -----------------------------------------------------
 
-In Lab 7, we will continue to enhance & optimize the BIG-IP configuration.  We will specifically be enabling Virtual Server configuration, to enhance Connection Mirroring & Persistence Mirroring.
+In Lab 7, we will continue to enhance & optimize the BIG-IP configuration for HA.  We will create Virtual Server configuration objects so that we can enhance our HA configuration with Connection & Persistence Mirroring.
 
 Lab Tasks:
 ==========
 
-* Task 1: Configure Persistence Mirroring Profiles
+* Task 1: Configure Persistence Mirroring Profile
 * Task 2: Create LTM Pool Configuration Objects
 * Task 3: Configure Connection mirroring
 * Task 4: Perform a Configuration Synchronization between BIG-IPs
+* Task 5: Test Virtual Server
+* Task 6: Validate Persistence Information
 
-Task 1: Configure Persistence Mirroring Profiles
-================================================
+Task 1: Configure Persistence Mirroring Profile
+===============================================
 
 We will create a new Persistence Profile, enabling persistence mirroring.
 
@@ -29,7 +31,7 @@ Persistance mirroring is used to share persistence information between BIG-IP's 
     - Always create a new profile with the desired settings and use the default profile as parent profiles
     - Default profiles will be overwritten with the next software update
 
-#. **Navigate to**: Local Traffic > Profiles > Persistence, and click the **"+"** button to create a new profile:
+#. On the **ACTIVE** BIG-IP, **Navigate to**: Local Traffic > Profiles > Persistence, and click the **"+"** button to create a new profile:
 
 
    .. image:: ../images/image136.png
@@ -48,7 +50,7 @@ Persistance mirroring is used to share persistence information between BIG-IP's 
 
    .. image:: ../images/image138.png
 
-   You should see two Source Address profiles, one custom and one default:
+#. Search for "source" in the Search field, and you should see two Source Address profiles, one custom and one default:
 
    .. image:: ../images/image139.png
 
@@ -126,7 +128,7 @@ This will be used to demonstrate the additional failover features you can apply 
           
    
    .. note:: 
-      We now finished the configuration for connection mirroring. 
+      We have now finished the configuration for connection mirroring. 
       The following steps are required to finish the virtual server configuration so you can test the service. 
 
    - **Source Address Translation:**  From the drop-down, select AutoMap:
@@ -169,6 +171,56 @@ Task 4:  Perform a Configuration Synchronization between BIG-IPs
 #. Verify the sync state:
 
    .. image:: ../images/image55.png
+
+
+Task 5: Test Virtual Server
+===========================
+
+Pending time, this Task is optional.  This Task will validate how you can verify persistence records & information.
+
+In a typical HA design, without connection mirroring enabled, only the **ACTIVE** BIG-IP is state-aware.  However, in this lab, we enabled Connection Persistence & Mirroring.
+
+We can test to our Virtual Server, and review BIG-IP details to confirm each BIG-IP has sessions (i.e. mirrored configuration).
+
+You will access our Windows Jumphost for this Task.
+
+#. From UDF, navigate to your components tab, find the Windows Jumphost under Systems, and click the drop-down for **Access**. Select your preferred RDP session.
+
+   .. image:: ../images/image216.png
+
+#. Launch / click the RDP file extension, and Click the **Connect** button at the pop-up prompt:
+
+   .. image:: ../images/image217.png
+         
+   .. image:: ../images/image218.png
+
+#. At the "Enter your Credentials" window prompt, select the **More Choices** option, and choose **Use a different account**:
+
+   .. image:: ../images/image219.png
+
+   .. image:: ../images/image220.png
+
+#. Use the following credentials, and click the **OK** button:
+  - User Name = external_user
+  - Password =  admin.F5demo.com
+
+   .. image:: ../images/image221.png
+
+#. If presented with a Security Warning, please click **YES** button: 
+
+   .. image:: ../images/image222.png
+
+#. You should now be logged into your RDP Jumphost; open Chrome browser from the Taskbar, and connect to BIG-IP Virtual Server http://10.1.10.55:
+
+   .. image:: ../images/image223.png
+
+#. You should be presented with a generic NGINX website!  You may "refresh" your page multiple times.
+
+   .. image:: ../images/image224.png
+
+
+Task 6: Validate Persistence Information
+========================================
 
 
 Lab Summary

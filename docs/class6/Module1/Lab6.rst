@@ -51,19 +51,19 @@ Task 2: Verify BIG-IP Logs
 
 #. **Navigate to**: System > Logs > Local Traffic, enter the text *score* into the free-form text field, and click the **Search** button:
 
-  .. image:: ../images/image194.png
+   .. image:: ../images/image194.png
 
-  .. image:: ../images/image197.png
+   .. image:: ../images/image197.png
 
 #. Previously, BIG-IP-A was the **ACTIVE** device.   Conversely, BIG-IP-B was previously the **STANDBY** device.  Their roles have now flipped, making BIG-IP-B **ACTIVE** and BIG-IP-A **STANDBY**:
 
-  - BIG-IP-A (now **STANDBY**):
+   - BIG-IP-A (now **STANDBY**):
   
-  .. image:: ../images/image195.png
+     .. image:: ../images/image195.png
 
-  - BIG-IP-B (now **ACTIVE**):
+   - BIG-IP-B (now **ACTIVE**):
   
-  .. image:: ../images/image196.png
+     .. image:: ../images/image196.png
 
 #. Log output example from CLI (/var/log/ltm):
 
@@ -94,23 +94,24 @@ In this Task, we will verify the BIG-IP HA Score values.
 
 #. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
 
-.. image:: ../images/image198.png
+   .. image:: ../images/image198.png
 
 
-.. image:: ../images/image199.png
+   .. image:: ../images/image199.png
 
 #. Observe how each BIG-IP is honoring their HA Group objects to contribute to their HA Score. The highest score will be **ACTIVE**:
   
-    - BIG-IP-A:
+   - BIG-IP-A:
 
-  .. image:: ../images/image200.png
+     .. image:: ../images/image200.png
 
 
-    - BIG-IP-B:
+   - BIG-IP-B:
    
-  .. image:: ../images/image201.png
+     .. image:: ../images/image201.png
 
 .. note:: 
+
    - You can also view this information from CLI with the following *tmsh* command:
        - *tmsh show sys ha-group detail*
 
@@ -139,16 +140,15 @@ We will **force offline** our gateway pool member to force the pool to fail, cau
 #. On the **ACTIVE** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List, and click the **ext_gw_pool** hyperlink:
  
    
-.. image:: ../images/image202.png
+   .. image:: ../images/image202.png
 
 #. Click the **Members** tab:
 
-
-.. image:: ../images/image206.png
+   .. image:: ../images/image206.png
 
 #. Place a checkmark next to the Member, and click the **Force Offline** button:
 
-.. image:: ../images/image207.png
+   .. image:: ../images/image207.png
 
 #. Observe the BIG-IP HA state, and answer the following:
 
@@ -166,20 +166,20 @@ In this Task, we will validate HA Group Score on both BIG-IPs.
 
 #. On each BIG-IP, **Navigate to**: System > High Availability > HA Group List, then click the HA Group name hyperlink:
 
-.. image:: ../images/image198.png
+   .. image:: ../images/image198.png
 
 
-.. image:: ../images/image199.png
+   .. image:: ../images/image199.png
 
 #. Observe the Pool object on **STANDBY** BIG-IP.  Due to the gateway member failure (forced offline), it is **NOT** contributing to the HA Score.
 
-BIG-IP-B (now STANDBY):
+   BIG-IP-B (now STANDBY):
 
-.. image:: ../images/image208.png
+   .. image:: ../images/image208.png
 
-BIG-IP-A (now ACTIVE)
+   BIG-IP-A (now ACTIVE)
 
-.. image:: ../images/image209.png
+   .. image:: ../images/image209.png
 
 Task 7: Restore GW Pool & Sync BIG-IPs
 ======================================
@@ -189,27 +189,27 @@ In this Task, prior to proceeding to Lab 7, we need to restore our gateway pool 
 #. On the **STANDBY** BIG-IP, **Navigate to**: Local Traffic > Pools > Pool List, and click the **ext_gw_pool** hyperlink:
  
    
-.. image:: ../images/image210.png
+   .. image:: ../images/image210.png
 
 #. Click the **Members** tab:
 
 
-.. image:: ../images/image211.png
+   .. image:: ../images/image211.png
 
 
 #. Place a checkmark next to the Member, and click the **Enable** button:
 
-.. image:: ../images/image212.png
+   .. image:: ../images/image212.png
 
 #. Refresh the **Members** page, and confirm a green pool member resource:
 
-.. image:: ../images/image213.png
+   .. image:: ../images/image213.png
 
 #. Click the **Changes Pending** hyperlink, and review the recommendations.  Perform the recommendations, and Sync BIG-IPs:
 
-.. image:: ../images/image214.png
+   .. image:: ../images/image214.png
 
-.. image:: ../images/image215.png
+   .. image:: ../images/image215.png
 
 After this Task, your BIG-IPs should be **In Sync** and **Active/Standby**.
 
