@@ -261,16 +261,15 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 +-------------+----------------+---------------------------------------------------+
 
 
-
     - BIG-IP-A (Standby):
    
-.. image:: ../images/image227.png
+       .. image:: ../images/image227.png
 
 
     - BIG-IP-B (Active):
    
    
-.. image:: ../images/image228.png
+       .. image:: ../images/image228.png
 
 #. Verify Persistence Records
 
