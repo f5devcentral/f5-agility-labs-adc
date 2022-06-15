@@ -185,7 +185,7 @@ Architectures that are recomended for MAC masquerade:
 Traditional Datacenter deployments with BIG-IP applicances, Viprion or Velos Chassis
 
 Architectures that are **NOT** recommended for MAC masquerade:
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 BIG-IP Virtual Edition deployments on VMWare ESXi.
 

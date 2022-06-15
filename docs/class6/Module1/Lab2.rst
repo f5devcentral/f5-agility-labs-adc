@@ -23,7 +23,7 @@ In Task 1, we will define our respective DSC configuration items on each respect
 
 Use the following table for the respective configuration objects:
 
-.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task X
+.. note:: Initially, we will ONLY add our Data Interfaces to the Failover Network. This will showcase communication between BIG-IPs.  Management IP will be added in Task 5 below.
 
 +-----------------------------------------+---------------------------+-----------------+------------------+
 |Device Management Settings:              |Configuration Item / Object|BIG-IP-A IP's    | BIG-IP-B IP's    |
@@ -172,25 +172,28 @@ On device **bigipB.f5demo.com**, setup the Device Trust that will be used betwee
 
    .. image:: ../images/image36.png
 
-+-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
-| Question: | Why are both BIG-IPs Active / In Sync?                                                                                                                                                                                                |     |
-+===========+=======================================================================================================================================================================================================================================+=====+
-|| Answer:  || ConfigSync is communicating across HA VLAN, allowing Centralized Management Infrastructure (CMI) communication on TCP port 4353 (iQuery), so both BIG-IPs think sync-state is good. There is no Device Group established between the ||    |
-||          || BIG-IPs yet, so they remain in an Active/Active state. We will establish Device Group in the next task.                                                                                                                              ||    |
-+-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
-|| Bonus:   || The local mcpd process connects to the local TMM process using TCP port 6699. The local TMM then creates secure connections to remote CMI peer TMMs using TCP port 4353.                                                             ||    |
-||          || Note: CMI is also referred to as device service clustering (DSC).                                                                                                                                                                    ||    |
-||          ||                                                                                                                                                                                                                                      ||    |
-||          || .. code-block::                                                                                                                                                                                                                      ||    |
-||          ||    08:39:05.368035 IP 10.1.30.241.f5-iquery > 10.1.30.242.64426: Flags [.], ack 408, win 24252, length 0 in slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=HA_trunk trunk=                                         ||    |
-||          ||    08:39:05.368155 IP 10.1.30.242.64426 > 10.1.30.241.f5-iquery: Flags [.], ack 151, win 15559, length 0 out slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=1.3 trunk=HA_trunk                                     ||    |
-||          ||                                                                                                                                                                                                                                      ||    |
-||          ||  [root@bigipB:Active:In Sync (Trust Domain Only)] config # netstat -a | grep 6699                                                                                                                                                    ||    |
-||          ||   tcp6       0      0 localhost.localdom:6699 [::]:*                  LISTEN                                                                                                                                                         ||    |
-||          ||   tcp6       0      0 10.1.30.242:53398       10.1.30.241:6699        ESTABLISHED                                                                                                                                                    ||    |
-||          ||   tcp6       0      0 localhost.localdom:6699 10.1.30.241:42792       ESTABLISHED                                                                                                                                                    ||    |
-||          ||                                                                                                                                                                                                                                      ||    |
-+-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----+
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Question: | Why are both BIG-IPs Active / In Sync?                                                                                                                                                                 |
++===========+========================================================================================================================================================================================================+
+|| Answer:  || ConfigSync is communicating across HA VLAN, allowing Centralized Management Infrastructure (CMI) communication on TCP port 4353 (iQuery), so both BIG-IPs think sync-state is good.                   |
+||          || There is no Device Group established between the BIG-IPs yet, so they remain in an Active/Active state. We will establish Device Group in the next task.                                              |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+||  Bonus:  || The local mcpd process connects to the local TMM process using TCP port 6699. The local TMM then creates secure connections to remote CMI peer TMMs using TCP port 4353.                              |
+||          || Note: CMI is also referred to as device service clustering (DSC).                                                                                                                                     |
+||          ||                                                                                                                                                                                                       |
+||          ||                                                                                                                                                                                                       |
+||          ||     08:39:05.368035 IP 10.1.30.241.4353 > 10.1.30.242.64426: Flags [.], ack 408, win 24252, length 0 in slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=HA_trunk trunk=              |
+||          ||     08:39:05.368155 IP 10.1.30.242.64426 > 10.1.30.241.4353: Flags [.], ack 151, win 15559, length 0 out slot1/tmm1 lis=_cgc_outbound_/Common/bigipA.f5demo.com_6699 port=1.3 trunk=HA_trunk          |
+||          ||                                                                                                                                                                                                       |
+||          ||                                                                                                                                                                                                       |
+||          ||     [root@bigipB:Active:In Sync (Trust Domain Only)] config # netstat -a | grep 6699                                                                                                                  |
+||          ||     tcp6 0 0 localhost.localdom:6699 [::]:* LISTEN                                                                                                                                                    |
+||          ||     tcp6 0 0 10.1.30.242:53398 10.1.30.241:6699 ESTABLISHED                                                                                                                                           |
+||          ||     tcp6 0 0 localhost.localdom:6699 10.1.30.241:42792 ESTABLISHED                                                                                                                                    |
+||          ||                                                                                                                                                                                                       |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 
 Task 3:  Configure the Device Group
 ===================================
@@ -368,13 +371,13 @@ For more detailed information regarding Floating Self IPs, please refer to this 
 
 #. Create the respective Self IPs per the table above.
 
-    VLAN 10 Float:
+   VLAN 10 Float:
 
-    .. image:: ../images/image144.png
+   .. image:: ../images/image144.png
 
-    VLAN 20 Float:
+   VLAN 20 Float:
 
-    .. image:: ../images/image145.png
+   .. image:: ../images/image145.png
 
 #. After creation of your Floating Self IPs, your Self IP List should reflect the following on the **ACTIVE** BIG-IP:
    
