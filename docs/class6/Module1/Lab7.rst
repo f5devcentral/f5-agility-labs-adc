@@ -200,8 +200,9 @@ You will access our UDF Windows Jumphost via RDP for this Task.
 .. image:: ../images/image220.png
 
 #. Use the following credentials, and click the **OK** button:
-  - User Name = external_user
-  - Password =  admin.F5demo.com
+
+   - User Name = external_user
+   - Password =  admin.F5demo.com
 
 .. image:: ../images/image221.png
 
@@ -225,7 +226,7 @@ Task 6: Validate Persistence Information
 
 In this Task, we will confirm mirroring & persistence configuration is present on the BIG-IPs.  We will perform these validation tasks from our traffic management shell (tmsh).
 
-#.  From UDF, in your Components list, use the drop-down under Access of each BIG-IP and open a Web Shell:
+#. From UDF, in your Components list, use the drop-down under Access of each BIG-IP and open a Web Shell:
 
    .. image:: ../images/image225.png
 
@@ -235,9 +236,12 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 
 #. Verify the Client Connection to the Virtual Server:
 
-    - Use the following command from (tmos) prompt:  
-       - *show sys connection cs-server-addr 10.1.10.55*
+   - Use the following command from (tmos) prompt:  
 
+     .. code:: bash
+
+        show sys connection cs-server-addr 10.1.10.55
+  
 .. note:: If you are **NOT** seeing connection information, you may have to generate additonal traffic to your Virtual Server from your RDP Jumphost. Keep refreshing the web browser to create a session.
 
 
@@ -261,30 +265,30 @@ In this Task, we will confirm mirroring & persistence configuration is present o
 +-------------+----------------+---------------------------------------------------+
 
 
-    - BIG-IP-A (Standby):
+- BIG-IP-A (Standby):
    
-       .. image:: ../images/image227.png
+  .. image:: ../images/image227.png
 
 
-    - BIG-IP-B (Active):
+- BIG-IP-B (Active):
    
-   
-       .. image:: ../images/image228.png
+  .. image:: ../images/image228.png
 
 #. Verify Persistence Records
 
-    - Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
-       - *show ltm persistence persist-records all-properties*
+   - Review the persistence details for our connection.  Use the following tmsh command on EACH BIG-IP:
+      
+     .. code:: bash
 
-BIG-IP-A (Standby):
-   
-   .. image:: ../images/image229.png
+        show ltm persistence persist-records all-properties*
 
+- BIG-IP-A (Standby):
+   
+  .. image:: ../images/image229.png
 
-BIG-IP-B (Active):
+- BIG-IP-B (Active):
    
-   
-   .. image:: ../images/image230.png
+  .. image:: ../images/image230.png
 
 
 Lab Summary
