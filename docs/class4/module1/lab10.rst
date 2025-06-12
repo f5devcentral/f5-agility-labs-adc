@@ -29,7 +29,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
 
 #. Open Wireshark and open the hackazon-ssl.pcap file.
 
-#. Once we have the packet capture we will also need to enable the F5 TLS protocols in Wireshark:
+#. Once we have the packet capture we will also need to enable the F5 TLS protocols in Wireshark (only needed in Wireshark before version 4.2.  If 4.2 or newer is installed skip this step.):
 
    a. Go to Analyze, Enable Protocols
 
