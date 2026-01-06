@@ -94,7 +94,7 @@ a. Create a new self IP, for the **server_vlan** and **client_vlan**
 b. When you have completed your selfIP configuration, hit the **Finished**
    button. You should have something similar to the following:
 
-.. image:: ../../_static/class1/image14.png
+.. image:: ../images/image14.png
    :width: 5.84768in
    :height: 1.30208in
 
@@ -106,7 +106,7 @@ Assigning the Default Gateway
    a. Here is where we assign our default gateway (and other static
       routes as desired)
 
-.. image:: ../../_static/class1/image15.png
+.. image:: ../images/image15.png
    :width: 3.96875in
    :height: 2.33043in
 
@@ -143,7 +143,7 @@ statistical interfaces.
 1. From the sidebar select **Local Traffic >>** **Pools** then select
    **Create**. Here we will create our new pool
 
-.. image:: ../../_static/class1/image16.png
+.. image:: ../images/image16.png
    :width: 3.46998in
    :height: 3.07292in
 
@@ -178,7 +178,7 @@ b. Under **Resources**
 a. When you have complete your pool configuration, hit the **Finished**
    button
 
-.. image:: ../../_static/class1/image17.png
+.. image:: ../images/image17.png
    :width: 4.375in
    :height: 1.27287in
 
@@ -190,7 +190,7 @@ Now let’s build our virtual server
 1. Under **Local Traffic** select **Virtual Servers** then select
    **Create**.
 
-.. image:: ../../_static/class1/image18.png
+.. image:: ../images/image18.png
    :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML5118b969.PNG
    :width: 3.71994in
    :height: 3.08333in
@@ -224,7 +224,7 @@ b. Under **Configurations**
 
    ii. **Source Address Translation**: Auto Map
 
-  .. image:: ../../_static/class1/image19.png
+  .. image:: ../images/image19.png
       :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML58387b2.PNG
       :width: 2.97587in
       :height: 0.99517in
@@ -247,7 +247,7 @@ d. When you have complete your pool configuration, hit the **Finished**
 
 e. You have now created a Virtual Server
 
-.. image:: ../../_static/class1/image20.png
+.. image:: ../images/image20.png
    :width: 6.75892in
    :height: 1.44179in
 
@@ -260,7 +260,7 @@ e. You have now created a Virtual Server
 
    b. Refresh the browser screen several times (use “<ctrl>” F5)
 
-.. image:: ../../_static/class1/image21.png
+.. image:: ../images/image21.png
    :width: 2.65963in
    :height: 1.40625in
 
@@ -271,7 +271,7 @@ d. Go to **Statistics > Module Statistics > Local Traffic**
 
    i. Choose **Virtual Servers** from drop down
 
-.. image:: ../../_static/class1/image22.png
+.. image:: ../images/image22.png
    :width: 2.98593in
    :height: 1.44792in
 
@@ -327,7 +327,7 @@ Diagram for the IP address.
 
    a. Go to **Statistics>Dashboard**
 
-.. image:: ../../_static/class1/image23.png
+.. image:: ../images/image23.png
    :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML59e5bf2.PNG
    :width: 3.13542in
    :height: 1.81755in

@@ -20,7 +20,7 @@ Ratio Load Balancing
    **Members** from the top bar or you could click on the **Members**
    link in the Pool List screen.
 
-.. image:: ../../_static/class1/image69.png
+.. image:: ../images/image69.png
    :width: 5.35046in
    :height: 1.60014in
 
@@ -36,7 +36,7 @@ a. Note: When we created the pool, we performed all our configuration on
       methods have two options, **(Node)** or **(Member)**. You should know the
       difference between the two.
 
-.. image:: ../../_static/class1/image25.png
+.. image:: ../images/image25.png
    :width: 5.01042in
    :height: 2.59576in
 
@@ -50,7 +50,7 @@ d. Then under **Current Members**
 
        1. Change the **Ratio** of the member to 3
 
-.. image:: ../../_static/class1/image26.png
+.. image:: ../images/image26.png
    :width: 4.26042in
    :height: 4.04175in
 
@@ -106,7 +106,7 @@ fails.
       ii. Set the **Priority Group Activation** to **Less than …** **2**
           Available Members.
 
-.. image:: ../../_static/class1/image27.png
+.. image:: ../images/image27.png
    :width: 5.4375in
    :height: 2.03332in
 
@@ -118,7 +118,7 @@ c. Select the pool members **10.1.20.11** and **10.1.20.12** and set
    i. This will allow you to change the priority on that particular
       member.
 
-.. image:: ../../_static/class1/image28.png
+.. image:: ../images/image28.png
    :width: 4.49091in
    :height: 4.26042in
 
@@ -148,7 +148,7 @@ c. Select the pool members **10.1.20.11** and **10.1.20.12** and set
 
 ..
 
-   .. image:: ../../_static/class1/image29.png
+   .. image:: ../images/image29.png
       :width: 6.9739in
       :height: 1.24444in
 
@@ -181,7 +181,7 @@ Default Monitors
 
    b. Select the **Default Monitor** tab.
 
-.. image:: ../../_static/class1/image30.png
+.. image:: ../images/image30.png
    :width: 4.2837in
    :height: 2.06685in
 
@@ -213,7 +213,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
 3. Select **Local Traffic>Monitor** on the side-bar and select the plus
    (**+**) sign or the **Create**
 
-.. image:: ../../_static/class1/image32.png
+.. image:: ../images/image32.png
    :width: 3.78002in
    :height: 2.46226in
 
@@ -224,7 +224,7 @@ a. Now we can create a monitor to check the content of our web page to
 
    ii. **Type**: HTTP
 
-.. image:: ../../_static/class1/image33.png
+.. image:: ../images/image33.png
    :width: 1.93333in
    :height: 2.56016in
 
@@ -234,7 +234,7 @@ b. Once you have selected your parent (Type) monitor, you can access the **Confi
 
    ii.  In the Receive String box put “\ **200 OK**\ ” (no quotes)
 
-   .. image:: ../../_static/class1/image34.png
+   .. image:: ../images/image34.png
       :alt: Monitor configuration
       :scale: 75
 
@@ -245,7 +245,7 @@ c. Click **Finish** and you will be taken back to **Local
 
 ..
 
-   .. image:: ../../_static/class1/image35.png
+   .. image:: ../images/image35.png
       :width: 0.94444in
       :height: 0.55556in
 
@@ -266,7 +266,7 @@ c. Click **Finish** and you will be taken back to **Local
        window in the **Configuration** section and move it to the Active
        window.
 
-.. image:: ../../_static/class1/image36.png
+.. image:: ../images/image36.png
    :width: 3.76042in
    :height: 3.10417in
 
@@ -321,7 +321,7 @@ Simple (Source Address) Persistence
           a. From the **Persistence Profiles** screen select the **Create**
              button.
        
-         .. image:: ../../_static/class1/image37.png
+         .. image:: ../images/image37.png
             :scale: 75
       
        b. At the **New Persistence Profile** screen enter:
@@ -330,7 +330,7 @@ Simple (Source Address) Persistence
        
           ii. **Persistence** **Type**: Source Address Affinity
        
-       .. image:: ../../_static/class1/image38.png
+       .. image:: ../images/image38.png
           :width: 2.61621in
           :height: 2.04167in
        
@@ -374,7 +374,7 @@ Simple (Source Address) Persistence
       |
        g. Set the **Default Persistence Profile** to **my-src-persist**.
        
-       .. image:: ../../_static/class1/image39.png
+       .. image:: ../images/image39.png
           :width: 3.41667in
           :height: 1.90957in
        
@@ -391,7 +391,7 @@ Simple (Source Address) Persistence
        
           iii. Select **Persistence Records** for the **Statistics Type** menu
        
-       .. image:: ../../_static/class1/image40.png
+       .. image:: ../images/image40.png
           :width: 4.47075in
           :height: 2.22917in
        
@@ -414,7 +414,7 @@ Tab completion will make this a little easier
        2. Now, in this window you can watch you persistence records. You may
           want to set **Auto Refresh** to 20 seconds.
        
-       .. image:: ../../_static/class1/image41.png
+       .. image:: ../images/image41.png
           :width: 4.8125in
           :height: 1.80366in
        
@@ -445,7 +445,7 @@ Cookie Persistence (Cookie Insert)
        
        c. This brings us to the **Configuration** section.
        
-       .. image:: ../../_static/class1/image42.png
+       .. image:: ../images/image42.png
           :width: 3.59403in
           :height: 3.15625in
        
@@ -472,7 +472,7 @@ Cookie Persistence (Cookie Insert)
        
        g. Whoa! Did you just get this error message?
        
-       .. image:: ../../_static/class1/image43.png
+       .. image:: ../images/image43.png
           :width: 4.64151in
           :height: 1.83072in
        
@@ -489,7 +489,7 @@ Cookie Persistence (Cookie Insert)
           b. Go to **HTTP Profile (client)** in the **Configuration** section and select
              the default HTTP (**http**) profile.
        
-       .. image:: ../../_static/class1/image44.png
+       .. image:: ../images/image44.png
           :width: 3.13229in
           :height: 3.69328in
        
@@ -520,7 +520,7 @@ Cookie Persistence (Cookie Insert)
              .. tip::
                **Inspect** is your friend.  Learn to use it.  It will aid in debugging, iRules, monitors and more.
        
-            .. image:: ../../_static/class1/image45.png
+            .. image:: ../images/image45.png
                :alt: Inspect page window
                :scale: 50
                :align: center

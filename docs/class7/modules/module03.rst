@@ -22,7 +22,7 @@ Creating a Self-signed certificate and key
 1. Go to **System > Certificate Management > Traffic Certificate
    Management > SSL Certificates** **List** and select **Create**
 
-.. image:: ../../_static/class1/image52.png
+.. image:: ../images/image52.png
    :width: 5.83333in
    :height: 1.83891in
 
@@ -32,7 +32,7 @@ Certificate…**
 a. NOTE: The default key size is **2048**, you can save SSL resources on
    the **server-side** by lowering this key size.
 
-.. image:: ../../_static/class1/image53.png
+.. image:: ../images/image53.png
    :width: 2.60099in
    :height: 2.75581in
 
@@ -52,7 +52,7 @@ Creating SSL Client Profile
 1. Go to **Local** **Traffic>Profiles>SSL>Client** menu and select
    **Create**.
 
-.. image:: ../../_static/class1/image54.png
+.. image:: ../images/image54.png
    :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTMLf292a2.PNG
    :width: 2.15302in
    :height: 1.94805in
@@ -72,7 +72,7 @@ b. Under **Configuration** in the **Certificate Key Chain** section,
 
    ii. Select **Add**
 
-.. image:: ../../_static/class1/image55.png
+.. image:: ../images/image55.png
    :width: 2.23377in
    :height: 1.08439in
 
@@ -136,7 +136,7 @@ Securing web applications with the HTTP profile
 
       iv.  **Insert XForwarded For**: Enabled *(to save the original client ip)*
 
-         .. image:: ../../_static/class1/image56.png
+         .. image:: ../images/image56.png
             :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML566674e6.PNG
             :width: 3.25in
             :height: 3.44635in

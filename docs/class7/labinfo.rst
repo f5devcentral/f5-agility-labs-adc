@@ -54,6 +54,6 @@ take for each lab:
 | LAB 6 - Device Service Clusters (DSC)                | 10 minutes       |
 +------------------------------------------------------+------------------+
 
-.. |image0| image:: ../_static/class1/image3.jpg
+.. |image0| image:: images/image3.jpg
    :width: 12in
    :height: 10in

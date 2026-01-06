@@ -151,7 +151,7 @@ c. Click **Device Management > Device** and select the local BIG-IP. It will hav
 
 ..
 
-   .. image:: ../../_static/class1/image66.png
+   .. image:: ../images/image66.png
       :width: 4.5974in
       :height: 0.53243in
 
@@ -159,7 +159,7 @@ c. Click **Device Management > Device** and select the local BIG-IP. It will hav
 
 ..
 
-   .. image:: ../../_static/class1/image67.png
+   .. image:: ../images/image67.png
       :width: 4.51948in
       :height: 0.50506in
 
