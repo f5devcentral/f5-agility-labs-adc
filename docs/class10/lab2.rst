@@ -196,7 +196,12 @@ Click on Local Traffic -> Policies -> Policy List
 
 |lab322|
 
+Click on pur one policy to review the conditions/action:
 
+- Condition: HTTP URI path starts with /cluster1-bucket-a
+- Action: Forward to Cluster-2 pool
+
+|lab323|
 
 In Lab #1 we created an origin pool that was accessible via the Public Internet.
 This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
@@ -435,6 +440,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab321| image:: _static/b_warp_params_bucket_move.png
    :width: 800px
 .. |lab322| image:: _static/b_local_policy_list.png
+   :width: 800px
+.. |lab323| image:: _static/b_matching_condition.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
