@@ -86,7 +86,12 @@ In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be car
 
 
 
-Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
+In the BIG-IP Pool being used, called cluster1-write-quorum, click on the **Members / Statistics** tab and observe 1 marked **red**, this is the expected behavor.
+
+|lab406|
+
+Note that the red, down node in the above screenshot has no current TCP connections terminating upon it.
+
 
 .. image:: _static/lab3-appworld2025-topology-diagram.png
 
@@ -399,6 +404,8 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab404| image:: _static/c_connect_to_linux_host.png
    :width: 800px
 .. |lab405| image:: _static/c_ansible_take_one_node_down_2.png
+   :width: 800px
+.. |lab406| image:: _static/c_one_node_down.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
