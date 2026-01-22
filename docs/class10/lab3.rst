@@ -49,6 +49,31 @@ validity of the response. This monitor just checks for the HTTP return code, 200
   access token/secret to upload a small object, such as the current UNIX timestamp, and immediately downloading the object.
 - In this lab, the monitors are already applied to their respective pools.
 
+Task 2.  Run baseline workload (repesenting typical read/write load)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> Firefox**)
+
+- Select the target: **BigIP-cluster-1 (healthcheck + quorum)**
+- Select **all** three buckets.
+- Put sliders on **Duration** of 10 mins and **Concurrency** at 20 threads
+- Make sure that the IP address in WARP Parameters is a new BIG-IP virtual server at **10.1.40.162:9000**
+
+|lab402|
+
+Click the **Run Benchmark** button to start a long, ten minutes of high rate S3 load.
+
+|lab403|
+
+We observe all members of the pool cluster-1-write-quorum are getting close to the same number of total HTTP (S3) requests.
+
+Task 3.  Disable one node
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be careful not to inadvertently use WIN-JUMP-HOST).
+
+- Check the active user:
+
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
 
