@@ -14,6 +14,15 @@ and **data loss**.
 
 - Operators need automated controls to switch between **read/write** states, ensuring safe traffic handling.
 
+**Solution with BIG-IP LTM**
+
+BIG-IP integrates with MinIO health endpoints to monitor quorum readiness. With custom monitors, it can:
+
+- **Block writes** when quorum is lost.
+- **Shift traffic** to a read-only pool to keep dashboards and queries alive.
+- **Automatically restore writes** once quorum returns.
+- **Outcome**: AI workloads remain consistent and responsive even under node failures.
+
 
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
