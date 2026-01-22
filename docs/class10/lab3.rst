@@ -112,6 +112,26 @@ Notice that all nodes are down, however a few TCP connections remain active.  No
 virtual server, however existing transactions may run to completion.  Within seconds all nodes will display zero active connections.
 
 
+Task 5.  Read-only cluster & verification of failover
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An F5 iRule or policy could be configured to shift traffic from a pool that is no longer available to another. In
+our configuration, the cluster1-write-quorum automatically fails over to the cluster1-read-quorum pool.  The iRule used can be seen on the Resources
+tab of the virtual server named **minio-cluster-healthcheck**.
+
+Let's look at the pool that the iRule will now be directing S3 traffic towards.
+
+In **BIG-IP TMUI** open (Traffic -> Pools -> Pool List -> *cluster1-read-quorum* -> Members)
+
+Two nodes are shown as down (nodes 2 and 4), however there are **two healthy nodes** (nodes 1 and 3), which is sufficient to satisfy the
+read quorum, hence the pool can still operate to accept read operations.
+
+We see in the following screen, the two healthy nodes continue to handle transactions while unhealthy nodes reflect no active connections.
+
+|lab409|
+
+
+
 .. image:: _static/lab3-appworld2025-topology-diagram.png
 
 F5 Distributed Cloud AWS VPC Site
@@ -429,6 +449,8 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab407| image:: _static/c_take_down_second_node.png
    :width: 800px
 .. |lab408| image:: _static/c_all_nodes_down.png
+   :width: 800px
+.. |lab409| image:: _static/c_2_healthy_nodes.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
