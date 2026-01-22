@@ -138,13 +138,30 @@ transactions over time, once a threshold has been first exceeded.
 +---------------------------------------------------------------------------------------------------------------+
 
 
+Re-Run the WARP workload, now that the iRule is in place.
+
+**Expected:**
+
+- Active Connections drop aggressively
+- Cluster remains stable under the controlled load.
+
+|lab315|
 
 
 
+Task 4: Verification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-
++---------------------------------------------------------------------------------------------------------------+
+| 1.  Use the BIG-IP Dashboard to demonstrate the transactions per second has been brought down after           |                                             
+|     the initial trafficexceeds what the iRule will permit.                                                    |                                                                                  
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
+| |lab320|                                                                                                      |
+|                                                                                                               |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
 
 
 
@@ -383,6 +400,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab318| image:: _static/b_irule_attach.png
    :width: 800px
 .. |lab319| image:: _static/b_apply_irule.png
+   :width: 800px
+.. |lab320| image:: _static/b_irule_before_and_after.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
