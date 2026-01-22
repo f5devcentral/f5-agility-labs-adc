@@ -231,11 +231,34 @@ Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
 A complementary way to demonstrate this switch over in S3 delivery, based upon the local policy being invoked, is
 to use TMUI Pool Statistics and examing the current TCP connections delivering S3 data.
 
-At the moment the policy kicks in, the current connections count will drop to zero on cluster-1 nodes.   All traffic and current connections
+At the moment the policy kicks in, the current connections count will drop to **zero** on cluster-1 nodes.   All traffic and current connections
 will exclusively be seen on cluster-2.
 
 |lab326|
 
+
+Task 5: Generate Traffic for Multiple Buckets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Open the MinIO Warp bench tool (UDF -> Components -> Traffic-Gen -> Access -> Firefox)
+
+- Select the target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**
+
+- Select *all* buckets (not just bucket-a)
+
+- Place sliders at Duration 180 seconds and Concurrenct to 20 threads
+
+- Make sure the IP address in the Warp Parameters is set to the new BIG-IP virtual server **10.1.40.161:9000**
+
+Click **Run Benchmark** to start the S3 traffic load.
+
+**Expectation**:
+
+Traffic is still being sent to the VIP configured in the Virtual Server minio-cluster-migration,
+however it has a mix of different buckets. Because of the policy we previously applied, the traffic to Bucket A will be routed
+to the new clsuter Cluster-2, while all **other** buckets are being sent to the original cluster Cluster-1.
+
+|lab327|
 
 
 CE node in the public cloud. The only way the application can be accessed is via the RE nodes of Distributed Cloud.
@@ -481,6 +504,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab325| image:: _static/b_apply_local_policy.png
    :width: 800px
 .. |lab326| image:: _static/b_tmui_pool_stats_after_switch_over.png
+   :width: 800px
+.. |lab327| image:: _static/b-traffic_to_all_buckets.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
