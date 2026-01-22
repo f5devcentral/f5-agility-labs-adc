@@ -72,7 +72,18 @@ Task 3.  Disable one node
 
 In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be careful not to inadvertently use WIN-JUMP-HOST).
 
-- Check the active user:
+- Check the active user: #whoami
+- If it returns **root**, switch to user ubuntu: #su - ubuntu
+
+|lab404|
+
+- Change to /home/ubuntu/minio directory
+- run the ansible playbook $ansible-playbook cluster1-stop-one-node.yml
+
+|lab405|
+
+
+
 
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
@@ -380,6 +391,14 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab400| image:: _static/c_write_quorom_pool.png
    :width: 800px
 .. |lab401| image:: _static/c_health_monitor.png
+   :width: 800px
+.. |lab402| image:: _static/c_warp_params.png
+   :width: 800px
+.. |lab403| image:: _static/c_traffic_to_all_nodes.png
+   :width: 800px
+.. |lab404| image:: _static/c_connect_to_linux_host.png
+   :width: 800px
+.. |lab405| image:: _static/c_ansible_take_one_node_down.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
