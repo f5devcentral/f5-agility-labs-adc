@@ -467,7 +467,7 @@ We then connect to the AWS resource via it's Private IP address.
    :width: 800px
 .. |lab410| image:: _static/c_trans_write_to_read_quorum.png
    :width: 800px
-.. |lab409| image:: _static/c_back_to_steady_state.png
+.. |lab411| image:: _static/c_back_to_steady_state.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
