@@ -214,7 +214,7 @@ Let us now apply the local policy to the virtual server titled **minio-cluster-m
 
 - Add **ltm-migrate-cluster1-cluster2** policy and click **Finish**.   The policy is added to the virtual server immediately, rules with action take effect.
 
-|lab324|
+|lab325|
 
 
 **Verification**
@@ -225,7 +225,7 @@ Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
 - Click the 3 dots and choose "View" to increase the size to full screen.
 - For ease of display, alter the pools being graphed to only include Cluster-1 and Cluster-2
 
-|lab325|
+|lab324|
 
 
 This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
@@ -469,7 +469,7 @@ in AWS via the connection to the CE node in AWS.
    :width: 800px
 .. |lab324| image:: _static/b_traffic_switches_in_grafana.png
    :width: 800px
-.. |lab325| image:: _static/b_matching_condition.png
+.. |lab325| image:: _static/b_apply_local_policy.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
