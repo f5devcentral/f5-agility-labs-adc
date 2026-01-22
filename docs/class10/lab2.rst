@@ -63,23 +63,17 @@ of the excessive load being received.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following steps will validate access to the application via web browser, review the
-Performance Monitoring dashboard, and gather request details.
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).  The credentials are under lab        |
-|    Documentation tab (admin/admin).  If presented with Firefox "Restoring Pages" message, choose "Restore     |
-|    Session" button.   As well, permit the pop-up to allow access to clipboard.                                |
+| 1. Open BIG-IP TMUI (UDF → Components → BIG-IP 21 → Access → TMUI).  The credentials are under lab            |
+|    Documentation tab (admin/bigip123).                                                                        |
 |                                                                                                               |
-| 2. Select the cluster‑1 profile.                                                                              |
+| 2. Select Statistics -> Dashbaord                                                                             |
 |                                                                                                               |
-| 3. Select all 3 buckets, when selected for use they will appear in bright orange.                             |
+| 3. Set Dashboard type pulldown (upper left) to "LTM" and click under View (upper right) to "Minio-Cluster-1"  |
 |                                                                                                               |
-| 4. Set Duration to 3 minutes and Concurrency to 20 threads. Conncurrency refers to parallel S3 transactions.  |
+| 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.  |
 |                                                                                                               |
-| 5. In WARP Parameters, set Endpoint to 10.1.10.100:9000.                                                      |
-|                                                                                                               |
-| 6. Click Run Benchmark.                                                                                       |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab014|                                                                                                      |
 |                                                                                                               |
