@@ -1,0 +1,37 @@
+AI Data Delivery: Secure and Reliable Object Storage
+========================================================
+
+Welcome
+-------
+
+In this lab, attendees will be introduced to using F5 BIG-IP as an intelligent Application Delivery Controller (ADC) 
+for S3-compatible object storage.  
+
+Objectives:
+-----------
+
+- Implement high availability and efficient load distribution for an S3 cluster
+- Enforce fine-grained policy controls
+- Migrate S3 buckets to new object storage cluster
+- Route object storage traffic intelligently based on node and cluster health characteristics
+
+Lab & Tasks:
+------------
+
+The next page (Introduction) will cover the lab environment, access, and lab variables. The lab will be using a shared AWS account where we have deployed the following resources:
+
+- BIG-IP VE (LTM provisioned)
+- MinIO Clusters
+- NGINX webserver that only has a private IP address with no external access
+
+During the lab exercises we will explore different methods of protecting and exposing applications/webserver
+that are included in the lab
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Labs:
+   :glob:
+
+   intro*
+   lab*
+   close*
