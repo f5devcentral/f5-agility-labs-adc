@@ -6,6 +6,16 @@ AI data pipelines depend on **consistent, correct S3 access**. Storage failures 
 corrupted data, or stalled training jobs. Simply passing traffic to unhealthy nodes risks **pipeline disruption**
 and **data loss**.
 
+**Technical Problem**
+
+- Without quorum checks, clients may send writes when a cluster cannot maintain consistency.
+
+- Failures cascade into downstream AI jobs.
+
+- Operators need automated controls to switch between **read/write** states, ensuring safe traffic handling.
+
+
+
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
 
 .. image:: _static/lab3-appworld2025-topology-diagram.png
