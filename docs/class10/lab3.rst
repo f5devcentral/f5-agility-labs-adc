@@ -130,6 +130,19 @@ We see in the following screen, the two healthy nodes continue to handle transac
 
 |lab409|
 
+Open UDF -> AST -> Access -> Grafana; Select **Device Pools**.
+
+Elarge the Active Pool Connections chart, and select only pools cluster1-write-quarum and cluster1-read-quarum.
+
+If the WARP ten minute load generator was active when the ansible disater simulation playbook ran, taking down two nodes, one will be able
+to see this moment.
+
+Keep in mind, AST plots a data point only on one-minute boundaries thus the transitions in active connection will
+be expected to follow a slope.   As mentioned earlier, a node failing a health check and being removed from a pool may still finish
+supporting active connections for a number of seconds.
+
+|lab410|
+
 
 
 .. image:: _static/lab3-appworld2025-topology-diagram.png
@@ -451,6 +464,10 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab408| image:: _static/c_all_nodes_down.png
    :width: 800px
 .. |lab409| image:: _static/c_2_healthy_nodes.png
+   :width: 800px
+.. |lab410| image:: _static/c_trans_write_to_read_quorum.png
+   :width: 800px
+.. |lab409| image:: _static/c_back_to_steady_state.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
