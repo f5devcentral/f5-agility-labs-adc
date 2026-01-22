@@ -175,13 +175,27 @@ to a different (backup) cluster. This allows for very granual migrations and AI 
 |                                                                                                               |
 | 4. Use the sliders to set Duration to 10 mins and Concurrency to 20 threads                                   |
 |                                                                                                               |
-| 5. Make sure that the IP address in WARP Parameters is the BIG-IP VIP at  10.1.40.161:9000                    |
+| 5. Make sure that the IP address in WARP Parameters is a new BIG-IP VIP at  10.1.40.161:9000                    |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab321|                                                                                                      |
 |                                                                                                               |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
+
+Click Run Benchmark button in Warp to send load to the cluster.
+
+**Expected Result**  Traffic is targeting a new VIP configured in the Virtual Server *minio-cluster-migration*, which is
+the starting point of our scenario, where all traffic is being sent to the original cluster *Cluster-1*. Next we will
+attach an LTM "local traffic" policy, to strip out just the bucket A requests and forward them to a different pool/cluster
+*Cluster-2*.
+
+Go to the **BIG-IP TMUI**.
+
+Click on Local Traffic -> Policies -> Policy List
+
+|lab322|
+
 
 
 In Lab #1 we created an origin pool that was accessible via the Public Internet.
@@ -419,6 +433,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab320| image:: _static/b_irule_before_and_after.png
    :width: 800px
 .. |lab321| image:: _static/b_warp_params_bucket_move.png
+   :width: 800px
+.. |lab322| image:: _static/b_local_policy_list.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
