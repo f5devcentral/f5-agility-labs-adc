@@ -23,6 +23,18 @@ BIG-IP integrates with MinIO health endpoints to monitor quorum readiness. With 
 - **Automatically restore writes** once quorum returns.
 - **Outcome**: AI workloads remain consistent and responsive even under node failures.
 
+Task 1. Validate healthy write quorum
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In **BIG-IP TMUI**:
+- Navigate to Local **Traffic → Pools → cluster1-write-quorum**.
+- Confirm all 4 members are **green**.
+
+|lab400|
+
+
+
+
 
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
@@ -326,6 +338,8 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab312| image:: _static/screenshot-global-vip-private.png
    :width: 800px 
 .. |lab313| image:: _static/lab3-appworld2025-waf-block-message.png
-   :width: 800px 
+   :width: 800px
+.. |lab400| image:: _static/c_write_quorom_pool.png
+   :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
