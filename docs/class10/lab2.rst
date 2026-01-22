@@ -75,12 +75,30 @@ of the excessive load being received.
 | 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.     |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
-| |lab014|                                                                                                      |
+| |lab315|                                                                                                      |
 |                                                                                                               |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 
 
+
+Task 3: Apply Rate Limiting iRule
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following steps will demonstrate how one S3 source address may be throttled, allowing only a specific number of 
+transactions over time, once a threshold has been first exceeded.
+
+
++---------------------------------------------------------------------------------------------------------------+
+| 1. In BIG-IP TMUI go to Local Traffic -> iRules -> iRule List                                                 | 
+|                                                                                                               |
+| 2.  Choose "Show All" in list display control at bottom right of iRule list.                                  |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
+| |lab316|                                                                                                      |
+|                                                                                                               |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
 
 
 In Lab #1 we created an origin pool that was accessible via the Public Internet.
@@ -304,6 +322,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab313| image:: _static/lab3-appworld2025-waf-block-message.png
    :width: 800px 
 .. |lab314| image:: _static/b_warp_parameters_lab2.png
+   :width: 800px
+.. |lab315| image:: _static/b_dashboard_no_irule.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
