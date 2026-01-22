@@ -101,6 +101,18 @@ transactions over time, once a threshold has been first exceeded.
 +---------------------------------------------------------------------------------------------------------------+
 
 
++---------------------------------------------------------------------------------------------------------------+
+| 1. Open and review the iRule-RateLimit-Cluster1                                                               | 
+|                                                                                                               |
+| 2. This simple example has the iRule act as a gatekeeper, a unique source IP address may transact with a      |
+|    URL (eg an S3 endpoint) 10 times, after which new transactions are limited to with a rolling 6 second      |
+|    window used to re-admit new S3 commands.                                                                   |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
+| |lab317|                                                                                                      |
+|                                                                                                               |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
 In Lab #1 we created an origin pool that was accessible via the Public Internet.
 This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
 CE node in the public cloud. The only way the application can be accessed is via the RE nodes of Distributed Cloud.
@@ -326,6 +338,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab315| image:: _static/b_dashboard_no_irule.png
    :width: 800px
 .. |lab316| image:: _static/b_irule_list.png
+   :width: 800px
+.. |lab317| image:: _static/b_irule_shown.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
