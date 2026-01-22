@@ -228,7 +228,16 @@ Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
 |lab324|
 
 
-This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
+A complementary way to demonstrate this switch over in S3 delivery, based upon the local policy being invoked, is
+to use TMUI Pool Statistics and examing the current TCP connections delivering S3 data.
+
+At the moment the policy kicks in, the current connections count will drop to zero on cluster-1 nodes.   All traffic and current connections
+will exclusively be seen on cluster-2.
+
+|lab326|
+
+
+
 CE node in the public cloud. The only way the application can be accessed is via the RE nodes of Distributed Cloud.
 
 First, you will create an Origin Pool that refers to the "Private Endpoint" site in our lab environment.
@@ -470,6 +479,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab324| image:: _static/b_traffic_switches_in_grafana.png
    :width: 800px
 .. |lab325| image:: _static/b_apply_local_policy.png
+   :width: 800px
+.. |lab326| image:: _static/b_tmui_pool_stats_after_switch_over.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
