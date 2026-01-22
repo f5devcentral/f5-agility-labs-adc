@@ -13,7 +13,7 @@ Migrations need to be surgical and transparent, without requiring client reconfi
 - Data migrations require manual endpoint changes or application rewrites.
 - Lack of policy enforcement leads to instability and risk during transitions.
 
-**Solution wiht BIG-IP Local Traffic Manager (LTM)**
+**Solution with BIG-IP Local Traffic Manager (LTM)**
 
 - **iRules** can be applied to cap connections, control RPS, and enforce thresholds at the dataplane.
 - **Local Traffic Policies** redirect traffic based on bucket or host headers.
