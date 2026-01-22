@@ -398,7 +398,7 @@ We then connect to the AWS resource via it's Private IP address.
    :width: 800px
 .. |lab404| image:: _static/c_connect_to_linux_host.png
    :width: 800px
-.. |lab405| image:: _static/c_ansible_take_one_node_down.png
+.. |lab405| image:: _static/c_ansible_take_one_node_down_2.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
