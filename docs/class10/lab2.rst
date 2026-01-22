@@ -382,7 +382,7 @@ in AWS via the connection to the CE node in AWS.
    :width: 800px
 .. |lab318| image:: _static/b_irule_attach.png
    :width: 800px
-.. |lab319 image:: _static/b_apply_irule.png
+.. |lab319| image:: _static/b_apply_irule.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
