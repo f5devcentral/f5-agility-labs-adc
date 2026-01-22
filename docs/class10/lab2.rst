@@ -115,8 +115,8 @@ transactions over time, once a threshold has been first exceeded.
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. Attach the iRule to the Virtual Server in BIG-IP TMUI: Local Traffic -> Virtual Servers-> MinIO-Cluster-1  |                                                             | 
-|    (you will find iRules on the "Resources" tab of the Virtual Server configuration).                         |                                                                                  |
+| 1. Attach the iRule to the Virtual Server in BIG-IP TMUI: Local Traffic -> Virtual Servers-> MinIO-Cluster-1  |                                                             
+|    (you will find iRules on the "Resources" tab of the Virtual Server configuration).                         |                                                                                  
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab318|                                                                                                      |
