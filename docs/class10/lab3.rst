@@ -2,10 +2,9 @@
 Lab 3: Cluster Health Monitoring with Read/Write Quorum
 ====================================
 
-The application development team is hard at work at your company and recently deployed an application in AWS.  
-They have come to you and asked if you could configure customer access to this application with no exposure 
-to the Internet. You have been tasked to design and build this connectivity. You have chosen to leverage the 
-Distributed Cloud Customer Edge deployment model to provide secure reliable access to the AWS hosted application. 
+AI data pipelines depend on **consistent, correct S3 access**. Storage failures can lead to partial writes,
+corrupted data, or stalled training jobs. Simply passing traffic to unhealthy nodes risks **pipeline disruption**
+and **data loss**.
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
 
