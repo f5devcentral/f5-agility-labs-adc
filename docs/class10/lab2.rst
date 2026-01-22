@@ -72,7 +72,7 @@ of the excessive load being received.
 |                                                                                                               |
 | 3. Set Dashboard type pulldown (upper left) to "LTM" and click under View (upper right) to "Minio-Cluster-1"  |
 |                                                                                                               |
-| 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.  |
+| 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.     |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab014|                                                                                                      |
