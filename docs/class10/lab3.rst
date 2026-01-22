@@ -27,6 +27,7 @@ Task 1. Validate healthy write quorum
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In **BIG-IP TMUI**:
+
 - Navigate to Local **Traffic → Pools → cluster1-write-quorum**.
 - Confirm all 4 members are **green**.
 
