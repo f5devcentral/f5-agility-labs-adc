@@ -206,13 +206,26 @@ Click on our one policy to review the conditions/action:
 This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.
 To experiment with possible rules, one may add a new policy in the policy list screen and investigate rule possibilities.
 
-Let us now apply the local policy to the virtual server titled **minio-cluster-migration**
+Let us now apply the local policy to the virtual server titled **minio-cluster-migration** (not the original virtual server)
 
 - Find the virtual server and click **Edit** in the **Resources** tab
 
 - Click **Manage** button for **Policies**
 
 - Add **ltm-migrate-cluster1-cluster2** policy and click **Finish**.   The policy is added to the virtual server immediately, rules with action take effect.
+
+|lab324|
+
+
+**Verification**
+
+Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
+
+- In AST: Dashboards → BigIP - Device → Device Pools look at the key metrics, such as **Active Pool Connections**.
+- Click the 3 dots and choose "View" to increase the size to full screen.
+- For ease of display, alter the pools being graphed to only include Cluster-1 and Cluster-2
+
+|lab325|
 
 
 This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
@@ -453,6 +466,10 @@ in AWS via the connection to the CE node in AWS.
 .. |lab322| image:: _static/b_local_policy_list.png
    :width: 800px
 .. |lab323| image:: _static/b_matching_condition.png
+   :width: 800px
+.. |lab324| image:: _static/b_traffic_switches_in_grafana.png
+   :width: 800px
+.. |lab325| image:: _static/b_matching_condition.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
