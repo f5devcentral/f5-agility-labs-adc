@@ -92,6 +92,25 @@ In the BIG-IP Pool being used, called cluster1-write-quorum, click on the **Memb
 
 Note that the red, down node in the above screenshot has no current TCP connections terminating upon it.
 
+**Expectation:**  Write quorum still exists, as three nodes remain up, only one node is down.
+
+Task 4.  Disable a second node
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From the JumpHost shell, issue the following Ansible command to take down a second node in the pool.
+
+|lab407|
+
+Ansible takes out another node. However, because of the **write quorum** health check in the monitor, which uses a specific endpoint,
+the entire pool will be taken out because the healthcheck no longer returns 200 OK and therefore write write quorum isn't achieved.
+
+BIG-IP marks the entire pool as **red**.
+
+|lab408|
+
+Notice that all nodes are down, however a few TCP connections remain active.  No new S3 traffic will be proxied to these nodes by the corresponding
+virtual server, however existing transactions may run to completion.  Within seconds all nodes will display zero active connections.
+
 
 .. image:: _static/lab3-appworld2025-topology-diagram.png
 
@@ -406,6 +425,10 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab405| image:: _static/c_ansible_take_one_node_down_2.png
    :width: 800px
 .. |lab406| image:: _static/c_one_node_down.png
+   :width: 800px
+.. |lab407| image:: _static/c_take_down_second_node.png
+   :width: 800px
+.. |lab408| image:: _static/c_all_nodes_down.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
