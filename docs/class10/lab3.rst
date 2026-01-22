@@ -34,8 +34,20 @@ In **BIG-IP TMUI**:
 |lab400|
 
 
+**Expectation:** Pool entirely healthy; write quorum is satisfied.
 
+Review the Monitors, under Local Traffic, where you will see one for read and one for write quorum.
+Open the minio-health-check to see the configuration of the monitor.
 
+|lab401|
+
+A custom monitor allows one to specify URL to send requests to and custom strings on which to check the
+validity of the response. This monitor just checks for the HTTP return code, 200 Okay suggest server health.
+
+- Using HTTP "HEAD" as opposed to "GET" lowers network impact as only the HTTP response code is sent, no content is delivered
+- F5 provides more advanced monitors, Extended Application Verfication (EAV), allowing more advanced actions such as using an S3
+  access token/secret to upload a small object, such as the current UNIX timestamp, and immediately downloading the object.
+- In this lab, the monitors are already applied to their respective pools.
 
 
 Your design includes the following workflow **Client -> CE -> Protected application resource**.  Let's get started!
@@ -341,6 +353,8 @@ We then connect to the AWS resource via it's Private IP address.
 .. |lab313| image:: _static/lab3-appworld2025-waf-block-message.png
    :width: 800px
 .. |lab400| image:: _static/c_write_quorom_pool.png
+   :width: 800px
+.. |lab401| image:: _static/c_health_monitor.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
