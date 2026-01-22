@@ -126,6 +126,16 @@ transactions over time, once a threshold has been first exceeded.
 
 
 
++---------------------------------------------------------------------------------------------------------------+
+| 1. Within the Resources tab, click on Manage button.                                                          | 
+|                                                                                                               |
+| 2. Select the **iRule-RateLimit-Cluster1** from the list, click Finished.                                     |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
+| |lab319|                                                                                                      |
+|                                                                                                               |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
 
 
 
@@ -371,6 +381,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab317| image:: _static/b_irule_shown.png
    :width: 800px
 .. |lab318| image:: _static/b_irule_attach.png
+   :width: 800px
+.. |lab319 image:: _static/b_apply_irule.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
