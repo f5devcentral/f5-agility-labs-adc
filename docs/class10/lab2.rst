@@ -145,14 +145,6 @@ Re-Run the WARP workload, now that the iRule is in place.
 - Active Connections drop aggressively
 - Cluster remains stable under the controlled load.
 
-|lab315|
-
-
-
-Task 4: Verification
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 +---------------------------------------------------------------------------------------------------------------+
 | 1.  Use the BIG-IP Dashboard to demonstrate the transactions per second has been brought down after           |                                             
 |     the initial trafficexceeds what the iRule will permit.                                                    |                                                                                  
@@ -165,8 +157,31 @@ Task 4: Verification
 
 
 
+Task 4: Bucket Migration with Local Traffic Policies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This scenario addresses BIG-IP LTM applying traffic policy to route traffic that only targets a specific S3 bucket
+to a different (backup) cluster. This allows for very granual migrations and AI DAta delivery traffic controls.
 
 
++---------------------------------------------------------------------------------------------------------------+
+| 1. Open MinIO Warp tool (UDF → Components → Traffic-Gen → Access → Firefox).                                  |
+|    (from Documentation tab admin/admin).                                                                      |
+|                                                                                                               |
+| 2. Select the nwq target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**                                 |
+|                                                                                                               |
+| 3. Select only the cluster1-bucket-a bucket (Bucket A), which is present on both MinIO clusters               |
+|    configured in UDF.                                                                                         |
+|                                                                                                               |
+| 4. Use the sliders to set Duration to 10 mins and Concurrency to 20 threads                                   |
+|                                                                                                               |
+| 5. Make sure that the IP address in WARP Parameters is the BIG-IP VIP at  10.1.40.161:9000                    |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
+| |lab321|                                                                                                      |
+|                                                                                                               |
+|                                                                                                               |
++---------------------------------------------------------------------------------------------------------------+
 
 
 In Lab #1 we created an origin pool that was accessible via the Public Internet.
@@ -402,6 +417,8 @@ in AWS via the connection to the CE node in AWS.
 .. |lab319| image:: _static/b_apply_irule.png
    :width: 800px
 .. |lab320| image:: _static/b_irule_before_and_after.png
+   :width: 800px
+.. |lab321| image:: _static/b_warp_params_bucket_move.png
    :width: 800px
 .. |labend| image:: _static/labend.png
    :width: 800px
