@@ -196,14 +196,25 @@ Click on Local Traffic -> Policies -> Policy List
 
 |lab322|
 
-Click on pur one policy to review the conditions/action:
+Click on our one policy to review the conditions/action:
 
 - Condition: HTTP URI path starts with /cluster1-bucket-a
 - Action: Forward to Cluster-2 pool
 
 |lab323|
 
-In Lab #1 we created an origin pool that was accessible via the Public Internet.
+This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.
+To experiment with possible rules, one may add a new policy in the policy list screen and investigate rule possibilities.
+
+Let us now apply the local policy to the virtual server titled **minio-cluster-migration**
+
+- Find the virtual server and click **Edit** in the **Resources** tab
+
+- Click **Manage** button for **Policies**
+
+- Add **ltm-migrate-cluster1-cluster2** policy and click **Finish**.   The policy is added to the virtual server immediately, rules with action take effect.
+
+
 This lab exercise will create an origin pool that is not accessible via the Public Internet; in this case the application is local to the deployed
 CE node in the public cloud. The only way the application can be accessed is via the RE nodes of Distributed Cloud.
 
