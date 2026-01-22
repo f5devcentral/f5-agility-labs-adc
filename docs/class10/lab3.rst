@@ -143,6 +143,41 @@ supporting active connections for a number of seconds.
 
 |lab410|
 
+In the chart above, yellow reflects connection to the write-quorum pool and green represents read-quarum pool connections.
+
+**Client Impact:**  AIStor Read-only operations remain available, writes are paused.
+
+
+Task 6.  Restore the cluster
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On the JumpHost shell, issue the $ansible-playbook fix-disaster-minio.yml command to restore all nodes to health.
+
+*$cd /home/ubuntu/minio*
+
+*$ansible-playbook fix-disaster-minio.yml*
+
+If the ten-minute Warp load test from the previous task has completed, simply click the **Run Benchmark** button one more, for another
+ten minute S3 load.
+
+In the following, one can see the original Ansible disaster simulation script being run, followed by the Ansible "fix-disaster" recovery script.
+
+|lab411|
+
+**Expectation:**  Without any operator intervention, or requirements on the part of S3 client configuration, the entire S3 storage solution has recovered.
+Traffic destined for the **write-quarum pool** has automatically resumed handling reads and writes.
+
+
+Troubleshooting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Monitor shows red for all nodes:** Verify MinIO nodes are running; check custom monitor.
+
+- **Writes still allowed when quorum lost:** Ensure correct monitor assigned to pool.
+
+- **Traffic not shifting to read pool:** Check iRule/policy bindings on VIPs.
+
+
 
 
 .. image:: _static/lab3-appworld2025-topology-diagram.png
