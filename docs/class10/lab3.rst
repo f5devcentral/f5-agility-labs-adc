@@ -193,7 +193,7 @@ What You Learned - BIG-IP and AIStor Impact
 
 +-----------------------------------------------------------------------------------------------------------------------------------+
 | **End of Lab 3**.  Congratulations, you have successfully configured and secured S3 application access with F5 BIG-IP             |
-|                    and MinIO AIStor!  This marks the end of the lab.                                                              |
+|                                    and MinIO AIStor!  This marks the end of the lab.                                              |
 |                                                                                                                                   |
 +-----------------------------------------------------------------------------------------------------------------------------------+
 |  |labend|                                                                                                                         |
