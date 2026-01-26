@@ -291,61 +291,61 @@ What You Learned — Value of BIG-IP LTM
 |  |labend|                                                                                                                         |
 +-----------------------------------------------------------------------------------------------------------------------------------+
 
-.. |lab300| image:: _static/lab3-appworld2025-topology-diagram.png
+.. |lab300| image:: ../_static/lab3-appworld2025-topology-diagram.png
    :width: 800px
-.. |lab301| image:: _static/lab3-appworld2025-task1-originserverr.png
+.. |lab301| image:: ../_static/lab3-appworld2025-task1-originserverr.png
    :width: 800px
-.. |lab302| image:: _static/lab3-appworld2025-task2-lb-add-origin-pool.png
+.. |lab302| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool.png
    :width: 800px
-.. |lab303| image:: _static/lab3-appworld2025-task2-lb-add-origin-pool2.png
+.. |lab303| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool2.png
    :width: 800px
-.. |lab304| image:: _static/lab3-appworld2025-task2-lb-origin-pool-added.png
+.. |lab304| image:: ../_static/lab3-appworld2025-task2-lb-origin-pool-added.png
    :width: 800px
-.. |lab305| image:: _static/lab3-appworld2025-task2-lb-other-settings.png
+.. |lab305| image:: ../_static/lab3-appworld2025-task2-lb-other-settings.png
    :width: 800px
-.. |lab306| image:: _static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
+.. |lab306| image:: ../_static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
    :width: 800px
-.. |lab307| image:: _static/lab3-appworld2025-list-sites-advertise.png
+.. |lab307| image:: ../_static/lab3-appworld2025-list-sites-advertise.png
    :width: 800px
-.. |lab308| image:: _static/lab3-appworld2025-task2-lb-site-change.png
+.. |lab308| image:: ../_static/lab3-appworld2025-task2-lb-site-change.png
    :width: 800px
-.. |lab309| image:: _static/screenshot-global-vip-private.png
+.. |lab309| image:: ../_static/screenshot-global-vip-private.png
    :width: 800px
-.. |lab310| image:: _static/lab3-appworld2025-waf-block-message.png
+.. |lab310| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px
-.. |lab311| image:: _static/lab2-appworld2025-task2-lb.png
+.. |lab311| image:: ../_static/lab2-appworld2025-task2-lb.png
    :width: 800px 
-.. |lab312| image:: _static/screenshot-global-vip-private.png
+.. |lab312| image:: ../_static/screenshot-global-vip-private.png
    :width: 800px 
-.. |lab313| image:: _static/lab3-appworld2025-waf-block-message.png
+.. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px 
-.. |lab314| image:: _static/b_warp_parameters_lab2.png
+.. |lab314| image:: ../_static/b_warp_parameters_lab2.png
    :width: 800px
-.. |lab315| image:: _static/b_dashboard_no_irule.png
+.. |lab315| image:: ../_static/b_dashboard_no_irule.png
    :width: 800px
-.. |lab316| image:: _static/b_irule_list.png
+.. |lab316| image:: ../_static/b_irule_list.png
    :width: 800px
-.. |lab317| image:: _static/b_irule_shown.png
+.. |lab317| image:: ../_static/b_irule_shown.png
    :width: 800px
-.. |lab318| image:: _static/b_irule_attach.png
+.. |lab318| image:: ../_static/b_irule_attach.png
    :width: 800px
-.. |lab319| image:: _static/b_apply_irule.png
+.. |lab319| image:: ../_static/b_apply_irule.png
    :width: 800px
-.. |lab320| image:: _static/b_irule_before_and_after.png
+.. |lab320| image:: ../_static/b_irule_before_and_after.png
    :width: 800px
-.. |lab321| image:: _static/b_warp_params_bucket_move.png
+.. |lab321| image:: ../_static/b_warp_params_bucket_move.png
    :width: 800px
-.. |lab322| image:: _static/b_local_policy_list.png
+.. |lab322| image:: ../_static/b_local_policy_list.png
    :width: 800px
-.. |lab323| image:: _static/b_matching_condition.png
+.. |lab323| image:: ../_static/b_matching_condition.png
    :width: 800px
-.. |lab324| image:: _static/b_traffic_switches_in_grafana.png
+.. |lab324| image:: ../_static/b_traffic_switches_in_grafana.png
    :width: 800px
-.. |lab325| image:: _static/b_apply_local_policy.png
+.. |lab325| image:: ../_static/b_apply_local_policy.png
    :width: 800px
-.. |lab326| image:: _static/b_tmui_pool_stats_after_switch_over.png
+.. |lab326| image:: ../_static/b_tmui_pool_stats_after_switch_over.png
    :width: 800px
-.. |lab327| image:: _static/b-traffic_to_all_buckets.png
+.. |lab327| image:: ../_static/b-traffic_to_all_buckets.png
    :width: 800px
-.. |labend| image:: _static/labend.png
+.. |labend| image:: ../_static/labend.png
    :width: 800px

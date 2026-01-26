@@ -270,97 +270,97 @@ What You Learned - Value of BIG-IP LTM and AIStor
 | |labend|                                                                                                      |
 +---------------------------------------------------------------------------------------------------------------+
 
-.. |lab000| image:: _static/lab1-000.png
+.. |lab000| image:: ../_static/lab1-000.png
    :width: 800px
-.. |lab001| image:: _static/lab1-001.png
+.. |lab001| image:: ../_static/lab1-001.png
    :width: 800px
-.. |lab002| image:: _static/lab1-002.png
+.. |lab002| image:: ../_static/lab1-002.png
    :width: 800px
-.. |lab003| image:: _static/lab1-003.png
+.. |lab003| image:: ../_static/lab1-003.png
    :width: 800px
-.. |lab004| image:: _static/image_001_WARP_ui.png
+.. |lab004| image:: ../_static/image_001_WARP_ui.png
    :width: 800px
-.. |lab005| image:: _static/lab1-005.png
+.. |lab005| image:: ../_static/lab1-005.png
    :width: 800px
-.. |lab006| image:: _static/lab1-006.png
+.. |lab006| image:: ../_static/lab1-006.png
    :width: 800px
-.. |lab007| image:: _static/lab1-007.png
+.. |lab007| image:: ../_static/lab1-007.png
    :width: 800px
-.. |lab008| image:: _static/lab1-008.png
+.. |lab008| image:: ../_static/lab1-008.png
    :width: 800px
-.. |lab009| image:: _static/lab1-009.png
+.. |lab009| image:: ../_static/lab1-009.png
    :width: 800px
-.. |lab010| image:: _static/lab1-010.png
+.. |lab010| image:: ../_static/lab1-010.png
    :width: 800px
-.. |lab011| image:: _static/lab1-011.png
+.. |lab011| image:: ../_static/lab1-011.png
    :width: 800px
-.. |lab012| image:: _static/lab1-012.png
+.. |lab012| image:: ../_static/lab1-012.png
    :width: 800px
-.. |lab013| image:: _static/lab1-013.png
+.. |lab013| image:: ../_static/lab1-013.png
    :width: 800px
-.. |lab014| image:: _static/image_001_WARP_ui.png
+.. |lab014| image:: ../_static/image_001_WARP_ui.png
    :width: 800px
-.. |lab015| image:: _static/lab1-015.png
+.. |lab015| image:: ../_static/lab1-015.png
    :width: 800px
-.. |lab016| image:: _static/a_aistor_traffic_totals.png
+.. |lab016| image:: ../_static/a_aistor_traffic_totals.png
    :width: 800px
-.. |lab017| image:: _static/a_aistor_traffic_per_aistor2.png
+.. |lab017| image:: ../_static/a_aistor_traffic_per_aistor2.png
    :width: 800px
-.. |lab018| image:: _static/a_bigip_pool_members_start.png
+.. |lab018| image:: ../_static/a_bigip_pool_members_start.png
    :width: 800px
-.. |lab019| image:: _static/a_bigip-pool-statistics.png
+.. |lab019| image:: ../_static/a_bigip-pool-statistics.png
    :width: 800px
-.. |lab020| image:: _static/a_aistor_traffic_chart.png
+.. |lab020| image:: ../_static/a_aistor_traffic_chart.png
    :width: 800px
-.. |lab021| image:: _static/a_warp_setup.png
+.. |lab021| image:: ../_static/a_warp_setup.png
    :width: 800px
-.. |lab022| image:: _static/lab1-022.png
+.. |lab022| image:: ../_static/lab1-022.png
    :width: 800px
-.. |lab023| image:: _static/lab1-023.png
+.. |lab023| image:: ../_static/lab1-023.png
    :width: 800px
-.. |lab024| image:: _static/lab1-024.png
+.. |lab024| image:: ../_static/lab1-024.png
    :width: 800px
-.. |lab025| image:: _static/lab1-025.png
+.. |lab025| image:: ../_static/lab1-025.png
    :width: 800px
-.. |lab026| image:: _static/lab1-026.png
+.. |lab026| image:: ../_static/lab1-026.png
    :width: 800px
-.. |lab027| image:: _static/lab1-027.png
+.. |lab027| image:: ../_static/lab1-027.png
    :width: 800px
-.. |lab028| image:: _static/lab1-028.png
+.. |lab028| image:: ../_static/lab1-028.png
    :width: 800px
-.. |lab029| image:: _static/lab1-029.png
+.. |lab029| image:: ../_static/lab1-029.png
    :width: 800px
-.. |lab030| image:: _static/lab1-030.png
+.. |lab030| image:: ../_static/lab1-030.png
    :width: 800px
-.. |lab031| image:: _static/lab1-031.png
+.. |lab031| image:: ../_static/lab1-031.png
    :width: 800px
-.. |lab032| image:: _static/lab1-032.png
+.. |lab032| image:: ../_static/lab1-032.png
    :width: 800px
-.. |lab033| image:: _static/lab1-033.png
+.. |lab033| image:: ../_static/lab1-033.png
    :width: 800px
-.. |lab034| image:: _static/lab1-034.png
+.. |lab034| image:: ../_static/lab1-034.png
    :width: 800px
-.. |lab035| image:: _static/lab1-035.png
+.. |lab035| image:: ../_static/lab1-035.png
    :width: 800px
-.. |lab036| image:: _static/lab1-036.png
+.. |lab036| image:: ../_static/lab1-036.png
    :width: 800px
-.. |lab037| image:: _static/lab1-037.png
+.. |lab037| image:: ../_static/lab1-037.png
    :width: 800px
-.. |lab038| image:: _static/lab1-038.png
+.. |lab038| image:: ../_static/lab1-038.png
    :width: 800px
-.. |lab039| image:: _static/lab1-039.png
+.. |lab039| image:: ../_static/lab1-039.png
    :width: 800px
-.. |lab040| image:: _static/lab1-040.png
+.. |lab040| image:: ../_static/lab1-040.png
    :width: 800px
-.. |lab041| image:: _static/a_update_pool_members_list.png
+.. |lab041| image:: ../_static/a_update_pool_members_list.png
    :width: 800px
-.. |lab042| image:: _static/a_new_pool_member.png
+.. |lab042| image:: ../_static/a_new_pool_member.png
    :width: 800px
-.. |lab043| image:: _static/a_data_to_4th_node_big_ip.png
+.. |lab043| image:: ../_static/a_data_to_4th_node_big_ip.png
    :width: 800px
-.. |lab044| image:: _static/a_aistor_chart_showing_data.png
+.. |lab044| image:: ../_static/a_aistor_chart_showing_data.png
    :width: 800px
-.. |lab045| image:: _static/a_ast_overview_charts.png
+.. |lab045| image:: ../_static/a_ast_overview_charts.png
    :width: 800px
-.. |labend| image:: _static/labend.png
+.. |labend| image:: ../_static/labend.png
    :width: 800px

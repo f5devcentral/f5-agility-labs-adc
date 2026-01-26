@@ -33,5 +33,5 @@ that are included in the lab
    :glob:
 
    intro*
-   lab*
+   labs/lab*
    close*
