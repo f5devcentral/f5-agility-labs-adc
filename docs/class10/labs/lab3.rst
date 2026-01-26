@@ -200,57 +200,57 @@ What You Learned - BIG-IP and AIStor Impact
 +-----------------------------------------------------------------------------------------------------------------------------------+
 
 
-.. |lab300| image:: _static/lab3-appworld2025-topology-diagram.png
+.. |lab300| image:: ../_static/lab3-appworld2025-topology-diagram.png
    :width: 800px
-.. |lab301| image:: _static/lab3-appworld2025-task1-originserverr.png
+.. |lab301| image:: ../_static/lab3-appworld2025-task1-originserverr.png
    :width: 800px
-.. |lab302| image:: _static/lab3-appworld2025-task2-lb-add-origin-pool.png
+.. |lab302| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool.png
    :width: 800px
-.. |lab303| image:: _static/lab3-appworld2025-task2-lb-add-origin-pool2.png
+.. |lab303| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool2.png
    :width: 800px
-.. |lab304| image:: _static/lab3-appworld2025-task2-lb-origin-pool-added.png
+.. |lab304| image:: ../_static/lab3-appworld2025-task2-lb-origin-pool-added.png
    :width: 800px
-.. |lab305| image:: _static/lab3-appworld2025-task2-lb-other-settings.png
+.. |lab305| image:: ../_static/lab3-appworld2025-task2-lb-other-settings.png
    :width: 800px
-.. |lab306| image:: _static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
+.. |lab306| image:: ../_static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
    :width: 800px
-.. |lab307| image:: _static/lab3-appworld2025-list-sites-advertise.png
+.. |lab307| image:: ../_static/lab3-appworld2025-list-sites-advertise.png
    :width: 800px
-.. |lab308| image:: _static/lab3-appworld2025-task2-lb-site-changee.png
+.. |lab308| image:: ../_static/lab3-appworld2025-task2-lb-site-changee.png
    :width: 800px
-.. |lab309| image:: _static/screenshot-global-vip-private.png
+.. |lab309| image:: ../_static/screenshot-global-vip-private.png
    :width: 800px
-.. |lab310| image:: _static/lab3-appworld2025-waf-block-message.png
+.. |lab310| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px
-.. |lab311| image:: _static/lab3-appworld2025-task2-lb-updated.png
+.. |lab311| image:: ../_static/lab3-appworld2025-task2-lb-updated.png
    :width: 800px 
-.. |lab312| image:: _static/screenshot-global-vip-private.png
+.. |lab312| image:: ../_static/screenshot-global-vip-private.png
    :width: 800px 
-.. |lab313| image:: _static/lab3-appworld2025-waf-block-message.png
+.. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px
-.. |lab400| image:: _static/c_write_quorom_pool.png
+.. |lab400| image:: ../_static/c_write_quorom_pool.png
    :width: 800px
-.. |lab401| image:: _static/c_health_monitor.png
+.. |lab401| image:: ../_static/c_health_monitor.png
    :width: 800px
-.. |lab402| image:: _static/c_warp_params.png
+.. |lab402| image:: ../_static/c_warp_params.png
    :width: 800px
-.. |lab403| image:: _static/c_traffic_to_all_nodes.png
+.. |lab403| image:: ../_static/c_traffic_to_all_nodes.png
    :width: 800px
-.. |lab404| image:: _static/c_connect_to_linux_host.png
+.. |lab404| image:: ../_static/c_connect_to_linux_host.png
    :width: 800px
-.. |lab405| image:: _static/c_ansible_take_one_node_down_2.png
+.. |lab405| image:: ../_static/c_ansible_take_one_node_down_2.png
    :width: 800px
-.. |lab406| image:: _static/c_one_node_down.png
+.. |lab406| image:: ../_static/c_one_node_down.png
    :width: 800px
-.. |lab407| image:: _static/c_take_down_second_node.png
+.. |lab407| image:: ../_static/c_take_down_second_node.png
    :width: 800px
-.. |lab408| image:: _static/c_all_nodes_down.png
+.. |lab408| image:: ../_static/c_all_nodes_down.png
    :width: 800px
-.. |lab409| image:: _static/c_2_healthy_nodes.png
+.. |lab409| image:: ../_static/c_2_healthy_nodes.png
    :width: 800px
-.. |lab410| image:: _static/c_trans_write_to_read_quorum.png
+.. |lab410| image:: ../_static/c_trans_write_to_read_quorum.png
    :width: 800px
-.. |lab411| image:: _static/c_back_to_steady_state.png
+.. |lab411| image:: ../_static/c_back_to_steady_state.png
    :width: 800px
-.. |labend| image:: _static/labend.png
+.. |labend| image:: ../_static/labend.png
    :width: 800px
