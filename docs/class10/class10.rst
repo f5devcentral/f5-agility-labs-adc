@@ -22,9 +22,8 @@ The next page (Introduction) will cover the lab environment, access, and lab var
 
 - BIG-IP VE (LTM provisioned)
 - MinIO Clusters
-- NGINX webserver that only has a private IP address with no external access
 
-During the lab exercises we will explore different methods of protecting and exposing applications/webserver
+During the lab exercises we will explore different methods of protecting and exposing object storage services
 that are included in the lab
 
 .. toctree::
