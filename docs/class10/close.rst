@@ -1,33 +1,12 @@
 Conclusion
 ==========
 
-Thank you for your participation in the F5 Distributed Cloud Lab.
-This Lab Guide has highlighted how attendees can leverage F5 Distributed 
-Cloud security to protect hosted applications and resources.
-
-Appendix
-========
-**F5 Distributed Cloud Platform**:
-  * **Overview**: https://www.f5.com/cloud/products/platform-overview
-  * **Documentation Portal**: https://docs.cloud.f5.com/docs/
-  * **Services**: https://docs.cloud.f5.com/docs/services
-  * **Concepts**: https://docs.cloud.f5.com/docs/ves-concepts
-
-**F5 Distributed Cloud Web Application Firewall (WAF)**:
-  * **Intro**: https://www.f5.com/cloud/products/distributed-cloud-waf
-  * **How to**: https://docs.cloud.f5.com/docs/how-to/app-security/web-app-firewall
-
-**F5 Distributed Cloud BotDefense**:
-  * **Intro**: https://www.f5.com/cloud/products/bot-defense
-  * **How to**: https://docs.cloud.f5.com/docs/how-to/advanced-security/bot-defense
-
-**F5 Distributed Service Policies**:
-  * **How to**: https://docs.cloud.f5.com/docs/how-to/app-security/service-policy
-  * **How to**: https://docs.cloud.f5.com/docs/how-to/advanced-security/configure-ip-reputation
-
-**Automation/Orchestration**:
-  * **API:** https://docs.cloud.f5.com/docs/api
-  * **Terraform:** https://registry.terraform.io/providers/volterraedge/volterra/latest
+Thank you for taking the time to complete this lab. Through these hands-on exercises, you explored 
+how F5 BIG-IP can act as an intelligent application delivery control point for S3-compatible object 
+storage. You implemented high availability and load distribution, applied fine-grained policy controls, 
+migrated S3 buckets between clusters, and used health-aware routing to steer traffic based on node and 
+cluster conditions. Together, these tasks demonstrate how application delivery principles improve the 
+resilience, security, and operational flexibility of modern object storage environments.
 
 +----------------------------------------------------------------------------------------------+
 | F5 Networks, Inc. \| f5.com                                                                  |
