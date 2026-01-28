@@ -46,7 +46,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
       .. image:: ../images/enable-f5tls.jpeg
          :scale: 60%
 
-#. Apply the following filter in Wireshark: `f5ethtrailer.tls.keylog`. You should see 5 packets listed
+#. Apply the following filter in Wireshark: `f5ethtrailer.tls.keylog`. You should see around 20 packets listed since the capture contains the client and server flows.
 
 #. Click on the 1st packet in the list
 
@@ -57,12 +57,11 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
    .. image:: ../images/keylogvalue.png
       :scale: 80 %
 
-#. Now you would open a notepad document and paste the clipboard value into the doc and save it as session.pms.  You would need to do this for every packet that has the f5ethtrailer.tls.keylog value which could take a long time.
+#. Now you would open a notepad document and paste the clipboard value into the doc and save it as manual_session.pms.  You would need to do this for every packet that has the f5ethtrailer.tls.keylog value which could take a long time.
 
 #. The Pre Master Secret file will look similar to this after creating:
 
    .. image:: ../images/presecretfile.png
-      :scale: 80 %
 
 Automate Pre Master Secret File Creation
 ----------------------------------------
