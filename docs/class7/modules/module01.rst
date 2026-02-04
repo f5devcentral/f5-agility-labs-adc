@@ -17,7 +17,7 @@ First, you will need to log into **bigip01**. You will need create two untagged 
 1. From the sidebar select **Network** **> VLANs** then select
    **Create**
 
-.. image:: ../../_static/class1/image10.png
+.. image:: ../images/image10.png
    :width: 3.29032in
    :height: 2.625in
 
@@ -44,7 +44,7 @@ c. Under **Resources** in the **Interfaces** section:
    iii. Select the **Add** button. Leave all other items at the default
         setting.
 
-.. image:: ../../_static/class1/image11.png
+.. image:: ../images/image11.png
    :width: 2.39187in
    :height: 1.66681in
 
@@ -59,7 +59,7 @@ Assigning a Self IP addresses to your VLANs
 
 1. Go to **Network > Self IPs**, select **Create**.
 
-.. image:: ../../_static/class1/image12.png
+.. image:: ../images/image12.png
    :width: 5.8125in
    :height: 3.08766in
 
