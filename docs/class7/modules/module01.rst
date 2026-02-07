@@ -56,8 +56,8 @@ d. When you have completed your VLAN configuration, hit the
    When you are done, you should have two untagged VLANs, one on interface 1.1 and one on interface 1.2.
 
 .. image:: ../images/image11.1.png
-   :width: 50%
-   :height: 50%
+   :scale: 50%
+   :height: 1.66681in
 
 -------------------------------------------
 
