@@ -257,9 +257,9 @@ e. You have now created a Virtual Server
 .. note:: Items in the GUI that are blue are links ie. shortcuts
 
 2. Now let’s see if our virtual server works!
-     - **UDF** - from the ubu-jumpbox go to http://10.1.10.100
+     - **UDF** - log into your **Ubuntu Jumpbox via xRDP access method** using the credentials provided in Documentation section
 
-   a. Open the browser to the Virtual Server you just created
+   a. Open the browser from the bottom of the screen, go to the Virtual Server you just created http://10.1.10.100
 
    b. Refresh the browser screen several times (use “<ctrl>” F5)
 
@@ -294,9 +294,9 @@ f. Go to **Local** **Traffic>Pools>Statistics**
 
    a. Go to **System >> Archives** and select **Create**.
 
-      i. Name your archive **lab2_the_basics_net_pool_vs**
+      i. Name your archive **lab1_the_basics_net_pool_vs**
 
-ExtraCredit!
+**ExtraCredit!**
 ------------
 
 You can also review statistics via the CLI, simply SSH to the management
