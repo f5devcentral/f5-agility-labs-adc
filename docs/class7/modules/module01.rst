@@ -57,7 +57,7 @@ d. When you have completed your VLAN configuration, hit the
 
 .. image:: ../images/image11.1.png
    :width: 6.0in
-   :height: 1.66681in
+   :height: 1.2in
 
 -------------------------------------------
 
