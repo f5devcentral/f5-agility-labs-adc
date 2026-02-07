@@ -48,8 +48,7 @@ c. Under **Resources** in the **Interfaces** section:
    :width: 2.39187in
    :height: 1.66681in
 
-d. When you have completed your VLAN configuration, hit the
-    **Finished** button
+d. When you have completed your VLAN configuration, hit the **Finished** button
 
 .. important::
    Now create another untagged VLAN named **server_vlan** on interface **1.2,** following the same steps as above.
