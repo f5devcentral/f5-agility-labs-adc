@@ -307,7 +307,7 @@ Diagram for the IP address.
 
    a. Review the information of the following command:
 
-      i. **bigtop –n**
+      i. **export TERM=vt100; bigtop –n**
 
            1. Type **q** to quit.
 
@@ -331,12 +331,11 @@ Diagram for the IP address.
    a. Go to **Statistics>Dashboard**
 
 .. image:: ../images/image23.png
-   :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML59e5bf2.PNG
    :width: 3.13542in
    :height: 1.81755in
 
-b. Click the Big Red F5 ball. This will take you to the Welcome page.
-   Here you can find links to:
-
-   i. User Documentation, Running the Setup Utility, Support, Plug-ins,
-      SNMP MIBs
+b. This will take you to the BIG-IP Dashboard page. The F5 **BIG-IP Dashboard** in the Configuration utility provides real-time, customizable graphical views of system performance, including CPU usage, memory, network traffic (PPS, Mbps), and connection statistics. It allows users to create custom "view sets" combining data from various modules (LTM, DNS, AFM) to monitor application health and traffic flow.
+   
+   .. image:: ../images/dashboard.png
+   
+   Feel free to explore the dashboard and create your own view sets to monitor the performance of your virtual server and pool!
