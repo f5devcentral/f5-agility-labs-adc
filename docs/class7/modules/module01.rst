@@ -52,9 +52,13 @@ d. When you have completed your VLAN configuration, hit the
     **Finished** button
 
 .. important::
-   Now create another untagged VLAN named **server_vlan** on interface **1.2.**
+   Now create another untagged VLAN named **server_vlan** on interface **1.2,** following the same steps as above.
+   When you are done, you should have two untagged VLANs, one on interface 1.1 and one on interface 1.2.
 
-Assigning a Self IP addresses to your VLANs
+.. image:: ../images/image11.1.png
+   :width: 6in
+   :height: 3in
+
 -------------------------------------------
 
 1. Go to **Network > Self IPs**, select **Create**.
