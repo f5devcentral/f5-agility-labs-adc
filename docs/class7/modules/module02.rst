@@ -281,13 +281,13 @@ c. Click **Finish** and you will be taken back to **Local
     a. Browse to your **www_vs** virtual server. Which members are
        taking traffic?
 
-    b. Just for fun reverse the monitor. Go to Properties of the pool and change the Reverse setting to Yes. Update the pool and browse to your virtual server again.
+    b. Just for fun, let's reverse the monitor. Go to Properties of the pool and change the **Reverse** setting to **Yes**. Update the pool and browse to your virtual server again.
     
        Now when **200 OK** is returned it indicates the server is not responding successfully. You can
        see where this would be useful if you were looking for a 404 (bad
        page) response. 
        
-       Once completed, please go back and undo your changes to the monitor. 
+       Once completed, please go back and **undo** your changes to the monitor. 
 
 
 
@@ -352,7 +352,7 @@ Simple (Source Address) Persistence
                2. Each new IP address will create a new persistence record.
 
 .. hint::
-   You can’t change the settings until you have checked the Custom box.  Hey, I didn’t write the GUI, but actually this is very useful in knowing which configuration items were modified from the default.
+   You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
 
 |
           iii.  Click the Finished button.
@@ -386,7 +386,7 @@ Simple (Source Address) Persistence
        I. Testing Source Address Affinity
        
           i.   At this point you may want to open a second browser window to
-               the management GUI.
+               the management GUI of bigip01.
        
           ii.  For one management window go to **Statistics>Module
                Statistic>Local Traffic**
@@ -398,16 +398,14 @@ Simple (Source Address) Persistence
           :height: 2.22917in
        
        j. At this point you will see that Persistence Records statistics
-          display has been disabled in version 12.1. A TMSH database command is
+          display has been disabled by default. A TMSH database command is
           required to activate it.
        
-          i. SSH to you BIG-IP.
+          i. SSH to bigip01 or open a WebShelll session from the Access dropdown menu.
        
           ii. At the prompt enter: **tmsh**
        
           iii. At the TMSH prompt enter the command in the **Persistence Value** GUI.
-
-            .. admonition:: TMSH
 
                modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
                
