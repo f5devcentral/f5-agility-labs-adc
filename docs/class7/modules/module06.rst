@@ -7,7 +7,7 @@ Base Networking and HA VLAN
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You will be creating a high availability cluster using the second BIG-IP
-(**bigip2)** in your lab , so let’s prep our current BIG-IP and we will
+(**bigip02)** in your lab , so let’s prep our current BIG-IP and we will
 be creating a high availability VLAN.
 
 1. On **bigip01.f5demo.com** archive your configuration in case you need
@@ -22,7 +22,7 @@ b. You will be using your third interface (1.3) for Network Failover and
 
    i.  Build a new untagged VLAN **ha_vlan** on interface **1.3**
 
-   ii. Add a self-IP address to the VLAN, **10.1.30.245** net mask
+   ii. Add a self-IP name **ha_ip** and address **10.1.30.245** net mask
        **255.255.255.0.**
 
        1. Under **Port Lockdown**, select **Allow Default**, to open
@@ -31,8 +31,7 @@ b. You will be using your third interface (1.3) for Network Failover and
           a. Optionally you could select: **Allow Custom** and add TCP
              ports 4353,1026 and 6699
 
-1. Go to **https://10.1.1.246** which is **bigip02.f5demo.com** and
-   login with the credentials **admin/f5UDFrocks!**.
+1. Go to **bigip02.f5demo.com** and log into GUI with the credentials provided in Documentation section.
 
    a. **bigip02** has already been licensed and provisioned. You will
       need to set up the base networking. 
@@ -52,7 +51,7 @@ b. You will be using your third interface (1.3) for Network Failover and
 b. On the **ha_vlan** ip configure set **Port Lockdown** to **Allow
    Default**
 
-c. Build the default gateway destination **0.0.0.0**, mask **0.0.0.0**,
+c. Build the default gateway def_gw in Routes with destination **0.0.0.0**, mask **0.0.0.0**,
    gateway ip address **10.1.10.1**
 
 d. What is the status your BIG-IPs? Check the upper left-hand corner
@@ -65,7 +64,7 @@ Configure HA
    recommended renewing the BIG-IP self-signed certificate with valid
    information and re-generating the local Device Trust certificate.
 
-a. Under **System > Device Certificate > Device Certificate** select the
+a. Under **System > Certificate Management > Device Certificate Management** select the
    **Renew…** button
 
    i.   **Common Name**: <the Hostname of the BIG-IP in the upper left
@@ -79,7 +78,7 @@ a. Under **System > Device Certificate > Device Certificate** select the
            will fail.
 
    iv.  Select **Finished**. Your browser will ask to exchange certs
-        with the BIG-IP again.
+        with the BIG-IP again, and refresh the page.
 
 b. Under **Device Management > Device Trust > Local Domain** select
    **Reset Device Trust…**
@@ -91,37 +90,35 @@ b. Under **Device Management > Device Trust > Local Domain** select
    the BIG-IP will send to other BIG-IPs that want to be a part of a
    sync-only or sync-failover group.
 
-c. Click **Device Management > Device** and select the local BIG-IP. It will have the self suffix. 
+   Click **Device Management > Device** and select the local BIG-IP. It will have the self suffix. 
 
-      i.  Under **Device Connectivity** on the top bar select:
+      i.  On the top bar select **ConfigSync**.
 
-          1. **ConfigSync**
+          Use the Self IP address of the HA VLAN for your **Local Address**.
 
-          2. Use the Self IP address of the HA VLAN for your **Local Address**.
+          Hit **Update**
 
-          3. Hit **Update**
+      ii. On the top bar select **Failover Network**.
 
-      ii. **Network Failover**
-
-          1. In the **Failover Unicast Configuration** section select
+          In the **Failover Unicast Configuration** section select
              the **Add** button
 
-          2. Use the Self IP address the HA VLAN for your **Address**
+          Use the Self IP address the HA VLAN for your **Address**
 
-          3. Leave the **Port** at the default setting of 1026
+          Leave the **Port** at the default setting of 1026
 
-          4. **Note:** Multicast is for Viprion chasses only.
+          **Note:** Multicast is for Viprion chasses only.
 
-          5. Select **Finished**
+          Select **Finished**
 
-      iii. **Mirroring**
+      iii. On the top bar select **Mirroring**
 
-         1. **Primary Local Mirror Address**: use the Self IP address of
+         **Primary Local Mirror Address**: use the Self IP address of
             the HA VLAN for your
 
-         2. **Secondary Local Mirror Address:** None
+         **Secondary Local Mirror Address:** None
 
-         3. Select **Update**
+         Select **Update**
 
 2. On **bigip01.f5demo.com** build the Device Trust.
 
