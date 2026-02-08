@@ -143,7 +143,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
            Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
 
-   .. image:: ../images/image66.png
+         .. image:: ../images/image66.png
            
            **Is all the information there?**
 
@@ -151,7 +151,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
       
            **Do you see the first BIG-IP in the list?**  
 
-   .. image:: ../images/image67.png
+         .. image:: ../images/image67.png
 
 3. If some information is missing delete the trust and try again.
 
