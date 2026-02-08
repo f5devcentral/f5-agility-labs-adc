@@ -141,7 +141,8 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
       iv. Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
 
-         Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
+      Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
+
 
       .. image:: ../images/image66.png
 
@@ -151,6 +152,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
       
          Do you see the first BIG-IP in the list?
 
+ 
       .. image:: ../images/image67.png
 
    b. If some information is missing delete the trust and try again.
