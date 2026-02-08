@@ -153,7 +153,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
          .. image:: ../images/image67.png
 
-3. If some information is missing delete the trust and try again.
+   b. If some information is missing delete the trust and try again.
 
 4. What are the statuses of your BIG-IPs now?
 
