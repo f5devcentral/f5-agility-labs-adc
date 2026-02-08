@@ -33,8 +33,7 @@ Troubleshoot using TCPDump or Curl.
    a. First let’s see what if we are hitting the virtual server. At the
       Linux CLI prompt:
 
-      i. **tcpdump –i client_vlan host –X –s128 10.1.10.100 and
-         port 80**
+      i. **tcpdump -i client_vlan -X -s 128 'host 10.1.10.100 and port 80'**
 
          1. This is a little overkill, but a good example of syntax. We
             will only look at traffic headed for the virtual server, we
@@ -72,7 +71,7 @@ c. From the dump you can see you are are hitting the virtual server.  Your origi
 3. In the second SSH window we will do an expanded **tcpdump** for the
    sake of interest.
 
-   a. **tcpdump –i <server vlan name> -X –s128 host <client IP>**
+   a. **tcpdump –i server_vlan -X –s128 host <client IP>**
 
    b. Hit your virtual server again. You see packets with your client IP heading for the servers. They just aren’t responding. So we could reasonably suspect a server issue.
 
