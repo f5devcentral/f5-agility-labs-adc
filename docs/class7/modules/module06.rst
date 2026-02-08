@@ -151,16 +151,14 @@ b. Under **Device Management > Device Trust > Local Domain** select
 ..
 
    .. image:: ../images/image66.png
-      :width: 4.5974in
-      :height: 0.53243in
+
 
 3. If some information is missing delete the trust and try again.
 
 ..
 
    .. image:: ../images/image67.png
-      :width: 4.51948in
-      :height: 0.50506in
+
 
 4. What are the statuses of your BIG-IPs now?
 
