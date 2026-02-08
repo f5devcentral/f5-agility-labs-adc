@@ -139,7 +139,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
            2. Select **Device Certificate Matches**
 
-      iv.  Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
+      iv. Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
 
            Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
 
@@ -147,7 +147,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
            Is all the information there?
 
-      v.   Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
+      v. Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
       
            Do you see the first BIG-IP in the list?
 
