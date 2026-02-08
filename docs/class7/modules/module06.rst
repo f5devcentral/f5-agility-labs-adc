@@ -142,23 +142,18 @@ b. Under **Device Management > Device Trust > Local Domain** select
       iv.  Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
 
            Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
+
+   .. image:: ../images/image66.png
            
            **Is all the information there?**
 
       v.   Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
       
            **Do you see the first BIG-IP in the list?**  
-..
-
-   .. image:: ../images/image66.png
-
-
-3. If some information is missing delete the trust and try again.
-
-..
 
    .. image:: ../images/image67.png
 
+3. If some information is missing delete the trust and try again.
 
 4. What are the statuses of your BIG-IPs now?
 
@@ -200,7 +195,7 @@ b. Under **Device Management > Device Trust > Local Domain** select
       viii. Click the device with the configuration you want to
             synchronize. **Sync Options** should appear.
 
-      ix.   **Push the selected device configuration to the group**. It
+      ix.   **Push the selected device configuration to the group** should be selected by default so click on **Sync**. It
             could take up to 30 seconds for synchronization to complete.
 
             1. What are the statuses of your BIG-IPs? Do you have an
@@ -215,24 +210,24 @@ b. Under **Device Management > Device Trust > Local Domain** select
    a. Go to your **Active** BIG-IP.
 
    b. Go to your persistence profile **my-src-persistence** and check
-      the **Mirror Persistence** box.
+      the **Mirror Persistence** box and Update
 
    c. Go to your **www_vs** virtual server and set the **Default
       Persistence Profile** to **my-src-persistence.**
 
-   d. Synchronize your changes. Did the changes sync?
+   d. Your Active BIG-IP is now in **Changes Pending** state. Click on the status and **Sync** your changes. Did the changes sync?
 
    e. On each BIG-IP go to **Module Statistics > Local Traffic** and
       bring up the persistence record statistics.
 
-      i.  Go to the home page of you www_vs web service
+      i.  Log back into the RDP session of your Ubuntu Jumpbox, go to the home page of you www_vs web service
           (`http://10.1.10.100 <http://10.128.10.100>`__). Refresh a few
           times.
 
       ii. Check the persistence records on each of your BIG-IPs, you
           should see the records are mirrored on each device.
 
-7. Go to **Device Management > Traffic Groups**. As you can see the
+7. On your Active BIG-IP, go to **Device Management > Traffic Groups**. As you can see the
    default traffic group “\ **traffic-group-1**\ ” already exists.
 
    a. Select **traffic-group-1**, check out the page information and
