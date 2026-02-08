@@ -409,8 +409,10 @@ Simple (Source Address) Persistence
 
                modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
                
-Tab completion will make this a little easier
-            
+            Tab completion will make this a little easier
+
+          iv. Go to RDP session and refresh your virtual server page several times.
+
        2. Now, in this window you can watch you persistence records. You may
           want to set **Auto Refresh** to 20 seconds.
        
@@ -503,7 +505,7 @@ Cookie Persistence (Cookie Insert)
           a. If you wish you can watch the member statistics to validate your
              persistence.
        
-          b. Open a new browser session to your virtual server and refresh
+          b. Open a new browser in your RDP session to your virtual server and refresh
              several times.
        
           c. Does the page ever change?
