@@ -93,6 +93,8 @@ c. From the dump you can see you are are hitting the virtual server.  Your origi
 
    b. Hit your virtual server again. You see packets with your client IP heading for the servers. They just aren’t responding. So we could reasonably suspect a server issue.
 
+.. code::
+   
 19:23:24.394987 IP d95aecf4-7016-4b32-b8db-65d7f7af42d8.59358 > 10.1.20.12.http: Flags [S], seq 792828689, win 14600, options [mss 1460,nop,wscale 0,sackOK,TS val 994478442 ecr 0], length 0
         0x0000:  4500 003c 846e 4000 ff06 c539 0a01 0a06  E..<.n@....9....
         0x0010:  0a01 140c e7de 0050 2f41 9b11 0000 0000  .......P/A......
