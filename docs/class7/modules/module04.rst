@@ -18,7 +18,7 @@ servers.
 1. **Create** a new pool named **image_pool**, use the **http** monitor
    for status and add one member **10.1.20.14:80**.
 
-2. Go to **Local Traffic > iRules > iRules List** and select the create
+2. Go to **Local Traffic > iRules > iRules List** and select the Create
    button.
 
    a. **Names:** retrieve_images
@@ -35,9 +35,9 @@ servers.
       }
    }
    
-c. Select **FINISHED**
+c. Select **Finished**
 
-d. Note the highlighted content, hover the pointer over HTTP_REQUEST and HTTP::uri to
+d. Go back to the iRule Properties page, note the highlighted content, hover the pointer over HTTP_REQUEST and HTTP::uri to
    get information on the event and command.
 
 3. Go to **Local Traffic > Virtual Servers** and open the **secure_vs**
@@ -49,7 +49,7 @@ d. Note the highlighted content, hover the pointer over HTTP_REQUEST and HTTP::u
 
       i. What other profile did this iRule require to work?
 
-4. Test your iRule by going to https://10.1.10.105, you will want to
+4. Test your iRule by going to https://10.1.10.105 in your RDP session, you will want to
    use an incognito/private browsing window to avoid cached content.
 
 a. Test your iRule.  If you browse at your unsecured virtual server (10.1.10.100) you will see there are multiple colors to the images, but browser the secure virtual server and all the image colors are the same because all the images were pulled from the same server (10.1.20.14) 
@@ -78,13 +78,13 @@ use a BIG-IP policy.
 
    b. **Strategy:** Execute **first** matching rule.
 
-   c. **Create Policy**
+   c. Click on **Create Policy**
 
    .. image:: ../images/image58.png
       :width: 2.67708in
       :height: 1.36123in
 
-3. Now you can create/view policy rules. Select **Create**.
+3. Now you can create/view policy rules. Select Create in **Rules** section.
 
    a. **Name:** get_images
 
@@ -94,13 +94,13 @@ use a BIG-IP policy.
       i. Use the top drop down menu to select **HTTP URI**, on the next
          line of dropdown boxes select:
 
-         1. **extension ends_with any of** (**Add** *jpg* and *svg*) at
+         1. **extension, ends_with, any of** (**Add** *jpg* then *svg*) at
             **request** time
 
    c. Under **Do the following when the traffic is matched:** build the
       following operation.
 
-      i. **Forward Traffic** to **pool** **Common/image_pool** at
+      i. **Forward Traffic** to **pool**, **Common/image_pool** at
          **request** time.
 
    .. image:: ../images/image60.png
@@ -121,7 +121,7 @@ a. Select the **Save Draft Policy** drop-down menu and select **Save and
 
 5. Go to the **Resources** section of your **secure_vs** virtual server.
 
-a. For **iRules**, select **Manage** and REMOVE the **retrieves_images** iRule from the virtual server.
+a. For **iRules**, select **Manage** and REMOVE the **retrieves_images** iRule from the virtual server and click Finished.
 
 b. For **Policies**, select **Manage** and move **access_image_pool** from the **Available** box to the
    **Enabled** box and hit **Finished**

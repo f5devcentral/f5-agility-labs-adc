@@ -12,9 +12,9 @@ Objective:
 Troubleshoot using TCPDump or Curl.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Go to your **www_vs (10.1.10.100)** virtual server and set **Source Address Translation** to **None**.
+1. Go to your **www_vs (10.1.10.100)** virtual server and set **Source Address Translation** to **None** and click on Update.
 
-   a. Now browse the web site. You will not be able to access it even though
+   a. Now go to your RDP session and browse the web site. You will not be able to access it even though
       the status of the virtual is available.
 
       i. Because BIG-IP is not the server’s default gateway the server's response goes around the BIG-IP.
@@ -33,7 +33,7 @@ Troubleshoot using TCPDump or Curl.
    a. First let’s see what if we are hitting the virtual server. At the
       Linux CLI prompt:
 
-      i. **tcpdump –i <client vlan name> host –X –s128 10.1.10.100 and
+      i. **tcpdump –i client_vlan host –X –s128 10.1.10.100 and
          port 80**
 
          1. This is a little overkill, but a good example of syntax. We
