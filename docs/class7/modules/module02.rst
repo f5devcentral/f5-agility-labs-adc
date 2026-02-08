@@ -66,7 +66,7 @@ e. Select the **Update** button
    b. Reset the statistics for your **www_pool** pool by checking the
       boxes next to the pool members and hitting the **Reset** button
 
-      i.   Browse to your **www_vs** **(10.1.10.100)** virtual server
+      i.   Log back into Ubuntu Jumphost and browse to your **www_vs** **(10.1.10.100)** virtual server
 
       ii.  Refresh the browser screen several times (use “<ctrl>” F5)
 
@@ -128,9 +128,9 @@ c. Select the pool members **10.1.20.11** and **10.1.20.12** and set
 
    b. Reset the pool statistics.
 
-   c. Browse to your virtual server and refresh several times.
+   c. In your RDP session to Jumpbox, browse to your virtual server and refresh several times.
 
-   d. Refresh you statistics.
+   d. Refresh you statistics on bigip01.
 
    e. Are all members taking connections?
 
@@ -276,16 +276,18 @@ c. Click **Finish** and you will be taken back to **Local
 
     b. What is the status of the pool and its members?
 
-7. Go to **Local Traffic>Virtual Servers**, what is the status of your
-    virtual server?
+7. Go to **Local Traffic>Virtual Servers**, what is the status of your virtual server?
 
     a. Browse to your **www_vs** virtual server. Which members are
        taking traffic?
 
-    b. Just for fun reverse the monitor. Now when **200 OK** is returned
-       it indicates the server is not responding successfully. You can
+    b. Just for fun reverse the monitor. Go to Properties of the pool and change the Reverse setting to Yes. Update the pool and browse to your virtual server again.
+    
+       Now when **200 OK** is returned it indicates the server is not responding successfully. You can
        see where this would be useful if you were looking for a 404 (bad
-       page) response. Once completed, please go back and undo your changes to the monitor. 
+       page) response. 
+       
+       Once completed, please go back and undo your changes to the monitor. 
 
 
 
