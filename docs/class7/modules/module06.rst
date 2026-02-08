@@ -96,29 +96,27 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
           Use the Self IP address of the HA VLAN for your **Local Address**.
 
-          Hit **Update**
+          Hit **Update**.
 
       ii. On the top bar select **Failover Network**.
 
-          In the **Failover Unicast Configuration** section select
-             the **Add** button
+          In the **Failover Unicast Configuration** section select the **Add** button.
 
-          Use the Self IP address the HA VLAN for your **Address**
+          Use the Self IP address the HA VLAN for your **Address**.
 
-          Leave the **Port** at the default setting of 1026
+          Leave the **Port** at the default setting of 1026.
 
           **Note:** Multicast is for Viprion chasses only.
 
-          Select **Finished**
+          Select **Finished**.
 
-      iii. On the top bar select **Mirroring**
+      iii. On the top bar select **Mirroring**.
 
-         **Primary Local Mirror Address**: use the Self IP address of
-            the HA VLAN for your
+         **Primary Local Mirror Address**: use the Self IP address of the HA VLAN.
 
-         **Secondary Local Mirror Address:** None
+         **Secondary Local Mirror Address:** None.
 
-         Select **Update**
+         Select **Update**.
 
 2. On **bigip01.f5demo.com** build the Device Trust.
 
@@ -141,11 +139,15 @@ b. Under **Device Management > Device Trust > Local Domain** select
 
            2. Select **Device Certificate Matches**
 
-      iv.  Select **Add Device**.
+      iv.  Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
 
-           1. On each BIG-IP check the other BIG-IP in the **Peer
-              Authorities** list. **Is all the information there?**
+           Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
+           
+           **Is all the information there?**
 
+      v.   Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
+      
+           **Do you see the first BIG-IP in the list?**  
 ..
 
    .. image:: ../images/image66.png
