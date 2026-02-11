@@ -1,7 +1,7 @@
 Intro to F5OS : Migrating from iSeries
 ======================================
 
-bvl edits
+bvl is working on updates
 
  .. toctree::
    :maxdepth: 2
