@@ -1,10 +1,5 @@
-Appendix - Optional Packet Decryption Lab
-==========================================
-
-There may be times when you need to decrypt a capture for troubleshooting client or server behaviors.
-
-Decrypt with tcpdump --f5 ssl
------------------------------
+Decrypt with Tcpdump --f5 ssl Option
+====================================
 
 Beginning with v15.x of BIG-IP there is a tcpdump option that has been added that removes the requirement for an iRule to create a Pre Master Secret file.  A Pre Master Secret file is used to decrypt the PCAP data in a packet capture.  It can be imported into Wireshark to decrypt the data within each packet.  In order to do this do the following:
 

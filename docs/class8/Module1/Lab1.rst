@@ -1,197 +1,31 @@
-Lab 1: Configure BIG-IP Trunks, VLAN's, and Self-IP's
------------------------------------------------------
+Intro - UDF blueprint deployment
+================================
 
-In Lab 1, we will setup basic network-level settings on our BIG-IPs.  We will define Trunks, VLANs, and local Self IPs.  These configuration items will assist in establishing connectivity to/from our BIG-IPs, and between BIG-IPs.
+In order to begin you will need to go to F5's Unified Development Framework (UDF) site and launch the appropriate course. The following will walk you through that process.
 
-Lab Tasks:
-**********
+UDF blueprint deployment steps
+------------------------------
+To access the UDF course for this class follow the instructions below.
 
-* Task 1: Create BIG-IP Trunks
-* Task 2: Create BIG-IP VLANs
-* Task 3: Create BIG-IP Self IPs
+   #. Open a web browser and head to the following link `Unified Demo Framework <https://udf.f5.com/>`_.
+   #. Click on the Non-F5 Users selection.
+   #. Login with your existing F5 account or create a new account.
+   #. In the left navigation bar select Courses.
+   #. Search for "Instance Manager Templates" in the search bar under the Content tab.
+   #. Select "AppWorld 2025 - NGINX One - Instance Manager Templates" 
+   #. Select the Details button on the title screen.
+   #. Click the Details button on the blueprint in the lower right.
+   #. Select the Deploy option.
+   #. Select the Start option.
+   #. In the pop up window set the Autostop Duration to 4 hours.
+   #. Leave everything else default and click start.
 
-Task 1: Create BIG-IP Trunks
-============================
+The UDF deployment will take a few minutes to stand up. In the meantime feel free to read through the Documentation section of the deployment.
 
-In Task 1, we will define BIG-IP trunks.  These trunks will be used in subsequent labs, becoming part of our HA Group configuration.
+Recap
+-----
+You now have the following:
 
-#. On both BIG-IP devices, configure trunks under the Network configuration section.
-
-   Use the following table to create & define your three Trunks:
-
-   +----------------+----------------------+-------------------------+
-   | **Trunk Name** | **Interface Member** | **Description /         |
-   |                |                      | Function**              |
-   +================+======================+=========================+
-   | int_trunk      | 1.1                  | Trunk to simulate a     |
-   |                |                      | connection to internal  |
-   |                |                      | infrastructure          |
-   +----------------+----------------------+-------------------------+
-   | ext_trunk      | 1.2                  | Trunk to simulate a     |
-   |                |                      | connection to external  |
-   |                |                      | infrastructure          |
-   +----------------+----------------------+-------------------------+
-   | HA_trunk       | 1.3                  | Trunk to simulate a     |
-   |                |                      | high-availability       |
-   |                |                      | network connection      |
-   +----------------+----------------------+-------------------------+
-
-#. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk:
-
-   .. image:: ../images/image1.png
-
-#. Provide a Trunk Name, and move the respective Available interface to the "Members" section.
-
-#. Click Repeat to define your next trunk.
-
-   When you define the last trunk, you may select the "Finished" button
-
-   -  Internal Trunk:
-   
-    .. image:: ../images/image2.png
-
-
-    .. image:: ../images/image3.png
-
-   -  External Trunk:
-
-     .. image:: ../images/image4.png
-
-   -  HA Trunk:
-
-     .. image:: ../images/image5.png
-
-   -  View of Trunk List after creating all three trunks:
-
-     .. image:: ../images/image6.png
-
-
-Task 2: Create BIG-IP VLANs
-===========================
-
-In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associated with their respective trunk from Task 1.
-
-#. On both BIG-IP devices, configure VLANs under the Network configuration section.
-
-   Use the following table to create & define your three VLANs:
-
-   +------------+----+-----------+----------+
-   |Name        |Tag |Interface  | Tagging  |
-   +============+====+===========+==========+
-   |int_vlan_10 | 10 |int_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |ext_vlan_20 | 20 |ext_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |HA_vlan_30  | 30 |HA_trunk   | Untagged |
-   +------------+----+-----------+----------+
-
-#. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN:
-
-     .. image:: ../images/image7.png
-
-#. Create the respective VLANs per the table above.
-
-   -  Internal VLAN:
-
-     .. image:: ../images/image8.png
-
-     .. image:: ../images/image9.png
-
-   -  External VLAN:
-
-     .. image:: ../images/image10.png
-
-   -  HA VLAN:
-
-     .. image:: ../images/image11.png
-
-   -  View of the VLAN List after all VLANs have been defined, and associated to their respective Trunk:
-
-     .. image:: ../images/image12.png
-
-Task 3: Create BIG-IP Self IPs
-==============================
-
-In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will be our L3 connectivity to our BIG-IP networks.
-
-#. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
-
-   Use the following table to create & define your three Self IPs:
-
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
-   
-      * - BIG-IP
-        - Name
-        - IP address
-        - Netmask
-        - VLAN
-        - Port Lockdown
-      * - bigipA
-        - self_vlan10
-        - 10.1.10.241
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipA
-        - self_vlan20
-        - 10.1.20.241
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipA
-        - self_vlan30
-        - 10.1.30.241
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-      * - bigipB
-        - self_vlan10
-        - 10.1.10.242
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipB
-        - self_vlan20
-        - 10.1.20.242
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipB
-        - self_vlan30
-        - 10.1.30.242
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-
-
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
-
-     .. image:: ../images/image13.png
-
-#. Create the respective Self IPs per the table above.
-
-   -  Self IP, VLAN 10:
-
-     .. image:: ../images/image14.png
-
-   -  Self IP, VLAN 20:
-
-     .. image:: ../images/image15.png
-
-   -  Self IP, HA VLAN 30:
-
-     .. image:: ../images/image16.png
-
-   -  Example view of the Self IP List from BIG-IP-A after all Self IPs have been defined:
-
-     .. image:: ../images/image17.png
-
-
-Lab Summary
-***********
-In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
-
-This completes Lab 1.
+   - Logged into the UDF portal
+   - A working UDF deployment
+   - Access to the key Lab components

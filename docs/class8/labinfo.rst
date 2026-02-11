@@ -11,19 +11,19 @@ The following components have been included in your lab environment:
 
 #. F5 BIG-IP VE (bigip01)
 
-#. Ubuntu router
+#. Ubuntu router - For adding 200ms network latency between the client and BIGIP Virtual Servers
 
-#. Ubuntu Client
+#. Ubuntu Client - For generating test traffic
 
 #. Ubuntu Webserver
 
-#. Windows Client
+#. Windows Client - For Wireshark
 
 
 Lab Components
 ---------------
 
-The following table lists the management IP addresses and credentials for all components:
+The following table lists the management IP addresses and credentials for the components used in the labs:
 
 .. list-table:: 
    :widths: auto
@@ -39,3 +39,24 @@ The following table lists the management IP addresses and credentials for all co
      - Windows Client
      - 10.1.1.6
      - **labUser**:lab.F5demo.com
+
+Timing for Labs
+^^^^^^^^^^^^^^^
+
+The time it takes to perform each lab varies and is mostly dependent on
+accurately completing steps. This can never be accurately predicted but
+we strived to derive an estimate among several people each having a
+different level of experience. Below is an estimate of how long it will
+take for each lab:
+
++------------------------------------------------------+------------------+
+| LAB Name (Description)                               | Time Allocated   |
++======================================================+==================+
+| LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
++------------------------------------------------------+------------------+
+| LAB 2 - TCP Profile Tuning                           | 20 minutes       |
++------------------------------------------------------+------------------+
+| LAB 3 - HTTP Tuning                                  | 20 minutes       |
++------------------------------------------------------+------------------+
+| Appendix - Optional Packet Decryption Lab            | 15 minutes       |
++------------------------------------------------------+------------------+

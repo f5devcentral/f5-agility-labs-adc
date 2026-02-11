@@ -1,9 +1,9 @@
-BIG-IP HA - do it the proper way
-================================
+TMOS - Performance Tuning
+=========================
 
-This class covers covering High Availability with HA Groups, connection mirroring, persistence mirroring.
+This class covers performance tuning options with TMOS.  The lab will focus on TCP and HTTP tuning options.
 
-Expected time to complete: **1 hour**
+Expected time to complete: **1.5 hours**
 
 .. toctree::
    :maxdepth: 1

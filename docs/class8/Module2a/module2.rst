@@ -1,5 +1,5 @@
-Appendix - Decrypting Packet Captures
-=====================================
+Lab 2: HTTP Tuning
+==================
 
 The Appendix containes optional labs.  The information is useful when troubleshooting HTTPS application issues eithier with F5 Support or on your own.
 
