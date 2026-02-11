@@ -1,7 +1,7 @@
 Class 11 : Intro to F5OS
 ========================
 
-bvl dits
+bvl edits
 
 .. toctree::
    :hidden:
