@@ -1,14 +1,13 @@
-Class 11 : Intro to F5OS
-========================
+Intro to F5OS : Migrating from iSeries
+======================================
 
-bvl edits
+bvl is working on updates
 
-.. toctree::
-   :hidden:
-   :numbered:
+ .. toctree::
    :maxdepth: 2
-   :glob:
+   :caption: Contents
 
-   module*/module*
-
-
+   intro
+   exercise1
+   exercise2
+   exercise3
