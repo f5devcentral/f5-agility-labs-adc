@@ -21,20 +21,18 @@ Each component within the UDF deplyment has multiple connection methods from the
    User: labUser
    Password: lab.F5demo.com
 
-   #. Open a web browser and head to the following link `Unified Demo Framework <https://udf.f5.com/>`_.
-   #. Click on the Non-F5 Users selection.
-   #. Login with your existing F5 account or create a new account.
-   #. In the left navigation bar select Courses.
-   #. Search for "Instance Manager Templates" in the search bar under the Content tab.
-   #. Select "AppWorld 2025 - NGINX One - Instance Manager Templates" 
-   #. Select the Details button on the title screen.
-   #. Click the Details button on the blueprint in the lower right.
-   #. Select the Deploy option.
-   #. Select the Start option.
-   #. In the pop up window set the Autostop Duration to 4 hours.
-   #. Leave everything else default and click start.
+Option 2 - Access from the Windows-Client. (not needed?)
+-----------------------------------------
+Each component within the UDF deplyment has multiple connection methods from the **Access** dropdown.  Here is an example of the Access options for BIGIP01
 
-The UDF deployment will take a few minutes to stand up. In the meantime feel free to read through the Documentation section of the deployment.
+
+* For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
+
+   User: labUser
+   Password: lab.F5demo.com
+
+You can access the BIG-IP UI from Chrome
+
 
 Recap
 -----

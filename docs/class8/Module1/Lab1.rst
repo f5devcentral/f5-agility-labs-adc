@@ -1,4 +1,4 @@
-Intro - UDF blueprint deployment
+Intro - UDF Blueprint Deployment
 ================================
 
 In order to begin you will need to go to F5's Unified Development Framework (UDF) site and launch the appropriate course. The following will walk you through that process.
@@ -22,10 +22,3 @@ To access the UDF course for this class follow the instructions below.
 
 The UDF deployment will take a few minutes to stand up. In the meantime feel free to read through the Documentation section of the deployment.
 
-Recap
------
-You now have the following:
-
-   - Logged into the UDF portal
-   - A working UDF deployment
-   - Access to the key Lab components
