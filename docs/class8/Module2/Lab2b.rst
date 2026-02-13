@@ -38,7 +38,10 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
 #. From the left menu, select Local Traffic > Virtual Servers > Virtual Server List
 
   * Click on web01_vs1 then go to the the Resources tab where the iRule will be assigned.
-  * Click on the Manage button on the right of the iRule section
+
+  .. image:: ../images/iRule_vs_resources.png
+
+  * Click on the Manage button to the right of the iRule section
   
   .. image:: ../images/iRule_manage_button.png  
 
@@ -46,7 +49,7 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
   
   .. image:: ../images/iRule_Content-Assigment.png
   
-  * Click Finished button at the bottom of the page so save the change
+  * Click Finished button at the bottom of the page to save the change
   
 #. View the new log data from the BIG-IP command-line
 
@@ -56,7 +59,7 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
   
     tail -f /var/log/ltm | grep Content-Length
   
-  The files names in the lab contain their size but that is most likely not going to be the case in other environments,
+  The files names in the lab contain their size but that is most likely not going to be the case in other environments.  This traffic mix contains files 16KB to 3MB.
 
   Feb 12 13:04:41 bigip01.f5tcp.lab info tmm1[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
   Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /index.nginx-debian.html
@@ -69,6 +72,97 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
   Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 65536 - URI: /file_64kb.txt
   Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /file_16kd.txt
   Feb 12 13:04:42 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3915 - URI: /images/nginx_light.png
+
+
+#. Detach the iRule from the Virtual Server
+
+  Since you are connected to BIG-IP01 via SSH modify the web01_vs1 Virtual Server from tmsh
+  * type tmsh at the command Prompt
+  * Enter the following commands to remove the lab_ContentLength_rule iRule::
+
+      modify ltm virtual web01_vs1 rules none
+      save sys config
+
+  * Type 'q' and <enter> to exist tmsh
+  * Verify the iRule is no longer logging.  You may see a few log entries but it should not be scrolling::
+
+      tail -f /var/log/ltm | grep Content-Length
+
+  * Type <ctrl-c> to exit the tail command
+
+#. Create another iRule in the UI
+
+  * Go back to the previously opened BIGIP01 TMUI browser tab
+  * From the left menu, select Local Traffic > Virtual Servers > iRules > iRule List and click the '+' to create a new iRule
+    Use 'lab_response_rule' for the iRule name.  This rule will log URLs resulting in HTTP 4xx response codes.
+
+    Enter the following code
+
+  | when HTTP_REQUEST {
+  |   set reqURI [HTTP::uri]
+  | }
+  |
+  | when HTTP_RESPONSE {
+  |   set resCode [HTTP::status]
+  |   if { $resCode starts_with 4 } {
+  |      log local0. "Response Code: $resCode - URI: $reqURI" 
+  |   }
+  | }
+
+  * Click the update button at the bottom of the page to save the changes.
+  
+#. From the left menu, select Local Traffic > Virtual Servers > Virtual Server List
+
+  * Click on web01_vs1 then go to the the Resources tab where the iRule will be assigned.
+  * Click on the Manage button on the right of the iRule section
+  * Select rule lab_response_rule fromthe list on the right the click "<<" in the middle to assign the iRule to the Virtual server
+  * Click Finished button at the bottom of the page to save the change
+ 
+View the new log data from the BIG-IP command-line
+
+  * Open an SSH session to the BIG-IP from the UDF Components page.
+  .. image:: ../images/bigip_ssh_access.png
+  * Monitor the logs to see the content-length of the HTTP responses::
+  
+    tail -f /var/log/ltm | grep Content-Length
+  
+  The files names in the lab contain their size but that is most likely not going to be the case in other environments.  This traffic mix contains files 16KB to 3MB.
+
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm1[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /index.nginx-debian.html
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 1048576 - URI: /file_1mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 16384 - URI: /file_16kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 262144 - URI: /file_256kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /index.nginx-debian.html
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 65536 - URI: /file_64kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /file_16kd.txt
+  Feb 12 13:04:42 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3915 - URI: /images/nginx_light.png
+
+
+#. Detach the iRule from the Virtual Server
+
+  Since you are connected to BIG-IP01 via SSH modify the web01_vs1 Virtual Server from tmsh
+  * type tmsh at the command Prompt
+  * Enter the following commands to remove the lab_ContentLength_rule iRule::
+
+      modify ltm virtual web01_vs1 rules none
+      save sys config
+
+  * Type 'q' and <enter> to exist tmsh
+  * Verify the iRule is no longer logging.  You may see a few log entries but it should not be scrolling::
+
+      tail -f /var/log/ltm | grep Content-Length
+
+  * Type <ctrl-c> to exit the tail command
+
+
+
+
+
+
+
 
   * Use AVR to see what is happening on the system at the HTTP layer.
 
