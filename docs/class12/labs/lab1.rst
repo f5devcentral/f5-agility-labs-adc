@@ -27,7 +27,7 @@ Chat Name                  Model
 **First inital Last name** genai-azure-openai         
 ========================== ======================== 
       
-image::_static/lab1-chat.png
+image::../_static/lab1-chat.png
 :align: center
 :alt: Chat Setup
 
