@@ -17,9 +17,9 @@ image::_static/lab1-dashboard.png
 
 The create project dialog will appear. 
 Click the radio button to the left of CalypsoAI Chat and click the Create button.
-image::_static/lab1-create-project.png
-:align: center
-:alt: Create Project
+.. image::../_static/lab1-create-project.png
+   :align: center
+   :alt: Create Project
 Create the new chat project with the following details:
 ========================== ======================== 
 Chat Name                  Model                    
@@ -27,9 +27,9 @@ Chat Name                  Model
 **First inital Last name** genai-azure-openai         
 ========================== ======================== 
       
-image::../_static/lab1-chat.png
-:align: center
-:alt: Chat Setup
+.. image::../_static/lab1-chat.png
+   :align: center
+   :alt: Chat Setup
 
 You should now be in your new chat project.
 image::_static/lab1-chat-project.png
