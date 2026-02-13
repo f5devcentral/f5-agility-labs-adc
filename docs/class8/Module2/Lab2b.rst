@@ -1,313 +1,245 @@
-Lab 2:  Configure Device Service Cluster (DSC) High-Availability Settings
--------------------------------------------------------------------------
+Lab 1: Getting to Know Your Application Traffic
+===============================================
 
-In Lab 2, we will configure DSC configuration objects, which will assist with establishing a device-trust between BIG-IPs, allowing a successful highly-available Active/Standby BIG-IP pair.
-
-For addtional details on DSC, please refer to this Article: `BIG-IP Device Service Clustering: Administration <https://techdocs.f5.com/en-us/bigip-14-1-0/big-ip-device-service-clustering-administration-14-1-0.html>`_
+In Lab 1, you will see several options for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
 
 Lab Tasks:
 **********
-* Task 1: Define DSC HA Settings
-* Task 2: Configure & Verify Device Trust
-* Task 3: Configure the Device Group
-* Task 4: Setup MAC Masquerade on BIG-IP-A
-* Task 5: Create Floating Self IPs on BIG-IP-A
-* Task 6: Validate the Device Group Status
 
-Task 1:  Define Device Service Cluster High-Availability Settings
-=================================================================
+* Task 1: Review AVR Data
+* Task 2: Use iRules To Log Traffic Data
+* Task 3: Anything else?
 
-In Task 1, we will define our respective DSC configuration items.
+Task 2: Use iRules To Log Traffic Data
+--------------------------------------
 
-#. **Navigate to**: Device Management > Devices > click the (Self) hyperlink:
+If you do not have AVR provisioned and do not have the ablility to enable AVR since reprovisioning requires a full service restart on the BIG-IP, you can use iRules to log traffic data.  In most cases, these iRules would be just used temporarily as they have the potential for creating a lot of log traffic.  With iRules you have flexibility on what you want to log and where you want to apply the logging.  The iRules in the lab are only simple examples of what can be done.  The traffic generated in the lab is not very complex nor a high number of client connections so the iRules shown won't have a lot of client-specific filtering that may be required in an environment with more traffic.  We will create iRules and assigned them to Virtual Server(s) then remove the iRule assignment after collecting the needed log data.
+    
+#. From the left menu, select Local Traffic > Virtual Servers > iRules > iRule List and click the '+' to create a new iRule
 
-   .. image:: ../images/image18.png
+  .. image:: ../images/iRule_Create_plus.png
 
-#. Click the "ConfigSync" banner:
+    Use 'lab_ContentLength_rule' for the iRule name.  This rule will log the content-length of the HTTP responses passing through the system.  We will use this information later when tuning TCP profiles. You won't need to write down any of the specific sizes but just see what is happening - a lot of small, medium or large files.  Is it a mix of different size files?  Is is a lot of large files?
 
-   .. image:: ../images/image19.png
+  Enter the following code to log HTTP content-length anf the URL to local LTM log (/var/log/ltm) <<co
 
-#. Under the Local Address drop-down, select the HA VLAN 30 address, then click the Update button
+  | when HTTP_REQUEST {
+  |   set reqURI [HTTP::uri]
+  | }
+  |
+  | when HTTP_RESPONSE {
+  |   log local0. "Content-Length (Bytes): [HTTP::header value Content-Length] - URI: $reqURI" 
+  | }
 
-   .. image:: ../images/image20.png
+  .. image:: ../images/iRule_Content-Length.png
 
-#. Click the "Failover Network" banner, then the "Add" button:
+  Click the Update button at the bottom of the page to save the changes.  The iRule needs to be applied to a Virtual Server before it can log. the content-length.
 
-   .. image:: ../images/image21.png
+#. From the left menu, select Local Traffic > Virtual Servers > Virtual Server List
 
-#. From the New Failover Unicast Address drop-down, select the Management Address, and click the "Repeat" button:
+  * Click on web01_vs1 then go to the the Resources tab where the iRule will be assigned.
+  * Click on the Manage button on the right of the iRule section
+  
+  .. image:: ../images/iRule_manage_button.png  
 
-   .. image:: ../images/image115.png
+  * Select rule lab_ContentLength_rule fromthe list on the right the click "<<" in the middle to assign the iRule to the Virtual server
+  
+  .. image:: ../images/iRule_Content-Assigment.png
+  
+  * Click Finished button at the bottom of the page so save the change
+  
+#. View the new log data from the BIG-IP command-line
 
+  * Open an SSH session to the BIG-IP from the UDF Components page.
+  .. image:: ../images/bigip_ssh_access.png
+  * Monitor the logs to see the content-length of the HTTP responses::
+  
+    tail -f /var/log/ltm | grep Content-Length
+  
+  The files names in the lab contain their size but that is most likely not going to be the case in other environments,
 
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 10 address and click the "Repeat" button:
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm1[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /index.nginx-debian.html
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 1048576 - URI: /file_1mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 16384 - URI: /file_16kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 262144 - URI: /file_256kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /index.nginx-debian.html
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 65536 - URI: /file_64kb.txt
+  Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes):  - URI: /file_16kd.txt
+  Feb 12 13:04:42 bigip01.f5tcp.lab info tmm3[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3915 - URI: /images/nginx_light.png
 
-   .. image:: ../images/image22.png
+  * Use AVR to see what is happening on the system at the HTTP layer.
 
-#. From the New Failover Unicast Address drop-down, select the data-plane VLAN 20 address; click the "Finished" button:
+    Reset the view to Last hour from the top left dropdown.  Use the Response Code filter on the right side to see what cades are available.  With the lab traffic you will have at least 200, 301, and 404 and response codes available.  Let's use the filters to see what is happening beyond 200 responses.  Click on 301 and the graphs will update showing just the data related to 301 response codes.  Click on URLs above on the right to see what URLs are causing the 301 (redirects).
 
-   .. image:: ../images/image23.png
+  .. image:: ../images/avr_http_responses.png
 
-#. View of the Failover Unicast Configuration:
+    For lab, 301 responses are a result of redirect.html.  Redirects may be necessary or could be left over from a previous application migration.  You can take these results back to the application team(s) to see if redirects are expected.  It could be something as simple as clients requesting /login instead of /login/ that is causing the redirects.  Unneccesary redirects add time to the client connections and uses resources on the BIGIP and/or application servers.
 
-   .. image:: ../images/image24.png
+    Go back to the Resonse Codes filter and click 301 to deselect it, then click on 404.  Look at the URLs filter, it will show the cause of the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k**b**.txt not k**d**.txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
 
-#. Click the "Mirroring" banner:
+  .. image:: ../images/avr_http_typo.png
 
-   .. image:: ../images/image110.png
 
+<<Keep for code examples>>
+#. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk:
 
-#. From the Primary Local Mirror Adddress drop-down, select the HA VLAN 30 address, and click the "Update" button:
+   .. image:: ../images/image1.png
 
-   .. image:: ../images/image111.png
+#. Provide a Trunk Name, and move the respective Available interface to the "Members" section.
 
-To take advantage of Connection Mirroring, there are addtional BIG-IP configuration items to configure, specifically as it relates to the Virtual Server.  We will address this configuration in Lab 3.  
+#. Click Repeat to define your next trunk.
 
-For information on enabling connection mirroring for your Virtual Server, please refer to this link, `Enable connection mirroring for a virtual server <https://support.f5.com/csp/article/K84303332#s2>`_
+   When you define the last trunk, you may select the "Finished" button
 
-For more information on Connection Mirroring Configuration, please refer to Knowledge Article `K84303332 <https://support.f5.com/csp/article/K84303332>`_
-
-
-Task 2: Configure & Verify Device Trust between BIG-IPs
-=======================================================
-
-In Task 2, we will define the configuration to establish our device-trust between BIG-IPs.
-
-On device *bigipB.f5demo.com*, setup the Device Trust that will be used between BIG-IP systems
-
-NOTE: Observe the current status of EACH BIG-IP. Prior to this Task, they are both in an **Active / Standalone** state. Throughout this setup, observe the changes in BIG-IP behavior.
-
-.. list-table:: 
-   :widths: auto
-   :align: center
-   :header-rows: 1
-
-   * - State
-     - Notes
-     - bigipA
-     - bigipB
-   * - Prior to DSC configuration
-     - Both devices in "Standalone" state
-     -  .. image:: ../images/image25.png
-     -  .. image:: ../images/image26.png
-   * - During device peer join trust
-     - Both devices enter "Disconnected" state
-     -  .. image:: ../images/image27.png
-     -  .. image:: ../images/image28.png
-   * - After device peer join trust
-     - *Both* devices enter "Active / In Sync" state
-     -  .. image:: ../images/image29.png
-     -  .. image:: ../images/image30.png
-
-#. **Navigate to**: Device Management > Device Trust > Device Trust Members page, then click the "+" button to create a new Peer Device:
-
-   .. image:: ../images/image31.png
-
-#. Retrieve Device Credentials (Step 1 of 3):
-
-   Fill in the respective form items for *bigipA.f5demo.com*, then click the *Retrieve Device Information* button
-
-   .. image:: ../images/image32.png
-
-#. Verify Device Certificate (Step 2 of 3):
-
-   Confirm the device certificate information, then click the *Device Certificate Matches* button
-
-   .. image:: ../images/image33.png
-
-#. Add Device (Step 3 of 3):
-
-   Verify the device name, and click the *Add Device* button
-
-   .. image:: ../images/image34.png
-
-#. Verify *bigipA.f5demo.com*
-
-   Navigate to: Device Management --> Device Trust --> Device Trust Members
-
-   .. image:: ../images/image35.png
-
-#. Verify that *bigipB.f5demo.com* is shown in the Peer Device List:
-
-   .. image:: ../images/image36.png
-
-+-----------+---------------------------------------------------------+
-| Question: | Why are both BIG-IPs Active?                            |
-+===========+=========================================================+
-| Answer:   | There is no Device Group established between the        |
-|           | BIG-IPs yet . . . See next task                         |
-+-----------+---------------------------------------------------------+
-
-Task 3:  Configure the Device Group
-===================================
-
-In Task 3, we will define the device group on the BIG-IPs.
-
-On *bigipA.f5demo.com*, set up the new Device Group that will be used by
-both BIG-IP systems.
-
-#. **Navigate to**: Device Management > Device Groups page, and then click the "+" button:
-
-   .. image:: ../images/image37.png
-
-#. Create a Device Group using the following information, and then click Finished
-
-   +-------------+-------------------------------------------------------+
-   | Name        | [give device group a name]                            |
-   |             |                                                       |
-   |             | Example: bigip-a_bigip-b_dg                           |
-   +=============+=======================================================+
-   | Group Type  | Sync-Failover                                         |
-   +-------------+-------------------------------------------------------+
-   | Description | [OPTIONAL] provide a description                      |
-   |             |                                                       |
-   |             | Example: Sync-failover Device Group for BIG-IP A & B  |
-   +-------------+-------------------------------------------------------+
-   | Members     | Move both bipipA & bipipB *from the Available* column |
-   |             | to the *Includes* column                              |
-   +-------------+-------------------------------------------------------+
-
-   .. image:: ../images/image38.png
-
-   .. image:: ../images/image39.png
-
-Task 4:  Setup MAC Masquerade on BIG-IP-A
-=========================================
-
-In Task 4, we will setup MAC masquerading at the traffic-group level, allowing a "floating MAC" to be shared across the traffic-group.  
-
-To optimize the flow of traffic during failover events, you can configure MAC masquerade addresses for any defined traffic groups on the BIG-IP system. A MAC masquerade address is a unique, floating MAC address that you create. You can assign one MAC masquerade address to each traffic group on a BIG-IP device. 
-
-In Virtualized environments, there are some configuration caveats to be aware of; please review the **Notes** section in Article `K13502: Configuring MAC masquerade (11.x - 16.x) <https://support.f5.com/csp/article/K13502>`_
-
-First, we need to obtain a Unique MAC address to use for our MAC Masquerade.  We will leverage one of our Virtual Interfaces MACs; we'll flip the 1st MAC HEX value to "02."
-
-1.  **Navigate to**: Network > Interfaces, and copy the 1.1 MAC address to your "copy/paste" machine buffer:
+   -  Internal Trunk:
    
-    .. image:: ../images/image116.png
+    .. image:: ../images/image2.png
 
-2.  Now, **Navigate to**: Device Management > Traffic Groups > click the traffic-group-1 hyperlink:
+
+    .. image:: ../images/image3.png
+
+   -  External Trunk:
+
+     .. image:: ../images/image4.png
+
+   -  HA Trunk:
+
+     .. image:: ../images/image5.png
+
+   -  View of Trunk List after creating all three trunks:
+
+     .. image:: ../images/image6.png
+
+
+Task 2: Create BIG-IP VLANs
+===========================
+
+In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associated with their respective trunk from Task 1.
+
+#. On both BIG-IP devices, configure VLANs under the Network configuration section.
+
+   Use the following table to create & define your three VLANs:
+
+   +------------+----+-----------+----------+
+   |Name        |Tag |Interface  | Tagging  |
+   +============+====+===========+==========+
+   |int_vlan_10 | 10 |int_trunk  | Untagged |
+   +------------+----+-----------+----------+
+   |ext_vlan_20 | 20 |ext_trunk  | Untagged |
+   +------------+----+-----------+----------+
+   |HA_vlan_30  | 30 |HA_trunk   | Untagged |
+   +------------+----+-----------+----------+
+
+#. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN:
+
+     .. image:: ../images/image7.png
+
+#. Create the respective VLANs per the table above.
+
+   -  Internal VLAN:
+
+     .. image:: ../images/image8.png
+
+     .. image:: ../images/image9.png
+
+   -  External VLAN:
+
+     .. image:: ../images/image10.png
+
+   -  HA VLAN:
+
+     .. image:: ../images/image11.png
+
+   -  View of the VLAN List after all VLANs have been defined, and associated to their respective Trunk:
+
+     .. image:: ../images/image12.png
+
+Task 3: Create BIG-IP Self IPs
+==============================
+
+In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will be our L3 connectivity to our BIG-IP networks.
+
+#. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
+
+   Use the following table to create & define your three Self IPs:
+
+   .. list-table:: 
+      :widths: auto
+      :align: center
+      :header-rows: 1
    
-    .. image:: ../images/image117.png
+      * - BIG-IP
+        - Name
+        - IP address
+        - Netmask
+        - VLAN
+        - Port Lockdown
+      * - bigipA
+        - self_vlan10
+        - 10.1.10.241
+        - 255.255.255.0
+        - int_vlan_10
+        - Allow None (default)
+      * - bigipA
+        - self_vlan20
+        - 10.1.20.241
+        - 255.255.255.0
+        - ext_vlan_20
+        - Allow None (default)
+      * - bigipA
+        - self_vlan30
+        - 10.1.30.241
+        - 255.255.255.0
+        - HA_vlan_30
+        - Allow None (default)
+      * - bigipB
+        - self_vlan10
+        - 10.1.10.242
+        - 255.255.255.0
+        - int_vlan_10
+        - Allow None (default)
+      * - bigipB
+        - self_vlan20
+        - 10.1.20.242
+        - 255.255.255.0
+        - ext_vlan_20
+        - Allow None (default)
+      * - bigipB
+        - self_vlan30
+        - 10.1.30.242
+        - 255.255.255.0
+        - HA_vlan_30
+        - Allow None (default)
 
-3.  In the MAC Masquerade Address Field, paste the previously saved MAC Address:
-   
-    .. image:: ../images/image118.png
-
-    Replace the "52" with "02" and click Save
-
-    .. image:: ../images/image119.png
-
-
-Task 5:  Create Floating Self IPs on BIG-IP-A
-=============================================
-
-In Task 5, we will define Floating Self IP Objects on the BIG-IP-A, which are shared objects between an Active/Standby BIG-IP pair.  
-
-On the BIG-IP-A, create the following Floating Self IP Objects.  These will be shared configuration objects that will be synced in Lab 3.  Only create the Floating Self IPs on BIG-IP-A:
-
-Use the following table to create & define your three Self IPs:
-
-.. list-table:: 
-   :widths: auto
-   :align: center
-   :header-rows: 1
-
-   * - BIG-IP
-     - Name
-     - IP address
-     - Netmask
-     - VLAN
-     - Port Lockdown
-   * - bigipA
-     - self_vlan10_float
-     - 10.1.10.240
-     - 255.255.255.0
-     - int_vlan_10
-     - Allow None (default)
-   * - bigipA
-     - self_vlan20_float
-     - 10.1.20.240
-     - 255.255.255.0
-     - ext_vlan_20
-     - Allow None (default)
-   * - bigipA
-     - self_vlan30_float
-     - 10.1.30.240
-     - 255.255.255.0
-     - HA_vlan_30
-     - Allow None (default)
 
 #. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
 
-   .. image:: ../images/image13.png
+     .. image:: ../images/image13.png
 
 #. Create the respective Self IPs per the table above.
 
-   VLAN 10 Float:
+   -  Self IP, VLAN 10:
 
-   .. image:: ../images/image144.png
+     .. image:: ../images/image14.png
 
-   VLAN 20 Float:
+   -  Self IP, VLAN 20:
 
-   .. image:: ../images/image145.png
+     .. image:: ../images/image15.png
 
-   VLAN 30 Float:
+   -  Self IP, HA VLAN 30:
 
-   .. image:: ../images/image146.png
+     .. image:: ../images/image16.png
 
-   After creation of your Floating Self IPs, your Self IP List should reflect the following on BIG-IP-A:
-   
-   .. image:: ../images/image147.png
+   -  Example view of the Self IP List from BIG-IP-A after all Self IPs have been defined:
 
-Task 6:  Validate the Device Group Status
-=========================================
+     .. image:: ../images/image17.png
 
-In Task 6, you will observe the current Active/Standby HA state.
-
-#. Observe the state of each BIG-IP after Device Group creation
-
-   - bigipA:
-
-     .. image:: ../images/image40.png
-
-   - bigipB:
-
-     .. image:: ../images/image41.png
-
-#. Review the Device Management Overview screen
-
-#. Attempt the "Recommendation action", and "Sync."
-
-   .. image:: ../images/image42.png
-
-   +-----------+---------------------------------------------------------+
-   | Question: | Were you able to syncronize the devices?                |
-   +===========+=========================================================+
-   | Answer:   |                                                         |
-   +-----------+---------------------------------------------------------+
-
-#. Review the Overview status screen
-
-   - bigipA:
-
-     .. image:: ../images/image43.png
-
-   - bigipB:
-
-     .. image:: ../images/image44.png
-
-
-   +-----------+---------------------------------------------------------+
-   | Question: | Why are both BIG-IPs still ACTIVE?                      |
-   +===========+=========================================================+
-   | Answer:   | Both devices view their peer as "Device is Offline" due |
-   |           | to the current Self IP Port Lockdown behavior on the HA |
-   |           | VLAN.                                                   |
-   +-----------+---------------------------------------------------------+
 
 Lab Summary
 ***********
-In this lab, you setup BIG-IP Device Service Clustering (DSC) configuration settings.  After completion of these lab tasks, you should have the required configuration to assist in establishing your DSC between BIG-IPs.  These configuration objects will assist with the subsequent labs.
+In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
 
-This completes Lab 2.
+This completes Lab 1.
