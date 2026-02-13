@@ -11,12 +11,14 @@ Task 1: Create project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After logging into the platform you access the Dashboard. From here click on Projects on the left-hand menu.
+
 .. image:: ../_static/lab1-dashboard.png
    :align: center
    :alt: Dashboard
 
 The create project dialog will appear. 
 Click the radio button to the left of CalypsoAI Chat and click the Create button.
+
 .. image:: ../_static/lab1-create-project.png
    :align: center
    :alt: Create Project
