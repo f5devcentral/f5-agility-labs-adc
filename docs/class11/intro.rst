@@ -1,9 +1,5 @@
-.. contents::
-   :depth: 2
-   :local:
-
-Intro to F5OS : Migrating to rSeries
-====================================
+Welcome
+=======
 
 
 Welcome to the F5OS Migration rSeries lab! In this lab, you will explore the F5OS-A platform layer used by the rSeries appliances and follow a step-by-step example of migrating an iSeries configuration to an rSeries BIG-IP tenant. 
@@ -12,7 +8,6 @@ Students in this lab will pair up as necessary to an assigned BIG-IP rSeries sys
 
 This guide will present both webUI and CLI examples for configuration elements where applicable, choose what you prefer. 
 
-Intro to F5OS : Migrating to rSeries	2
 Lab Information	2
 Exercise 1: Initial Setup	4
 Exercise 2: Tenant Creation and Migration	18
@@ -34,10 +29,10 @@ This access point connects your laptop to the private management VLAN to get to 
  
 .. image:: images/image1.png
    :alt: image1.png
-   :width: 90%
+   :width: 80%
 
 
-Record your assigned rSeries station number which is 1 through 10.  This number will be used as an offset for IP addressing during the lab.
+Take note of your assigned rSeries station number which is between 1 and 10.  This number will be used as an offset for IP addressing during the lab.
 
 <Lab testers, pretend you are station 1 and 2 for testing. The two r5900s for testing are our 11th and 12th systems, so for testing the IPs are 10.193.5.21 and 22 (X+10), not .11 and .12 , otherwise the lab instructions should map to correctly for station offsets J > 
 

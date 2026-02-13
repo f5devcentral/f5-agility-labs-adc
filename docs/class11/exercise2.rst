@@ -1,14 +1,6 @@
 Exercise 2: Tenant Creation and Migration
 =========================================
 
-.. contents::
-   :depth: 3
-   :local:
-
-Exercise 2: Tenant Creation and Migration
------------------------------------------
-
-
 In this exercise, each student must create a new tenant and migrate a configuration into it; individual settings may differ for Student A and Student B, as noted below.
 
 Navigate to Tenant Deployments and click Add
@@ -28,7 +20,7 @@ Click Save & Close
  
 .. image:: images/image18.png
    :alt: image18.png
-   :width: 90%
+   :width: 80%
 
 CLI:	ssh as user admin 
 
@@ -48,7 +40,7 @@ To start the tenant, either select the tenant and click the Deploy button, or ed
  
 .. image:: images/image19.png
    :alt: image19.png
-   :width: 90%
+   :width: 80%
 
 
 CLI from config mode
