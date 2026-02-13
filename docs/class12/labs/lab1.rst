@@ -1,45 +1,47 @@
-Lab 1: High Availability & Efficient Load Distribution
+Lab 1: Prompt and Response Scanning
 ==========================================================================================
 
-Business problem. AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
-clients directly to specific storage nodes creates tight coupling and operational risk: a single overloaded node
-throttles the entire pipeline.
-
-Technical problem. Without a delivery layer, clients must pick a node, handle retries/failover, and live with
-uneven utilization (hot spots) and brittle endpoints.
-
-Solution with BIG‑IP LTM. Expose a single, resilient virtual endpoint. Behind this VIP, BIG‑IP intelligently
-distributes S3 traffic across all healthy MinIO nodes and lets you scale by simply adding/removing pool
-members—no client changes required. Use Least Connections to smooth throughput for S3 workloads.
+Business problem. You will learn how to protect AI applications from various prompt attacks, such as jailbreaks, prompt injections, and data exfiltration attempts. 
+These attacks can lead to unauthorized access, data breaches, and compromised AI model integrity
 
 Following the tasks in the prior **Introduction** Section, you should now be able to access the
-UDF lab environment.
+UDF lab environment and have received an email from the Calypso SaaS platform.
 
-Task 1: Review the Lab Environment
+Task 1: Create project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-These values align with the UDF topology. Keep them unchanged unless your
-environment differs.
+After logging into the platform you access the Dashboard. From here click on Projects on the left-hand menu.
+image::_static/lab1-dashboard.png
+:align: center
+:alt: Dashboard
 
-======================== ========================================= ==================================
-Component                Purpose                                   Where to access
-======================== ========================================= ==================================
-MinIO Cluster‑1 (direct) Baseline test without BIG‑IP              WARP parameters: 10.1.10.100:9000
------------------------- ----------------------------------------- ----------------------------------
-BIG‑IP VIP for Cluster‑1 Single front door with LTM load           WARP parameters: 10.1.40.160:9000
------------------------- ----------------------------------------- ----------------------------------
-MinIO Console            Review node-level metrics                 UDF → Cluster1-Node1 → Access → UI
------------------------- ----------------------------------------- ----------------------------------
-BIG‑IP TMUI              Verify pools/members & methods            UDF → BIG‑IP → Access → TMUI
-======================== ========================================= ==================================
+The create project dialog will appear. 
+Click the radio button to the left of CalypsoAI Chat and click the Create button.
+image::_static/lab1-create-project.png
+:align: center
+:alt: Create Project
+Create the new chat project with 
+========================== ======================== 
+Chat Name                  Model                    
+========================== ======================== 
+**First inital Last name** genai-azure-openai         
+========================== ======================== 
       
+image::_static/lab1-chat.png
+:align: center
+:alt: Chat Setup
 
+You should now be in your new chat project.
+image::_static/lab1-chat-project.png
+:align: center
+:alt: Chat Project
 
-Task 2: Baseline: Send traffic directly to MinIO (no BIG‑IP)
+Task 2: Real-time protection for prompts and responses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following steps will validate access to the application via web browser, review the
-Performance Monitoring dashboard, and gather request details.
+Here you will be sending prompts to the model you just connected into with-in your project. 
+These prompts will be of the safe and unsafe varieties. 
+You will observe the results and explore the logs regarding those prompts.
 
 +---------------------------------------------------------------------------------------------------------------+
 | 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).  The credentials are under lab        |

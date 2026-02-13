@@ -1,30 +1,24 @@
-AI Data Delivery: Secure and Reliable Object Storage
+AI Runtime: Building Secure and Optimized AI Apps with F5 Guardrails & Red Teams
 ========================================================
 
 Welcome
 -------
 
-In this lab, attendees will be introduced to using F5 BIG-IP as an intelligent Application Delivery Controller (ADC) 
-for S3-compatible object storage.  
+In this lab, attendees will be introduced to F5’s AI Guardrails and AI RedTeam products, with a focus on real-time prompt and response scanning, policy customization, and custom scanner creation. Students will learn how to interpret findings, map them to actionable defenses, and test model weaknesses.  
 
 Objectives:
 -----------
 
-- Implement high availability and efficient load distribution for an S3 cluster
-- Enforce fine-grained policy controls
-- Migrate S3 buckets to new object storage cluster
-- Route object storage traffic intelligently based on node and cluster health characteristics
+Gain a deeper understanding of F5’s AI Guardrails and AI RedTeam capabilities including: 
+- Prompt attacks 
+- Real‑time prompt and response scanning using default scanners 
 
 Lab & Tasks:
 ------------
 
-The next page (Introduction) will cover the lab environment, access, and lab variables. The lab will be using a shared AWS account where we have deployed the following resources:
+The next page (Introduction) will cover the lab environment, access, and lab variables. 
 
-- BIG-IP VE (LTM provisioned)
-- MinIO Clusters
 
-During the lab exercises we will explore different methods of protecting and exposing object storage services
-that are included in the lab
 
 .. toctree::
    :maxdepth: 2
