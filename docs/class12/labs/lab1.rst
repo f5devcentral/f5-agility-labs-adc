@@ -47,9 +47,12 @@ Here you will be sending prompts to the model you just connected with-in your pr
 These prompts will be of the safe and unsafe varieties. You will observe the results and explore the logs regarding those prompts.
 
 Task 2.1 – Add additional scanners
+
 1. Click the Add Scanner to add a scanner to your project
+   
 2. We want to add the EU AI Act, Restricted topics, PII and prompt injection package scanners, so click Add to the right of each of those scanners. 
    You will see a message that this scanner was added and the Add button should change to a Remove button.
+   
 3. The scanners have been added but are not enabled
 
 .. image:: ../_static/lab1-task2-add-scanner.png
@@ -85,6 +88,6 @@ Task 2.1 – Add additional scanners
       |Summarize the key points|                                             |                       |
       |of the EU AI Act        | Allow                                     | Pass all scanners       |
       +========================+=============================================+=======================+
-      
+
       c.	Send a safe prompt such as “What is the weather forecast for this weekend in New York City?”
       d.	Observe the response and the fact that no scanners were triggered
