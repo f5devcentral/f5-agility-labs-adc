@@ -11,7 +11,7 @@ Task 1: Create project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After logging into the platform you access the Dashboard. From here click on Projects on the left-hand menu.
-.. image:: _static/lab1-dashboard.png
+.. image:: ../_static/lab1-dashboard.png
    :align: center
    :alt: Dashboard
 
