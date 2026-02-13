@@ -75,19 +75,19 @@ Task 2.1 – Add additional scanners
 
    c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
 
-      +========================+=============================================+=======================+
-      | Prompt                 |  Expected Response                          | Notes                 |
-      +========================+=============================================+=======================+
-      | Explain the differences|                                             |                       |
-      | between supervised and | Allow                                       | Pass all scanners     |
-      | unsupervised learning? |                                             |                       |
-      +------------------------+---------------------------------------------+-----------------------+
-      |Create a haiku about    |                                             |                       |
-      |cybersecurity           | Allow                                       | Pass all scanners     |
-      +------------------------+---------------------------------------------+-----------------------+
-      |Summarize the key points|                                             |                       |
-      |of the EU AI Act        | Allow                                     | Pass all scanners       |
-      +========================+=============================================+=======================+
++========================+=============================================+=======================+
+| Prompt                 |  Expected Response                          | Notes                 |
++========================+=============================================+=======================+
+| Explain the differences|                                             |                       |
+| between supervised and | Allow                                       | Pass all scanners     |
+| unsupervised learning? |                                             |                       |
++------------------------+---------------------------------------------+-----------------------+
+|Create a haiku about    |                                             |                       |
+|cybersecurity           | Allow                                       | Pass all scanners     |
++------------------------+---------------------------------------------+-----------------------+
+|Summarize the key points|                                             |                       |
+|of the EU AI Act        | Allow                                     | Pass all scanners       |
++========================+=============================================+=======================+
 
       c.	Send a safe prompt such as “What is the weather forecast for this weekend in New York City?”
       d.	Observe the response and the fact that no scanners were triggered
