@@ -52,7 +52,7 @@ Task 2.1 – Add additional scanners
    
 2. We want to add the EU AI Act, Restricted topics, PII and prompt injection package scanners, so click Add to the right of each of those scanners. 
    You will see a message that this scanner was added and the Add button should change to a Remove button.
-   
+
 3. The scanners have been added but are not enabled
 
 .. image:: ../_static/lab1-task2-add-scanner.png
@@ -65,15 +65,15 @@ Task 2.1 – Add additional scanners
    :align: center
    :alt: Enable Scanner
 
-   5.	Test with a couple safe prompts
-      a.	Click on Chat in the left navigation panel
-      b.	Change the project from Global to your project 
+5.	Test with a couple safe prompts
+   a.	Click on Chat in the left navigation panel
+   b.	Change the project from Global to your project 
 
 .. image:: ../_static/lab1-task2-test-chat.png
    :align: center
    :alt: Test scanner with chat
 
-      c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
+   c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
 
       +========================+=============================================+=======================+
       | Prompt                 |  Expected Response                          | Notes                 |
