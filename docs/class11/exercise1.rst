@@ -1,14 +1,6 @@
 Exercise 1: Initial Setup
 =========================
 
-.. contents::
-   :depth: 3
-   :local:
-
-Exercise 1: Initial Setup
--------------------------
-
-
 In this lab, you will use the F5OS user interfaces to perform initial platform configuration and setup tasks, then configure new tenants. If you have no partner, complete all sections. If you are partnered up, follow the section A or section B. 
 
 When done with your respective section, review the changes made in the other section to see each configuration element.

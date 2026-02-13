@@ -1,14 +1,6 @@
 Exercise 3: Operations of F5OS and Tenants
 ==========================================
 
-.. contents::
-   :depth: 3
-   :local:
-
-Exercise 3: Operations of F5OS and Tenants
-------------------------------------------
-
-
 This lab will explore both the webUI and CLI interfaces demonstrating common operational tasks and troubleshooting of F5OS. When viewing information, there are places where the webUI will summarize and present data that would otherwise be part of multiple CLI commands, to maximize impact of a single screen of output. 
 
 System Health
