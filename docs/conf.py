@@ -18,7 +18,6 @@ import os
 import sys
 import time
 import re
-import pkgutil
 import string
 sys.path.insert(0, os.path.abspath('.'))
 import f5_sphinx_theme
@@ -110,11 +109,20 @@ extensions = [
   'sphinx.ext.todo',
   'sphinx.ext.extlinks',
   'sphinx.ext.graphviz',
-  'sphinxcontrib.nwdiag',
   'sphinx_copybutton',
-  'sphinxcontrib.blockdiag'
   #'sphinx.ext.autosectionlabel'
 ]
+
+import importlib.util
+def _try_add_ext(modname: str):
+   try:
+       if importlib.util.find_spec(modname) is not None:
+           __import__(modname)
+           extensions.append(modname)
+   except Exception as e:
+       print(f"Skipping optional extension {modname}: {e}")
+_try_add_ext("sphinxcontrib.nwdiag")
+_try_add_ext("sphinxcontrib.blockdiag")
 
 graphviz_output_format = 'svg'
 graphviz_font = 'DejaVu Sans:style=Book'
@@ -139,20 +147,21 @@ blockdiag_html_image_format = nwdiag_html_image_format = diag_html_image_format
 blockdiag_latex_image_format = nwdiag_latex_image_format = diag_latex_image_format
 blockdiag_antialias = nwdiag_antialias = diag_antialias
 
-eggs_loader = pkgutil.find_loader('sphinxcontrib.spelling')
-found = eggs_loader is not None
+import importlib.util
+
+found = False #importlib.util.find_spec("sphinxcontrib.spelling") is not None
 
 if found:
-  extensions += ['sphinxcontrib.spelling']
-  spelling_lang='en_US'
-  spelling_word_list_filename='../wordlist'
-  spelling_show_suggestions=True
-  spelling_ignore_pypi_package_names=False
-  spelling_ignore_wiki_words=True
-  spelling_ignore_acronyms=True
-  spelling_ignore_python_builtins=True
-  spelling_ignore_importable_modules=True
-  spelling_filters=[]
+ extensions += ['sphinxcontrib.spelling']
+ spelling_lang='en_US'
+ spelling_word_list_filename='../wordlist'
+ spelling_show_suggestions=True
+ spelling_ignore_pypi_package_names=False
+ spelling_ignore_wiki_words=True
+ spelling_ignore_acronyms=True
+ spelling_ignore_python_builtins=True
+ spelling_ignore_importable_modules=True
+ spelling_filters=[]
 
 source_parsers = {
    '.md': 'recommonmark.parser.CommonMarkParser',
@@ -207,7 +216,6 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html4_writer = True
 html_theme = 'f5_sphinx_theme'
 html_theme_path = f5_sphinx_theme.get_html_theme_path()
 html_sidebars = {'**': ['searchbox.html', 'localtoc.html', 'globaltoc.html']}
