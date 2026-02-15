@@ -5,31 +5,32 @@ In this lab, you will use the F5OS user interfaces to perform initial platform c
 
 When done with your respective section, review the changes made in the other section to see each configuration element.
 
-If you prefer CLI configuration to the GUI,  ssh into the rSeries instead of using the GUI and follow those instructions below.
+If you prefer CLI configuration to the GUI, ssh into the rSeries instead of using the GUI and follow those instructions below.
 
-Student A Section:
+**Student A Section:**
 
 UI Option - See below for CLI
-Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
-Navigate to System Settings -> General
-Set the Hostname to r5900-X.aw26.lab where X is your station number
-Note: Allowed Characters: Lowercase alphanumeric characters (a-z, 0-9) and hyphens (-).
-Configure a Login Banner such as "Welcome to Appworld 2026"
-Configure a MOTB Banner such as "Hello from r5900-X"
-Click the Save button at the bottom right of the page
+
+ - Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
+ - Navigate to System Settings -> General
+ - Set the Hostname to r5900-X.aw26.lab where X is your station number
+   - **Note** : Allowed characters are lowercase alphanumeric characters (a-z, 0-9) and hyphens (-)
+ - Configure a Login Banner such as "Welcome to Appworld 2026"
+ - Configure a MOTB Banner such as "Hello from r5900-X"
+ - Click the *Save* button at the bottom right of the page
  
 .. image:: images/image2.png
    :alt: image2.png
-   :width: 90%
+   :width: 50%
 
 Click OK on the General Properties dialog box.
  
 .. image:: images/image3.png
    :alt: image3.png
-   :width: 90%
+   :width: 50%
 
 You will be logged out of the UI and have to re-login.  Your browser may prompt to reconnect to the BIG-IP since changing the hostname updated the self-signed management certificate
-CLI Example:	ssh as user admin 
+CLI Example:	``ssh as user admin`` 
 
 .. code-block:: none
 
@@ -38,45 +39,61 @@ CLI Example:	ssh as user admin
    appliance-1(config)# system config login-banner "Welcome to Appworld 2026"
    appliance-1(config)# system config motd-banner "You have logged into r5900-<X>.1"
    appliance-1(config)# commit
+   Commit complete.
+   r5900-1(config)# exit
 
-Commit complete.
-r5900-1(config)# exit
 
-Next change the default timeouts (note one is minutes, the other is seconds)
-Navigate Authentication & Access -> Authentication Settings
-Set Token Lifetime to 60 minutes
-Save your change, Click Save button at the bottom right of the page
+Next change the default timeouts (note Token is minutes, CLI Idle is seconds)
+
+ - Navigate Authentication & Access -> Authentication Settings
+ - Set Token Lifetime to 60 minutes
+ - Save your change, Click Save button at the bottom right of the page
  
 .. image:: images/image4.png
    :alt: image4.png
-   :width: 90%
+   :width: 50%
 
 
 
-Navigate to System Settings -> System Security
-Set CLI Idle Timeout to 1200 seconds (at the bottom of the page)
-Click Save button at the bottom right of the page
+ - Navigate to System Settings -> System Security
+ - Set CLI Idle Timeout to 1200 seconds (at the bottom of the page)
+ - Click **Save** button at the bottom right of the page
  
 .. image:: images/image5.png
    :alt: image5.png
-   :width: 90%
+   :width: 50%
 
 
-CLI from config mode - since we told user to exit above need to tell them to enter config mode again
-
+ - CLI commands
 .. code-block:: none
 
    r5900-1# config
    r5900-1(config)# system aaa restconf-token config lifetime 60
    r5900-1(config)# system settings config idle-timeout 1200
    r5900-1(config)# commit
-
-Commit complete.
-
-r5900-1(config)# exit
+   Commit complete.
+   r5900-1(config)# exit
 
 
+The Default port group speeds are 100G and 25G respectively. This lab uses 4x10 breakouts for the dual 20G ports, and the portgroup must be changed from a factory default. Changes require a reboot, so to save time the rSeries should already be in the correct mode. 
 
+
+To validate this: navigate to Dashboard -> Network which displays a layout of current network port speeds and status:
+
+ 
+.. image:: images/image10.png
+   :alt: image10.png
+   :width: 50%
+
+
+CLI commands
+
+.. code-block:: none
+
+   r5900-1# show port-mappings port-mapping 
+   r5900-1# show running-config portgroups portgroup config mode
+   
+   
 
 Next, we will add a VLAN into F5OS. The internal VLAN is numbered 10+X
 
@@ -85,7 +102,7 @@ Click Add to add the internal VLAN
  
 .. image:: images/image6.png
    :alt: image6.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -112,7 +129,7 @@ Click Save & Close
  
 .. image:: images/image7.png
    :alt: image7.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode <<JHart:  need to update the steps to get LACP mode and speed - I have the command from Adnan's testing I just need to put them in.>>
@@ -132,7 +149,7 @@ Save the changes.
  
 .. image:: images/image8.png
    :alt: image8.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -151,7 +168,7 @@ Navigate to Authentication & Access -> Authentication Settings and click on the 
  
 .. image:: images/image9.png
    :alt: image9.png
-   :width: 90%
+   :width: 50%
 
 CLI commands [Not from config mode]
 
@@ -189,7 +206,7 @@ To validate this: navigate to Dashboard -> Network which displays a layout of cu
  
 .. image:: images/image10.png
    :alt: image10.png
-   :width: 90%
+   :width: 50%
 
 
 CLI Commands [Not from config mode]
@@ -225,7 +242,7 @@ Click Add to add the external then the internal vlans
  
 .. image:: images/image11.png
    :alt: image11.png
-   :width: 90%
+   :width: 50%
 
 CLI from config mode
 
@@ -242,7 +259,7 @@ Click Save And Close button at the bottom right of the page
  
 .. image:: images/image12.png
    :alt: image12.png
-   :width: 90%
+   :width: 50%
 
 CLI from config mode
 
@@ -266,7 +283,7 @@ Save your changes
  
 .. image:: images/image13.png
    :alt: image13.png
-   :width: 90%
+   :width: 50%
 
 
 CLI:	ssh as user admin 
@@ -287,7 +304,7 @@ Save your changes
  
 .. image:: images/image14.png
    :alt: image14.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -304,7 +321,7 @@ Under Add under Communities, and add a community
  
 .. image:: images/image15.png
    :alt: image15.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -325,7 +342,7 @@ Save your changes
  
 .. image:: images/image16.png
    :alt: image16.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -345,7 +362,7 @@ Save the changes.
  
 .. image:: images/image17.png
    :alt: image17.png
-   :width: 90%
+   :width: 50%
 
 
 CLI from config mode
@@ -385,7 +402,7 @@ Navigate to Authentication & Access -> Authentication Settings and click on the 
  
 .. image:: images/image9.png
    :alt: image9.png
-   :width: 90%
+   :width: 50%
 
 CLI from config mode
 
@@ -411,25 +428,7 @@ CLI from config mode
    system aaa password-policy config max-age 0
    
 
-The Default port group speeds are 100G and 25G respectively. This lab uses 4x10 breakouts for the dual 20G ports, and the portgroup must be changed from a factory default. Changes require a reboot, so to save time the rSeries should already be in the correct mode. 
 
-
-To validate this: navigate to Dashboard -> Network which displays a layout of current network port speeds and status:
-
- 
-.. image:: images/image10.png
-   :alt: image10.png
-   :width: 90%
-
-
-CLI commands
-
-.. code-block:: none
-
-   r5900-1# show port-mappings port-mapping 
-   r5900-1# show running-config portgroups portgroup config mode
-   
-   
 
 At this point, layer 1 should be up between the rSeries appliance and the upstream switch. In the webUI, explore the following tabs -- LAGs, LACP Details, and LLDP Details.  Network Details gives a table summary of all network interfaces
 
