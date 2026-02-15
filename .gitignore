@@ -4,3 +4,9 @@ media/
 pdf/*
 .vscode
 *.sublime-*
+
+# Python virtualenvs
+venv312/
+.venv/
+venv/
+env/
