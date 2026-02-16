@@ -31,7 +31,7 @@ Click OK on the General Properties dialog box.
    :width: 40%
 
 You will be logged out of the UI and have to re-login.  Your browser may prompt to reconnect to the BIG-IP since changing the hostname updated the self-signed management certificate
-CLI Example:	``ssh admin@<rSeries IP Address>`` 
+CLI from config mode
 
 .. code-block:: none
 
@@ -85,10 +85,11 @@ The Default port group speeds are 100G (port 1 & 2) and 25G (ports 3-10). In thi
 To validate this: navigate to *Dashboard -> Network* which displays a layout of current network port speeds and port status:
 
 
-Dashboard 
+Dashboard
+
 .. image:: images/image10.png
    :alt: image10.png
-   :width: 70%
+   :width: 65%
 
 
 CLI commands
@@ -114,7 +115,8 @@ Next, we will validate that the Ports used in the Lab (port 3 & 4) are set to 10
    :alt: image24.png
    :width: 50%
    
- - CLI Commands [Not from config mode]
+
+CLI show commands
   
 .. code-block:: none
 
@@ -131,8 +133,7 @@ Next, we will add a VLAN into F5OS. The *internal* VLAN is numbered 10+X
    :alt: image6.png
    :width: 50%
 
-
-- CLI from config mode
+CLI from config mode
 
 .. code-block:: none
 
@@ -159,7 +160,7 @@ With the *internal* VLAN created, we now add it to the LAG
    :width: 50%
 
 
-CLI from config mode <<JHart:  need to update the steps to get LACP mode and speed - I have the command from Adnan's testing I just need to put them in.>>
+CLI from config mode
 
 .. code-block:: none
 
@@ -190,7 +191,7 @@ Next, we will configure LLDP on Port 3
    :width: 50%
 
 
- - CLI from config mode
+CLI from config mode
 
 .. code-block:: none
 
@@ -205,7 +206,7 @@ Next, we will configure LLDP on Port 3
 
 At this point, layer 1 should be up between the F5OS and the upstream switch. In the GUI, explore the following Network Settings tabs: LAGs, LACP Details, and LLDP Details.  Network Details gives a table summary of all network interfaces.
 
-CLI Commands [Not from config mode]
+CLI Show commands
 
 .. code-block:: none
 
@@ -222,13 +223,13 @@ CLI Commands [Not from config mode]
    
 Next, we will investigate the Local Password Policy
 
-Navigate to Authentication & Access -> Authentication Settings and click on the **Show** button for *Local Password Policy*. Here you can see the default password policy settings for users that is a strong default position, however options exist to align with organization standards for longer minimum passwords, change differential and required characters.
+Navigate to *Authentication & Access -> Authentication Settings* and click on the **Show** button for *Local Password Policy*. Here you can see the default password policy settings for users that is a strong default position, however options exist to align with organization standards for longer minimum passwords, change differential and required characters.
  
 .. image:: images/image9.png
    :alt: image9.png
    :width: 50%
 
- - CLI commands [Not from config mode]
+CLI SHow commands
 
 .. code-block:: none
 
@@ -276,7 +277,7 @@ CLI from config mode
    r5900-1(config-vlan-31)# exit
    
 
-Navigate to Network Settings -> LAGs and click the Add button
+Navigate to *Network Settings -> LAGs* and click the Add button
 Configure LAG_20G as shown below
 Click Save And Close button at the bottom right of the page
 
@@ -307,10 +308,10 @@ Save your changes
  
 .. image:: images/image13.png
    :alt: image13.png
-   :width: 50%
+   :width: 60%
 
 
-CLI:	``ssh admin@<rSeries IP Address>`` 
+CLI from config mode
 
 .. code-block:: none
 
@@ -322,13 +323,13 @@ CLI:	``ssh admin@<rSeries IP Address>``
    r5900-1(config)# exit
    
 
-Navigate to System Settings -> Time Settings
+Navigate to *System Settings -> Time Settings*
 Click Add under NTP Servers, and add time.nist.gov
 Save your changes
  
 .. image:: images/image14.png
    :alt: image14.png
-   :width: 50%
+   :width: 60%
 
 
 CLI from config mode
@@ -340,12 +341,12 @@ CLI from config mode
    r5900-1(config-community-appworld)# exit
    
 
-Navigate to System Settings -> SNMP Configuration
+Navigate to *System Settings -> SNMP Configuration*
 Under Add under Communities, and add a community
  
 .. image:: images/image15.png
    :alt: image15.png
-   :width: 50%
+   :width: 60%
 
 
 CLI from config mode
@@ -360,7 +361,7 @@ The next step is to allow SNMP access for the lab environment.
 
 Note: Use care setting port to All: if a typo is made in the allow list (and there is not another matching allow list), the policy could lock access out requiring a console login to re-configure J 
 
-Navigate to System Settings -> System Security
+Navigate to *System Settings -> System Security*
 Click Add under Allowed IP Addresses, and add the following
 Save your changes
  
@@ -378,7 +379,7 @@ CLI from config mode
    r5900-1(config)#
    
 
-Navigate to Network Settings -> LLDP Configuration
+Navigate to *Network Settings -> LLDP Configuration*
 Ensure that LLDP is Enabled, the system name is the r5900-X.
 Ensure LLDP on interface 3.0 is enabled (should have been done by Student A)
 Click on interface 4.0 and selelct ePerform the same for interface 4.0
@@ -386,7 +387,7 @@ Save the changes.
  
 .. image:: images/image17.png
    :alt: image17.png
-   :width: 50%
+   :width: 70%
 
 
 CLI from config mode
@@ -404,7 +405,8 @@ CLI from config mode
 At this point, layer 1 should be up between the F5OS and the upstream switch. In the GUI, explore the following Network Settings tabs: LAGs, LACP Details, and LLDP Details.  
 
 Network Details gives a table summary of all network interfaces.
-CLI 
+
+CLI show commands
 
 .. code-block:: none
 
@@ -421,7 +423,7 @@ CLI
    
    
 
-Navigate to Authentication & Access -> Authentication Settings and click on the Show button for Local Password Policy. Here you can see the default password policy settings for users that is a strong default position, however options exist to align with organization standards for longer minimum passwords, change differential and required characters.
+Navigate to *Authentication & Access -> Authentication Settings* and click on the **Show** button for Local Password Policy. Here you can see the default password policy settings for users that is a strong default position, however options exist to align with organization standards for longer minimum passwords, change differential and required characters.
 
  
 .. image:: images/image9.png
