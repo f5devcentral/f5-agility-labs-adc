@@ -1,176 +1,78 @@
 Overview
 ========
 
-The F5 Control-Plane Security Onion model provides a layered approach to securing the BIG-IP
-control plane, which includes management and administrative interfaces such as:
+The BIG-IP control plane governs administrative access, configuration
+management, API interaction, and system-level operations. If compromised,
+an attacker can gain complete authority over application delivery and
+traffic management functions.
 
-* TMUI (Configuration Utility)
-* SSH
-* iControl REST and SOAP
-* Related management services and daemons (big3d, bigd)
-
-This guide focuses exclusively on protecting these control-plane components.
-Data-plane protections (Virtual Servers, WAF, AFM, DoS profiles, and traffic processing)
-are outside the scope of this framework.
-
----
-
-Control-Plane Definition
-------------------------
-
-According to F5 security best practices, the control plane includes all methods for managing
-a BIG-IP system or deployment, including:
-
-* Web-based management (TMUI)
-* Programmatic management (iControl REST and SOAP)
-* Command-line access (SSH and tmsh)
-* Synchronization and monitoring services
-
-Because the control plane has full administrative authority over the system,
-it must be protected with the highest priority.
-
----
+This guide presents a structured, defense-in-depth approach to protecting
+the BIG-IP control plane using a layered Security Onion model.
 
 Security Onion Model
 --------------------
 
-The Control-Plane Security Onion applies layered defenses from the outside inward.
-Each layer builds upon the previous one, providing defense-in-depth for administrative access.
+The Control-Plane Security Onion is composed of three defensive layers:
 
-::
+Outer Layer – Boundary and Access Isolation  
+Prevents unauthorized network-level access to control-plane services.
 
-        +-----------------------------+
-        |        CORE LAYER           |
-        |  Appliance Mode, RBAC, HSM  |
-        |  Continuous Monitoring      |
-        +-----------------------------+
-                  ▲
-        +-----------------------------+
-        |       MIDDLE LAYER          |
-        |  AAA, SSH Hardening, NTP,   |
-        |  Management DMZ             |
-        +-----------------------------+
-                  ▲
-        +-----------------------------+
-        |        OUTER LAYER          |
-        |  IP Restrictions, Lockdown |
-        |  Timeouts, Password Policy |
-        +-----------------------------+
+Middle Layer – Authentication and Protocol Hardening  
+Enforces strong identity validation and encryption standards.
 
-Each layer increases security depth and operational maturity while reducing the risk
-of unauthorized administrative access.
+Core Layer – Privilege, Surface Reduction, and Survivability  
+Restricts administrative capability, protects secrets, reduces service
+exposure, and enables monitoring and recovery.
 
----
+Each layer builds upon the previous one. Compromise at one layer should
+not result in complete system control.
 
-Design Principles
+Threat Framing
+--------------
+
+This guide assumes adversaries may:
+
+* Scan for exposed management services
+* Attempt credential brute-force attacks
+* Exploit weak encryption protocols
+* Abuse API endpoints
+* Attempt privilege escalation after authentication
+
+The layered model ensures that compromise at any single control
+does not lead to total control-plane takeover.
+
+Scope
+-----
+
+This guide focuses on:
+
+* TMUI (HTTPS administrative interface)
+* SSH access
+* iControl REST and SOAP APIs
+* Self IP service exposure
+* Administrative role enforcement
+* Monitoring and incident response readiness
+
+Data-plane application security is out of scope.
+
+Intended Audience
 -----------------
 
-The Security Onion model is guided by the following principles:
+This guide is intended for:
 
-* **Least privilege:** Only required users and systems can access the control plane.
-* **Defense in depth:** Multiple independent security controls are layered together.
-* **Visibility:** All control-plane activity is logged and monitored.
-* **Validation:** Security posture is continuously verified using automated diagnostics.
-* **Resilience:** Recovery procedures are defined and tested.
+* Network and security engineers
+* Platform administrators
+* Security architects
+* Compliance and audit teams
+* Training and lab participants
 
----
+Outcome
+-------
 
-Layer Summary
--------------
+After implementing all layers, the BIG-IP control plane will:
 
-Outer Layer – Network Access Controls
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The outer layer focuses on quick-win protections with the highest immediate impact:
-
-* Restrict management interface access by IP address
-* Configure Self IP port lockdown
-* Enforce session timeouts and login banners
-* Eliminate default credentials
-* Apply strong password policies
-
-This layer provides the first and most critical barrier against unauthorized access.
-
----
-
-Middle Layer – Enhanced Control-Plane Security
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The middle layer introduces enterprise-grade controls and protocol hardening:
-
-* Centralized authentication (LDAP, RADIUS, TACACS+)
-* Multi-factor authentication (where supported)
-* SSH and management protocol hardening
-* Secure time synchronization (NTP)
-* Secure SNMP configuration
-* Management network segmentation (management DMZ)
-
-This layer improves accountability, auditability, and operational security.
-
----
-
-Core Layer – Advanced Control-Plane Security
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The core layer delivers maximum security and compliance readiness:
-
-* Role-Based Access Control (RBAC)
-* Appliance mode enforcement
-* Cryptographic protection of secrets (HSM / SecureVault)
-* Break-glass account management
-* Continuous monitoring and alerting
-* Incident response and recovery procedures
-
-This layer is intended for high-security and regulated environments.
-
----
-
-Validation with iHealth
------------------------
-
-F5 iHealth provides automated verification of control-plane security settings.
-
-Key validation capabilities include:
-
-* Security Best Practices panel review
-* Automated diagnostics for misconfigurations
-* Detection of vulnerabilities affecting management interfaces
-* Identification of indicators of compromise
-* Continuous posture assessment through QKView uploads
-
-Throughout this guide, iHealth diagnostics are referenced as validation mechanisms
-for each security layer.
-
----
-
-Scope and Boundaries
---------------------
-
-This framework applies only to control-plane security.
-
-It does not cover:
-
-* Data-plane traffic protection
-* Application security (WAF, bot defense)
-* DDoS mitigation
-* Virtual server security policies
-* NAT and SNAT configuration
-
-These areas should be addressed through separate security architectures and controls.
-
----
-
-Next Steps
-----------
-
-Proceed through the guide in the following order:
-
-1. Review prerequisites and environment requirements
-2. Follow the implementation roadmap
-3. Study each Security Onion layer
-4. Complete the hands-on labs
-5. Validate results using iHealth
-6. Apply the operational checklist
-
-Continue to:
-
+* Be reachable only from authorized networks
+* Enforce strong authentication and encryption
+* Follow least-privilege administrative models
+* Minimize exposed control-plane services
+* Provide monitoring and rapid incident response capability
