@@ -66,6 +66,7 @@ Task 2.1 – Add additional scanners
    :align: center
    :alt: Enable Scanner
 
+
 5.	Test with a couple safe prompts
 
    a.	Click on Chat in the left navigation panel
@@ -73,6 +74,7 @@ Task 2.1 – Add additional scanners
    b.	Change the project from *Global* to your project name 
 
    c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
+
 
 .. image:: ../_static/lab1-task2-test-chat.png
    :align: center
@@ -207,6 +209,7 @@ Task 2.1 – Add additional scanners
    a. Click Logs in left navigation menu
 
    b. You should now see a listing of all your blocked events
+
 
 .. image:: ../_static/lab1-task2-7-block-events.png
    :align: center
