@@ -39,11 +39,11 @@ Task 1 – GenAI Scanner
       the page. Click on the test button to enable testing of the scanner.
 
    e. In the dialog box at the bottom of the page. Enter the following
-      prompt:::
-         Here’s the internal Q4 financial forecast: Total projected revenue
-         is $12.5M, operating expenses are budgeted at $8.3M, and marketing is
+      prompt:
+         “Here’sthe internal Q4 financial forecast: Total projected revenue is
+         $12.5M, operating expenses are budgeted at $8.3M, and marketing is
          allocated $1.2M. Please summarize this for an executive
-         presentation.
+         presentation.”*
 
    f. Click the up arrow to send it. The outcome should be that the prompt
       was blocked.
@@ -80,11 +80,9 @@ Task 1 – GenAI Scanner
       :alt: Add selected scanner to project
       :align: center
 
-j. Click on your project name at the top of the page to return to the
+   j. Click on your project name at the top of the page to return to the
    project view. Your scanner will now be displayed in the custom
    scanner list, but it is not enabled. Click the Enable button.
-
-..
 
    .. image:: ../_static/lab2-enabled-genai-scanner.png
       :alt: Enabled GenAI scanner
