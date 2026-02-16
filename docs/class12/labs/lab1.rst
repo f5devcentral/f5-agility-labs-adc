@@ -214,6 +214,7 @@ Task 2.1 – Add additional scanners
    :align: center
    :alt: Blocked Events in Logs
 
+
    c. Click on one of the blocked prompts to see additional detail 
 
 
