@@ -1,29 +1,50 @@
-Implementation Roadmap
-======================
+Roadmap
+=======
 
-Phase 1 – Outer Layer (Weeks 1–2)
----------------------------------
+This roadmap provides a structured implementation sequence for
+Control-Plane Security Onion deployment.
 
-* Implement IP restrictions
-* Configure Self IP lockdown
-* Configure session timeouts and banners
-* Change default passwords
-* Verify with iHealth
+Implementation Order
+--------------------
 
-Phase 2 – Middle Layer (Weeks 3–6)
+1. Outer Layer – Establish boundary protections
+2. Middle Layer – Enforce authentication and encryption controls
+3. Core Layer – Apply least-privilege, service exposure reduction,
+   and monitoring controls
+
+Each layer should be validated before proceeding to the next.
+
+Deployment Phases
+-----------------
+
+Phase 1 – Boundary Hardening  
+Isolate management access and restrict network reachability.
+
+Phase 2 – Identity and Encryption Enforcement  
+Integrate centralized AAA, enforce MFA, and harden TLS configurations.
+
+Phase 3 – Control-Plane Surface Reduction  
+Apply RBAC refinement, Self IP Port Lockdown, appliance mode,
+and logging integration.
+
+Phase 4 – Operational Validation  
+Validate configurations using iHealth and perform access testing.
+
+Operational Readiness Checkpoints
 ----------------------------------
 
-* Integrate enterprise AAA
-* Harden SSH and APIs
-* Configure NTP and SNMP
-* Implement management DMZ
-* Verify with iHealth
+Before advancing layers:
 
-Phase 3 – Core Layer (Weeks 7–12)
----------------------------------
+* Confirm administrative access continuity
+* Validate HA and ConfigSync stability
+* Test break-glass recovery
+* Verify logging and alerting functionality
 
-* Deploy HSM or SecureVault
-* Enable appliance mode and RBAC
-* Implement monitoring
-* Develop incident response procedures
-* Achieve clean iHealth posture
+Maturity Model
+--------------
+
+Basic – Outer Layer only  
+Intermediate – Outer + Middle  
+Advanced – Full Outer + Middle + Core  
+
+Enterprise environments should implement all three layers.

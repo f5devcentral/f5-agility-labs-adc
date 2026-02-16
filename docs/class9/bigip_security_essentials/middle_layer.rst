@@ -1,218 +1,148 @@
-Middle Layer – Enhanced Control-Plane Security
-=============================================
+Middle Layer – Authentication and Protocol Hardening
+====================================================
 
-The middle layer of the Control-Plane Security Onion introduces enterprise-grade controls
-that strengthen authentication, harden management protocols, and improve visibility into
-control-plane activity.
+The Middle Layer strengthens authentication, authorization, and encryption
+controls protecting the BIG-IP control plane. These controls prevent credential
+abuse, protocol exploitation, and unauthorized API access.
 
-These controls require moderate implementation effort and ongoing maintenance, but provide
-significant security improvements beyond basic perimeter protections.
+Executive Summary
+-----------------
 
----
+   The Middle Layer enforces strong identity validation, protocol hardening,
+   and secure API usage. These controls align with enterprise identity
+   governance models, Zero Trust access principles, and compliance standards
+   requiring strong authentication and encryption.
 
 Objective
 ---------
 
 The objectives of the middle layer are to:
 
-* Centralize control-plane authentication
-* Harden management protocols and services
-* Improve logging and monitoring of administrative activity
-* Reduce the risk of credential compromise and brute-force attacks
-* Isolate management access through network segmentation
+* Enforce strong authentication for administrative access
+* Integrate centralized AAA services
+* Harden encryption protocols and ciphers
+* Restrict and monitor API usage
+* Reduce the likelihood of credential compromise
 
-This layer establishes accountability and auditability for all control-plane access.
+Threat Model
+------------
 
----
+The Middle Layer assumes that adversaries may:
+
+* Attempt credential brute-force attacks
+* Exploit weak encryption protocols
+* Abuse API endpoints for automation-based compromise
+* Leverage stolen credentials for unauthorized access
+
+Controls at this layer focus on preventing credential misuse and protocol abuse.
 
 Key Concepts
 ------------
 
-The middle layer is guided by the following principles:
+The Middle Layer is guided by the following principles:
 
-* **Centralized identity:** Administrative access should be authenticated using enterprise AAA systems.
-* **Protocol hardening:** Management services must use secure cryptographic standards.
-* **Visibility:** All authentication and configuration changes must be logged.
-* **Segmentation:** Control-plane access should be isolated from user and data-plane traffic.
-
-These principles move control-plane security from local device hardening to enterprise integration.
-
----
+* **Strong authentication:** Require centralized and multi-factor authentication.
+* **Protocol integrity:** Disable weak ciphers and legacy TLS versions.
+* **Centralized identity management:** Integrate with enterprise AAA systems.
+* **API control:** Restrict API access to authorized users and systems.
 
 Control-Plane Services in Scope
 -------------------------------
 
-This layer applies to the following services:
+This layer governs authentication and encryption for:
 
-* TMUI (Configuration Utility)
-* SSH and tmsh access
+* TMUI administrative interface
+* SSH access
 * iControl REST and SOAP APIs
-* Authentication services (LDAP, RADIUS, TACACS+)
-* Time synchronization (NTP)
-* Monitoring protocols (SNMP)
-
-Each service must be secured and monitored according to organizational policy.
-
----
+* SNMP authentication mechanisms
+* AAA integrations (RADIUS, TACACS+, LDAP)
 
 Controls and Best Practices
 ---------------------------
 
-Enterprise Authentication Integration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AAA Integration
+~~~~~~~~~~~~~~~
 
-Administrative access should be integrated with enterprise identity services.
-
-Best practices include:
-
-* Configure LDAP, RADIUS, or TACACS+ authentication
-* Retain local admin accounts for break-glass access
-* Enable multi-factor authentication (MFA) where supported
-* Enforce role separation through centralized identity policies
-* Monitor authentication success and failure events
-
-Centralized authentication improves accountability and simplifies user management.
-
----
-
-Control-Plane Login Monitoring
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-All control-plane access attempts should be logged and monitored.
+Administrative access should integrate with centralized identity systems.
 
 Best practices include:
 
-* Forward TMUI, SSH, and iControl logs to a syslog or SIEM system
-* Configure alerts for repeated failed login attempts
-* Track configuration changes using audit logs
-* Monitor authentication anomalies and suspicious behavior
+* Integrate with RADIUS, TACACS+, or LDAP
+* Enforce role-based mapping from AAA to BIG-IP roles
+* Avoid local-only administrative accounts where possible
+* Implement fallback mechanisms carefully
 
-This ensures rapid detection of potential compromise attempts.
+Multi-Factor Authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
----
-
-Protocol Hardening (SSH and APIs)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Management protocols must be hardened to modern security standards.
+Administrative access should require multiple authentication factors.
 
 Best practices include:
 
-* Disable weak SSH ciphers and key exchange algorithms
-* Configure approved cryptographic algorithms only
-* Implement brute-force protection for SSH
-* Restrict iControl REST and SOAP access to trusted IP ranges
-* Enforce TLS encryption for all management interfaces
-* Monitor API access logs
+* Enforce MFA for TMUI and SSH access
+* Integrate MFA via centralized identity providers
+* Validate MFA enforcement during access testing
 
-Protocol hardening reduces exposure to cryptographic and automated attacks.
+TLS and Cipher Hardening
+~~~~~~~~~~~~~~~~~~~~~~~~
 
----
-
-Time Synchronization (NTP)
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Accurate time is essential for security logging and incident analysis.
+Encryption protocols must meet enterprise security standards.
 
 Best practices include:
 
-* Configure at least three trusted NTP servers
-* Verify NTP reachability and synchronization status
-* Protect NTP communication from untrusted networks
-* Monitor for time drift or synchronization failures
+* Disable SSLv3, TLS 1.0, and TLS 1.1
+* Restrict cipher suites to strong algorithms
+* Use modern TLS profiles
+* Periodically review cipher configurations
 
-Time consistency ensures reliable audit and forensic data.
+API Access Control
+~~~~~~~~~~~~~~~~~~
 
----
-
-Secure SNMP Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If SNMP is used, it must be secured.
+Programmatic access should be tightly controlled.
 
 Best practices include:
 
-* Remove default SNMP community strings
-* Use SNMPv3 with authentication and encryption
-* Restrict SNMP access to monitoring systems only
-* Log SNMP access attempts
-
-Unsecured SNMP can expose sensitive control-plane information.
-
----
-
-Management Network Segmentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Control-plane access should be isolated from general user and application traffic.
-
-Best practices include:
-
-* Implement a dedicated management network or management DMZ
-* Restrict lateral movement within the management network
-* Use on-device management interface firewall (BIG-IP 14.1+)
-* Require jump hosts or VPN with MFA for administrative access
-* Use dedicated administrative workstations or browsers
-
-Segmentation reduces the risk of compromise from adjacent systems.
-
----
+* Restrict API access to authorized roles
+* Monitor API token usage
+* Disable unused API services
+* Log all REST authentication events
 
 Validation with iHealth
 -----------------------
 
-Use F5 iHealth to verify middle-layer controls.
+Use F5 iHealth to verify authentication and encryption controls.
 
 Relevant diagnostics include:
 
-* Identification of weak or missing AAA configurations
-* Detection of insecure protocol settings
-* NTP configuration and reachability checks (**H726514**)
-* Findings related to control-plane logging and monitoring gaps
+* Weak cipher configuration findings
+* TLS version warnings
+* AAA integration misconfiguration
+* Security Best Practices panel review
 
-Upload a QKView and review the Security Best Practices panel to confirm findings are resolved.
-
----
+Upload a QKView and confirm no high-risk protocol or authentication findings remain.
 
 Operational Considerations
 --------------------------
 
 When implementing middle-layer controls:
 
-* Test enterprise authentication with multiple user accounts
-* Ensure break-glass local access is available before enforcing AAA
 * Coordinate with identity and security teams
-* Document authentication sources and fallback procedures
-* Validate logging and alerting before relying on them operationally
-
-Improper AAA configuration can lead to administrative lockout if not carefully planned.
-
----
+* Test AAA fallback before removing local admin accounts
+* Validate API integrations after TLS changes
+* Monitor authentication logs during rollout
 
 Expected Outcomes
 -----------------
 
-After implementing the middle layer:
+After implementing the Middle layer:
 
-* Administrative access is centrally authenticated
-* Management protocols are hardened
-* Control-plane activity is logged and monitored
-* Time synchronization is reliable
-* Management access is isolated from general traffic
-* iHealth reports reduced medium-severity findings
-
-This layer creates a strong security posture for enterprise environments.
-
----
+* Administrative access requires strong authentication
+* Weak encryption protocols are disabled
+* API usage is controlled and monitored
+* Centralized identity governance is enforced
 
 Next Steps
 ----------
 
-After completing the middle layer:
-
-* Proceed to the core layer for advanced security controls
-* Begin hands-on implementation using the lab exercises
-
-Continue to:
-
-
+Proceed to the Core Layer to implement least-privilege controls,
+service exposure reduction, and advanced monitoring.
