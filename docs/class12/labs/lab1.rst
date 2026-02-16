@@ -77,7 +77,7 @@ Task 2.1 – Add additional scanners
 .. image:: ../_static/lab1-task2-test-chat.png
    :align: center
    :alt: Test Chat
-      
+
 
 +-----------------------+----------------------+----------------------+
 | Prompt                | Expected Results     | Notes                |
@@ -98,7 +98,8 @@ Task 2.1 – Add additional scanners
 
    d.	You should receive responses to those prompts. Also observe the response and the fact that no scanners were triggered
 
-1. Test with risky prompts (PII, Prompt Injection, Restricted Topics)
+
+6. Test with risky prompts (PII, Prompt Injection, Restricted Topics)
 
    a. If you receive a message “Sorry I can’t assist with that” it means
       the scanner is not enabled. Go back into your project and enable
@@ -211,7 +212,9 @@ Task 2.1 – Add additional scanners
    :align: center
    :alt: Blocked Events in Logs
 
+
    c. Click on one of the blocked prompts to see additional detail
+
 
 .. image:: ../_static/lab1-task2-7-block-events-2.png
    :alt: Details of blocked event.
