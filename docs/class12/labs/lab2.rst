@@ -40,10 +40,10 @@ Task 1 – GenAI Scanner
 
    e. In the dialog box at the bottom of the page. Enter the following
       prompt:::
-         *Here’s the internal Q4 financial forecast: Total projected revenue
+         Here’s the internal Q4 financial forecast: Total projected revenue
          is $12.5M, operating expenses are budgeted at $8.3M, and marketing is
          allocated $1.2M. Please summarize this for an executive
-         presentation.*
+         presentation.
 
    f. Click the up arrow to send it. The outcome should be that the prompt
       was blocked.
