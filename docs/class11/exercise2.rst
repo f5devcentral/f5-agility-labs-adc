@@ -52,9 +52,7 @@ CLI show command
 
    r5900-1# show tenant
 
-
-	See that newly created tenant is in ‘configured' state. To update the state, enter config mode 
-
+See that newly created tenant is in ‘configured' state. To update the state, enter config mode 
 
 .. code-block:: none
 
@@ -86,16 +84,16 @@ After resetting the password in the CLI remain in the CLI for the next steps.
 
 Next, import the master key from the tenant you're migrating. This is necessary when the UCS contains encrypted passwords; without the master key, the UCS may fail to load. If the master key is unavailable, manually edit the configuration to remove encrypted elements so the UCS can load without errors.
 
-Loading the master key from the bash shell can be referenced in knowledge article _K9420 https://my.f5.com/manage/s/article/K9420. For this lab, both the UCS and master key files are on a web server 10.193.5.2 that can be downloaded to a laptop then uploaded to the BIG-IP tenant, or simple directly downloaded to the tenant via HTTPS.  
+Loading the master key from the bash shell can be referenced in knowledge article https://my.f5.com/manage/s/article/K9420. For this lab, both the UCS and master key files are on a web server 10.193.5.2 that can be downloaded to a laptop then uploaded to the BIG-IP tenant, or simple directly downloaded to the tenant via HTTPS.  
 
 .. code-block:: none
-  Filenames for Student A:
-  UCS file:	r5900-<X>a.ucs
-  Key file:	r5900-<X>a.key
-  ------------------------
-  Filenames for Student B:
-  UCS file:	r5900-<X>b.ucs
-  Key file:	r5900-<X>b.key
+   Filenames for Student A:
+   UCS file:	r5900-<X>a.ucs
+   Key file:	r5900-<X>a.key
+   ------------------------
+   Filenames for Student B:
+   UCS file:	r5900-<X>b.ucs
+   Key file:	r5900-<X>b.key
 
 
 The following commands use curl from the BIG-IP tenant (remember to change the file names to your student and station assignments) to directly download the files: 
@@ -108,6 +106,7 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
    [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-2a.ucs -o /var/tmp/r5900-2a.ucs
    
    [root@localhost:Active:Standalone] config # ls -la /var/tmp/r5900-*
+
    -rw-r--r--. 1 root root       25 Jan 14 11:13 /var/tmp/r5900-1a.key
    -rw-r--r--. 1 root root 10918287 Jan 14 11:13 /var/tmp/r5900-1a.ucs
 
@@ -137,7 +136,7 @@ Within a minute or two the BIG‑IP status will change to Active and the configu
 
 In F5OS, the virtctl command allows for a virtual console to any tenant. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
 
-,, code-block:: none
+.. code-block:: none
    r5900-1# show system aaa authentication users
                      AUTHORIZED  LAST        TALLY                  EXPIRY
    USERNAME          KEYS        CHANGE      COUNT  ROLE            STATUS
