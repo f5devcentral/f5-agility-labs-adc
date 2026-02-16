@@ -7,7 +7,8 @@ When done with your respective section, review the changes made in the other sec
 
 If you prefer CLI configuration to the GUI, ssh into the rSeries instead of using the GUI and follow those instructions below.
 
-**Student A Section:**
+Student A Section
+-----------------
 
 UI Option - See below for CLI
 
@@ -254,11 +255,12 @@ Navigate to Authentication & Access -> Authentication Settings and click on the 
 //End of Exercise 1 (Student A)	
 
 
-**Student B Section:**
+Student B Section
+-----------------
 
 We will begin by configuring a VLAN and editing the 20G LAG. 
 
-Navigate to Network Settings -> VLANs
+Navigate to *Network Settings -> VLANs*
 Click Add to add the external then the internal vlans
 
  
@@ -299,7 +301,7 @@ CLI from config mode
    
 
 Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
-Navigate to System Settings -> DNS
+Navigate to *System Settings -> DNS*
 Click Add under DNS Lookup Servers, and add 8.8.8.8 and 8.8.4.4
 Save your changes
  
@@ -308,7 +310,7 @@ Save your changes
    :width: 50%
 
 
-CLI:	ssh as user admin 
+CLI:	``ssh admin@<rSeries IP Address>`` 
 
 .. code-block:: none
 
