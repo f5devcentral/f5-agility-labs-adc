@@ -222,7 +222,9 @@ Task 2.1 – Add additional scanners
       :align: center
       :alt: Blocked Event Detail
 
+
    d.	Click on Prompt and response at the top to see the prompt and the scanners that blocked it
+
 
    .. image:: ../_static/lab1-task2-7-block-events-3.png
       :align: center
