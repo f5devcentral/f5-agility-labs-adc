@@ -88,12 +88,12 @@ Task 1 – GenAI Scanner
       :alt: Enabled GenAI scanner
       :align: center
 
-k. Verify the scanner is enabled by clicking the Chat button on the left
-   navigation and enter the prompt you used in the playground: *“Here’s
-   the internal Q4 financial forecast: Total projected revenue is
-   $12.5M, operating expenses are budgeted at $8.3M, and marketing is
-   allocated $1.2M. Please summarize this for an executive
-   presentation.”* The outcome should be that the prompt was blocked.
+   k. Verify the scanner is enabled by clicking the Chat button on the left
+      navigation and enter the prompt you used in the playground: *“Here’s
+      the internal Q4 financial forecast: Total projected revenue is
+      $12.5M, operating expenses are budgeted at $8.3M, and marketing is
+      allocated $1.2M. Please summarize this for an executive
+      presentation.”* The outcome should be that the prompt was blocked.
 
    .. image:: ../_static/lab2-blocked-outcome.png
       :alt: Chat with blocked GenAI prompt
@@ -120,6 +120,8 @@ Task 2 – Keyword scanners
 
 5. Once satisfied it is working correctly, publish the scanner
 
+
+
 Task 3 – RegEx Scanner
 
 1. Click on Build a custom scanner button and click on RegEx Scanner
@@ -134,6 +136,8 @@ Task 3 – RegEx Scanner
    matches it will be highlighted.
 
 3. Save and publish the scanner
+
+
 
 Task 4 – Changing a scanner’s mode
 
