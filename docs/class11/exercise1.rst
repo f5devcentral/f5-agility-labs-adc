@@ -7,7 +7,8 @@ When done with your respective section, review the changes made in the other sec
 
 If you prefer CLI configuration to the GUI, ssh into the rSeries instead of using the GUI and follow those instructions below.
 
-**Student A Section:**
+Student A Section
+-----------------
 
 UI Option - See below for CLI
 
@@ -21,16 +22,16 @@ UI Option - See below for CLI
  
 .. image:: images/image2.png
    :alt: image2.png
-   :width: 50%
+   :width: 60%
 
 Click OK on the General Properties dialog box.
  
 .. image:: images/image3.png
    :alt: image3.png
-   :width: 50%
+   :width: 40%
 
 You will be logged out of the UI and have to re-login.  Your browser may prompt to reconnect to the BIG-IP since changing the hostname updated the self-signed management certificate
-CLI Example:	``ssh admin@<rSeries IP>`` 
+CLI Example:	``ssh admin@<rSeries IP Address>`` 
 
 .. code-block:: none
 
@@ -54,17 +55,16 @@ Next change the default timeouts (note Token is minutes, CLI Idle is seconds)
    :width: 50%
 
 
+- Navigate to System Settings -> System Security
+- Set CLI Idle Timeout to 1200 seconds (at the bottom of the page)
+- Click **Save** button at the bottom right of the page
 
- - Navigate to System Settings -> System Security
- - Set CLI Idle Timeout to 1200 seconds (at the bottom of the page)
- - Click **Save** button at the bottom right of the page
- 
 .. image:: images/image5.png
    :alt: image5.png
    :width: 50%
 
-
- - CLI commands
+- CLI commands
+  
 .. code-block:: none
 
    r5900-1# config
@@ -101,18 +101,19 @@ CLI commands
    
 Next, we will validate that the Ports used in the Lab (port 3 & 4) are set to 10G
 
- - Navigate to Network Settings > Port Groups
- - Verify that ports 3 & 4 are set to 10GbE
- - Select port 1 using the drop down and note the Port Group Mode settings
- - Select port 10 using the drop down and note the port group Mode settings
- - The r5900 has two 40/100G ports and 8 10/25G ports
-   - Ports 1 & 2 support 100G, 40G, or 4 x 10G
-   - Ports 3 – 10 support 10G or 25G
+- Navigate to *Network Settings -> Port Groups*
+- Verify that ports 3 & 4 are set to 10GbE
+- Select port 1 using the drop down and note the Port Group Mode settings
+- Select port 10 using the drop down and note the port group Mode settings
+- The r5900 has two 40/100G ports and 8 10/25G ports
+
+  - Ports 1 & 2 support 100G, 40G, or 4 x 10G
+  - Ports 3 – 10 support 10G or 25G
 
 .. image:: images/image24.png
    :alt: image24.png
    :width: 50%
-
+   
  - CLI Commands [Not from config mode]
   
 .. code-block:: none
@@ -122,16 +123,16 @@ Next, we will validate that the Ports used in the Lab (port 3 & 4) are set to 10
 
 Next, we will add a VLAN into F5OS. The *internal* VLAN is numbered 10+X
 
- - Navigate to Network Settings -> VLANs
- - Click Add to add the internal VLAN
- - Click Save & Close
+- Navigate to Network Settings -> VLANs
+- Click Add to add the internal VLAN
+- Click Save & Close
   
 .. image:: images/image6.png
    :alt: image6.png
    :width: 50%
 
 
- - CLI from config mode
+- CLI from config mode
 
 .. code-block:: none
 
@@ -145,12 +146,12 @@ Next, we will add a VLAN into F5OS. The *internal* VLAN is numbered 10+X
 
 With the *internal* VLAN created, we now add it to the LAG
 
- - Navigate to *Network Settings -> LAGs*
- - Select Add 
- - Create the “LAG_20G “ LAG
- - Select VLAN 11 and interface 3.0 
- - Enable LACP and select LACP Interval Fast
- - Click Save & Close
+- Navigate to *Network Settings -> LAGs*
+- Select Add 
+- Create the “LAG_20G “ LAG
+- Select VLAN 11 and interface 3.0 
+- Enable LACP and select LACP Interval Fast
+- Click Save & Close
 
  
 .. image:: images/image7.png
@@ -176,12 +177,12 @@ CLI from config mode <<JHart:  need to update the steps to get LACP mode and spe
 
 Next, we will configure LLDP on Port 3
 
- - Navigate to Network Settings -> LLDP Configuration 
- - Configure the System Name “r5900-X”
- - onfigure LLDP on interface 3.0, by selecting it using the check box.
- - This will automatically enable LLDP on port 3
- - Review the TLV map to understand what will be sent and what is configurable for the LLDP advertisement
- - Save the changes	
+- Navigate to Network Settings -> LLDP Configuration 
+- Configure the System Name “r5900-X”
+- onfigure LLDP on interface 3.0, by selecting it using the check box.
+- This will automatically enable LLDP on port 3
+- Review the TLV map to understand what will be sent and what is configurable for the LLDP advertisement
+- Save the changes	
 
  
 .. image:: images/image8.png
@@ -254,11 +255,12 @@ Navigate to Authentication & Access -> Authentication Settings and click on the 
 //End of Exercise 1 (Student A)	
 
 
-**Student B Section:**
+Student B Section
+-----------------
 
 We will begin by configuring a VLAN and editing the 20G LAG. 
 
-Navigate to Network Settings -> VLANs
+Navigate to *Network Settings -> VLANs*
 Click Add to add the external then the internal vlans
 
  
@@ -299,7 +301,7 @@ CLI from config mode
    
 
 Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
-Navigate to System Settings -> DNS
+Navigate to *System Settings -> DNS*
 Click Add under DNS Lookup Servers, and add 8.8.8.8 and 8.8.4.4
 Save your changes
  
@@ -308,7 +310,7 @@ Save your changes
    :width: 50%
 
 
-CLI:	ssh as user admin 
+CLI:	``ssh admin@<rSeries IP Address>`` 
 
 .. code-block:: none
 
