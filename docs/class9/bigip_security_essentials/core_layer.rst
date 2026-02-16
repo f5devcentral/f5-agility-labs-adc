@@ -1,60 +1,67 @@
-Core Layer – Advanced Control-Plane Security
-===========================================
+Core Layer – Privilege, Survivability, and System Integrity
+============================================================
 
-The core layer of the Control-Plane Security Onion represents the highest level of protection
-for the BIG-IP control plane. These controls are designed for high-security and compliance-driven
-environments and provide maximum defense-in-depth.
+The Core Layer of the Control-Plane Security Onion represents the
+deepest level of control-plane protection. These controls assume that
+an attacker may have reached the management interface and focus on
+restricting privilege, protecting sensitive material, and ensuring
+operational survivability.
 
-This layer requires the greatest implementation effort and ongoing maintenance, but delivers
-the strongest security posture.
+Executive Summary
+-----------------
 
----
+   The Core Layer enforces least privilege, protects cryptographic
+   assets, constrains system-level access, and enables monitoring
+   and recovery. These controls align with Zero Trust principles,
+   NIST SP 800-53, and enterprise privileged access governance models.
 
 Objective
 ---------
 
-The objectives of the core layer are to:
+The objectives of the Core Layer are to:
 
 * Enforce least-privilege administrative access
-* Protect cryptographic secrets and sensitive credentials
-* Restrict system-level access through appliance mode
-* Enable continuous monitoring and threat detection
+* Restrict system-level capabilities
+* Protect cryptographic secrets and credentials
+* Enable continuous monitoring and detection
 * Prepare for incident response and recovery
 
-This layer assumes that attackers may reach the control plane and focuses on limiting damage,
-detecting compromise, and enabling rapid recovery.
+Threat Model
+------------
 
----
+The Core Layer assumes an adversary may:
+
+* Obtain valid administrative credentials
+* Access the TMUI or SSH interface
+* Attempt privilege escalation
+* Attempt extraction of cryptographic material
+* Modify system configuration for persistence
+
+Controls at this layer focus on limiting blast radius and ensuring
+rapid detection and recovery.
 
 Key Concepts
 ------------
 
-The core layer is guided by the following principles:
+The Core Layer is guided by the following principles:
 
-* **Least privilege:** Administrators receive only the access required for their role.
-* **Strong isolation:** System-level access is tightly controlled.
-* **Secret protection:** Cryptographic material and credentials are protected from theft.
-* **Continuous monitoring:** All activity is logged and analyzed in near real time.
-* **Operational readiness:** Recovery procedures are documented and tested.
-
-These principles ensure that control-plane compromise is difficult, detectable, and recoverable.
-
----
+* **Least privilege:** Administrators receive only required capabilities.
+* **Capability restriction:** System-level access is tightly controlled.
+* **Secret protection:** Cryptographic material is safeguarded.
+* **Monitoring and detection:** Administrative activity is logged and analyzed.
+* **Operational resilience:** Recovery mechanisms are documented and tested.
 
 Control-Plane Services in Scope
 -------------------------------
 
-This layer applies to advanced control-plane protections affecting:
+This layer applies to deep administrative and system-level controls:
 
-* Administrative roles and permissions
-* System shell and appliance mode behavior
-* Cryptographic key storage and secrets
-* Logging, monitoring, and alerting systems
-* Incident response and recovery mechanisms
-
-These controls govern how administrators interact with the system at the deepest level.
-
----
+* Role-Based Access Control (RBAC)
+* System shell and appliance mode enforcement
+* Cryptographic key storage and protection
+* Break-glass account governance
+* Logging, monitoring, and SIEM integration
+* Incident response and recovery readiness
 
 Controls and Best Practices
 ---------------------------
@@ -68,29 +75,25 @@ Best practices include:
 
 * Define granular administrative roles
 * Separate configuration, monitoring, and audit duties
-* Limit shell and advanced system access to approved users
-* Review and recertify access regularly
+* Limit advanced system and shell access
+* Periodically review and recertify role assignments
 * Remove unused or dormant accounts
 
-RBAC reduces the risk of misuse or compromise of privileged accounts.
-
----
+RBAC limits privilege escalation and reduces insider risk.
 
 Appliance Mode Enforcement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Appliance mode restricts BIG-IP behavior to appliance-like operation.
+Appliance mode restricts BIG-IP behavior to controlled operational boundaries.
 
 Best practices include:
 
 * Enable appliance mode where operationally appropriate
-* Restrict root shell and system-level access
-* Prevent unauthorized modification of the underlying operating system
-* Enforce stricter operational boundaries
+* Restrict root shell access
+* Prevent modification of the underlying operating system
+* Validate compatibility before enabling in production
 
-Appliance mode reduces attack surface and limits post-compromise actions.
-
----
+Appliance mode reduces post-compromise capability.
 
 Cryptographic Protection of Secrets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,9 +108,7 @@ Best practices include:
 * Secure API tokens and authentication secrets
 * Implement credential rotation policies
 
-Secret protection is critical for regulatory and compliance requirements.
-
----
+Secret protection is critical for regulatory compliance and risk reduction.
 
 Break-Glass Account Management
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,104 +119,85 @@ Best practices include:
 
 * Create a dedicated break-glass account
 * Secure credentials in an enterprise password vault
-* Restrict use to emergency scenarios only
-* Enable enhanced logging for break-glass access
+* Restrict use to documented emergency procedures
+* Enable enhanced logging for break-glass usage
 * Test break-glass procedures regularly
 
-Break-glass accounts ensure recoverability without weakening daily operations.
-
----
+Break-glass accounts ensure operational continuity.
 
 Continuous Monitoring and Threat Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All control-plane activity must be continuously monitored.
+Administrative activity must be continuously monitored.
 
 Best practices include:
 
-* Forward all control-plane logs to a SIEM
+* Forward control-plane logs to a centralized SIEM
 * Monitor TMUI, SSH, and API access events
-* Alert on suspicious login behavior
+* Alert on suspicious authentication patterns
 * Track configuration changes and privilege escalation
 * Enable SNMP traps for system and security events
 
-This enables early detection of compromise and misuse.
-
----
+Monitoring ensures early detection of misuse or compromise.
 
 Incident Response and Recovery Planning
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Organizations must be prepared to respond to control-plane compromise.
+Organizations must prepare for control-plane compromise.
 
 Best practices include:
 
 * Document incident response procedures
-* Define steps for isolating affected systems
+* Define system isolation steps
 * Maintain automated configuration backups
 * Establish credential revocation processes
-* Perform periodic incident response exercises
+* Conduct periodic response exercises
 
-Preparedness reduces downtime and limits damage during security incidents.
-
----
+Preparedness reduces downtime and limits operational impact.
 
 Validation with iHealth
 -----------------------
 
-Use F5 iHealth to verify core-layer controls.
+Use F5 iHealth to verify Core Layer controls.
 
 Relevant diagnostics include:
 
-* **D012815** – Appliance mode status
-* Identification of weak credential storage practices
-* Findings related to RBAC and privileged access
+* **D012815 – Appliance mode status**
+* Findings related to RBAC configuration
+* Privileged account diagnostics
 * Security Best Practices panel review
 
-Upload a QKView and verify that advanced security findings are resolved.
-
----
+Upload a QKView and confirm that high-risk privilege findings are resolved.
 
 Operational Considerations
 --------------------------
 
-When implementing core-layer controls:
+When implementing Core Layer controls:
 
-* Coordinate with security, identity, and compliance teams
-* Validate break-glass access before restricting normal admin access
-* Test appliance mode in non-production environments first
-* Ensure monitoring and alerting are operational before enforcement
+* Coordinate with identity and security governance teams
+* Validate access continuity before restricting privileges
+* Test appliance mode in non-production environments
+* Ensure logging pipelines are operational before enforcement
 * Document all role definitions and recovery procedures
 
-Improper configuration at this layer can significantly impact operations if not planned carefully.
-
----
+Improper configuration at this layer may disrupt administrative operations.
 
 Expected Outcomes
 -----------------
 
-After implementing the core layer:
+After implementing the Core Layer:
 
 * Administrative access follows least-privilege principles
-* Secrets and cryptographic materials are protected
-* Appliance mode enforces system-level restrictions
-* Continuous monitoring and alerting are active
-* Incident response procedures are documented and tested
-* iHealth reports minimal or no high-risk findings
+* System-level capabilities are constrained
+* Cryptographic materials are protected
+* Monitoring and alerting are operational
+* Incident response procedures are validated
+* iHealth reports minimal high-risk privilege findings
 
-This layer provides maximum protection for the control plane.
-
----
+This layer ensures survivability even if earlier defenses fail.
 
 Next Steps
 ----------
 
-After completing the core layer:
-
-* Validate the entire Security Onion implementation using the operational checklist
-* Complete the hands-on lab exercises
-* Begin sustainment and continuous improvement activities
-
-Continue to:
-
-
+Return to the Operational Security Checklist
+or proceed to hands-on lab validation exercises.
