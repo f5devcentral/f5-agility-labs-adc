@@ -70,13 +70,14 @@ Task 2.1 – Add additional scanners
 
    a.	Click on Chat in the left navigation panel
 
-   b.	Change the project from Global to your project 
+   b.	Change the project from *Global* to your project name 
+
+   c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
 
 .. image:: ../_static/lab1-task2-test-chat.png
    :align: center
-   :alt: Test scanner with chat
-
-   c.	Enter your prompt where it says “Type message here…” and click the up arrow. 
+   :alt: Test Chat
+      
 
 +-----------------------+----------------------+----------------------+
 | Prompt                | Expected Results     | Notes                |
@@ -97,7 +98,7 @@ Task 2.1 – Add additional scanners
 
    d.	You should receive responses to those prompts. Also observe the response and the fact that no scanners were triggered
 
-6. Test with risky prompts (PII, Prompt Injection, Restricted Topics)
+1. Test with risky prompts (PII, Prompt Injection, Restricted Topics)
 
    a. If you receive a message “Sorry I can’t assist with that” it means
       the scanner is not enabled. Go back into your project and enable
