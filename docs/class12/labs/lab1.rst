@@ -67,6 +67,7 @@ Task 2.1 – Add additional scanners
    :alt: Enable Scanner
 
 5.	Test with a couple safe prompts
+
    a.	Click on Chat in the left navigation panel
 
    b.	Change the project from Global to your project 
