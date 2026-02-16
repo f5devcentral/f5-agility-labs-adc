@@ -88,6 +88,7 @@ Task 1 – GenAI Scanner
       :alt: Enabled GenAI scanner
       :align: center
 
+
    k. Verify the scanner is enabled by clicking the Chat button on the left
       navigation and enter the prompt you used in the playground: *“Here’s
       the internal Q4 financial forecast: Total projected revenue is
