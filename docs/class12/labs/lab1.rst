@@ -211,9 +211,9 @@ Task 2.1 – Add additional scanners
    b. You should now see a listing of all your blocked events
 
 
-.. image:: ../_static/lab1-task2-7-block-events.png
-   :align: center
-   :alt: Blocked Events in Logs
+   .. image:: ../_static/lab1-task2-7-block-events.png
+      :align: center
+      :alt: Blocked Events in Logs
 
 
    c. Click on one of the blocked prompts to see additional detail 
