@@ -1,199 +1,179 @@
-Outer Layer – Network Access Controls
-====================================
+Outer Layer – Boundary and Access Isolation
+===========================================
 
-The outer layer of the Control-Plane Security Onion focuses on the fastest and most effective
-controls for reducing risk to the BIG-IP control plane.
+The Outer Layer of the Control-Plane Security Onion establishes the
+first defensive boundary protecting the BIG-IP control plane. These
+controls prevent unauthorized network-level access before authentication
+mechanisms are engaged.
 
-These controls are:
+Executive Summary
+-----------------
 
-* Easiest to implement
-* Lowest maintenance
-* Highest immediate security impact
-
-This layer establishes a hardened perimeter around management and administrative interfaces.
-
----
+   The Outer Layer enforces strict boundary controls to ensure that only
+   explicitly authorized networks can reach BIG-IP control-plane services.
+   These protections align with Zero Trust principles, CIS benchmarks,
+   and enterprise segmentation strategies.
 
 Objective
 ---------
 
-The objectives of the outer layer are to:
+The objectives of the Outer Layer are to:
 
 * Prevent unauthorized network access to the control plane
-* Limit exposure of management services
-* Enforce automatic session termination
-* Eliminate default credentials and weak authentication practices
+* Enforce strict management-plane isolation
+* Minimize exposed control-plane services
+* Establish deterministic administrative access paths
+* Reduce attack surface prior to authentication
 
-Successful implementation of this layer significantly reduces the attack surface of TMUI,
-SSH, and iControl interfaces.
+Threat Model
+------------
 
----
+The Outer Layer assumes adversaries may:
+
+* Scan for exposed management interfaces
+* Attempt access from adjacent or internet-facing networks
+* Exploit misconfigured routing or segmentation
+* Leverage lateral movement within internal environments
+
+Controls at this layer focus on preventing initial reachability
+of control-plane services.
 
 Key Concepts
 ------------
 
-The outer layer is based on three fundamental principles:
+The Outer Layer is guided by the following principles:
 
-* **Restrict access:** Only trusted networks and systems can reach management interfaces.
-* **Enforce time limits:** Idle sessions are automatically terminated.
-* **Harden credentials:** Default and weak passwords are eliminated.
-
-These controls provide foundational security that all environments should implement,
-regardless of deployment size or industry.
-
----
+* **Network isolation:** Management traffic must be segregated from data-plane traffic.
+* **Explicit allowlisting:** Only approved IP ranges may access management services.
+* **Service exposure reduction:** Only required control-plane services are reachable.
+* **Perimeter enforcement:** Upstream firewalls reinforce segmentation.
+* **Deterministic routing:** Administrative paths are predictable and controlled.
 
 Control-Plane Services in Scope
 -------------------------------
 
-This layer applies to the following control-plane services:
+This layer governs network-level exposure of:
 
-* Configuration Utility (TMUI)
-* SSH and tmsh access
+* TMUI (HTTPS administrative interface)
+* SSH administrative access
 * iControl REST and SOAP APIs
-* Synchronization and monitoring services (big3d, bigd)
-
-These services must never be exposed to untrusted or public networks.
-
----
+* SNMP management interfaces
+* Self IP services on data-plane VLANs
+* ConfigSync and HA communications
 
 Controls and Best Practices
 ---------------------------
 
-Restrict Management Interface Access
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Management Interface Isolation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Management interfaces must be reachable only from trusted IP ranges.
+Administrative access should occur over a dedicated management network whenever possible.
 
 Best practices include:
 
-* Restrict TMUI access by source IP
-* Restrict SSH access by source IP
-* Configure the management interface firewall (BIG-IP 14.1+)
-* Avoid exposing management interfaces to the internet
-* Use a dedicated management interface or management VLAN
-* Isolate management traffic from data-plane traffic
+* Use the out-of-band management interface for administrative access
+* Avoid exposing management services on production data-plane VLANs
+* Restrict management interface access using IP allowlists
+* Ensure management routes are not reachable from untrusted networks
+
+Firewall Enforcement
+~~~~~~~~~~~~~~~~~~~~
+
+Upstream network devices must restrict access to control-plane services.
+
+Best practices include:
+
+* Permit access only from authorized administrative subnets
+* Block management ports from internet-facing networks
+* Log all management-plane connection attempts
+* Periodically review firewall rules for drift
+
+IP Allowlisting
+~~~~~~~~~~~~~~~
+
+Administrative access must be restricted by source IP.
+
+Best practices include:
+
+* Define allowlists for SSH and TMUI
+* Restrict SNMP access to monitoring systems only
+* Avoid broad internal access unless justified
+* Validate unauthorized access attempts are blocked
 
 Self IP Port Lockdown
 ~~~~~~~~~~~~~~~~~~~~~
 
-Self IP addresses should be configured with a default-deny posture.
+Self IP Port Lockdown controls which services are reachable on each VLAN.
+
+Even without virtual servers configured, Self IPs may respond to
+control-plane services unless explicitly restricted.
 
 Best practices include:
 
-* Set Self IPs to **Lockdown None** by default
-* Explicitly allow only required services (for example, big3d on port 4353)
-* Use **Allow Default** only for dedicated management or HA VLANs
-* Restrict access to specific ports whenever possible
+* Use **Allow Custom** on all production data-plane VLAN Self IPs
+* Explicitly allow only required services (for example, ``big3d`` on TCP/4353)
+* Use **Allow Default** only on dedicated HA or isolated management VLANs
+* Avoid exposing SSH, HTTPS, SNMP, or API services on DMZ or application VLANs
+* Validate service exposure using network scanning tools
 
-This prevents unintended exposure of control-plane services.
+.. warning::
 
----
+   "Allow Default" enables multiple administrative services and should not be
+   configured on internet-facing or shared production VLANs.
 
-Session and Access Timeouts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For detailed configuration steps and lab validation, see:
 
-Idle administrative sessions increase the risk of unauthorized access.
+:doc:`self_ip_port_lockdown`
 
-Configure the following:
+Route Domain and Segmentation Controls
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* TMUI idle logout
-* SSH inactivity timeout
-* CLI (tmsh) session timeout
-* Serial console session timeout
-* BIG-IQ idle session timeout (if applicable)
-
-These controls ensure sessions are automatically terminated when inactive.
-
----
-
-Login Banners
-~~~~~~~~~~~~~
-
-Login banners provide legal notice and inform users that activity is monitored.
-
-Configure:
-
-* Pre-login banner (legal and security notice)
-* Post-login banner (maintenance or policy message)
-
-Banners should state that all control-plane activity is logged and subject to monitoring.
-
----
-
-Account and Password Hygiene
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Eliminate default and weak credentials.
+Network segmentation should prevent lateral movement toward the control plane.
 
 Best practices include:
 
-* Change default admin and root passwords
-* Disable or restrict root account where policy allows
-* Enforce password complexity requirements
-* Enable password history
-* Configure maximum failed login thresholds
-* Apply policy consistently to all administrative accounts
-
-Strong password hygiene is critical for control-plane protection.
-
----
+* Use route domains where appropriate
+* Separate production and management routing contexts
+* Limit administrative VLAN reachability
+* Validate segmentation through testing
 
 Validation with iHealth
 -----------------------
 
-Use F5 iHealth to verify outer-layer controls.
+Use F5 iHealth to verify boundary protections.
 
 Relevant diagnostics include:
 
-* **H444724** – Management interface public access
-* **D009908** – Idle logout settings
-* **D006068** – Login banner configuration
-* **D015632** – Admin and root account status
-* **H494013** – Password policy strength
+* Detection of exposed management services
+* Management interface public access heuristics
+* Security Best Practices panel findings
 
-Upload a QKView and review the Security Best Practices panel to confirm findings are cleared.
-
----
+Upload a QKView and confirm that control-plane services are not broadly exposed.
 
 Operational Considerations
 --------------------------
 
-When implementing outer-layer controls:
+When implementing Outer Layer controls:
 
-* Always confirm an alternate access path before applying restrictions
-* Test changes from an approved management network
-* Document approved IP ranges and access policies
-* Coordinate with operations teams before restricting services
-* Avoid making changes during production hours without change control
-
-Loss of management access can require console or break-glass recovery procedures.
-
----
+* Coordinate firewall changes with network teams
+* Validate management reachability before enforcement
+* Avoid administrative lockout scenarios
+* Document approved source networks and access paths
+* Revalidate segmentation after major network changes
 
 Expected Outcomes
 -----------------
 
-After implementing the outer layer:
+After implementing the Outer Layer:
 
-* Management interfaces are no longer exposed to untrusted networks
-* Idle sessions are automatically terminated
-* Default credentials are eliminated
-* Password policies are enforced
-* iHealth shows no critical outer-layer findings
-
-This establishes a secure foundation for higher-layer controls.
-
----
+* Control-plane services are reachable only from approved networks
+* Internet exposure of management interfaces is eliminated
+* Data-plane VLANs do not expose control-plane services
+* Administrative access paths are documented and controlled
+* Lateral movement toward the control plane is restricted
 
 Next Steps
 ----------
 
-After completing the outer layer:
-
-* Proceed to the middle layer for enterprise authentication and protocol hardening
-* Begin hands-on implementation using the lab exercises
-
-Continue to:
-
-
+Proceed to the Middle Layer to enforce strong authentication,
+encryption hardening, and API access control.
