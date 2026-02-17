@@ -1,4 +1,5 @@
 Lab 3 - Red Team – Campaign Exploration
+==========================================================================================
 
 **Objective:** Review results from a pre-run Red Team campaign and
 understand how to communicate findings.

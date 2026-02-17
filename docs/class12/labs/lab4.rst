@@ -1,4 +1,5 @@
 Lab 4 - Red Team – Agentic Warfare Exploration 
+==========================================================================================
 
 **Objective**: Give hands-on experience reviewing an advanced, multi-step adversarial 
 attack (Agentic Warfare) and translating the findings into actionable

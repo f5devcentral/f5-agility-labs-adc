@@ -1,4 +1,4 @@
-Lab 1: Prompt and Response Scanning
+Lab 1 - Prompt and Response Scanning
 ==========================================================================================
 
 Business problem. You will learn how to protect AI applications from various prompt attacks, such as jailbreaks, prompt injections, and data exfiltration attempts. 

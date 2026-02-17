@@ -1,4 +1,5 @@
 Lab 2 – Creating custom scanners
+==========================================================================================
 
 Overview: This lab we will create a custom GenAI scanner
 
