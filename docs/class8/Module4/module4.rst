@@ -1,14 +1,14 @@
-Working With TCP Profiles
-=========================
+HTTP Specific Options
+=====================
 
 In this module you will learn how the TCP Profile can affects traffic flows through TMOS.
 
 Lab Tasks:
 **********
 
-* Task 1: Review AVR Data
-* Task 2: Use iRules To Log Traffic Data
-* Task 3: Anything else?
+* Task 1: Enabling Layer 7 LB for HTTP
+* Task 2: HTTP Caching
+* Task 3: HTTP Compression (even if your servers already perform it)
 
 .. toctree::
    :maxdepth: 1
