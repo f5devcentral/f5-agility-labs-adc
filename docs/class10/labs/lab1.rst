@@ -1,7 +1,7 @@
 Lab 1: High Availability & Efficient Load Distribution
 ==========================================================================================
 
-Business problem. AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
+Business has a problem. AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
 clients directly to specific storage nodes creates tight coupling and operational risk: a single overloaded node
 throttles the entire pipeline.
 
