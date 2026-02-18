@@ -66,7 +66,7 @@ e. Select the **Update** button
    b. Reset the statistics for your **www_pool** pool by checking the
       boxes next to the pool members and hitting the **Reset** button
 
-      i.   Browse to your **www_vs** **(10.1.10.100)** virtual server
+      i.   Log back into Ubuntu Jumphost and browse to your **www_vs** **(10.1.10.100)** virtual server
 
       ii.  Refresh the browser screen several times (use “<ctrl>” F5)
 
@@ -128,9 +128,9 @@ c. Select the pool members **10.1.20.11** and **10.1.20.12** and set
 
    b. Reset the pool statistics.
 
-   c. Browse to your virtual server and refresh several times.
+   c. In your RDP session to Jumpbox, browse to your virtual server and refresh several times.
 
-   d. Refresh you statistics.
+   d. Refresh you statistics on bigip01.
 
    e. Are all members taking connections?
 
@@ -276,16 +276,18 @@ c. Click **Finish** and you will be taken back to **Local
 
     b. What is the status of the pool and its members?
 
-7. Go to **Local Traffic>Virtual Servers**, what is the status of your
-    virtual server?
+7. Go to **Local Traffic>Virtual Servers**, what is the status of your virtual server?
 
     a. Browse to your **www_vs** virtual server. Which members are
        taking traffic?
 
-    b. Just for fun reverse the monitor. Now when **200 OK** is returned
-       it indicates the server is not responding successfully. You can
+    b. Just for fun, let's reverse the monitor. Go to Properties of the pool and change the **Reverse** setting to **Yes**. Update the pool and browse to your virtual server again.
+    
+       Now when **200 OK** is returned it indicates the server is not responding successfully. You can
        see where this would be useful if you were looking for a 404 (bad
-       page) response. Once completed, please go back and undo your changes to the monitor. 
+       page) response. 
+       
+       Once completed, please go back and **undo** your changes to the monitor. 
 
 
 
@@ -350,7 +352,7 @@ Simple (Source Address) Persistence
                2. Each new IP address will create a new persistence record.
 
 .. hint::
-   You can’t change the settings until you have checked the Custom box.  Hey, I didn’t write the GUI, but actually this is very useful in knowing which configuration items were modified from the default.
+   You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
 
 |
           iii.  Click the Finished button.
@@ -384,7 +386,7 @@ Simple (Source Address) Persistence
        I. Testing Source Address Affinity
        
           i.   At this point you may want to open a second browser window to
-               the management GUI.
+               the management GUI of bigip01.
        
           ii.  For one management window go to **Statistics>Module
                Statistic>Local Traffic**
@@ -396,21 +398,21 @@ Simple (Source Address) Persistence
           :height: 2.22917in
        
        j. At this point you will see that Persistence Records statistics
-          display has been disabled in version 12.1. A TMSH database command is
+          display has been disabled by default. A TMSH database command is
           required to activate it.
        
-          i. SSH to you BIG-IP.
+          i. SSH to bigip01 or open a WebShelll session from the Access dropdown menu.
        
           ii. At the prompt enter: **tmsh**
        
           iii. At the TMSH prompt enter the command in the **Persistence Value** GUI.
 
-            .. admonition:: TMSH
-
                modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
                
-Tab completion will make this a little easier
-            
+            Tab completion will make this a little easier
+
+          iv. Go to RDP session and refresh your virtual server page several times.
+
        2. Now, in this window you can watch you persistence records. You may
           want to set **Auto Refresh** to 20 seconds.
        
@@ -503,7 +505,7 @@ Cookie Persistence (Cookie Insert)
           a. If you wish you can watch the member statistics to validate your
              persistence.
        
-          b. Open a new browser session to your virtual server and refresh
+          b. Open a new browser in your RDP session to your virtual server and refresh
              several times.
        
           c. Does the page ever change?

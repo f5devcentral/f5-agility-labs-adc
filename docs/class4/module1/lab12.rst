@@ -14,8 +14,7 @@ password: 'admin'
 #. Configure an iRule as follows (ours is named 'ssl-decrypt.ir'):
 
    .. code-block:: tcl
-      :linenos:
-
+      
       when CLIENTSSL_HANDSHAKE {
          log local0. "CLIENT_RANDOM [SSL::clientrandom] [SSL::sessionsecret]"
          log local0. "RSA Session-ID:[SSL::sessionid] Master-Key:[SSL::sessionsecret]"
@@ -77,8 +76,7 @@ SSL Decrypt from Linux Client
 #. On an Ubuntu client open a terminal window and run the following commands:
 
    .. code-block:: bash
-      :linenos:
-
+      
       touch session-key.log
       export SSLKEYLOGFILE=/home/f5student/session-key.log
       chromium-browser

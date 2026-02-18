@@ -17,7 +17,7 @@ First, you will need to log into **bigip01**. You will need create two untagged 
 1. From the sidebar select **Network** **> VLANs** then select
    **Create**
 
-.. image:: ../../_static/class1/image10.png
+.. image:: ../images/image10.png
    :width: 3.29032in
    :height: 2.625in
 
@@ -44,22 +44,25 @@ c. Under **Resources** in the **Interfaces** section:
    iii. Select the **Add** button. Leave all other items at the default
         setting.
 
-.. image:: ../../_static/class1/image11.png
+.. image:: ../images/image11.png
    :width: 2.39187in
    :height: 1.66681in
 
-d. When you have completed your VLAN configuration, hit the
-    **Finished** button
+d. When you have completed your VLAN configuration, hit the **Finished** button
 
 .. important::
-   Now create another untagged VLAN named **server_vlan** on interface **1.2.**
+   Now create another untagged VLAN named **server_vlan** on interface **1.2,** following the same steps as above.
+   When you are done, you should have two untagged VLANs, one on interface 1.1 and one on interface 1.2.
 
-Assigning a Self IP addresses to your VLANs
+.. image:: ../images/image11.1.png
+   :width: 6.0in
+   :height: 1.2in
+
 -------------------------------------------
 
 1. Go to **Network > Self IPs**, select **Create**.
 
-.. image:: ../../_static/class1/image12.png
+.. image:: ../images/image12.png
    :width: 5.8125in
    :height: 3.08766in
 
@@ -254,9 +257,9 @@ e. You have now created a Virtual Server
 .. note:: Items in the GUI that are blue are links ie. shortcuts
 
 2. Now let’s see if our virtual server works!
-     - **UDF** - from the ubu-jumpbox go to http://10.1.10.100
+     - **UDF** - log into your **Ubuntu Jumpbox via xRDP access method** using the credentials provided in Documentation section
 
-   a. Open the browser to the Virtual Server you just created
+   a. Open the browser from the bottom of the screen, go to the Virtual Server you just created http://10.1.10.100
 
    b. Refresh the browser screen several times (use “<ctrl>” F5)
 
@@ -291,9 +294,9 @@ f. Go to **Local** **Traffic>Pools>Statistics**
 
    a. Go to **System >> Archives** and select **Create**.
 
-      i. Name your archive **lab2_the_basics_net_pool_vs**
+      i. Name your archive **lab1_the_basics_net_pool_vs**
 
-ExtraCredit!
+**ExtraCredit!**
 ------------
 
 You can also review statistics via the CLI, simply SSH to the management
@@ -304,7 +307,7 @@ Diagram for the IP address.
 
    a. Review the information of the following command:
 
-      i. **bigtop –n**
+      i. **export TERM=vt100; bigtop –n**
 
            1. Type **q** to quit.
 
@@ -328,12 +331,11 @@ Diagram for the IP address.
    a. Go to **Statistics>Dashboard**
 
 .. image:: ../images/image23.png
-   :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML59e5bf2.PNG
    :width: 3.13542in
    :height: 1.81755in
 
-b. Click the Big Red F5 ball. This will take you to the Welcome page.
-   Here you can find links to:
-
-   i. User Documentation, Running the Setup Utility, Support, Plug-ins,
-      SNMP MIBs
+b. This will take you to the BIG-IP Dashboard page. The F5 **BIG-IP Dashboard** in the Configuration utility provides real-time, customizable graphical views of system performance, including CPU usage, memory, network traffic (PPS, Mbps), and connection statistics. It allows users to create custom "view sets" combining data from various modules (LTM, DNS, AFM) to monitor application health and traffic flow.
+   
+   .. image:: ../images/dashboard.png
+   
+   Feel free to explore the dashboard and create your own view sets to monitor the performance of your virtual server and pool!
