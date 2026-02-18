@@ -1,10 +1,12 @@
-Introduction: Building Secure and Optimized AI Apps with F5 Guardrails & Red Teams
+Introduction: Accessing F5 S3 BIG-IP Lab Environment
 ====================================================
 
-In this lab, attendees will be introduced to F5’s AI Guardrails and AI RedTeam products, 
-with a focus on real-time prompt and response scanning, policy customization, 
-and custom scanner creation. Students will learn how to interpret findings, 
-map them to actionable defenses, and test model weaknesses.  
+Modern AI and data-intensive applications depend on fast, reliable access to S3-compatible storage. While
+object stores like MinIO scale horizontally, apps frequently couple themselves tightly to individual storage
+endpoints. This creates brittle deployments, uneven utilization, and high operational overhead.
+F5 BIG-IP Local Traffic Manager (LTM) solves this challenge by providing a single, resilient abstracted
+endpoint for S3 data delivery. With BIG-IP, applications connect to one virtual IP, while traffic is intelligently
+distributed across one or more clusters, governed by policies, and protected by health monitoring.
 
 
 Course/Lab Invitation
