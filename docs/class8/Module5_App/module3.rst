@@ -14,4 +14,4 @@ password: `lab.F5demo.com`
    :maxdepth: 1
    :glob:
 
-   lab*
+   Module*/lab*
