@@ -1,35 +1,22 @@
-Lab 3: Review Base TCP Profiles
-===============================
+Task 1: Review Base TCP Profiles
+================================
 
-In Lab 3, you will look at the base TCP profiles within TMOS and some legacy TCP profiles that may exxist within your BIG-IP environments.   options for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
-
-v16+ TCP Profiles - https://my.f5.com/manage/s/article/K50411377
-v15 TCP Profiles - https://my.f5.com/manage/s/article/K74767112
-v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
-v15+ F5-TCP_LAN Profile - https://my.f5.com/manage/s/article/K37412295
-v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
-v10-12 TCP-LAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7406
-
-
-Task 1:
-*******
-
-Review genearal TCP profiles available to TMOS.
+Review general TCP profiles available to TMOS.
 
 #. From the left-side menu, go to Local Traffic > Profiles > Protocol > TCP.
 #. Click the **Parent Profile** column title to sort the profiles
 
-  Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all profiles source from the base profile named tcp. 
+  Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all profiles end up sourcing from the base profile named tcp. 
 
 .. image:: ../images/tcp_profiles_sorted.png
 
-  As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the setting of the older profiles <<reword??>>
+  As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles <<reword??>>
 
 * Click on the tcp-legacy profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
 
 .. image:: ../images/tcp_legacy_buffers.png
 
-  If tcp-wan-optimized/tcp-lan-optimized profiles are in use, they are based on the older tcp-legacy parent profile with the small send buffer.  This small does not allow for TCP Window Scaling.
+* At this point, the web01-vs1 Virtual Server is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IPs that have been upgraded from older versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
 
 * Connect to the Ubuntu-Client via SSh using the Access dropdown
 
@@ -44,24 +31,35 @@ Review genearal TCP profiles available to TMOS.
  .. image:: ../images/udf_fingerprint.png
 
 * Connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
+
+  .. image:: ../images/udp_bigip01_ssh.png
+
+* Click Open Terminal if prompted
+
+  .. image:: ../images/udp_client_ssh.png
+
+* Enter 'yes' if prompted for fingerprint
+
+  .. image:: ../images/udf_fingerprint.png
+
 * Start a packet capture from the SSH window of BIGIP01::
 
-What is this command doing?
+  What is this following TCPDUMP command doing?
 
-  timeout 5s: Run the command for 5s then quit
-  tcpdump:  Command to run
-  -nni: No name resolution and No part resolution - just return the raw numbers
-  internal: The 'interface' name - the server-side VLAN in the lab
-  host 10.1.10.15:  The internal floating selfIP used as the source filter
-  tcp[14:2] == 0:  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
-  tcp[13] == 16: Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
-  -s 500: We only concerned with TCP flags so the snaplength is 500 Bytes
+    timeout 5s: Run the command for 5s then quit
+    tcpdump:  Command to run
+    -nni: No name resolution and No part resolution and interface
+    internal: The 'interface' name - the server-side VLAN in the lab
+    host 10.1.10.15:  The internal floating selfIP used as the source filter
+    tcp[14:2] == 0:  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
+    tcp[13] == 16: Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
+    -s 500: We only concerned with TCP flags so the snaplength is 500 Bytes
 
 timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500
 
   Since we have background traffic running through BIGIP01, you should see 500-700 packets during the 5s capture.
 
-Samples::
+Log Examples::
 
 09:51:20.983280 IP 10.1.10.15.36658 > 10.1.10.32.443: Flags [.], ack 1114961, win 0, options [nop,nop,TS val 1824155031 ecr 3982370403], length 0
 09:51:20.984960 IP 10.1.10.15.56662 > 10.1.10.30.443: Flags [.], ack 1050717, win 0, options [nop,nop,TS val 1824155032 ecr 909863226], length 0
@@ -69,9 +67,9 @@ Samples::
 09:51:20.996657 IP 10.1.10.15.33414 > 10.1.10.32.443: Flags [.], ack 1560945, win 0, options [nop,nop,TS val 1824155043 ecr 3982370624], length 0
 09:51:20.999251 IP 10.1.10.15.36820 > 10.1.10.32.443: Flags [.], ack 458642, win 0, options [nop,nop,TS val 1824155046 ecr 3982370421], length 0
 
-The capture output shows the SelfIP (10.1.10.15) of BIGIP01 sending a TCP Zero Window to the application pool members (10.1.10.30-34).  This means BIGIP01 is telling the pool members to stop sending data while it waits for the the client-side to catchup.  As mentioned earlier, the client had 200ms of latency injected in the path to BIGIP01.
+The capture output shows the SelfIP (10.1.10.15) of BIGIP01 sending TCP Zero Window ACKs to the application pool members (10.1.10.30-34).  This means BIGIP01 is telling the pool members to stop sending data while it waits for the the client-side to catchup.  As mentioned earlier, the client had 200ms of latency injected in the path to BIGIP01.
 
-From the BIGIP01 SSH window run the following packet capture filtering in SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.:
+From the BIGIP01 SSH window, run the following packet capture filtering on SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.:
 
   tcpdump -nni external host 10.1.30.6 and 'tcp[13] & 2 != 0' -c 4
 
@@ -116,203 +114,3 @@ Go back to the BIGIP01 SSH window and run the same packet capture.  You should n
 
 How does TCP Zero Window affect traffic performance?  Using a 2nd Virtual Server on BIGIP01
 
-* Task 1: Review AVR Data
-* Task 2: Use iRules to log traffic data
-* Task 3: Anything else?
-
-Task 1: Review AVR Data
------------------------
-
-AVR is already provisioned with custom HTTP and TCP AVR profiles created and assigned to Virtual Servers.  When AVR profiles are initially applied to Virtual Servers, it takes around 5 minutes for the data to appear in the logs.  In the lab, the AVR profiles are already assigned and trafficc is running in the backgound to pre-populate the logs.
-
-#. Connect to TMUI of BIGIP01 using the following credentials:
-
-    User:     admin
-    Password: admin.F5demo.com
-    
-#. From the left menu, select Statistics > Analytics > HTTP > Overview
-
-  .. image:: ../images/avr_http_selection.png
-
-    You will see the AVR overview graphs showing HTTP data flowing through the system.  On the right side of the screen, there are filtering options that we will use later.  By default, the view shows data from the last hour for all Virtual Servers with an attached HTTP AVR profile and refreshes every 5 minutes.  Feel free to change the visible time frame using the dropdown near the top left.  Since the lab systems have been running off for a few weeks you will have data for the Last week, Last month but may not see much for the Last day. 
-
-  .. image:: ../images/avr_http_overview.png
-
-#. Use AVR to see what is happening on the system at the HTTP layer.
-
-    Reset the view to Last hour from the top left dropdown.  Use the Response Code filter on the right side to see what cades are available.  With the lab traffic you will have at least 200, 301, and 404 and response codes available.  Let's use the filters to see what is happening beyond 200 responses.  Click on 301 and the graphs will update showing just the data related to 301 response codes.  Click on URLs above on the right to see what URLs are causing the 301 (redirects).
-
-  .. image:: ../images/avr_http_responses.png
-
-    For lab, 301 responses are a result of redirect.html.  Redirects may be necessary or could be left over from a previous application migration.  You can take these results back to the application team(s) to see if redirects are expected.  It could be something as simple as clients requesting /login instead of /login/ that is causing the redirects.  Unneccesary redirects add time to the client connections and uses resources on the BIGIP and/or application servers.
-
-    Go back to the Resonse Codes filter and click 301 to deselect it, then click on 404.  Look at the URLs filter, it will show the cause of the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k**b**.txt not k**d**.txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
-
-  .. image:: ../images/avr_http_typo.png
-
-
-
-------
-
-
-
-<<Keep for code examples>>
-#. **Navigate to**: Network > Trunks > Trunk List, then click the "+" button to create a new Trunk:
-
-   .. image:: ../images/image1.png
-
-#. Provide a Trunk Name, and move the respective Available interface to the "Members" section.
-
-#. Click Repeat to define your next trunk.
-
-   When you define the last trunk, you may select the "Finished" button
-
-   -  Internal Trunk:
-   
-    .. image:: ../images/image2.png
-
-
-    .. image:: ../images/image3.png
-
-   -  External Trunk:
-
-     .. image:: ../images/image4.png
-
-   -  HA Trunk:
-
-     .. image:: ../images/image5.png
-
-   -  View of Trunk List after creating all three trunks:
-
-     .. image:: ../images/image6.png
-
-
-Task 2: Create BIG-IP VLANs
-===========================
-
-In Task 2, we will define our VLANs on our BIG-IPs.  Our VLANs will be associated with their respective trunk from Task 1.
-
-#. On both BIG-IP devices, configure VLANs under the Network configuration section.
-
-   Use the following table to create & define your three VLANs:
-
-   +------------+----+-----------+----------+
-   |Name        |Tag |Interface  | Tagging  |
-   +============+====+===========+==========+
-   |int_vlan_10 | 10 |int_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |ext_vlan_20 | 20 |ext_trunk  | Untagged |
-   +------------+----+-----------+----------+
-   |HA_vlan_30  | 30 |HA_trunk   | Untagged |
-   +------------+----+-----------+----------+
-
-#. **Navigate to**: Network > VLANs > VLAN List, then click the "+" button to create a new VLAN:
-
-     .. image:: ../images/image7.png
-
-#. Create the respective VLANs per the table above.
-
-   -  Internal VLAN:
-
-     .. image:: ../images/image8.png
-
-     .. image:: ../images/image9.png
-
-   -  External VLAN:
-
-     .. image:: ../images/image10.png
-
-   -  HA VLAN:
-
-     .. image:: ../images/image11.png
-
-   -  View of the VLAN List after all VLANs have been defined, and associated to their respective Trunk:
-
-     .. image:: ../images/image12.png
-
-Task 3: Create BIG-IP Self IPs
-==============================
-
-In Task 3, we will configure our Local Self IPs of each BIG-IP.  These IPs will be our L3 connectivity to our BIG-IP networks.
-
-#. On both BIG-IP devices, configure their respective Self IPs under the Network configuration section.
-
-   Use the following table to create & define your three Self IPs:
-
-   .. list-table:: 
-      :widths: auto
-      :align: center
-      :header-rows: 1
-   
-      * - BIG-IP
-        - Name
-        - IP address
-        - Netmask
-        - VLAN
-        - Port Lockdown
-      * - bigipA
-        - self_vlan10
-        - 10.1.10.241
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipA
-        - self_vlan20
-        - 10.1.20.241
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipA
-        - self_vlan30
-        - 10.1.30.241
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-      * - bigipB
-        - self_vlan10
-        - 10.1.10.242
-        - 255.255.255.0
-        - int_vlan_10
-        - Allow None (default)
-      * - bigipB
-        - self_vlan20
-        - 10.1.20.242
-        - 255.255.255.0
-        - ext_vlan_20
-        - Allow None (default)
-      * - bigipB
-        - self_vlan30
-        - 10.1.30.242
-        - 255.255.255.0
-        - HA_vlan_30
-        - Allow None (default)
-
-
-#. **Navigate to**: Network > Self IPs, then click the "+" button to create a new Self IP:
-
-     .. image:: ../images/image13.png
-
-#. Create the respective Self IPs per the table above.
-
-   -  Self IP, VLAN 10:
-
-     .. image:: ../images/image14.png
-
-   -  Self IP, VLAN 20:
-
-     .. image:: ../images/image15.png
-
-   -  Self IP, HA VLAN 30:
-
-     .. image:: ../images/image16.png
-
-   -  Example view of the Self IP List from BIG-IP-A after all Self IPs have been defined:
-
-     .. image:: ../images/image17.png
-
-
-Lab Summary
-***********
-In this lab, you setup basic BIG-IP network-level configuration settings.  After completion of these lab tasks, you should have network connectivity between the devices on all VLANs.  These configuration objects will assist with the subsequent labs.
-
-This completes Lab 1.
