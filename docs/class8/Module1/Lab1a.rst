@@ -6,11 +6,11 @@ In Lab 1, you will see several options for reviewing the application flows throu
 Lab Tasks:
 **********
 
-* Task 1: Review AVR Data
-* Task 2: Use iRules to log traffic data
-* Task 3: Anything else?
+* Task 1: Review AVR HTTP Data
+* Task 2: Review AVR TCP Data
+* Task 3: Use iRules to log traffic data
 
-Task 1: Review AVR Data
+Task 1: Review AVR HTTP Data
 -----------------------
 
 AVR is already provisioned with custom HTTP and TCP AVR profiles created and assigned to Virtual Servers.  When AVR profiles are initially applied to Virtual Servers, it takes around 5 minutes for the data to appear in the logs.  In the lab, the AVR profiles are already assigned and trafficc is running in the backgound to pre-populate the logs.
@@ -24,7 +24,7 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 
   .. image:: ../images/avr_http_selection.png
 
-    You will see the AVR overview graphs showing HTTP data flowing through the system.  On the right side of the screen, there are filtering options that we will use later.  By default, the view shows data from the last hour for all Virtual Servers with an attached HTTP AVR profile and refreshes every 5 minutes.  Feel free to change the visible time frame using the dropdown near the top left.  Since the lab systems have been running off for a few weeks you will have data for the Last week, Last month but may not see much for the Last day. 
+    You will see the AVR overview graphs showing HTTP data flowing through the system.  On the right side of the screen, there are filtering options that we will use later.  By default, the view shows data from the last hour for all Virtual Servers with an attached HTTP AVR profile and refreshes every 5 minutes.  Feel free to change the visible time frame using the dropdown near the top left.  Since the lab systems have been running off and on for a few weeks, you will have data for the Last week, Last month but may not see much for the Last day. 
 
   .. image:: ../images/avr_http_overview.png
 
@@ -36,14 +36,9 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 
     For lab, 301 responses are a result of redirect.html.  Redirects may be necessary or could be left over from a previous application migration.  You can take these results back to the application team(s) to see if redirects are expected.  It could be something as simple as clients requesting /login instead of /login/ that is causing the redirects.  Unneccesary redirects add time to the client connections and uses resources on the BIGIP and/or application servers.
 
-    Go back to the Resonse Codes filter and click 301 to deselect it, then click on 404.  Look at the URLs filter, it will show the cause of the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k**b**.txt not k**d**.txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
+    Go back to the Response Codes filter and click 301 to deselect it, then click on 404.  Look at the URLs filter, it will show the cause of the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k**b**.txt not k**d**.txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
 
   .. image:: ../images/avr_http_typo.png
-
-
-
-------
-
 
 
 <<Keep for code examples>>

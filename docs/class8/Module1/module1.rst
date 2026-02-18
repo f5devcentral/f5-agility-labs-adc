@@ -1,11 +1,14 @@
-TMOS - Performance Tuning
-=========================
+Getting To Know Your Application traffic
+========================================
 
-This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, ajustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
+In this module you will learn how to configure BIG-IP HA - the proper way.
 
-Add the lab summary here
+Lab Tasks:
+**********
 
-Expected time to complete: **1.5 hours**
+* Task 1: Review AVR Data
+* Task 2: Use iRules To Log Traffic Data
+* Task 3: Anything else?
 
 .. toctree::
    :maxdepth: 1
