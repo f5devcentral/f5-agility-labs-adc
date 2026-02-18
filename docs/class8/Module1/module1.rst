@@ -1,4 +1,4 @@
-Getting To Know Your Application traffic
+Getting To Know Your Application Traffic
 ========================================
 
 In this module you will learn how to configure BIG-IP HA - the proper way.

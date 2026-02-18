@@ -1,20 +1,29 @@
-Lab 3: Review Base TCP Profiles
-===============================
+Task 2:  TCP Window Scaling Review
+==================================
 
-In Lab 3, you will look at the base TCP profiles within TMOS and some legacy TCP profiles that may exxist within your BIG-IP environments.   options for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
+To speed up the process, you will just review TCP Window Scale screenshots taken from packet captures from the 3 TCP profiles in used in the previous selection.
 
-v16+ TCP Profiles - https://my.f5.com/manage/s/article/K50411377
-v15 TCP Profiles - https://my.f5.com/manage/s/article/K74767112
-v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
-v15+ F5-TCP_LAN Profile - https://my.f5.com/manage/s/article/K37412295
-v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
-v10-12 TCP-LAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7406
+#. Base Condition - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
+
+.. image:: ../images/tcp_base_ws_server.png
+
+    Server-side: The TCP Window size is limited to 65353 bytes because Window Scaling is not enabled.  The TCP Window drops to zero many times throughout the single TCP stream.
+
+#. TCP-Progressive
+
+.. image:: ../images/tcp_prog_ws_server.png
+
+    Server-side: The TCP Window size grows a bit larger towards the end of the TCP stream but there are still many drops to zero bytes.  This is due to the was TCP_Progressive calculates the buffers with a low latency link.
+
+#. Tcp_3mb Profile
+
+.. image:: ../images/tcp_3mb_ws_server.png
+
+    Server-side: The TCP Window size grows to 3mb in about 100ms and stays there throughout the TCP stream.  There are TCP Zero Window events.
+
+    
 
 
-Task X:
-*******
-
-Review genearal TCP profiles available to TMOS.
 
 #. From the left-side menu, go to Local Traffic > Profiles > Protocol > TCP.
 #. Click the **Parent Profile** column title to sort the profiles

@@ -1,5 +1,5 @@
-HTTP Specific Options
-=====================
+HTTP Tuning
+===========
 
 In this module you will learn how the TCP Profile can affects traffic flows through TMOS.
 
