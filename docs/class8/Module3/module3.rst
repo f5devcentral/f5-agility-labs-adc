@@ -14,4 +14,4 @@ Lab Tasks:
    :maxdepth: 1
    :glob:
 
-   Lab*
+   lab*
