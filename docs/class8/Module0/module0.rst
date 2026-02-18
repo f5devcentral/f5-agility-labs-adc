@@ -1,5 +1,5 @@
-TMOS - Performance Tuning
-=========================
+Working With The Lab
+====================
 
 This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, adjustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
 
