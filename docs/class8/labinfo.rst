@@ -5,20 +5,15 @@ You will be using our Unified Demo Framework (UDF) environment to complete the t
 
 Lab Topology Diagram
 --------------------
-.. image:: images/image90.png
+.. image:: ../images/image90.png
 
 The following components have been included in your lab environment:
 
-#. F5 BIG-IP VE (bigip01)
-
-#. Ubuntu router - For adding 200ms network latency between the client and BIGIP Virtual Servers
-
-#. Ubuntu Client - For generating test traffic
-
-#. Ubuntu Webserver
-
-#. Windows Client - For Wireshark
-
+* F5 BIG-IP VE (bigip01)
+* Ubuntu router - For adding 200ms network latency between the client and BIGIP Virtual Servers
+* Ubuntu Client - For generating test traffic
+* Ubuntu Webserver
+* Windows Client - For Wireshark
 
 Lab Components
 ---------------
@@ -36,7 +31,7 @@ The following table lists the management IP addresses and credentials for the co
    * - bigip01
      - 10.1.1.1
      - **admin**:admin.F5demo.com *and/or* **root**:root.F5demo.com
-     - Windows Client
+   * - Windows Client
      - 10.1.1.6
      - **labUser**:lab.F5demo.com
 
@@ -54,7 +49,7 @@ take for each lab:
 +======================================================+==================+
 | LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 2 - TCP Profile Tuning                           | 20 minutes       |
+| LAB 2 - Working With TCP Profiles                    | 20 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 3 - HTTP Tuning                                  | 20 minutes       |
 +------------------------------------------------------+------------------+
