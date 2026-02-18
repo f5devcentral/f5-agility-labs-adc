@@ -34,10 +34,10 @@ The following table lists the management IP addresses and credentials for the co
      - Management IP
      - username:password
    * - bigip01
-     - 10.1.1.1
+     - 10.1.1.4
      - **admin**:admin.F5demo.com *and/or* **root**:root.F5demo.com
    * - Windows Client
-     - 10.1.1.6
+     - 10.1.1.8
      - **labUser**:lab.F5demo.com
 
 Timing for Labs
@@ -69,5 +69,5 @@ Expected time to complete: **1.5 hours**
    :glob:
 
    Module*/module*
-   lab*
+   
 

@@ -39,6 +39,6 @@ Recap
 -----
 You now have the following:
 
-   - Logged into the UDF portal
-   - A working UDF deployment
-   - Access to the key Lab components
+* Logged into the UDF portal
+* A working UDF deployment
+* Access to the key Lab components

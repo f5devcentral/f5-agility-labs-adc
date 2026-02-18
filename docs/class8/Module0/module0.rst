@@ -15,4 +15,4 @@ Expected time to complete: **1.5 hours**
    :maxdepth: 1
    :glob:
 
-   lab*
+   Module*/lab*
