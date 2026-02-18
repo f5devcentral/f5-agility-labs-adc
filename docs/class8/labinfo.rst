@@ -9,17 +9,21 @@ Lab Topology Diagram
 
 The following components have been included in your lab environment:
 
-#. F5 BIG-IP VE (bigipA)
+#. F5 BIG-IP VE (bigip01)
 
-#. F5 BIG-IP VE (bigipB)
+#. Ubuntu router - For adding 200ms network latency between the client and BIGIP Virtual Servers
 
-#. Windows Jumphost
+#. Ubuntu Client - For generating test traffic
+
+#. Ubuntu Webserver
+
+#. Windows Client - For Wireshark
 
 
 Lab Components
 ---------------
 
-The following table lists the management IP addresses and credentials for all components:
+The following table lists the management IP addresses and credentials for the components used in the labs:
 
 .. list-table:: 
    :widths: auto
@@ -29,12 +33,30 @@ The following table lists the management IP addresses and credentials for all co
    * - Host
      - Management IP
      - username:password
-   * - bigipA
-     - 10.1.1.5
-     - **admin**:admin.F5demo.com *and/or* **root**:default
-   * - bigipB
+   * - bigip01
+     - 10.1.1.1
+     - **admin**:admin.F5demo.com *and/or* **root**:root.F5demo.com
+     - Windows Client
      - 10.1.1.6
-     - **admin**:admin.F5demo.com *and/or* **root**:default
-   * - Windows Jumpbox
-     - 10.1.1.4
-     - **external_user**:admin.F5demo.com
+     - **labUser**:lab.F5demo.com
+
+Timing for Labs
+^^^^^^^^^^^^^^^
+
+The time it takes to perform each lab varies and is mostly dependent on
+accurately completing steps. This can never be accurately predicted but
+we strived to derive an estimate among several people each having a
+different level of experience. Below is an estimate of how long it will
+take for each lab:
+
++------------------------------------------------------+------------------+
+| LAB Name (Description)                               | Time Allocated   |
++======================================================+==================+
+| LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
++------------------------------------------------------+------------------+
+| LAB 2 - TCP Profile Tuning                           | 20 minutes       |
++------------------------------------------------------+------------------+
+| LAB 3 - HTTP Tuning                                  | 20 minutes       |
++------------------------------------------------------+------------------+
+| Appendix - Optional Packet Decryption Lab            | 15 minutes       |
++------------------------------------------------------+------------------+
