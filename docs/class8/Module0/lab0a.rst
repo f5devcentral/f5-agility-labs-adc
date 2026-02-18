@@ -20,5 +20,5 @@ To access the UDF course for this class follow the instructions below.
    #. In the pop up window set the Autostop Duration to 4 hours.
    #. Leave everything else default and click start.
 
-The UDF deployment will take a few minutes to stand up. In the meantime feel free to read through the Documentation section of the deployment.
+The UDF deployment will take a few minutes to stand up. In the meantime feel free to read through the next section about using the lab.
 

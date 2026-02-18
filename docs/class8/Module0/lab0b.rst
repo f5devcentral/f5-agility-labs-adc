@@ -7,11 +7,12 @@ Option 1: Access from UDF (Preferred)
 -------------------------------------
 Each component within the UDF deplyment has multiple connection methods from the **Access** dropdown.  Here is an example of the Access options for BIGIP01
 
-   .. image:: ../images/bigip_access.png
+   .. image:: ../images/udf_bigip_access.png
+      :width: 600px
 
 * For BIGIP01, you will use TMUI and SSH options during the labs.  TMUI creadentials are:
   
-     User: admin
+   | User: admin
    | Password: admin.F5demo.com
 
    SSH login does not require a password
@@ -19,10 +20,10 @@ Each component within the UDF deplyment has multiple connection methods from the
 * For Ubuntu-Client, you will use SSH and no password is needed
 * For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 
-   User: labUser
-   Password: lab.F5demo.com
+   | User: labUser
+   | Password: lab.F5demo.com
 
-Option 2: Access from the Windows-Client. (not needed?)
+Option 2: Access from the Windows-Client (not needed?)
 -----------------------------------------
 Each component within the UDF deplyment has multiple connection methods from the **Access** dropdown.  Here is an example of the Access options for BIGIP01
 
