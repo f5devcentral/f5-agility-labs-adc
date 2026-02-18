@@ -1,5 +1,5 @@
-HTTP Tuning
-===========
+Lab 3: HTTP Tuning
+==================
 
 In this module you will learn how the TCP Profile can affects traffic flows through TMOS.
 
@@ -14,4 +14,4 @@ Lab Tasks:
    :maxdepth: 1
    :glob:
 
-   Module*/lab*
+   lab*
