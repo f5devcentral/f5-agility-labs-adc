@@ -24,10 +24,15 @@ Each component within the UDF deplyment has multiple connection methods from the
 
 Option 2: Access from the Windows-Client (not needed?)
 -----------------------------------------
-Each component within the UDF deplyment has multiple connection methods from the **Access** dropdown.  Here is an example of the Access options for BIGIP01
+
+* For Windows-Client, you will use RDP.
+  
+.. image:: ../images/udf_RDP_option.png
+   :width: 500px
+
+* An RDP file will save to your browser's download location.  Find and click on the download RDP file.
 
 
-* For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 
    | User: labUser
    | Password: lab.F5demo.com

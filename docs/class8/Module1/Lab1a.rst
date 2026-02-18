@@ -1,5 +1,5 @@
 Task 1: Review AVR HTTP Data
------------------------
+============================
 
 AVR is already provisioned with custom HTTP and TCP AVR profiles created and assigned to Virtual Servers.  When AVR profiles are initially applied to Virtual Servers, it takes around 5 minutes for the data to appear in the logs.  In the lab, the AVR profiles are already assigned and trafficc is running in the backgound to pre-populate the logs.
 
