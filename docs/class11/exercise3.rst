@@ -44,7 +44,6 @@ From the tenant *tmsh* or even the *bash* shell, there are many ways to look at 
 tmsh commands: 
   
 .. code-block:: none
- 
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show sys performance
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show ltm virtual
 
