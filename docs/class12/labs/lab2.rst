@@ -1,351 +1,169 @@
+Lab 2 – Creating custom scanners
+==========================================================================================
 
-Lab 2: Fine-grained Policy Enforcement & Bucket Migration
-====================================
-
-AI training and fine-tuning workloads generate highly variable request rates. Spikes in requests per second
-(RPS) can saturate storage clusters, disrupting other workloads and risking missed SLAs.
-At the same time, data migrations are common — moving buckets between clusters or rebalancing capacity.
-Migrations need to be surgical and transparent, without requiring client reconfiguration.
-
-**Technical Problem**
-
-- No central control: Clients flood nodes with requests, overwhelming clusters.
-- Data migrations require manual endpoint changes or application rewrites.
-- Lack of policy enforcement leads to instability and risk during transitions.
-
-**Solution with BIG-IP Local Traffic Manager (LTM)**
-
-- **iRules** can be applied to cap connections, control RPS, and enforce thresholds at the dataplane.
-- **Local Traffic Policies** redirect traffic based on bucket or host headers.
-- **Outcome**: Clusters are stabilized under load, migrations are executed seamlessly, and clients keep using the same VIP.
-
-
-Task 1. Review the Lab Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-These values align with the UDF topology. Keep them unchanged unless your
-environment differs.
-
-======================== ========================================= ==================================
-Component                Purpose                                   Where to access
-======================== ========================================= ==================================
-BIG‑IP VIP for Cluster‑1 Single front door for MinIO cluster       WARP parameters: 10.1.40.160:9000
------------------------- ----------------------------------------- ----------------------------------
-Cluster‑1 MinIO AIStor   Primary storage cluster                   10.1.10.100-103:9000
------------------------- ----------------------------------------- ----------------------------------
-Cluster‑2 MinIO AIStor   Migration target for bucket A             10.1.20.100:9000
------------------------- ----------------------------------------- ----------------------------------
-WARP GUI                 Generate high-RPS S3 workloads            UDF → Traffic-Gen → Firefox
------------------------- ----------------------------------------- ----------------------------------
-BIG‑IP TMUI              Attach iRules, configure policies         UDF → BIG‑IP → Access → TMUI
-======================== ========================================= ==================================
-      
-
-Task 2: Rate Limiting S3 Traffic with iRules
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following steps will create a massive spike in sudden S3 activity, and an approach to throttle down a specific source
-of the excessive load being received.
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).                                       |
-|                                                                                                               |
-| 2. Set the load target to Endpoint: 10.1.40.160:9000 (BIG-IP VIP for Cluster-1).                              |
-|                                                                                                               |
-| 3. Duration: 5 minutes, Concurrency 50 threads.                                                               |
-|                                                                                                               |
-| 4. Click Run Benchmark.                                                                                       |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab314|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open BIG-IP TMUI (UDF → Components → BIG-IP 21 → Access → TMUI).  The credentials are under lab            |
-|    Documentation tab (admin/bigip123).                                                                        |
-|                                                                                                               |
-| 2. Select Statistics -> Dashbaord                                                                             |
-|                                                                                                               |
-| 3. Set Dashboard type pulldown (upper left) to "LTM" and click under View (upper right) to "Minio-Cluster-1"  |
-|                                                                                                               |
-| 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.     |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab315|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
-
-
-Task 3: Apply Rate Limiting iRule
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following steps will demonstrate how one S3 source address may be throttled, allowing only a specific number of 
-transactions over time, once a threshold has been first exceeded.
-
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. In BIG-IP TMUI go to Local Traffic -> iRules -> iRule List                                                 | 
-|                                                                                                               |
-| 2.  Choose "Show All" in list display control at bottom right of iRule list.                                  |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab316|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open and review the iRule-RateLimit-Cluster1                                                               | 
-|                                                                                                               |
-| 2. This simple example has the iRule act as a gatekeeper, a unique source IP address may transact with a      |
-|    URL (eg an S3 endpoint) 10 times, after which new transactions are limited to with a rolling 6 second      |
-|    window used to re-admit new S3 commands.                                                                   |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab317|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+Overview: This lab we will create a custom GenAI scanner
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Attach the iRule to the Virtual Server in BIG-IP TMUI: Local Traffic -> Virtual Servers-> MinIO-Cluster-1  |                                                             
-|    (you will find iRules on the "Resources" tab of the Virtual Server configuration).                         |                                                                                  
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab318|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+Task 1 – GenAI Scanner
 
+1. Click on Playground on the left navigation panel
 
+2. Click on *Build a custom scanner* button in the upper right corner
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Within the Resources tab, click on Manage button.                                                          | 
-|                                                                                                               |
-| 2. Select the **iRule-RateLimit-Cluster1** from the list, click Finished.                                     |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab319|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+   .. image:: ../_static/lab2-custom-scanner.png
+      :alt: Custom scanner dialog
+      :align: center 
 
 
-Re-Run the WARP workload, now that the iRule is in place.
+3. Click on *GenAI scanner*
 
-**Expected:**
+4. The GenAI scanner dialog is displayed
 
-- Active Connections drop aggressively
-- Cluster remains stable under the controlled load.
+   a. Enter Internal Financial Forecast - <First Initial><LastName>
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1.  Use the BIG-IP Dashboard to demonstrate the transactions per second has been brought down after           |                                             
-|     the initial trafficexceeds what the iRule will permit.                                                    |                                                                                  
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab320|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+   b. In the description field enter *Detect any mention of financial
+      forecasts or budget data* and click the Save button
 
+   .. image:: ../_static/lab2-custom-scanner.png
+      :alt: Custom scanner dialog
+      :align: center 
 
+   c. A Save new version dialog is displayed. Here you can optionally
+      change the version string and enter a comment. We will have you click
+      the Save version button.
 
-Task 4: Bucket Migration with Local Traffic Policies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   .. image:: ../_static/lab2-save-version.png
+      :alt: Save version dialog
+      :align: center 
 
-This scenario addresses BIG-IP LTM applying traffic policy to route traffic that only targets a specific S3 bucket
-to a different (backup) cluster. This allows for very granual migrations and AI DAta delivery traffic controls.
+   d. We will want to test the new scanner we just created. On the
+      playground page the new scanner will be located on the right side of
+      the page. Click on the test button to enable testing of the scanner.
 
+   e. In the dialog box at the bottom of the page. Enter the following
+      prompt:
+         “Here’sthe internal Q4 financial forecast: Total projected revenue is
+         $12.5M, operating expenses are budgeted at $8.3M, and marketing is
+         allocated $1.2M. Please summarize this for an executive
+         presentation.”*
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO Warp tool (UDF → Components → Traffic-Gen → Access → Firefox).                                  |
-|    (from Documentation tab admin/admin).                                                                      |
-|                                                                                                               |
-| 2. Select the nwq target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**                                 |
-|                                                                                                               |
-| 3. Select only the cluster1-bucket-a bucket (Bucket A), which is present on both MinIO clusters               |
-|    configured in UDF.                                                                                         |
-|                                                                                                               |
-| 4. Use the sliders to set Duration to 10 mins and Concurrency to 20 threads                                   |
-|                                                                                                               |
-| 5. Make sure that the IP address in WARP Parameters is a new BIG-IP VIP at  10.1.40.161:9000                    |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab321|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+   f. Click the up arrow to send it. The outcome should be that the prompt
+      was blocked.
 
-Click Run Benchmark button in Warp to send load to the cluster.
+   .. image:: ../_static/lab2-blocked-outcome.png
+      :alt: Image of a blocked prompt in the playground.
+      incorrect.
+      :align: center
 
-**Expected Result**  Traffic is targeting a new VIP configured in the Virtual Server *minio-cluster-migration*, which is
-the starting point of our scenario, where all traffic is being sent to the original cluster *Cluster-1*. Next we will
-attach an LTM "local traffic" policy, to strip out just the bucket A requests and forward them to a different pool/cluster
-*Cluster-2*.
+   g. To be able to use this scanner, the scanner version will need to be
+      published. Hover your mouse over the just created version of the
+      scanner and the publish button will appear. Click the Publish button.
 
-Go to the **BIG-IP TMUI**.
+   .. image:: ../_static/lab2-publish-scanner.png
+      :alt: Publish scanner dialog
+      incorrect.
+      :align: center
 
-Click on Local Traffic -> Policies -> Policy List
+   h. In order to use this newly published scanner, we will need to add it
+   to our project. Navigate back to your project page and click the Add
+   scanners button.
 
-|lab322|
+   .. image:: ../_static/lab2-add-scanner.png
+      :alt: Add scanner to project
+      be incorrect.
+      :align: center
 
-Click on our one policy to review the conditions/action:
 
-- Condition: HTTP URI path starts with /cluster1-bucket-a
-- Action: Forward to Cluster-2 pool
+   i. Your newly published scanner will be displayed in the listing of
+   configured custom scanners. Click the Add button to the right of your
+   scanner.
 
-|lab323|
+   .. image:: ../_static/lab2-add2project-genai-scanner.png
+      :alt: Add selected scanner to project
+      :align: center
 
-This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.
-To experiment with possible rules, one may add a new policy in the policy list screen and investigate rule possibilities.
+   j. Click on your project name at the top of the page to return to the
+   project view. Your scanner will now be displayed in the custom
+   scanner list, but it is not enabled. Click the Enable button.
 
-Let us now apply the local policy to the virtual server titled **minio-cluster-migration** (not the original virtual server)
+   .. image:: ../_static/lab2-enabled-genai-scanner.png
+      :alt: Enabled GenAI scanner
+      :align: center
 
-- Find the virtual server and click **Edit** in the **Resources** tab
 
-- Click **Manage** button for **Policies**
+   k. Verify the scanner is enabled by clicking the Chat button on the left
+      navigation and enter the prompt you used in the playground: *“Here’s
+      the internal Q4 financial forecast: Total projected revenue is
+      $12.5M, operating expenses are budgeted at $8.3M, and marketing is
+      allocated $1.2M. Please summarize this for an executive
+      presentation.”* The outcome should be that the prompt was blocked.
 
-- Add **ltm-migrate-cluster1-cluster2** policy and click **Finish**.   The policy is added to the virtual server immediately, rules with action take effect.
+   .. image:: ../_static/lab2-blocked-outcome.png
+      :alt: Chat with blocked GenAI prompt
+      :align: center
 
-|lab325|
 
+Task 2 – Keyword scanners
 
-**Verification**
+1. Click Playground from the left navigation
 
-Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
+2. Click on Build a Custom Scanner and then click on Keyword Scanner
 
-- In AST: Dashboards → BigIP - Device → Device Pools look at the key metrics, such as **Active Pool Connections**.
-- Click the 3 dots and choose "View" to increase the size to full screen.
-- For ease of display, alter the pools being graphed to only include Cluster-1 and Cluster-2
++----------------------------------+-----------------------------------+
+| Name                             | Keyword-<First Initial><Last      |
+|                                  | Name>                             |
++==================================+===================================+
+| Keywords                         | Enter five words or strings you   |
+|                                  | want the scanner to trigger on    |
++----------------------------------+-----------------------------------+
 
-|lab324|
+3. Save your scanner
 
+4. Test the scanner by toggling the Test button
 
-A complementary way to demonstrate this switch over in S3 delivery, based upon the local policy being invoked, is
-to use TMUI Pool Statistics and examing the current TCP connections delivering S3 data.
+5. Once satisfied it is working correctly, publish the scanner
 
-At the moment the policy kicks in, the current connections count will drop to **zero** on cluster-1 nodes.   All traffic and current connections
-will exclusively be seen on cluster-2.
 
-|lab326|
 
+Task 3 – RegEx Scanner
 
-Task 5: Generate Traffic for Multiple Buckets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Click on Build a custom scanner button and click on RegEx Scanner
 
- Open the MinIO Warp bench tool (UDF -> Components -> Traffic-Gen -> Access -> Firefox)
++----------------------------------+-----------------------------------+
+| Name                             | RegEx-<First Initial><Last Name>  |
++==================================+===================================+
+| Regular Expression               | bnz-\d{8}$                        |
++----------------------------------+-----------------------------------+
 
-- Select the target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**
+2. Test the RegEx in the test string box. If the string you enter
+   matches it will be highlighted.
 
-- Select *all* buckets (not just bucket-a)
+3. Save and publish the scanner
 
-- Place sliders at Duration 180 seconds and Concurrenct to 20 threads
 
-- Make sure the IP address in the Warp Parameters is set to the new BIG-IP virtual server **10.1.40.161:9000**
 
-Click **Run Benchmark** to start the S3 traffic load.
+Task 4 – Changing a scanner’s mode
 
-**Expectation**:
+Up until now we’ve only used scanners that would block a prompt or
+response. A scanner can be set in two other modes (Audit and Redact).
 
-Traffic is still being sent to the VIP configured in the Virtual Server minio-cluster-migration,
-however it has a mix of different buckets. Because of the policy we previously applied, the traffic to Bucket A will be routed
-to the new clsuter Cluster-2, while all **other** buckets are being sent to the original cluster Cluster-1.
+Audit – Allows the prompt to proceed while flagging it for review later.
+It does not interrupt the workflow.
 
-|lab327|
+Redact – Mask sensitive data at the edge. The original data is
+discarded, with the masked data being stored.
 
-As expected, the green line Cluster-1 connections carry S3 traffic for buckets B and C; while the yellow line for
-Cluster-2 represents only those connections required to service bucket A load generated by the WARP tool.
+1. Click on Scanners on the left navigation
 
-Troubleshooting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Enable one of your previously created scanners
 
-**Policy not applied:** Ensure the policy is attached to the correct virtual server.   The iRule is applied on on virtual server while the local policy was
-applied to another virtual server
+3. The mode background should change from gray to red. Click on the
+   scanners mode to see the three options.
 
-**Traffic not redirected:** Double-check WARP tool selections **Bucket A** or all buckets.
+.. image:: ../_static/lab2-scanner-modes.png
+   :alt: Image showing the three scanner modes (Block, Audit, Redact)
+   :align: center
 
+4. Test the different modes through the Chat Tab to observe the
+   outcomes.
 
-What You Learned — Value of BIG-IP LTM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Resilience under spikes:** iRules stabilize request load.
-- **Seamless migrations:** Local Traffic Policies redirect buckets without endpoint changes.
-- **Business alignment:** Traffic is steered by business rules, not app rewrites.
-- **Outcome:** AI data pipelines stay predictable, protected, and flexible.
-
-
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------+
-| **End of Lab 2**.  In this lab you explored data plane programability by adding an iRule to police excessive S3 traffic           |
-| generators.   Without toching any endpoint, a local policy re-directe traffic from cluster-1 to cluster-2.private end point.      |
-| Real-time impacts of iRules and policies was demonstrated when traffic was steered in the middle of Warp S3 test runs.            |
-+-----------------------------------------------------------------------------------------------------------------------------------+
-|  |labend|                                                                                                                         |
-+-----------------------------------------------------------------------------------------------------------------------------------+
-
-.. |lab300| image:: ../_static/lab3-appworld2025-topology-diagram.png
-   :width: 800px
-.. |lab301| image:: ../_static/lab3-appworld2025-task1-originserverr.png
-   :width: 800px
-.. |lab302| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool.png
-   :width: 800px
-.. |lab303| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool2.png
-   :width: 800px
-.. |lab304| image:: ../_static/lab3-appworld2025-task2-lb-origin-pool-added.png
-   :width: 800px
-.. |lab305| image:: ../_static/lab3-appworld2025-task2-lb-other-settings.png
-   :width: 800px
-.. |lab306| image:: ../_static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
-   :width: 800px
-.. |lab307| image:: ../_static/lab3-appworld2025-list-sites-advertise.png
-   :width: 800px
-.. |lab308| image:: ../_static/lab3-appworld2025-task2-lb-site-change.png
-   :width: 800px
-.. |lab309| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px
-.. |lab310| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px
-.. |lab311| image:: ../_static/lab2-appworld2025-task2-lb.png
-   :width: 800px 
-.. |lab312| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px 
-.. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px 
-.. |lab314| image:: ../_static/b_warp_parameters_lab2.png
-   :width: 800px
-.. |lab315| image:: ../_static/b_dashboard_no_irule.png
-   :width: 800px
-.. |lab316| image:: ../_static/b_irule_list.png
-   :width: 800px
-.. |lab317| image:: ../_static/b_irule_shown.png
-   :width: 800px
-.. |lab318| image:: ../_static/b_irule_attach.png
-   :width: 800px
-.. |lab319| image:: ../_static/b_apply_irule.png
-   :width: 800px
-.. |lab320| image:: ../_static/b_irule_before_and_after.png
-   :width: 800px
-.. |lab321| image:: ../_static/b_warp_params_bucket_move.png
-   :width: 800px
-.. |lab322| image:: ../_static/b_local_policy_list.png
-   :width: 800px
-.. |lab323| image:: ../_static/b_matching_condition.png
-   :width: 800px
-.. |lab324| image:: ../_static/b_traffic_switches_in_grafana.png
-   :width: 800px
-.. |lab325| image:: ../_static/b_apply_local_policy.png
-   :width: 800px
-.. |lab326| image:: ../_static/b_tmui_pool_stats_after_switch_over.png
-   :width: 800px
-.. |lab327| image:: ../_static/b-traffic_to_all_buckets.png
-   :width: 800px
-.. |labend| image:: ../_static/labend.png
-   :width: 800px
+5. Look at the Log messages to view the behavior of the scanner

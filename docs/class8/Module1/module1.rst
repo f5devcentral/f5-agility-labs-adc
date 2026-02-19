@@ -1,11 +1,14 @@
-BIG-IP HA - do it the proper way
-================================
+Lab 1: Viewing Application Data With AVR
+========================================
 
-In this module you will learn how to configure BIG-IP HA - the proper way.
+In Lab 1, you will see several options for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
+
+Lab Tasks:
+**********
 
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
-   Lab*
+   lab*
