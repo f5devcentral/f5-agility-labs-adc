@@ -6,9 +6,6 @@ In Lab 1, you will see several options for reviewing the application flows throu
 Lab Tasks:
 **********
 
-* Task 1: Review AVR HTTP Data
-* Task 2: Review AVR TCP Data
-* Task 3: Use iRules to log traffic data
 
 .. toctree::
    :maxdepth: 1
