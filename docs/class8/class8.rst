@@ -29,7 +29,9 @@ Lab Credentials
 
 The following table lists the management credentials for the components used in the labs:
 
-  
+.. table::
+   :widths: 24 52
+
 +----------------------+--------------------------------------------------+
 | Host                 | Username:Password                                |
 +======================+==================================================+
@@ -49,8 +51,11 @@ we strived to derive an estimate among several people each having a
 different level of experience. Below is an estimate of how long it will
 take for each lab:
 
+.. table::
+   :widths: 56 20
+
 +------------------------------------------------------+------------------+
-| LAB Name (Description)                               | Time Allocated   |
+| LAB Name                                             | Time Allocated   |
 +======================================================+==================+
 | LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
 +------------------------------------------------------+------------------+
