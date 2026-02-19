@@ -131,11 +131,9 @@ Tenant:
 .. code-block:: none
 
    [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 20  host <Virtual Server IP in your Tenant> and port 80
+   
 
-This filter matches a single client IP address being used by the traffic generator to help limit output. The output should be different between the two layers for this traffic.
-
-Why would the packets capture for this be different at the tenant layer than F5OS?
-
+The *tcpdump* output should be different not just in formatting, but also which packets are captured within the TCP flows hitting the virtual server.
 
 Here are some samples of the above captures:
 
@@ -144,6 +142,7 @@ Here are some samples of the above captures:
     BVL will update this section to include some sample PCAPs
 
 
+Why would the packets capture for this be different at the tenant layer than F5OS?
 
 In the F5OS PCAP, we are seeing all packets per flow, however in the TMOS PCAP we will see SYN, FIN, FIN-ACK packets only. This is because with the fast Layer 4 Virtual Servier, ePVA is able to offload the flow after the initial SYN. 
 
@@ -198,6 +197,7 @@ The F5OS webUI does not currently support viewing or searching log files, instea
 The F5OS CLI does contain interfaces to show log files. When coupled with *match* commands, log files can be quickly searched. The CLI command begines with *file list path*, flollowed by using tab completion to view options for directories and paths. 
 
 .. code-block:: none
+   
    r5900-1# file list path log/system | include name
 
 For example, suppose we want to find a history of all F5OS boot sequences which shows each typme the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
@@ -234,7 +234,7 @@ Additional tools from the command like allow to see the running status of the qk
 To view the qkview completion percentage updated every 10 seconds: 
 
 .. code-block:: none
-   ß
+   
    r5900-1# show system diagnostics qkview state status percentage | repeat 10
 
 
