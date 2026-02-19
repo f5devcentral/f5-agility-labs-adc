@@ -7,8 +7,8 @@ Option 1: Access from UDF (Preferred)
 -------------------------------------
 Each component within the UDF deplyment has multiple connection methods from the **Access** dropdown.  Here is an example of the Access options for BIGIP01
 
-   .. image:: ../images/udf_bigip_access.png
-      :width: 500px
+.. image:: ../images/udf_bigip01_access.png
+   :width: 500px
 
 * For BIGIP01, you will use TMUI and SSH options during the labs.  TMUI creadentials are:
   
