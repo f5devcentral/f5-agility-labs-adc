@@ -1,7 +1,8 @@
 Task 1: Review Base TCP Profiles
 ================================
 
-Review general TCP profiles available to TMOS.
+Review general TCP profiles available to TMOS
+---------------------------------------------
 
 #. From the left-side menu, go to Local Traffic > Profiles > Protocol > TCP.
 #. Click the **Parent Profile** column title to sort the profiles
@@ -32,25 +33,30 @@ Review general TCP profiles available to TMOS.
 .. image:: ../images/udf_open_terminal.png
     :width: 500px
   
+
 6. Type 'yes' in response to the fingerprint prompt
   
-.. image:: ../images/udf_fingerprint.png
+.. image:: ../images/udf_continue_conn.png
     :width: 500px
+
 
 7. Connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
 
-  .. image:: ../images/udp_bigip01_ssh.png
+  .. image:: ../images/udf_bigip01_ssh.png
       :width: 500px
+
 
 8.Click Open Terminal if prompted
 
-.. image:: ../images/udp_client_ssh.png
+.. image:: ../images/udf_client_ssh.png
     :width: 500px
+
 
 9. Enter 'yes' if prompted for fingerprint
 
 .. image:: ../images/udf_fingerprint.png
-   :width: 500px
+    :width: 500px
+
 
 10. Start a packet capture from the SSH window of BIGIP01::
 
