@@ -23,8 +23,8 @@ Task 2:  TCP Window Scaling Review
 
 4. Go back to the BIGIP01 UI and change webo1_vs1 to use a custom TCP profile configure for the lab with 3MB (tcp_3mb) buffers and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
  
-.. image:: ../images/tcp_3mb.png
-    :width: 500px
+   .. image:: ../images/tcp_3mb.png
+       :width: 500px
 
 
 5. Go back to the BIGIP01 SSH window and run the same packet capture.  You should no longer see any TCP Zero Window packets.  TMOS is now able to take in the server response as fast as possible and hold the data in memory until the client acknowleges receipt.  (reword??)::
