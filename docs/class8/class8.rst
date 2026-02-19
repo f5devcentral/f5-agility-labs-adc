@@ -30,7 +30,7 @@ Lab Credentials
 The following table lists the management credentials for the components used in the labs:
 
 .. table::
-    :widths: 24 52
+    :widths: grid
 
    +----------------------+--------------------------------------------------+
    | Host                 | Username:Password                                |
@@ -52,7 +52,7 @@ different level of experience. Below is an estimate of how long it will
 take for each lab:
 
 .. table::
-    :widths: 56 20
+    :widths: grid
 
    +------------------------------------------------------+------------------+
    | LAB Name                                             | Time Allocated   |
