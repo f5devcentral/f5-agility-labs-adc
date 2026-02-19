@@ -32,7 +32,7 @@ Task 2:  Modified TCP Profiles
 
    Here the client (10.1.30.6) is advertising wscale 7 and BIGIP01 is responding with wscale 9 so the TCP Window can scale up to the buffer limits determined by the f5-prgressive TCP profile. 
 
-4. Go back to the BIGIP01 UI and change webo1_vs1 to use a custom TCP profile configure for the lab with 3MB (tcp_3mb) buffers and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
+4. Go back to the BIGIP01 UI and change web01_vs1 to use a custom TCP profile configure for the lab with 3MB (tcp_3mb) buffers and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
  
    .. image:: ../images/tcp_3mb.png
        :width: 500px
