@@ -30,19 +30,20 @@ Access from UDF Components Tab
 
 6. Click Open Terminal, if prompted
 
-.. image:: ../images/udf/udf_open_terminal
+.. image:: ../images/udf_open_terminal
     :width: 400px 
 
 7. Type yes to 'continue connecting' if prompted
 
-.. image:: ../images/udf_continue_conn.png
+.. figure:: ../images/udf_continue_conn.png
     :width: 500px
 
    SSH Key authentication is used for this connection so no credentials are needed.
+   |
 
 8. For the Ubuntu-Client, you only need to use SSH
 
-.. immage:: ../images/udf_client_ssh.png
+.. immge:: ../images/udf_client_ssh.png
     :width: 500px
 
 9. You may see the same prompts show with the BIGIP01 SSH connection
@@ -57,7 +58,7 @@ Access from UDF Components Tab
    | User: labUser
    | Password: lab.F5demo.com
 
-.. image:: ,,.images/udf_RDP_login.png
+.. image:: ..images/udf_RDP_login.png
     :width: 650px
 
 13. Click continue to the connection prompt
