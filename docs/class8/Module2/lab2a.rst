@@ -9,16 +9,16 @@ Review general TCP profiles available to TMOS
 
    Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all profiles end up sourcing from the base profile named tcp. 
 
-.. image:: ../images/tcp_profiles_sorted.png
-    :width: 500px
+   .. figure:: ../images/tcp_profiles_sorted.png
+      :width: 750px
 
+      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles <<reword??>>
 
-.. As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles <<reword??>>
 
 3. Click on the tcp-legacy profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
 
-.. figure:: ../images/tcp_legacy_buffers.png
-   :width: 600px
+   .. figure:: ../images/tcp_legacy_buffers.png
+      :width: 600px
 
    At this point, the web01-vs1 Virtual Server is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IPs that have been upgraded from older versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
 
@@ -42,8 +42,8 @@ Review general TCP profiles available to TMOS
 
 7. Connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
 
-  .. image:: ../images/udf_bigip01_ssh.png
-      :width: 500px
+   .. image:: ../images/udf_bigip01_ssh.png
+       :width: 500px
 
 
 8.Click Open Terminal if prompted
@@ -54,7 +54,7 @@ Review general TCP profiles available to TMOS
 
 9. Enter 'yes' if prompted for fingerprint
 
-.. image:: ../images/udf_fingerprint.png
+.. image:: ../images/udf_continue_conn.png
     :width: 500px
 
 
