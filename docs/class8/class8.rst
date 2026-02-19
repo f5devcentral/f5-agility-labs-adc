@@ -35,7 +35,7 @@ The following table lists the management credentials for the components used in 
 +======================+==================================================+
 | BIGIP01              | admin:admin.F5demo.com and root:root.F5demo.com  |
 +----------------------+--------------------------------------------------+
-| Windows Client       | labUser:lab.F5demo.com30 minutes                 |
+| Windows Client       | labUser:lab.F5demo.com                           |
 +----------------------+--------------------------------------------------+
 | Linux Client         | SSH Key no password required                     |
 +----------------------+--------------------------------------------------+

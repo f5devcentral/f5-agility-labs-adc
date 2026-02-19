@@ -24,22 +24,22 @@ Access from UDF Components Tab
    | Password: admin.F5demo.com
 
 .. image:: ../images/udf_bigip01_auth.png
-    :width: 300px
+    :width: 250px
 
 5. For SSH to BIGIP01, select SSH from the Access dropdown
 
 .. image:: ../images/udf_bigip01_ssh.png
-    :width: 400px
+    :width: 450px
 
 6. Click Open Terminal, if prompted
 
 .. image:: ../images/udf_open_terminal.png
-    :width: 400px 
+    :width: 450px 
 
 7. Type yes to 'continue connecting' if prompted
 
 .. figure:: ../images/udf_continue_conn.png
-   :width: 500px
+   :width: 550px
 
    SSH Key authentication is used for this connection so no credentials are needed.
    
@@ -56,7 +56,7 @@ Access from UDF Components Tab
 .. image:: ../images/udf_RDP_option.png
     :width: 500px
 
-11.  Find the .RDP file and click to open with you RDP client
+11.  Find the .RDP file and click to open with your RDP client
 12. Use the following credentials:
 
    | User: labUser

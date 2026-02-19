@@ -1,5 +1,5 @@
-Appendix - Optional Packet Decryption Lab
-=========================================
+Appendix: Optional Packet Decryption Lab
+========================================
 
 The Appendix contains optional packet capture decryptions labs.  The information is useful when troubleshooting SSL/TLS application issues eithier with F5 Support or on your own.
 
