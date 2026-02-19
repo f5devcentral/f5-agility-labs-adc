@@ -7,20 +7,15 @@ In Lab 2, you will look at the base TCP profiles within TMOS and some legacy TCP
 
 Supporting Documents:
 
-   v16+ TCP Profiles - https://my.f5.com/manage/s/article/K50411377
-   v15 TCP Profiles - https://my.f5.com/manage/s/article/K74767112
-   v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
-   v15+ F5-TCP_LAN Profile - https://my.f5.com/manage/s/article/K37412295
-   v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
-   v10-12 TCP-LAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7406
+|   v16+ TCP Profiles - https://my.f5.com/manage/s/article/K50411377
+|   v15 TCP Profiles - https://my.f5.com/manage/s/article/K74767112
+|   v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
+|   v15+ F5-TCP_LAN Profile - https://my.f5.com/manage/s/article/K37412295
+|   v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
+|   v10-12 TCP-LAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7406
 
 Lab Tasks:
 **********
-
-* Task 1: Review Base TCP Profiles and traffic performance
-* Task 2: Review Wireshark Screenshots
-* Task 3: How Do TCP Buffers Affect TCP Performance
-* Task 3: Other TCP Profile Settings
 
 .. toctree::
    :maxdepth: 1

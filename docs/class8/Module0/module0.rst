@@ -1,7 +1,7 @@
 Working With The Lab
 ====================
 
-This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, adjustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
+This course uses a virtual environment for the labs containing a BIG-IP VE, Linux systems and a Windows client.
 
 Requirements:
 * Web Browser (VPN may slow connections to lab environment)
