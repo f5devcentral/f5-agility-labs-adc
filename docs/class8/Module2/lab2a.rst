@@ -9,51 +9,60 @@ Review general TCP profiles available to TMOS.
   Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all profiles end up sourcing from the base profile named tcp. 
 
 .. image:: ../images/tcp_profiles_sorted.png
+  :width: 500px
 
   As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles <<reword??>>
 
 * Click on the tcp-legacy profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
 
 .. image:: ../images/tcp_legacy_buffers.png
+  :width: 500px
 
 * At this point, the web01-vs1 Virtual Server is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IPs that have been upgraded from older versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
 
 * Connect to the Ubuntu-Client via SSh using the Access dropdown
 
-.. image:: ../images/udf_slient_ssh.png
+.. image:: ../images/udf_client_ssh.png
+  :width: 500px
 
 * Click 'open terminal' if prompted
   
 .. image:: ../images/udf_open_terminal.png
-
+  :width: 500px
+  
 * Type 'yes' in response to the fingerprint prompt
   
  .. image:: ../images/udf_fingerprint.png
+  :width: 500px
 
 * Connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
 
   .. image:: ../images/udp_bigip01_ssh.png
+    :width: 500px
 
 * Click Open Terminal if prompted
 
   .. image:: ../images/udp_client_ssh.png
+    :width: 500px
 
 * Enter 'yes' if prompted for fingerprint
 
   .. image:: ../images/udf_fingerprint.png
+    :width: 500px
 
 * Start a packet capture from the SSH window of BIGIP01::
 
+
   What is this following TCPDUMP command doing?
 
-    timeout 5s: Run the command for 5s then quit
-    tcpdump:  Command to run
-    -nni: No name resolution and No part resolution and interface
-    internal: The 'interface' name - the server-side VLAN in the lab
-    host 10.1.10.15:  The internal floating selfIP used as the source filter
-    tcp[14:2] == 0:  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
-    tcp[13] == 16: Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
-    -s 500: We only concerned with TCP flags so the snaplength is 500 Bytes
+  | timeout 5s: Run the command for 5s then quit
+  | tcpdump:  Command to run
+  | -nni: No name resolution and No part resolution and interface
+  | internal: The 'interface' name - the server-side VLAN in the lab
+  | host 10.1.10.15:  The internal floating selfIP used as the source filter
+  | tcp[14:2] == 0:  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
+  | tcp[13] == 16: Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
+  | -s 500: We only concerned with TCP flags so the snaplength is 500 Bytes
 
 timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500
 
@@ -100,7 +109,7 @@ Here the client (10.1.30.6) is advertising wscale 7 and BIGIP01 is responding wi
 
 Go back to the BIGIP01 UI and change webo1_vs1 to use a custom TCP profile configure for the lab with 3MB (tcp_3mb) buffers and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
  
- .. image:: ../images/tcp_progressive.png
+ .. image:: ../images/tcp_3mb.png
 
 Go back to the BIGIP01 SSH window and run the same packet capture.  You should no longer see any TCP Zero Window packets.  TMOS is now able to take in the server response as fast as possible and hold the data in memory until the client acknowleges receipt.  (reword??)
 
