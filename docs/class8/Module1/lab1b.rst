@@ -20,20 +20,18 @@ In the last section you focused on HTTP stats.  In this section, you will review
 
    RTT - Shows the Round-Trip time including application time (data transfer of server think time)
 
+
 .. figure:: ../images/avr_tcp_goodput.png
    :width: 800px
 
    Goodput - Shows the throughput excluding protocol overhead and retransmissions.  This is the actual throughput to the client or server.  The upper graph is total through the system and the lower graph shows average goodput per connection.  At the bottom of the page, you can filter the data on client-side or server-side.  By default, both sides are shown.
   
 
-
  .. figure:: ../images/avr_tcp_delay.png
     :width: 800px
 
     Delay State - Shows the time spent on each phase of the TCP connection.  This view is helps to show where the greatest delays are.  There isn't any packet loss injected into this lab so the RETX value should be low but in production environments you may see high values on the WAN side.  The times could be reduced with TCP profile tuning but we are not going to cover packet loss tunings in this course.
     
-  
-
 
  .. figure:: ../images/avr_tcp_connections.png
     :width: 800px
