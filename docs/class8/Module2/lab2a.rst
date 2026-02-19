@@ -7,7 +7,7 @@ Review general TCP profiles available to TMOS
 #. From the left-side menu, go to Local Traffic > Profiles > Protocol > TCP.
 #. Click the **Parent Profile** column title to sort the profiles
 
-   Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all profiles end up sourcing from the base profile named tcp. 
+   Most profiles in TMOS have a parent/child structure (or from CLI - defaults-from structure).  Within the list of TCP profiles, you can see that all included profiles end up sourcing from the base profile named tcp - tcp > tcp-legacy, tcp-legacy > tcp-wan-optimized, etc. 
 
    .. figure:: ../images/tcp_profiles_sorted.png
       :width: 750px
@@ -48,7 +48,7 @@ Review general TCP profiles available to TMOS
 
 8. Click Open Terminal if prompted
 
-   .. image:: ../images/udf_client_ssh.png
+   .. image:: ../images/udf_open_terminal.png
        :width: 500px
 
 
@@ -63,16 +63,16 @@ Review general TCP profiles available to TMOS
       timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500
 
 
-    What is this following TCPDUMP command doing?
+    What is the TCPDUMP command doing?
 
-      | timeout 5s: Run the command for 5s then quit
-      | tcpdump:  Command to run
-      | -nni: No name resolution and No part resolution and interface
-      | internal: The 'interface' name - the server-side VLAN in the lab
-      | host 10.1.10.15:  The internal floating selfIP used as the source filter
-      | tcp[14:2] == 0:  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
-      | tcp[13] == 16: Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
-      | -s 500: We only concerned with TCP flags so the snaplength is 500 Bytes
+      | *timeout 5s:* Run the command for 5s then quit
+      | *tcpdump:*  Command to run
+      | *-nni:* No name resolution and No part resolution and interface
+      | *internal:* The 'interface' name - the server-side VLAN in the lab
+      | *host 10.1.10.15:*  The internal floating selfIP used as the source filter
+      | *tcp[14:2] == 0:*  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
+      | *tcp[13] == 16:* Filtering on TCP ACK as TCP Zero can also be seen with FIN during connection close
+      | *-s 500:* We only concerned with TCP flags so the snaplength is 500 Bytes
 
 
     Since we have background traffic running through BIGIP01, you should see 500-700 packets during the 5s capture.
@@ -93,11 +93,11 @@ Review general TCP profiles available to TMOS
       tcpdump -nni external host 10.1.30.6 and 'tcp[13] & 2 != 0' -c 4
 
 
-    The output will be similar to this::
+    The output will be similar to this (you may need to scroll to the right to see all of the text)::
 
       11:08:34.619362 IP 10.1.30.6.44976 > 10.1.20.103.443: Flags [S], seq 1493890342, win 64240, options [mss 1460,sackOK,TS val 141834751 ecr 0,nop,wscale 7], length 0 in slot1/tmm1 lis= port=1.2 trunk=
       11:08:34.619417 IP 10.1.20.103.443 > 10.1.30.6.44976: Flags [S.], seq 4100418120, ack 1493890343, win 4380, options [mss 1460,sackOK,TS val 1828788666 ecr 141834751], length 0 out slot1/tmm1 lis=/Common/web01_vs1 port=1.2 trunk=
 
-    The client (10.1.30.6) is advertising TCP Window Scale capability with option 'wscale 7'.  BIGIP01 is responding without a wscale option since the TCP buffers sizes are limited to TCP base maximums of 65535 Bytes. 
+    With the SYN, client (10.1.30.6) is advertising TCP Window Scale capability with option 'wscale 7'.  With the SYN/ACK,  BIGIP01 is responding without a wscale option since the TCP buffers sizes are limited to TCP base maximums of 65535 Bytes.  No TCP Window scaling is available to this connection.
 
 
