@@ -41,14 +41,19 @@ With the tenant up and running, there should be some background traffic running 
 
 From the tenant *tmsh* or even the *bash* shell, there are many ways to look at traffic, here are a few suggestions : 
 
-- tmsh
+tmsh commands: 
   
 .. code-block:: none
  
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show sys performance
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show ltm virtual
 
-- bash shell
+bash shell commands: 
+
+.. code-block:: none
+   test code blocke
+
+bash shell commands: 
 
 .. code-block:: none
    [root@i5000-a:Active:Standalone] config # bigtop -vname
