@@ -131,11 +131,9 @@ Tenant:
 .. code-block:: none
 
    [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 20  host <Virtual Server IP in your Tenant> and port 80
+   
 
-This filter matches a single client IP address being used by the traffic generator to help limit output. The output should be different between the two layers for this traffic.
-
-Why would the packets capture for this be different at the tenant layer than F5OS?
-
+The *tcpdump* output should be different not just in formatting, but also which packets are captured within the TCP flows hitting the virtual server.
 
 Here are some samples of the above captures:
 
@@ -144,6 +142,7 @@ Here are some samples of the above captures:
     BVL will update this section to include some sample PCAPs
 
 
+Why would the packets capture for this be different at the tenant layer than F5OS?
 
 In the F5OS PCAP, we are seeing all packets per flow, however in the TMOS PCAP we will see SYN, FIN, FIN-ACK packets only. This is because with the fast Layer 4 Virtual Servier, ePVA is able to offload the flow after the initial SYN. 
 
