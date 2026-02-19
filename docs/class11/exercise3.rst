@@ -42,6 +42,7 @@ With the tenant up and running, there should be some background traffic running 
 From the tenant *tmsh* or even the *bash* shell, there are many ways to look at traffic, here are a few suggestions : 
 
 - tmsh
+  
 .. code-block:: none
  
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show sys performance
@@ -49,30 +50,9 @@ From the tenant *tmsh* or even the *bash* shell, there are many ways to look at 
 
 - bash shell
 
-.. code-block:: none
-   [root@i5000-a:Active:Standalone] config # bigtop -vname
-   [root@i5000-a:Active:Standalone] config # tcpdump -enni 0.0 -c 10 port 443
-   
-
-From the tenant, we can see TMM processed traffic statistics, not network interface statitstics. The network layer is virtualized by the platform of F5OS. Looking at network interfaces in the tenant shows virtual paths to each TMM:
-
-.. code-block:: none
-   root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show net interface
-   ------------------------------------------------------------------
-   Net::Interface
-   Name  Status    Bits   Bits    Pkts   Pkts  Drops  Errs      Media
-                     In    Out      In    Out
-   ------------------------------------------------------------------
-   0.1       up    1.9M   1.8M    3.3K   3.3K      0     0  10000T-FD
-   0.2       up    1.9M  26.4M    3.2K  70.0K      0     0  10000T-FD
-   0.3       up    1.8M   1.8M    3.2K   3.2K      0     0  10000T-FD
-   0.4       up    1.7M   1.7M    3.1K   3.1K      0     0  10000T-FD
-   mgmt      up  448.8M   3.4M  228.5K   4.6K      0     0   100TX-FD
-
 All layer 2 interface statistics for ports and trunks are monitored by F5OS. Details can be viewed in the F5OS webUI, viewed in the F5OS CLI, polling via SNMP or API interface calls.
 
 In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 1.0 and 2.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
-
  
 .. image:: images/image21.png
    :alt: image21.png
