@@ -4,6 +4,7 @@ Intro: Working With The Lab
 This course uses a virtual environment for the labs containing a BIG-IP VE, Linux systems and a Windows client.
 
 Requirements:
+
 * Web Browser (VPN may slow connections to lab environment)
 * RDP Client
 
