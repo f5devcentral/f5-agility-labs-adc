@@ -68,6 +68,7 @@ After you commit the change, F5OS will start deploying the tenant. The initial d
 The tenant Status will show *Running* once it has booted; you can monitor the tenant startup by continuously pinging the management IP from your workstation -- successful replies indicate tenant services are coming up and you can log in.
 
 .. code-block:: none
+
    r5900-1# show tenants tenant state status
    NAME              STATUS
    ---------------------------
@@ -87,6 +88,7 @@ Next, import the master key from the tenant you're migrating. This is necessary 
 Loading the master key from the bash shell can be referenced in knowledge article https://my.f5.com/manage/s/article/K9420. For this lab, both the UCS and master key files are on a web server 10.193.5.2 that can be downloaded to a laptop then uploaded to the BIG-IP tenant, or simple directly downloaded to the tenant via HTTPS.  
 
 .. code-block:: none
+
    Filenames for Student A:
    UCS file:	r5900-<X>a.ucs
    Key file:	r5900-<X>a.key
@@ -112,7 +114,8 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
 
 Next, re-key the master key from the txt file downloaded, as an example: 
 
-.. code-block:: none
+.. code-block:: none 
+
    [root@localhost:Active:Standalone] config # cat /var/tmp/r5900-1a.key
    U5hNcJqbR0W4pjILPNa5/Q==
    [root@localhost:Active:Standalone] config # f5mku -r U5hNcJqbR0W4pjILPNa5/Q==
@@ -123,6 +126,7 @@ Next, re-key the master key from the txt file downloaded, as an example:
 The final tenant migration step is to load the UCS file, using the platform-migrate option which ignores network interfaces and other items in the load process
 
 .. code-block:: none
+
    tmsh
    root@(localhost)(cfg-sync Standalone)(Active)(/Common)(tmos)# load sys ucs /var/tmp/r5900-1a.ucs platform-migrate
    Replace all configuration on the system? (y/n) y
@@ -137,6 +141,7 @@ Within a minute or two the BIG‑IP status will change to Active and the configu
 In F5OS, the virtctl command allows for a virtual console to any tenant. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
 
 .. code-block:: none
+   
    r5900-1# show system aaa authentication users
                      AUTHORIZED  LAST        TALLY                  EXPIRY
    USERNAME          KEYS        CHANGE      COUNT  ROLE            STATUS
