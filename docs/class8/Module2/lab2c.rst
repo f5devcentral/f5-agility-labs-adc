@@ -1,5 +1,5 @@
-Task 3:  How Do TCP Buffers Affect Performance?
-===============================================
+Task 3:  TCP Buffers and Window Scaling 
+=======================================
 
 <<edit>>
 
