@@ -29,18 +29,16 @@ Lab Credentials
 
 The following table lists the management credentials for the components used in the labs:
 
-.. table::
-    :widths: grid
 
-   +----------------------+--------------------------------------------------+
-   | Host                 | Username:Password                                |
-   +======================+==================================================+
-   | BIGIP01              | admin:admin.F5demo.com and root:root.F5demo.com  |
-   +----------------------+--------------------------------------------------+
-   | Windows Client       | labUser:lab.F5demo.com30 minutes                 |
-   +----------------------+--------------------------------------------------+
-   | Linux Client         | SSH Key no password required                     |
-   +----------------------+--------------------------------------------------+
++----------------------+--------------------------------------------------+
+| Host                 | Username:Password                                |
++======================+==================================================+
+| BIGIP01              | admin:admin.F5demo.com and root:root.F5demo.com  |
++----------------------+--------------------------------------------------+
+| Windows Client       | labUser:lab.F5demo.com30 minutes                 |
++----------------------+--------------------------------------------------+
+| Linux Client         | SSH Key no password required                     |
++----------------------+--------------------------------------------------+
 
 Timing for Labs
 ---------------
@@ -51,20 +49,18 @@ we strived to derive an estimate among several people each having a
 different level of experience. Below is an estimate of how long it will
 take for each lab:
 
-.. table::
-    :widths: grid
 
-   +------------------------------------------------------+------------------+
-   | LAB Name                                             | Time Allocated   |
-   +======================================================+==================+
-   | LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
-   +------------------------------------------------------+------------------+
-   | LAB 2 - Working With TCP Profiles                    | 30 minutes       |
-   +------------------------------------------------------+------------------+
-   | LAB 3 - HTTP Tuning                                  | 20 minutes       |
-   +------------------------------------------------------+------------------+
-   | Appendix - Optional Packet Decryption Lab            | 15 minutes       |
-   +------------------------------------------------------+------------------+
++------------------------------------------------------+------------------+
+| LAB Name                                             | Time Allocated   |
++======================================================+==================+
+| LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
++------------------------------------------------------+------------------+
+| LAB 2 - Working With TCP Profiles                    | 30 minutes       |
++------------------------------------------------------+------------------+
+| LAB 3 - HTTP Tuning                                  | 20 minutes       |
++------------------------------------------------------+------------------+
+| Appendix - Optional Packet Decryption Lab            | 15 minutes       |
++------------------------------------------------------+------------------+
 
 Expected time to complete: **1.5 hours**
 
