@@ -32,8 +32,6 @@ Option 2: Access from the Windows-Client (not needed?)
 
 * An RDP file will save to your browser's download location.  Find and click on the download RDP file.
 
-
-
    | User: labUser
    | Password: lab.F5demo.com
 
