@@ -141,10 +141,13 @@ Here are some samples of the above captures:
 
 .. code-block:: none 
 
-    BVL will update this section to include the why: the ePVA offloaded flow will only show SYN/FA/A packets, F5OS wills how the entire conversation
+    BVL will update this section to include some sample PCAPs
 
-   Need to get filter correct for sample test traffic from Jim's tools, if its randomizing in a range we should catch it quickly. Idea is to not flood a lot of packets, just get a single flow>
 
+
+In the F5OS PCAP, we are seeing all packets per flow, however in the TMOS PCAP we will see SYN, FIN, FIN-ACK packets only. This is because with the fast Layer 4 Virtual Servier, ePVA is able to offload the flow after the initial SYN. 
+
+F5OS allows to see the flow prior to the ePVA handling, or in TMOS the ePVA setting can be disabled in the FastL4 profile however that will impact all traffic matching that profile and VS. 
 
 
 System Software
