@@ -197,6 +197,7 @@ The F5OS webUI does not currently support viewing or searching log files, instea
 The F5OS CLI does contain interfaces to show log files. When coupled with *match* commands, log files can be quickly searched. The CLI command begines with *file list path*, flollowed by using tab completion to view options for directories and paths. 
 
 .. code-block:: none
+   
    r5900-1# file list path log/system | include name
 
 For example, suppose we want to find a history of all F5OS boot sequences which shows each typme the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
@@ -233,7 +234,7 @@ Additional tools from the command like allow to see the running status of the qk
 To view the qkview completion percentage updated every 10 seconds: 
 
 .. code-block:: none
-   ß
+   
    r5900-1# show system diagnostics qkview state status percentage | repeat 10
 
 
