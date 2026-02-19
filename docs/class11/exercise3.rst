@@ -119,12 +119,11 @@ With some background HTTP and HTTPS traffic running to the tenant we can compare
 F5OS:
 
 .. code-block:: none
-   r5900-1# system diagnostics tcpdump -i LAG_20G -c 10 -s0 host 10.1.<30+X>.5
-
+   r5900-1# system diagnostics tcpdump -i LAG_20G -c 20 host <VIP address in your Tenant> and port 80
 Tenant:
 
 .. code-block:: none
-   [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 10 -s0 host 10.1.<30+X>.5
+   [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 20  host <Virtual Server IP in your Tenant> and port 80
 
 This filter matches a single client IP address being used by the traffic generator to help limit output. The output should be different between the two layers for this traffic.
 
