@@ -23,7 +23,7 @@ Each component within the UDF deplyment has multiple connection methods from the
    | Password: lab.F5demo.com
 
 Option 2: Access from the Windows-Client (not needed?)
------------------------------------------
+------------------------------------------------------
 
 * For Windows-Client, you will use RDP.
   
