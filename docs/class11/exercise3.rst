@@ -50,6 +50,11 @@ From the tenant *tmsh* or even the *bash* shell, there are many ways to look at 
 
 - bash shell
 
+.. code-block:: none
+   [root@i5000-a:Active:Standalone] config # bigtop -vname
+   [root@i5000-a:Active:Standalone] config # tcpdump -enni 0.0 -c 10 port 443
+   
+
 All layer 2 interface statistics for ports and trunks are monitored by F5OS. Details can be viewed in the F5OS webUI, viewed in the F5OS CLI, polling via SNMP or API interface calls.
 
 In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 1.0 and 2.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
