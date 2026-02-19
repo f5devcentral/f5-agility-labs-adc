@@ -24,7 +24,7 @@ Access from UDF Components Tab
    | Password: admin.F5demo.com
 
 .. image:: ../images/udf_bigip01_auth.png
-    :width: 400px
+    :width: 300px
 
 5. For SSH to BIGIP01, select SSH from the Access dropdown
 
@@ -49,7 +49,8 @@ Access from UDF Components Tab
 .. image:: ../images/udf_client_ssh.png
     :width: 500px
 
-9. You may see the same prompts show with the BIGIP01 SSH connection
+9. You may see the same prompts show with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
+
 10. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 
 .. image:: ../images/udf_RDP_option.png
