@@ -30,20 +30,20 @@ Access from UDF Components Tab
 
 6. Click Open Terminal, if prompted
 
-.. image:: ../images/udf_open_terminal
+.. image:: ../images/udf_open_terminal.png
     :width: 400px 
 
 7. Type yes to 'continue connecting' if prompted
 
 .. figure:: ../images/udf_continue_conn.png
-    :width: 500px
+   :width: 500px
 
    SSH Key authentication is used for this connection so no credentials are needed.
    |
 
 8. For the Ubuntu-Client, you only need to use SSH
 
-.. immge:: ../images/udf_client_ssh.png
+.. image:: ../images/udf_client_ssh.png
     :width: 500px
 
 9. You may see the same prompts show with the BIGIP01 SSH connection
