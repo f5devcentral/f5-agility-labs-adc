@@ -58,7 +58,7 @@ Access from UDF Components Tab
    | User: labUser
    | Password: lab.F5demo.com
 
-.. image:: ..images/udf_RDP_login.png
+.. image:: ../images/udf_RDP_login.png
     :width: 650px
 
 13. Click continue to the connection prompt
