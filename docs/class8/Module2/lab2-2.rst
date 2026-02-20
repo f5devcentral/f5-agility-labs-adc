@@ -2,7 +2,7 @@ Task 2:  Benefits of Modified TCP Profiles
 ==========================================
 
 
-1. Go the the UI of BIGIP01 and change the TCP profiles of web01_vs1 to F5-tcp-progressive and click the Update button at the bottom of the page to save changes.
+1. Go the the UI of BIGIP01 and change the TCP profiles of **web01_vs1** to **F5-tcp-progressive** and click the Update button at the bottom of the page to save changes.
 
    .. image:: ../images/tcp_progressive.png
        :width: 600px
@@ -15,11 +15,8 @@ Task 2:  Benefits of Modified TCP Profiles
 
    You should see a reduction in TCP Zero Window packets - maybe 300-450 packets in 5s.  This is an improvement but not the best for the traffic in the lab.  As we saw during Lab 1, there is a mix of 16kB-3MB files going through the system.  The f5-tcp-progressive TCP profile adjusts the TCP buffers based on connection conditions.  It uses bandwidth delay product to calculate the TCP buffers.
    
-      | F5-tcp-progressive - https://my.f5.com/manage/s/article/K15800216
-      | Content Spooling - https://my.f5.com/manage/s/article/K3422
-      | TCP Autobuffer Tuning - https://community.f5.com/kb/technicalarticles/tcp-configuration-just-got-easier-autobuffer-tuning/290712
-    
-   In the lab, there is very low latency on the server-side connetions (pool members) and higher latency on the client-side connections.  With most HTTP traffic the client is requesting something from the server (GET) and the server is replaying withh the requested data.  The f5-tcp-progressive TCP profile is not adequately setting the buffers because the sending side is high bandwidth with low latency.
+      
+   In the lab, there is very low latency on the server-side connetions (pool members) and higher latency on the client-side connections.  With most HTTP traffic the client is requesting something from the server (GET) and the server is replying with the requested data.  The f5-tcp-progressive TCP profile is not adequately setting the buffers because the sending side is high bandwidth with low latency.
 
 3. From the BIGIP01 SSH window, run the following packet capture filtering in SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.::
 
@@ -62,7 +59,7 @@ Windows Scale Review Using Wireshark Screenshots
 To speed up the process, you will review TCP Window Scale screenshots taken from packet captures from the 3 TCP profiles used in the previous sectiona.
 
 
-1. Base Condition - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
+1. Base Condition** - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
 
    .. figure:: ../images/tcp_base_ws_server.png
       :width: 950px
@@ -70,7 +67,7 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
       Server-side: The TCP Window size is limited to 65353 bytes because Window Scaling is not enabled.  The TCP Window drops to zero many times throughout the single TCP stream.
 
 
-2. TCP-Progressive
+2. F5-tcp-Progressive
 
    .. figure:: ../images/tcp_prog_ws_server.png
       :width: 950px

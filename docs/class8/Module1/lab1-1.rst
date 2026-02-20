@@ -8,7 +8,7 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
    |  User:     admin
    |  Password: admin.F5demo.com
     
-2. From the left menu, select Statistics > Analytics > HTTP > Overview
+2. From the left menu, select **Statistics > Analytics > HTTP > Overview**
 
    .. figure:: ../images/avr_http_select.png
       :width: 600px
