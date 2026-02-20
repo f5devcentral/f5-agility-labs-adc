@@ -195,7 +195,8 @@ dashboards powered by Grafana.   We will verify the load balancing method and po
 +---------------------------------------------------------------------------------------------------------------+
 | 1. In BIG‑IP TMUI: Local Traffic → Pools → Cluster‑1.                                                         |
 |                                                                                                               |
-| 2. Confirm Load Balancing Method: Least Connections.                                                          |
+| 2. As good practice, confirm Load Balancing Method: Least Connections.  This is seen on the                   |
+|    Pool Members list screen.                                                                                  |
 |                                                                                                               |
 | 3. Check Members tab:  All members green (up) with active connections.                                        |
 |                                                                                                               |
