@@ -9,7 +9,7 @@ Migrations need to be surgical and transparent, without requiring client reconfi
 
 **Technical Problem**
 
-- No central control: Clients flood nodes with requests, overwhelming clusters.
+- No central control: clients can easily flood individual nodes with requests, overwhelming cluster members.
 - Data migrations require manual endpoint changes or application rewrites.
 - Lack of policy enforcement leads to instability and risk during transitions.
 
@@ -44,8 +44,8 @@ BIG‑IP TMUI              Attach iRules, configure policies         UDF → BIG
 Task 2: Rate Limiting S3 Traffic with iRules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following steps will create a massive spike in sudden S3 activity, and an approach to throttle down a specific source
-of the excessive load being received.
+The following steps will create a massive spike in sudden S3 activity, and an approach using BIG-IP to
+throttle down a specific source of the excessive load being received.
 
 +---------------------------------------------------------------------------------------------------------------+
 | 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).                                       |
@@ -68,7 +68,7 @@ of the excessive load being received.
 | 1. Open BIG-IP TMUI (UDF → Components → BIG-IP 21 → Access → TMUI).  The credentials are under lab            |
 |    Documentation tab (admin/bigip123).                                                                        |
 |                                                                                                               |
-| 2. Select Statistics -> Dashbaord                                                                             |
+| 2. Select Statistics -> Dashboard                                                                             |
 |                                                                                                               |
 | 3. Set Dashboard type pulldown (upper left) to "LTM" and click under View (upper right) to "Minio-Cluster-1"  |
 |                                                                                                               |
@@ -105,7 +105,7 @@ transactions over time, once a threshold has been first exceeded.
 | 1. Open and review the iRule-RateLimit-Cluster1                                                               | 
 |                                                                                                               |
 | 2. This simple example has the iRule act as a gatekeeper, a unique source IP address may transact with a      |
-|    URL (eg an S3 endpoint) 10 times, after which new transactions are limited to with a rolling 6 second      |
+|    URL (eg an S3 endpoint) 10 times, after which new transactions are limited to a rolling 6 second           |
 |    window used to re-admit new S3 commands.                                                                   |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
@@ -165,17 +165,17 @@ to a different (backup) cluster. This allows for very granual migrations and AI 
 
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO Warp tool (UDF → Components → Traffic-Gen → Access → Firefox).                                  |
-|    (from Documentation tab admin/admin).                                                                      |
+| 1. Open MinIO Warp tool (UDF → Components → Traffic-Gen → Access → Firefox,                                   |
+|    from Documentation tab admin/admin).                                                                       |
 |                                                                                                               |
 | 2. Select the nwq target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**                                 |
 |                                                                                                               |
-| 3. Select only the cluster1-bucket-a bucket (Bucket A), which is present on both MinIO clusters               |
+| 3. Select **only** the cluster1-bucket-a bucket (Bucket A), which is present on both MinIO clusters           |
 |    configured in UDF.                                                                                         |
 |                                                                                                               |
 | 4. Use the sliders to set Duration to 10 mins and Concurrency to 20 threads                                   |
 |                                                                                                               |
-| 5. Make sure that the IP address in WARP Parameters is a new BIG-IP VIP at  10.1.40.161:9000                    |
+| 5. Make sure that the IP address in WARP Parameters is a new BIG-IP VIP at  10.1.40.161:9000                  |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab321|                                                                                                      |
@@ -203,8 +203,7 @@ Click on our one policy to review the conditions/action:
 
 |lab323|
 
-This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.
-To experiment with possible rules, one may add a new policy in the policy list screen and investigate rule possibilities.
+This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.  Rather, to experiment with possible additional rules, one may add a new policy in the policy list screen and investigate rule possibilities.
 
 Let us now apply the local policy to the virtual server titled **minio-cluster-migration** (not the original virtual server)
 
@@ -223,7 +222,7 @@ Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
 
 - In AST: Dashboards → BigIP - Device → Device Pools look at the key metrics, such as **Active Pool Connections**.
 - Click the 3 dots and choose "View" to increase the size to full screen.
-- For ease of display, alter the pools being graphed to only include Cluster-1 and Cluster-2
+- For ease of display, alter the pools being graphed to **only** include Cluster-1 and Cluster-2
 
 |lab324|
 
@@ -240,7 +239,7 @@ will exclusively be seen on cluster-2.
 Task 5: Generate Traffic for Multiple Buckets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- Open the MinIO Warp bench tool (UDF -> Components -> Traffic-Gen -> Access -> Firefox)
+Open the MinIO Warp bench tool (UDF -> Components -> Traffic-Gen -> Access -> Firefox)
 
 - Select the target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**
 
@@ -256,7 +255,7 @@ Click **Run Benchmark** to start the S3 traffic load.
 
 Traffic is still being sent to the VIP configured in the Virtual Server minio-cluster-migration,
 however it has a mix of different buckets. Because of the policy we previously applied, the traffic to Bucket A will be routed
-to the new clsuter Cluster-2, while all **other** buckets are being sent to the original cluster Cluster-1.
+to the new cluster Cluster-2, while all **other** buckets are being sent to the original cluster Cluster-1.
 
 |lab327|
 
@@ -285,7 +284,7 @@ What You Learned — Value of BIG-IP LTM
 
 +-----------------------------------------------------------------------------------------------------------------------------------+
 | **End of Lab 2**.  In this lab you explored data plane programability by adding an iRule to police excessive S3 traffic           |
-| generators.   Without toching any endpoint, a local policy re-directe traffic from cluster-1 to cluster-2.private end point.      |
+| generators.   Without toching any endpoint, a local policy re-directed traffic from cluster-1 to cluster-2.                       |
 | Real-time impacts of iRules and policies was demonstrated when traffic was steered in the middle of Warp S3 test runs.            |
 +-----------------------------------------------------------------------------------------------------------------------------------+
 |  |labend|                                                                                                                         |
