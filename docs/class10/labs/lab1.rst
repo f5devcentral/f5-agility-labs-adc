@@ -109,7 +109,7 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. In WARP, switch target to the BIG‑IP VIP profile **BigIP‑cluster‑1**.                                      |
+| 1. In WARP, switch target to the BIG‑IP VIP profile **BigIP‑cluster‑1**.  Keep all three buckets active.      |
 |                                                                                                               |
 | 2. Set Duration: 5 minutes (300 seconds), Concurrency: 20 threads.                                            |
 |                                                                                                               |
