@@ -5,9 +5,11 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
     
 1. From the left menu, select Local Traffic > Virtual Servers > iRules > iRule List and click the '+' to create a new iRule
 
-  .. image:: ../images/iRule_Create_plus.png
+   .. figure:: ../images/iRule_Create_plus.png
+      :width: 400px
 
-    Use 'lab_ContentLength_rule' for the iRule name.  This rule will log the content-length of the HTTP responses passing through the system.  We will use this information later when tuning TCP profiles. You won't need to write down any of the specific sizes but just see what is happening - a lot of small, medium or large files.  Is it a mix of different size files?  Is is a lot of large files?
+      Use 'lab_ContentLength_rule' for the iRule name.  This rule will log the content-length of the HTTP responses passing through the system.  We will use this information later when tuning TCP profiles. You won't need to write down any of the specific sizes but just see what is happening - a lot of small, medium or large files.  Is it a mix of different size files?  Is is a lot of large files?
+
 
 2. Enter the following code to log HTTP content-length anf the URL to local LTM log (/var/log/ltm):
 
@@ -24,37 +26,44 @@ If you do not have AVR provisioned and do not have the ablility to enable AVR si
   .. image:: ../images/iRule_Content-Length.png
       :width: 800px
 
-1. Click the Update button at the bottom of the page to save the changes.  The iRule needs to be applied to a Virtual Server before it can log the content-length.
+3. Click the Update button at the bottom of the page to save the changes.  The iRule needs to be applied to a Virtual Server before it can log the content-length.
 
-2. From the left menu, select Local Traffic > Virtual Servers > Virtual Server List
+4. From the left menu, select Local Traffic > Virtual Servers > Virtual Server List
 
-3. Click on web01_vs1 then go to the the Resources tab where the iRule will be assigned.
+5. Click on web01_vs1 then go to the the Resources tab where the iRule will be assigned.
 
-.. image:: ../images/iRule_vs_resources.png
+   .. image:: ../images/iRule_vs_resources.png
+       :width: 600px
+
 
 6. Click on the Manage button to the right of the iRule section
   
 .. image:: ../images/iRule_manage_button.png
     :width: 600px 
 
-7.Select rule lab_ContentLength_rule from the list on the right the click "<<" in the middle to assign the iRule to the Virtual server.
+7. Select rule lab_ContentLength_rule from the list on the right the click "<<" in the middle to assign the iRule to the Virtual server.
   
-.. image:: ../images/iRule_Content-Assigment.png
-    :width: 600px
+   .. image:: ../images/iRule_Content-Assigment.png
+       :width: 600px
   
+
 8. Click Finished button at the bottom of the page to save the change
-  
+
+
 View the new log data from the BIG-IP command-line
 --------------------------------------------------
 
 1. Open an SSH session to the BIG-IP from the UDF Components page.
   
-.. image:: ../images/udf_bigip01_access.png
+   .. image:: ../images/udf_bigip01_access.png
+       :width: 500px
   
+
 2. Monitor the logs to see the content-length of the HTTP responses::
   
       tail -f /var/log/ltm | grep Content-Length
   
+
    The files names in the lab include the file size but that is most likely not going to be the case in other environments so the Content-Length header shows the size in bytes.  This traffic mix contains files 16KB to 3MB::
 
     Feb 12 13:04:41 bigip01.f5tcp.lab info tmm1[16963]: Rule /Common/lab_contentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 3145728 - URI: /file_3mb.txt
@@ -79,6 +88,7 @@ View the new log data from the BIG-IP command-line
 
       tail -f /var/log/ltm | grep Content-Length
 
+
 7. Type <ctrl-c> to exit the tail command
 
 8. Create another iRule in the UI by returning to the previously opened BIGIP01 TMUI browser tab
@@ -102,6 +112,7 @@ View the new log data from the BIG-IP command-line
 
 12. Click the update button at the bottom of the page to save the changes.
   
+
 Assign New iRule to Virtual Server
 ----------------------------------
 
@@ -117,8 +128,10 @@ View the new log data from the BIG-IP command-line
 
 1. If not still open, open an SSH session to the BIG-IP from the UDF Components page.
   
-.. image:: ../images/bigip_ssh_access.png
+   .. image:: ../images/bigip_ssh_access.png
+       :width: 500px
   
+
 2. Monitor the logs to see the content-length of the HTTP responses::
   
     tail -f /var/log/ltm | grep "Response Code"
@@ -139,10 +152,12 @@ View the new log data from the BIG-IP command-line
       modify ltm virtual web01_vs1 rules none
       save sys config
 
+
 6. Type 'q' and <enter> to exist tmsh
 7. Verify the iRule is no longer logging.  You may see a few log entries but it should not be scrolling::
 
       tail -f /var/log/ltm | grep "Response Code"
+
 
 8. Type <ctrl-c> to exit the tail command
 
