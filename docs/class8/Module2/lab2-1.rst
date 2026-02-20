@@ -55,7 +55,14 @@ Task 1: Review Base TCP Profiles
        :width: 500px
 
 
-10. Start a packet capture from the SSH window of BIGIP01::
+10. Run the following command from the Ubuntu-Client SSH window::
+    
+      ~/zerowindow3.sh
+
+
+    The script uses curls to request a 3MB file 3 times over a single TCP connection to **webo1_vs**.  It does this 3 times and displays the total time when finished.  This process may take a bit so you can leave it running while going through the next steps.   
+
+11. Start a packet capture from the SSH window of BIGIP01::
 
       timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500
 
@@ -85,7 +92,7 @@ Task 1: Review Base TCP Profiles
 
     The capture output shows BIGIP01 Internal SelfIP (10.1.10.15) sending TCP Zero Window ACKs to the application pool members (10.1.10.30-34).  This means BIGIP01 is telling the pool members to stop sending data while it waits for the the client-side to catchup.  As mentioned earlier, the client had 200ms of latency injected in the path to BIGIP01.
 
-11. From the BIGIP01 SSH window, run the following packet capture filtering on SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.::
+12. From the BIGIP01 SSH window, run the following packet capture filtering on SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.::
 
       tcpdump -nni external host 10.1.30.6 and 'tcp[13] & 2 != 0' -c 4
 
@@ -97,4 +104,23 @@ Task 1: Review Base TCP Profiles
 
     With the SYN, client (10.1.30.6) is advertising TCP Window Scale capability with option 'wscale 7'.  With the SYN/ACK,  BIGIP01 is responding without a wscale option since the TCP buffers sizes are limited to TCP base maximum of 65535 Bytes.  No TCP Window scaling is available to this connection.
 
+13. Check the Ubuntu-Client output from the script.  You should see something similar to this::
+
+      Run 3:...
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0   271k      0 --:--:--  0:00:11 --:--:--  311k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0   311k      0 --:--:--  0:00:09 --:--:--  321k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0   305k      0 --:--:--  0:00:10 --:--:--  315k
+
+      real  1m33.473s
+      user  0m0.153s
+      sys   0m0.174s
+
+
+    With the current TCP profiles, it takes ~90 seconds to transfer 27MB of data.  Notice that within each of the 3 runs there is a slight performance increase for downloads 2 and 3 because the TCP connection was still ramping up during download 1.  See the **Average Dload** column.
 
