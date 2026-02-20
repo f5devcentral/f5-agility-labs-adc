@@ -153,34 +153,56 @@ In F5OS, the virtctl command allows for a virtual console to any tenant. In addi
    r5900-8-tenant-b  -           0           0      tenant-console  locked
    root              -           2026-01-08  0      root            enabled
 
-Notice that for each tenant, a username has been created with specific role of tenant-console. To enable use of this, a few configuration items must be done.
+Notice that for each tenant, a username has been created with specific role of **tenant-console**. 
 
-First set the password for the account (this is only to scp to console, it is not a user login role) 
+To enable use of this, a few configuration items must be done.
+
+- First set the password for the account (this is only to scp to console, it is not a user login role) 
 
 .. code-block:: none
 
    r5900-1# config
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config set-password
 
-Set Account to enabled 
+- Set Account to enabled 
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config expiry-status enabled
+   r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
 
-Set the last-change date
+- Set the last-change date
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config last-change <date in format YYYY-MM-DD>
+   r5900-1(config-user-r5900-1-tenant-b)# !
    r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
+   r5900-1(config)# exit
       
 
-Test console access to your tenant from your workstation/desktop:
-ssh <tenant-name>@<F5OS IP> -p 7001 using the password set above
-Log into the tenant console as root or admin
+Test console access to your tenant from your workstation/desktop using the password you set for the console account:
 
+.. code-block:: none
+   
+   ssh <tenant-name>@<F5OS IP> -p 7001
+
+
+Now test console access to your tenant from F5OS using the *virtctl* utility
+
+.. code-block:: none
+
+   virtctl console <tenant_name>-1
+
+Note the trailing *-1* for the tenant name, and wonder why is that needed? To find out, execute *su admin* at the following command:
+
+.. code-block:: none
+
+   [root@appliance-1(r5900-11.aw26.lab):Active] ~ # su admin
+   r5900-11# show tenants tenant
+
+Full knowledge article on rSeries tenant console access: https://my.f5.com/manage/s/article/K33373310
 
 //End of Exercise 2
