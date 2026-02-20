@@ -74,7 +74,7 @@ From the tenant, we can see TMM processed traffic statistics, not network interf
 
 All layer 2 interface statistics for ports and trunks are monitored by F5OS. Details can be viewed in the F5OS webUI, viewed in the F5OS CLI, polling via SNMP or API interface calls.
 
-In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 1.0 and 2.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
+In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 3.0 and 4.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
  
 .. image:: images/image21.png
    :alt: image21.png
@@ -200,7 +200,7 @@ The F5OS CLI does contain interfaces to show log files. When coupled with *match
    
    r5900-1# file list path log/system | include name
 
-For example, suppose we want to find a history of all F5OS boot sequences which shows each typme the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
+For example, suppose we want to find a history of all F5OS boot sequences which shows each time the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
 
 This command would show the first occurence, but not every occurance. How can we alter this command to see the last time the system was booted? To show all boot times? 
 
