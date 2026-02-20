@@ -109,17 +109,17 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. In WARP, switch target to the BIG‑IP VIP profile BigIP‑cluster‑1.                                          |
+| 1. In WARP, switch target to the BIG‑IP VIP profile **BigIP‑cluster‑1**.                                      |
 |                                                                                                               |
 | 2. Set Duration: 5 minutes (300 seconds), Concurrency: 20 threads.                                            |
 |                                                                                                               |
-| 3. In WARP Parameters, set Endpoint to 10.1.40.160:9000.                                                      |
+| 3. In WARP Parameters, set Endpoint to 10.1.40.160:9000 (as we are now targeting a virtual server).           |
 |                                                                                                               |
 | 4. Click Run Benchmark                                                                                        |
 |                                                                                                               |
 | 5. Log into BIG-IP TMU: Local Traffic → Pools → Cluster‑1.  Confirm 3 pool members are present initially      |
-|    Click both Members and Statistics tabs.                                                                    |
-|                                                                                                               |
+|    Click both Members and Statistics tabs.  **Important:** Observe how the load balancing method has          |
+|    been set to "Least Connections".                                                                           |
 | .. note::                                                                                                     |
 |      *due to short run durations, summary analytics may not have appeared in the AIStor dashboard view yet.*  |
 +---------------------------------------------------------------------------------------------------------------+
@@ -129,13 +129,13 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.             |
-|                                                                                                               |
-|                                   |                                                                           |
+| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.  The AISTor |
+|    GUI will likley not populate for a few more minutes, but later when checked will look like the AIStor      |
+|    screenshot provided below.                                                                                 |
 +---------------------------------------------------------------------------------------------------------------+
-| |lab020|                                                                                                      |
-|                                                                                                               |
 | |lab021|                                                                                                      |
+|                                                                                                               |
+| |lab020|                                                                                                      |
 +---------------------------------------------------------------------------------------------------------------+
 
 **Expected outcome**: Traffic is distributed across the **three** nodes behind the VIP.
@@ -161,8 +161,8 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 |                                                                                                               |
 | 3. Set **Service Port** to 9000 and click **Finished**                                                        |                                             
 |                                                                                                               | 
-|  .. note::                                                                                                    |
-|      health checks for the new member will drive the LED from blue to green (ready) shortly                   |
+|  .. Note::                                                                                                    |
+|      Health checks for the new member will drive the LED from blue to green (ready) shortly                   |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab042|                                                                                                      |
 |                                                                                                               |
@@ -172,7 +172,7 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 +---------------------------------------------------------------------------------------------------------------+
 | 4. Re-run the WARP workload targetting the BIG-IP Virtual IP (VIP 10.1.40.160:9000)                           |                                                                                                  
 |                                                                                                               | 
-|  .. note::                                                                                                    |
+|  .. Note::                                                                                                    |
 |      The 4th AIStor node begins processing traffic **immediately**.  All nodes now share load                 |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab043|                                                                                                      |
@@ -182,7 +182,7 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 +---------------------------------------------------------------------------------------------------------------+
 
 
-**Key Takeaway** There were no client changes and Applications still continue to talk to the same VIP;
+**Key Takeaway** There were no client changes and S3 applications still continue to talk to the same VIP;
 topology changes are absorbed by *BIG‑IP* at the dataplane.
 
 
@@ -200,7 +200,7 @@ dashboards powered by Grafana.   We will verify the load balancing method and po
 | 3. Check Members tab:  All members green (up) with active connections.                                        |
 |                                                                                                               |
 | 4. Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.                               |
-|    Login as admin / admin, when prompted to change password simply retain the value as admin                  |
+|    Login as **admin / admin**, when prompted to change password simply retain the value as **admin**          |
 |                                                                                                               |
 | 5. In AST, choose Dashboards - BigIP - Device - Device Pools look at the key metrics, such as Active Pool     |
 |            Connections.   For "Pool" in top menu, adjust to "Cluster-1" and examine last 15 minutes.          |
@@ -274,7 +274,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
 | **End of Lab 1:**  This concludes Lab 1.  In this lab you ran high rate S3 loads against a single MinIO       |
 | AIStor server, leaving other AIStor instances unused.  You then adjusted the load generator to use a virtual  |
 | server with a virtual IP address on the F5 BIG-IP.   An origin pool corresponding to three AIStor instances   |
-| allow traffic to be spread, per the least connections approach, to all healthy nodes.   A fourth AIStor       |
+| allowed traffic to be spread, per the least connections approach, to all healthy nodes.   A fourth AIStor     |
 | instance was added to the pool, exercising all nodes equally and not requiring any client side adjustments,   |
 | a major benefit in scenarios with hundreds or possibly thousands of clients.                                  |
 +---------------------------------------------------------------------------------------------------------------+
@@ -309,7 +309,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab013| image:: ../_static/lab1-013.png
    :width: 800px
-.. |lab014| image:: ../_static/image_001_WARP_ui.png
+.. |lab014| image:: ../_static/image_001_fixed_WARP_ui.png
    :width: 800px
 .. |lab015| image:: ../_static/lab1-015.png
    :width: 800px
