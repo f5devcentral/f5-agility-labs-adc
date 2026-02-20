@@ -1,14 +1,14 @@
 Lab 1: High Availability & Efficient Load Distribution
 ==========================================================================================
 
-Business has a problem. AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
+**Business problem** : AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
 clients directly to specific storage nodes creates tight coupling and operational risk: a single overloaded node
 throttles the entire pipeline.
 
-Technical problem. Without a delivery layer, clients must pick a node, handle retries/failover, and live with
+**Technical problem** : Without a delivery layer, clients must pick a node, handle retries/failover, and live with
 uneven utilization (hot spots) and brittle endpoints.
 
-Solution with BIG‑IP LTM. Expose a single, resilient virtual endpoint. Behind this VIP, BIG‑IP intelligently
+**Solution with BIG‑IP LTM** : Expose a single, resilient virtual endpoint. Behind this VIP, BIG‑IP intelligently
 distributes S3 traffic across all healthy MinIO nodes and lets you scale by simply adding/removing pool
 members—no client changes required. Use Least Connections to smooth throughput for S3 workloads.
 
@@ -38,8 +38,16 @@ BIG‑IP TMUI              Verify pools/members & methods            UDF → BIG
 Task 2: Baseline: Send traffic directly to MinIO (no BIG‑IP)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following steps will validate access to the application via web browser, review the
+The following steps will validate access to the application via a web browser, review the
 Performance Monitoring dashboard, and gather request details.
+
+**Quick aside, what is Warp?**  It is a high-performance, open-source benchmarking tool designed to measure and
+analyze the throughput and latency of S3-compatible object storage systems.
+
+Warp simulates real-world workloads—such as PUT (uploads), GET (downloads), LIST, and DELETE operations—to
+evaluate performance, plan capacity, and identify bottlenecks.
+
+The labs offer an easy-to-use graphical front end for Warp, to avoid needing to issue command-line actions.
 
 +---------------------------------------------------------------------------------------------------------------+
 | 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).  The credentials are under lab        |
