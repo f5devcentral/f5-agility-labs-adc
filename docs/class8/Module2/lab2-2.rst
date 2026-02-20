@@ -8,7 +8,18 @@ Task 2:  Benefits of Modified TCP Profiles
        :width: 600px
 
 
-2. Go back to the BIGIP01 SSH window and run the same packet capture from earlier::
+   The main difference with the **F5-tcp-progessive** is Auto Buffer size control to size the buffers based on link condition metrics <<reword from doc>>
+
+   .. image:: ../images/tcp_progressive_buffers.png
+       :width: 600px
+
+
+2. Run the following command again from the Ubuntu-Client SSH window::
+    
+      ~/zerowindow3.sh
+
+
+3. Go back to the BIGIP01 SSH window and run the same packet capture from earlier::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500  
    
@@ -31,13 +42,40 @@ Task 2:  Benefits of Modified TCP Profiles
 
    Here the client (10.1.30.6) is advertising **wscale 7** with the SYN and BIGIP01 is responding with **wscale 9** in the SYN/ACK so the TCP Window can scale up to the buffer limits determined by the f5-prgressive TCP profile. 
 
-4. Go back to the BIGIP01 UI and change web01_vs1 to use a custom TCP profile configure for the lab with 3MB buffers (tcp_3mb) and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
+4. Check the Ubuntu-Client output from the script.  You should see something similar to this::
+   
+      Run 3:...
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0   760k      0 --:--:--  0:00:04 --:--:--  760k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  2177k      0 --:--:--  0:00:01 --:--:-- 2177k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  3046k      0 --:--:--  0:00:01 --:--:-- 3047k
+
+      real  0m18.465s
+      user  0m0.092s
+      sys   0m0.100s
+
+   With the **F5-tcp-progressive** TCP profiles, the download performance is much better even though TCP Zero Window packet were still seen during the capture.  This profile allows for TCP Window scaling so more data can be in flight pending an ACK.  It should take ~19 seconds to transfer 27MB of data.  Notice that within each of the 3 runs there is still a difference in through put from download 1 and files 2/3top because the TCP connection was still ramping up during download 1.
+
+
+Test With Larger TCP Buffers
+============================
+
+1. Go back to the BIGIP01 UI and change web01_vs1 to use a custom TCP profile configure for the lab with 3MB buffers (tcp_3mb) and click update at the bottom of the page to save the change.  Higher buffers will use more memory for each TCP connection  while f5-tcp-progressive can also use more CPU as it calculates the buffer sizes.
  
    .. image:: ../images/tcp_3mb.png
        :width: 500px
 
+2. Run the test script again from the Ubuntu-Client SSH window::
+    
+      ~/zerowindow3.sh
 
-5. Go back to the BIGIP01 SSH window and run the same packet capture::
+
+3. Go back to the BIGIP01 SSH window and run the same packet capture::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500 
   
@@ -51,6 +89,64 @@ Task 2:  Benefits of Modified TCP Profiles
     0 packets captured
     0 packets received by filter
     0 packets dropped by kernel
+
+
+4. Check the Ubuntu-Client output from the script.  You should see something similar to this::
+
+      Run 3:...
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0   997k      0 --:--:--  0:00:03 --:--:--  998k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  2539k      0 --:--:--  0:00:01 --:--:-- 2538k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  3608k      0 --:--:-- --:--:-- --:--:-- 3605k
+
+      real  0m16.954s
+      user  0m0.089s
+      sys   0m0.089s
+
+
+   With the **tcp_3mb** TCP profiles, the download performance is slightly better but there are no TCP Zero Windows seend during the test window. This profile allows for TCP Window to scale much faster and stay and the maximum value for the remainder of the TCP stream.  It should take ~17 seconds to transfer 27MB of data and the first download is still slower in each loop.
+
+Disable TCP Slow Start
+----------------------
+
+1. From BIGIP01 UI, go to **Local Traffic > Profiles > Protocols > TCP** and click on **tcp_3mb** from the list
+2. Scroll down to the Congestion Control section
+3. Click the check box to the far right of Slow Start to enable editing of the Slow Start property
+4. Clear the Enabled check box for Slow Start
+
+   .. image:: ../images/tcp_3mb_cong_control.png
+       :width: 900px
+
+
+5. Click the Update button at the bottom of the page to save the setting
+6. Run the test script again from the Ubuntu-Client SSH window::
+    
+      ~/zerowindow3.sh
+
+
+7. Check the Ubuntu-Client output from the script.  You should see something similar to this::
+
+      Run 3:...
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  1683k      0 --:--:--  0:00:01 --:--:-- 1683k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  7561k      0 --:--:-- --:--:-- --:--:-- 7566k
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                       Dload  Upload   Total   Spent    Left  Speed
+      100 3072k    0 3072k    0     0  7569k      0 --:--:-- --:--:-- --:--:-- 7566k
+
+      real	0m7.968s
+      user	0m0.074s
+      sys	0m0.085s
+
+   The total time should be ~8 seconds after disabling Slow Start.  The biggest improvement in the lab is on the client side.  The server-side is able to react quicker to TCP Window changes with the low latency.  The client-side is now able to ramp up faster with Slow Start disabled.  Slow Start is there to prevent TCP connections from overloading available network bandwidth.  If you see congestion and packet retransmissions within an environment you shoulw leave Slow Start enabled.  With the flxibility of TMOS, Slow Start can be enabled/disabled on either server or client sides of the connection independently.
 
 
 Windows Scale Review Using Wireshark Screenshots
