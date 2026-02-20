@@ -70,6 +70,10 @@ Access from UDF Components Tab
 .. image:: ../images/udf_RDP_continue.png
     :width: 600px
 
+**Note:** Throughout the labs you should leave a single connection open to the following as they will be used for multiple labs/tasks:
+* BIGIP01 TMUI
+* BIGIP01 SSH
+* Ubuntu-Client SSH
 
 Recap
 -----
