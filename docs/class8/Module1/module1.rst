@@ -1,7 +1,7 @@
-Lab 1: Viewing Application Data With AVR
-========================================
+Lab 1: Viewing Application Data
+===============================
 
-In Lab 1, you will see several options for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  Without knowing the details and behaviors of the traffic flowing through the system, you won't know what can be done to improve application performance.
+In Lab 1, you will use AVR and iRules for reviewing the application flows through the BIGIP at the HTTP and TCP layers.  Without knowing the details and behaviors of the traffic flowing through the system, you won't know what can be done to improve application performance.
 
 Lab Tasks:
 **********

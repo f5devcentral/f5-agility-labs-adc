@@ -1,14 +1,8 @@
-Lab 4: Enabling Layer 7 LB for HTTP
-===================================
+Task 1: Enabling Layer 7 LB for HTTP
+====================================
 
 In Lab 2, you use iRules to log specific application detailsore details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
 
-Lab Tasks:
-**********
-
-* Task 1: Review AVR Data
-* Task 2: Use iRules To Log Traffic Data
-* Task 3: Anything else?
 
 Task 2: Use iRules To Log Traffic Data
 --------------------------------------

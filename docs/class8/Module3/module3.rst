@@ -1,7 +1,7 @@
 Lab 3: HTTP Tuning
 ==================
 
-In this module you will learn how the TCP Profile can affects traffic flows through TMOS.
+In this module you will learn how to improve HTTP flows through TMOS.
 
 Lab Tasks:
 **********
