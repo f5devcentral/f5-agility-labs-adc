@@ -56,7 +56,7 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 |                                                                                                               |
 | 2. Select the cluster‑1 profile.                                                                              |
 |                                                                                                               |
-| 3. Select all 3 buckets, when selected for use they will appear in bright orange.                             |
+| 3. Select all **3** buckets, when selected for use they will appear in bright orange.                         |
 |                                                                                                               |
 | 4. Set Duration to 3 minutes and Concurrency to 20 threads. Conncurrency refers to parallel S3 transactions.  |
 |                                                                                                               |
@@ -74,6 +74,9 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 |                                                                                                               |
 | 8. Observe that there are 4 AIStor servers spread across 2 clusters, however data charts require normally     |
 |    30 minutes or more to popluate so expect no traffic on the right-hand chart.                               |
+|                                                                                                               |
+|    **REMINDER of ABOVE** You will not see the charts below filling for at least the fist 20 minutes, in later |
+|    steps you will notice them filled.                                                                         |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab016|                                                                                                      |
 |                                                                                                               |
@@ -83,8 +86,8 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 +---------------------------------------------------------------------------------------------------------------+
 | 9.  Click on the arrow next to time to first byte, in the lower right of the screen.                          | 
 |                                                                                                               |
-| 10. Observe that once the charts populate, only traffic will be registered with only the first AIStor,        |
-|     at address 10.1.10.100 port 9000.  This traffic will task one server, creating a hot spot of load.        |
+| 10. Observe that once the charts populate, only traffic will be received by the  first AIStor,                |
+|     at address 10.1.10.100 port 9000.  This traffic will task one server, creating a **hot spot** of load.    |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab017|                                                                                                      |
 |                                                                                                               |
