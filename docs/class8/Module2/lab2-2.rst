@@ -11,7 +11,7 @@ Task 2:  Benefits of Modified TCP Profiles
    The main difference with the **F5-tcp-progessive** is Auto Buffer size control to size the buffers based on link condition metrics <<reword from doc>>
 
    .. image:: ../images/tcp_progressive_buffers.png
-       :width: 600px
+       :width: 800px
 
 
 2. Run the following command again from the Ubuntu-Client SSH window::
