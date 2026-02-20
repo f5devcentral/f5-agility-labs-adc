@@ -229,7 +229,7 @@ Navigate to *Authentication & Access -> Authentication Settings* and click on th
    :alt: image9.png
    :width: 50%
 
-CLI SHow commands
+CLI show commands
 
 .. code-block:: none
 
@@ -252,6 +252,26 @@ CLI SHow commands
    system aaa password-policy config root-unlock-time 60
    system aaa password-policy config max-age 0
    
+
+
+Finally, we look at the TLS policy for the F5OS GUI interface. Changes here could be required based on corporate security or NIST recommendations.  Navigate to *System Settings -> System* Security, and note the **httpd Cipher Suites** text box:
+
+.. image:: images/image25.png
+   :alt: image25.png
+   :width: 70%
+
+
+To update these settings, edit or paste in the suite types separated by a colon and save changes. For example, the following cipher list would remove any non ECC ciper suite. **Note**: changing the suite will restart HTTPS services 
+
+ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA
+
+CLI from config mode
+
+.. code-block:: none
+
+   r5900-1(config)# system security services service httpd config ssl-ciphersuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA
+   r5900-1(config)# commit
+
 
 //End of Exercise 1 (Student A)	
 
@@ -378,6 +398,26 @@ CLI from config mode
    r5900-1(config-allowed-ip-snmp_allow)# exit
    r5900-1(config)#
    
+Additional system security settings include cipher suite configuration for HTTP and SSH services. To update the *sshd* key exchange algorithms, paste in the updated list enclosed by  [ ] brackets. 
+
+.. image:: images/image26.png
+   :alt: image26.png
+   :width: 70%
+
+The following string removes Diffie Hellman key exchange algorithms. Replace the existing string in the text box and save the changes. 
+
+[ curve25519-sha256 curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521 ]
+
+CLI from config mode
+
+.. code-block:: none
+
+   r5900-1(config)# system security services service sshd config kexalgorithms [ curve25519-sha256 curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521 ]
+   r5900-1(config)# !
+   r5900-1(config)# commit
+   The following warnings were generated:
+   'system security services service sshd': Changing SSH configuration will restart the SSHD service.
+   Proceed? [yes,no] yes
 
 Navigate to *Network Settings -> LLDP Configuration*
 Ensure that LLDP is Enabled, the system name is the r5900-X.
