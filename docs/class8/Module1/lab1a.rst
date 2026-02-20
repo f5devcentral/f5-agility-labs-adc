@@ -5,8 +5,8 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 
 1. Connect to TMUI of BIGIP01 using the following credentials:
 
-  |  User:     admin
-  |  Password: admin.F5demo.com
+   |  User:     admin
+   |  Password: admin.F5demo.com
     
 2. From the left menu, select Statistics > Analytics > HTTP > Overview
 
