@@ -1,10 +1,7 @@
 Task 1: Review Base TCP Profiles
 ================================
 
-Review general TCP profiles available to TMOS
----------------------------------------------
-
-#. From the left-side menu, go to Local Traffic > Profiles > Protocol > TCP.
+#. From the left-side menu, go to **Local Traffic > Profiles > Protocol > TCP**
 #. Click the **Parent Profile** column title to sort the profiles
 
    Most profiles in TMOS have a parent/child structure where the child can both inherit and override settings from the parent profile.  Within the list of TCP profiles, you can see that all included profiles end up sourcing from the base profile named tcp - tcp > tcp-legacy, tcp-legacy > tcp-wan-optimized, etc. 
@@ -12,15 +9,15 @@ Review general TCP profiles available to TMOS
    .. figure:: ../images/tcp_profiles_sorted.png
       :width: 750px
 
-      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles <<reword??>>
+      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles.  For example, tcp-legacy was created containing the settings from previous TMOS version.
 
 
-3. Click on the tcp-legacy profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
+3. Click on the **tcp-legacy** profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
 
    .. figure:: ../images/tcp_legacy_buffers.png
       :width: 700px
 
-   At this point, the web01-vs1 Virtual Server is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
+   At this point, Virtual Server **web01-vs1** is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
 
 
 4. Connect to the Ubuntu-Client via SSh using the Access dropdown
