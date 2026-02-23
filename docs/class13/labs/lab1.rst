@@ -120,8 +120,8 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 | 4. Click Run Benchmark                                                                                        |
 |                                                                                                               |
 | 5. Log into BIG-IP TMU: Local Traffic → Pools → Cluster‑1.  Confirm 2 pool members are present initially      |
-|    Click both Members and Statistics tabs.  **Important:** Observe how the load balancing method has          |
-|    been set to "Least Connections".                                                                           |
+|    Click both Members and Statistics tabs.  **Important:** As an S3 best practice adjust the load             |
+|    balancing algorithm to "Least Connections".                                                                |
 | .. note::                                                                                                     |
 |      *due to short run durations, summary analytics may not have appeared in the AIStor dashboard view yet.*  |
 +---------------------------------------------------------------------------------------------------------------+
@@ -320,9 +320,9 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab017| image:: ../_static/detailed_view_of_trafic_without_a_load_balancer.png
    :width: 800px
-.. |lab018| image:: ../_static/a_bigip_pool_members_start.png
+.. |lab018| image:: ../_static/pool_members.png
    :width: 800px
-.. |lab019| image:: ../_static/a_bigip-pool-statistics.png
+.. |lab019| image:: ../_static/even_traffic.png
    :width: 800px
 .. |lab020| image:: ../_static/a_aistor_traffic_chart.png
    :width: 800px
