@@ -50,8 +50,9 @@ evaluate performance, plan capacity, and identify bottlenecks.
 The labs offer an easy-to-use graphical front end for Warp, to avoid needing to issue command-line actions.
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).  The credentials are under lab        |
-|    Documentation tab (admin/admin).  If presented with Firefox "Restoring Pages" message, choose "Restore     |
+| 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox - you may need to scroll down).         |
+|    The credentials are under lab   Documentation tab (admin/admin).                                           |
+|    If presented with Firefox "Restoring Pages" message, simply choose "Restore                                |
 |    Session" button.   As well, permit the pop-up to allow access to clipboard.                                |
 |                                                                                                               |
 | 2. Select the cluster‑1 profile.                                                                              |
@@ -70,9 +71,10 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 7. Open MinIO cluster‑1 Console (UDF → Cluster1‑Node1 → Access → UI). Login: minioadmin / minioadmin          | 
+| 7. Observer there are two clusters of MinIO servers in our lab.                                               |
+|    Open MinIO cluster‑1 Console (UDF → Cluster1‑Node1 → Access → UI). Login: minioadmin / minioadmin          | 
 |                                                                                                               |
-| 8. Observe that there are 4 AIStor servers spread across 2 clusters, however data charts require normally     |
+| 8. Observe that there are 2 AIStor active servers in cluster 1, however data charts require normally          |
 |    30 minutes or more to popluate so expect no traffic on the right-hand chart.                               |
 |                                                                                                               |
 |    **REMINDER of ABOVE** You will not see the charts below filling for at least the fist 20 minutes, in later |
@@ -84,7 +86,7 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 9.  Click on the arrow next to time to first byte, in the lower right of the screen.                          | 
+| 9.  Click on the arrow next to **time to first byte**, in the lower right of the screen.                      | 
 |                                                                                                               |
 | 10. Observe that once the charts populate, only traffic will be received by the  first AIStor,                |
 |     at address 10.1.10.100 port 9000.  This traffic will task one server, creating a **hot spot** of load.    |
