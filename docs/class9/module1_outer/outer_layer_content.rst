@@ -123,7 +123,7 @@ Best practices include:
 
 For detailed configuration steps and lab validation, see:
 
-:doc:`self_ip_port_lockdown`
+:doc:`lab/self_ip_port_lockdown`
 
 Route Domain and Segmentation Controls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
