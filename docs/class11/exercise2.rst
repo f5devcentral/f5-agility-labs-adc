@@ -68,6 +68,7 @@ After you commit the change, F5OS will start deploying the tenant. The initial d
 The tenant Status will show *Running* once it has booted; you can monitor the tenant startup by continuously pinging the management IP from your workstation -- successful replies indicate tenant services are coming up and you can log in.
 
 .. code-block:: none
+
    r5900-1# show tenants tenant state status
    NAME              STATUS
    ---------------------------
@@ -87,6 +88,7 @@ Next, import the master key from the tenant you're migrating. This is necessary 
 Loading the master key from the bash shell can be referenced in knowledge article https://my.f5.com/manage/s/article/K9420. For this lab, both the UCS and master key files are on a web server 10.193.5.2 that can be downloaded to a laptop then uploaded to the BIG-IP tenant, or simple directly downloaded to the tenant via HTTPS.  
 
 .. code-block:: none
+
    Filenames for Student A:
    UCS file:	r5900-<X>a.ucs
    Key file:	r5900-<X>a.key
@@ -112,7 +114,8 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
 
 Next, re-key the master key from the txt file downloaded, as an example: 
 
-.. code-block:: none
+.. code-block:: none 
+
    [root@localhost:Active:Standalone] config # cat /var/tmp/r5900-1a.key
    U5hNcJqbR0W4pjILPNa5/Q==
    [root@localhost:Active:Standalone] config # f5mku -r U5hNcJqbR0W4pjILPNa5/Q==
@@ -123,6 +126,7 @@ Next, re-key the master key from the txt file downloaded, as an example:
 The final tenant migration step is to load the UCS file, using the platform-migrate option which ignores network interfaces and other items in the load process
 
 .. code-block:: none
+
    tmsh
    root@(localhost)(cfg-sync Standalone)(Active)(/Common)(tmos)# load sys ucs /var/tmp/r5900-1a.ucs platform-migrate
    Replace all configuration on the system? (y/n) y
@@ -137,6 +141,7 @@ Within a minute or two the BIG‑IP status will change to Active and the configu
 In F5OS, the virtctl command allows for a virtual console to any tenant. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
 
 .. code-block:: none
+   
    r5900-1# show system aaa authentication users
                      AUTHORIZED  LAST        TALLY                  EXPIRY
    USERNAME          KEYS        CHANGE      COUNT  ROLE            STATUS
@@ -148,34 +153,56 @@ In F5OS, the virtctl command allows for a virtual console to any tenant. In addi
    r5900-8-tenant-b  -           0           0      tenant-console  locked
    root              -           2026-01-08  0      root            enabled
 
-Notice that for each tenant, a username has been created with specific role of tenant-console. To enable use of this, a few configuration items must be done.
+Notice that for each tenant, a username has been created with specific role of **tenant-console**. 
 
-First set the password for the account (this is only to scp to console, it is not a user login role) 
+To enable use of this, a few configuration items must be done.
+
+- First set the password for the account (this is only to scp to console, it is not a user login role) 
 
 .. code-block:: none
 
    r5900-1# config
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config set-password
 
-Set Account to enabled 
+- Set Account to enabled 
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config expiry-status enabled
+   r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
 
-Set the last-change date
+- Set the last-change date
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config last-change <date in format YYYY-MM-DD>
+   r5900-1(config-user-r5900-1-tenant-b)# !
    r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
+   r5900-1(config)# exit
       
 
-Test console access to your tenant from your workstation/desktop:
-ssh <tenant-name>@<F5OS IP> -p 7001 using the password set above
-Log into the tenant console as root or admin
+Test console access to your tenant from your workstation/desktop using the password you set for the console account:
 
+.. code-block:: none
+   
+   ssh <tenant-name>@<F5OS IP> -p 7001
+
+
+Now test console access to your tenant from F5OS using the *virtctl* utility
+
+.. code-block:: none
+
+   virtctl console <tenant_name>-1
+
+Note the trailing *-1* for the tenant name, and wonder why is that needed? To find out, execute *su admin* at the following command:
+
+.. code-block:: none
+
+   [root@appliance-1(r5900-11.aw26.lab):Active] ~ # su admin
+   r5900-11# show tenants tenant
+
+Full knowledge article on rSeries tenant console access: https://my.f5.com/manage/s/article/K33373310
 
 //End of Exercise 2

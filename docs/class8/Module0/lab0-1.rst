@@ -1,5 +1,5 @@
-Intro - UDF Blueprint Deployment
-================================
+UDF Blueprint Deployment
+========================
 
 In order to begin you will need to go to F5's Unified Development Framework (UDF) site and launch the appropriate course. The following will walk you through that process.
 
@@ -11,8 +11,8 @@ To access the UDF course for this class follow the instructions below.
    #. Click on the Non-F5 Users selection.
    #. Login with your existing F5 account or create a new account.
    #. In the left navigation bar select Courses.
-   #. Search for "Instance Manager Templates" in the search bar under the Content tab.
-   #. Select "AppWorld 2025 - NGINX One - Instance Manager Templates" 
+   #. Search for "AppWorld 2026" in the search bar under the Content tab.
+   #. Select "AppWorld 2026 - TMOS Performance <whatever we call it>" 
    #. Select the Details button on the title screen.
    #. Click the Details button on the blueprint in the lower right.
    #. Select the Deploy option.

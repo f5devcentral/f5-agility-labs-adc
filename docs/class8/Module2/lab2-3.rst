@@ -1,5 +1,7 @@
-Task 2:  TCP Window Scaling Review
-==================================
+Task 3:  TCP Buffers and Window Scaling 
+=======================================
+
+<<edit>>
 
 To speed up the process, you will just review TCP Window Scale screenshots taken from packet captures from the 3 TCP profiles in used in the previous selection.
 

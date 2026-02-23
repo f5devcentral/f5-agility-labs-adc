@@ -41,15 +41,17 @@ With the tenant up and running, there should be some background traffic running 
 
 From the tenant *tmsh* or even the *bash* shell, there are many ways to look at traffic, here are a few suggestions : 
 
-- tmsh
+tmsh commands: 
+  
 .. code-block:: none
- 
+
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show sys performance
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show ltm virtual
 
-- bash shell
+bash shell commands: 
 
 .. code-block:: none
+
    [root@i5000-a:Active:Standalone] config # bigtop -vname
    [root@i5000-a:Active:Standalone] config # tcpdump -enni 0.0 -c 10 port 443
    
@@ -57,6 +59,7 @@ From the tenant *tmsh* or even the *bash* shell, there are many ways to look at 
 From the tenant, we can see TMM processed traffic statistics, not network interface statitstics. The network layer is virtualized by the platform of F5OS. Looking at network interfaces in the tenant shows virtual paths to each TMM:
 
 .. code-block:: none
+
    root@(i5000-a)(cfg-sync Standalone)(Active)(/Common)(tmos)# show net interface
    ------------------------------------------------------------------
    Net::Interface
@@ -71,8 +74,7 @@ From the tenant, we can see TMM processed traffic statistics, not network interf
 
 All layer 2 interface statistics for ports and trunks are monitored by F5OS. Details can be viewed in the F5OS webUI, viewed in the F5OS CLI, polling via SNMP or API interface calls.
 
-In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 1.0 and 2.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
-
+In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 3.0 and 4.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
  
 .. image:: images/image21.png
    :alt: image21.png
@@ -84,16 +86,19 @@ Within the CLI, the command *show interfaces interface | tab* view includes more
 The CLI command can be modified to show a subset of the columns to be viewed more easily in standard terminal sessions. Experiment with adding/removing other columns to customize your own view of this example command: 
 
 .. code-block:: none
+
    r5900-1# show interfaces interface state | tab | de-select state forward-error-correction | de-select state mtu | de-select state counters in-broadcast-pkts | de-select state counters out-broadcast-pkts | de-select state counters in-multicast-pkts | de-select state counters out-multicast-pkts
 
 LACP status can be seen on the *Network Settings -> LACP Details* screen or via CLI:
 
 .. code-block:: none
+
    r5900-1# show lacp interfaces interface state
 
 When troubleshooting an optical connection that has digital diagnostic monitoring (DDM) enabled, this is done witin F5OS on the rSeries, not in TMOS. This is done by viewing the portgroup information of the interface, which will output data such as optic type, vendor name, along with TX/RX power levels:
 
 .. code-block:: none 
+
    r5900-1# show portgroups portgroup 3
    portgroups portgroup 1
    state vendor-name      "F5 NETWORKS INC."
@@ -119,25 +124,29 @@ With some background HTTP and HTTPS traffic running to the tenant we can compare
 F5OS:
 
 .. code-block:: none
-   r5900-1# system diagnostics tcpdump -i LAG_20G -c 10 -s0 host 10.1.<30+X>.5
 
+   r5900-1# system diagnostics tcpdump -i LAG_20G -c 20 host <VIP address in your Tenant> and port 80
 Tenant:
 
 .. code-block:: none
-   [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 10 -s0 host 10.1.<30+X>.5
 
-This filter matches a single client IP address being used by the traffic generator to help limit output. The output should be different between the two layers for this traffic.
+   [root@i5000-a:Active:Standalone] config # tcpdump -nni 0.0 -c 20  host <Virtual Server IP in your Tenant> and port 80
+   
 
-Why would the packets capture for this be different at the tenant layer than F5OS?
-
+The *tcpdump* output should be different not just in formatting, but also which packets are captured within the TCP flows hitting the virtual server.
 
 Here are some samples of the above captures:
 
 .. code-block:: none 
-    BVL will update this section to include the why: the ePVA offloaded flow will only show SYN/FA/A packets, F5OS wills how the entire conversation
 
-   Need to get filter correct for sample test traffic from Jim's tools, if its randomizing in a range we should catch it quickly. Idea is to not flood a lot of packets, just get a single flow>
+    BVL will update this section to include some sample PCAPs
 
+
+Why would the packets capture for this be different at the tenant layer than F5OS?
+
+In the F5OS PCAP, we are seeing all packets per flow, however in the TMOS PCAP we will see SYN, FIN, FIN-ACK packets only. This is because with the fast Layer 4 Virtual Servier, ePVA is able to offload the flow after the initial SYN. 
+
+F5OS allows to see the flow prior to the ePVA handling, or in TMOS the ePVA setting can be disabled in the FastL4 profile however that will impact all traffic matching that profile and VS. 
 
 
 System Software
@@ -188,9 +197,10 @@ The F5OS webUI does not currently support viewing or searching log files, instea
 The F5OS CLI does contain interfaces to show log files. When coupled with *match* commands, log files can be quickly searched. The CLI command begines with *file list path*, flollowed by using tab completion to view options for directories and paths. 
 
 .. code-block:: none
+   
    r5900-1# file list path log/system | include name
 
-For example, suppose we want to find a history of all F5OS boot sequences which shows each typme the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
+For example, suppose we want to find a history of all F5OS boot sequences which shows each time the rSeries has booted/restaretd.  We know the *platform.log* file has a **BOOT-MARKER** log line that appears on boot up. 
 
 This command would show the first occurence, but not every occurance. How can we alter this command to see the last time the system was booted? To show all boot times? 
 
@@ -212,16 +222,19 @@ Start by navigating to the *Diagnostics -> System Reports*. This screen shows an
 From the CLI, the same qkview can be generated with the following:
 
 .. code-block:: none
+
    r5900-1# system diagnostics qkview capture exclude-cores true filename my-test.qkview
 
 Additional tools from the command like allow to see the running status of the qkview utility:
 
 .. code-block:: none
+
    r5900-1# show system diagnostics qkview state status
 
 To view the qkview completion percentage updated every 10 seconds: 
 
 .. code-block:: none
+   
    r5900-1# show system diagnostics qkview state status percentage | repeat 10
 
 
