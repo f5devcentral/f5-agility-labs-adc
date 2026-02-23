@@ -145,8 +145,51 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 **Load‑balancing method**: This pool is configured for Least Connections, recommended for S3‑style
 workloads to reduce request skew.
 
+Task 4: Scale out easily: add the 3rd and 4th MinIO AIStor nodes to Cluster 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
+In MinIO terminology, a storage pool (often referred to as a server pool) is a set of MinIO server nodes that aggregate their drives and resources to act as a single,
+independent unit of storage capacity. It is the fundamental unit for scaling, expanding, and managing capacity in a distributed MinIO deployment.
+
+A storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
+
+Outcome desired:  Expand Cluster 1 from 2 nodes (Storage Pool 1) to 4 nodes (Storage Pool 1 + Storage Pool 2).   We will use the storage prefix to avoid confusion
+with BIG-IP origin pools, which frequently are just simply referred to as just pools.
+
+**Prerequsites to this lab task 4**
+
+•	Cluster 1 Pool 1 is running on nodes 1 & 2 (10.1.10.100, 10.1.10.101)
+•	Pool 2 nodes 3 & 4 (10.1.10.102, 10.1.10.103) are pre-configured but **not started**
+
+**Step 1 — Verify current cluster state**
+
+Open an SSH session to **cluster1-node1** and confirm the cluster is healthy:
+
+mcli admin info cluster1
+
+You should see 2 nodes and 1 pool.
+
+**Step 2 — Update MINIO_VOLUMES on Pool 1 nodes**
+
+Open SSH sessions to **cluster1-node1** and **cluster1-node2**. On **both** nodes, edit the MinIO environment file:
+
+sudo nano /etc/default/minio
+
+•	**Comment out** the single-pool MINIO_VOLUMES line
+•	**Uncomment (eg ADD)** the two-pool MINIO_VOLUMES line
+
+The result should look like:
+
+#MINIO_VOLUMES="http://10.1.10.{100...101}:9000/mnt/minio"
+
+MINIO_VOLUMES="http://10.1.10.{100...101}:9000/mnt/minio http://10.1.10.{102...103}:9000/mnt/minio"
+
+
+
+
+
+
+Task 5: Scale out easily: add the 4th MinIO AIStor node to the pool
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +---------------------------------------------------------------------------------------------------------------+
