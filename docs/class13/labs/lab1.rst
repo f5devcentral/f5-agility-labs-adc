@@ -316,9 +316,9 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab015| image:: ../_static/lab1-015.png
    :width: 800px
-.. |lab016| image:: ../_static/a_aistor_traffic_totals.png
+.. |lab016| image:: ../_static/summary_view_of_data_no_load_balancer.png
    :width: 800px
-.. |lab017| image:: ../_static/a_aistor_traffic_per_aistor2.png
+.. |lab017| image:: ../_static/detailed_view_of_trafic_without_a_load_balancer.png
    :width: 800px
 .. |lab018| image:: ../_static/a_bigip_pool_members_start.png
    :width: 800px
