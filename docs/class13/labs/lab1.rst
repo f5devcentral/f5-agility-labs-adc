@@ -140,7 +140,7 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 | |lab020|                                                                                                      |
 +---------------------------------------------------------------------------------------------------------------+
 
-**Expected outcome**: Traffic is distributed across the **three** nodes behind the VIP.
+**Expected outcome**: Traffic is distributed across the **two** nodes behind the VIP.
 
 **Load‑balancing method**: This pool is configured for Least Connections, recommended for S3‑style
 workloads to reduce request skew.
@@ -324,7 +324,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab019| image:: ../_static/even_traffic.png
    :width: 800px
-.. |lab020| image:: ../_static/a_aistor_traffic_chart.png
+.. |lab020| image:: ../_static/before_and_after.png
    :width: 800px
 .. |lab021| image:: ../_static/a_warp_setup.png
    :width: 800px
