@@ -204,8 +204,9 @@ storage pool.
 
 Back on cluster1-node1, restart the cluster:
 
-mcli admin service stop cluster1
-mcli admin service restart cluster1
+**mcli admin service stop cluster1**
+
+**mcli admin service restart cluster1**
 
 This restarts all MinIO processes across the cluster, causing Pool 1 nodes to recognize the new two-pool topology and Pool 2 nodes to join.
 
@@ -213,12 +214,41 @@ This restarts all MinIO processes across the cluster, causing Pool 1 nodes to re
 
 On cluster1-node1, confirm the expansion:
 
-mcli admin info cluster1
+**mcli admin info cluster1**
 
 You should now see 4 nodes and 2 pools.
 
 |lab04a|
 
+**Brief aside on the MinIO mcli command**
+
+mcli, which until recently was imply *mc* is MinIO's utility to both administer and monitor AIStor clusters.  It is installed on each
+node in the lab, but can equally be installed on any Linux or Windows host, providing a powerful way to undrestand your environment.
+
+To make things easy, mcli allows the setting of an alias for each device, such as an AIStor server using the following syntax:
+
+**mcli alias set <ALIAS> <ENDPOINT> <ACCESS_KEY> <SECRET_KEY>**
+
+*Note: as opposed to using an S3 access key and secret key, one can also utilize user ids and passwords when reaching a node*
+
+For intance, to see the alias values for this lab, simply issue:
+
+**mcli alias list**
+
+Now, to see the buckets on cluster1, node1, one simply can issue:
+
+**mcli ls cluster1**
+
+|lab04b|
+
+Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefixing mcli to a command and choosing an alias.
+
+The second administrative command shows an example of tracing where the erasure coded chunks of a given sample object, are actually stored, along with meta
+data details.
+
+*Note: in the output of our command we see the chunks are stored on storage pool 1 members 10.1.10.100 and 10.1.10.101.   It's worth noting that although
+a second storage pool was added, and any cluster member will service S3 read requests, simply expanding the cluster does not re-distribute content already
+written previously to storage.*
 
 
 Task 5: Scale out easily: add the 4th MinIO AIStor node to the pool
@@ -452,4 +482,8 @@ What You Learned - Value of BIG-IP LTM and AIStor
 .. |lab045| image:: ../_static/a_ast_overview_charts.png
    :width: 800px
 .. |labend| image:: ../_static/labend.png
+   :width: 800px
+.. |lab04a| image:: ../_static/mcli_info_cluster1.png
+   :width: 800px
+.. |lab04b| image:: ../_static/mcli_2_commands.png
    :width: 800px
