@@ -298,7 +298,7 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 topology changes are absorbed by *BIG‑IP* at the dataplane.
 
 
-Task 5:  Verify the load‑balancing method & pool health
+Task 6:  Verify the load‑balancing method & pool health
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following steps will guide you through the rich, visual metrics presented for BIG-IP through the AST
@@ -480,9 +480,9 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab042| image:: ../_static/pool_list_expanded_to_4_nodes.png
    :width: 800px
-.. |lab043| image:: ../_static/a_data_to_4th_node_big_ip.png
+.. |lab043| image:: ../_static/traffic_across_4_nodes.png
    :width: 800px
-.. |lab044| image:: ../_static/a_aistor_chart_showing_data.png
+.. |lab044| image:: ../_static/aistor_4_nodes_working.png
    :width: 800px
 .. |lab045| image:: ../_static/a_ast_overview_charts.png
    :width: 800px
