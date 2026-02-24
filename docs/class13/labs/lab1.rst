@@ -151,7 +151,7 @@ Task 4: Scale out easily: add the 3rd and 4th MinIO AIStor nodes to Cluster 1
 In MinIO terminology, a storage pool (often referred to as a server pool) is a set of MinIO server nodes that aggregate their drives and resources to act as a single,
 independent unit of storage capacity. It is the fundamental unit for scaling, expanding, and managing capacity in a distributed MinIO deployment.
 
-A storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
+To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
 
 Outcome desired:  Expand Cluster 1 from 2 nodes (Storage Pool 1) to 4 nodes (Storage Pool 1 + Storage Pool 2).   We will use the storage prefix to avoid confusion
 with BIG-IP origin pools, which frequently are just simply referred to as just pools.
@@ -163,17 +163,19 @@ with BIG-IP origin pools, which frequently are just simply referred to as just p
 
 **Step 1 — Verify current cluster state**
 
-Open an SSH session to **cluster1-node1** and confirm the cluster is healthy:
+Open a web shell session to **cluster1-node1** (equivalent to an SSH session) and confirm the cluster is healthy:
 
 mcli admin info cluster1
 
-You should see 2 nodes and 1 pool.
+You should see 2 nodes (MinIO Servers) and 1 pool.  You will also observe details about erasure coding chunks and elements of metadata.
 
 **Step 2 — Update MINIO_VOLUMES on Pool 1 nodes**
 
-Open SSH sessions to **cluster1-node1** and **cluster1-node2**. On **both** nodes, edit the MinIO environment file:
+Open another web shell sessions to **cluster1-node2**, so that you have sessions to both nodes.   On **both** nodes, edit the MinIO environment file:
 
-sudo nano /etc/default/minio
+sudo vi /etc/default/minio
+
+(if you are not comfortable with vi editor, you may wish to issue #sudo nanon /etc/default/minio)
 
 •	**Comment out** the single-pool MINIO_VOLUMES line
 •	**Uncomment (eg ADD)** the two-pool MINIO_VOLUMES line
@@ -184,8 +186,38 @@ The result should look like:
 
 MINIO_VOLUMES="http://10.1.10.{100...101}:9000/mnt/minio http://10.1.10.{102...103}:9000/mnt/minio"
 
+*Note: using curly braces in the MINIO_VOLUMES statement allows a simple way to group servers (nodes) when one uses contiguous IP address blocks*
 
+**Step 3 — Start MinIO on Pool 2 nodes**
 
+Open web shell sessions to cluster1-node3 and cluster1-node4.
+
+On both nodes, start the MinIO service:
+
+**sudo systemctl start minio**
+
+These nodes already have the two-pool MINIO_VOLUMES pre-configured.
+The issued command with not provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
+storage pool.
+
+**Step 4 — Restart Cluster 1 to pick up the new 4 server topology**
+
+Back on cluster1-node1, restart the cluster:
+
+mcli admin service stop cluster1
+mcli admin service restart cluster1
+
+This restarts all MinIO processes across the cluster, causing Pool 1 nodes to recognize the new two-pool topology and Pool 2 nodes to join.
+
+**Step 5 — Verify the expanded cluster**
+
+On cluster1-node1, confirm the expansion:
+
+mcli admin info cluster1
+
+You should now see 4 nodes and 2 pools.
+
+|lab04a|
 
 
 
