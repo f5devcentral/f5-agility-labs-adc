@@ -271,7 +271,8 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 | 3. Set **Service Port** to 9000 and click **Finished**                                                        |                                             
 |                                                                                                               | 
 |  .. Note::                                                                                                    |
-|      Health checks for the new member will drive the LED from blue to green (ready) shortly                   |
+|      Health checks for the new member will drive the LED from blue (as highlighted in the following           |
+|      image) to green (ready) shortly                                                                          |
 |                                                                                                               |
 | 4. Repeate for node 4 (cl1-nd4)                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
@@ -284,7 +285,7 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 | 4. Re-run the WARP workload targetting the BIG-IP Virtual IP (VIP 10.1.40.160:9000)                           |                                                                                                  
 |                                                                                                               | 
 |  .. Note::                                                                                                    |
-|      The 4th AIStor node begins processing traffic **immediately**.  All nodes now share load                 |
+|      The 3rd and 4th AIStor node begins processing traffic **immediately**.  All nodes now share load         |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab043|                                                                                                      |
 |                                                                                                               |
@@ -477,7 +478,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab041| image:: ../_static/a_update_pool_members_list.png
    :width: 800px
-.. |lab042| image:: ../_static/a_new_pool_member.png
+.. |lab042| image:: ../_static/pool_list_expanded_to_4_nodes.png
    :width: 800px
 .. |lab043| image:: ../_static/a_data_to_4th_node_big_ip.png
    :width: 800px
