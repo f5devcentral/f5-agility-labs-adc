@@ -154,12 +154,12 @@ independent unit of storage capacity. It is the fundamental unit for scaling, ex
 To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
 
 Outcome desired:  Expand Cluster 1 from 2 nodes (Storage Pool 1) to 4 nodes (Storage Pool 1 + Storage Pool 2).   We will use the storage prefix to avoid confusion
-with BIG-IP origin pools, which frequently are just simply referred to as just pools.
+with BIG-IP **origin pools**, which frequently are just simply referred to as BIG-IP pools just simply pools.
 
 **Prerequsites to this lab task 4**
 
-•	Cluster 1 Pool 1 is running on nodes 1 & 2 (10.1.10.100, 10.1.10.101)
-•	Pool 2 nodes 3 & 4 (10.1.10.102, 10.1.10.103) are pre-configured but **not started**
+•	Cluster 1 Storage Pool 1 is running on nodes 1 & 2 (10.1.10.100, 10.1.10.101)
+•	Storage Pool 2 nodes 3 & 4 (10.1.10.102, 10.1.10.103) are pre-configured but **not started**
 
 **Step 1 — Verify current cluster state**
 
@@ -169,7 +169,7 @@ mcli admin info cluster1
 
 You should see 2 nodes (MinIO Servers) and 1 pool.  You will also observe details about erasure coding chunks and elements of metadata.
 
-**Step 2 — Update MINIO_VOLUMES on Pool 1 nodes**
+**Step 2 — Update MINIO_VOLUMES on Storage Pool 1 nodes**
 
 Open another web shell sessions to **cluster1-node2**, so that you have sessions to both nodes.   On **both** nodes, edit the MinIO environment file:
 
@@ -188,7 +188,7 @@ MINIO_VOLUMES="http://10.1.10.{100...101}:9000/mnt/minio http://10.1.10.{102...1
 
 *Note: using curly braces in the MINIO_VOLUMES statement allows a simple way to group servers (nodes) when one uses contiguous IP address blocks*
 
-**Step 3 — Start MinIO on Pool 2 nodes**
+**Step 3 — Start MinIO on Storage Pool 2 nodes**
 
 Open web shell sessions to cluster1-node3 and cluster1-node4.
 
@@ -208,7 +208,7 @@ Back on cluster1-node1, restart the cluster:
 
 **mcli admin service restart cluster1**
 
-This restarts all MinIO processes across the cluster, causing Pool 1 nodes to recognize the new two-pool topology and Pool 2 nodes to join.
+This restarts all MinIO processes across the cluster, causing Storage Pool 1 nodes to recognize the new two-pool topology and Storage Pool 2 nodes to join.
 
 **Step 5 — Verify the expanded cluster**
 
@@ -216,7 +216,7 @@ On cluster1-node1, confirm the expansion:
 
 **mcli admin info cluster1**
 
-You should now see 4 nodes and 2 pools.
+You should now see 4 nodes and 2 storage pools.
 
 |lab04a|
 
@@ -235,6 +235,8 @@ For intance, to see the alias values for this lab, simply issue:
 
 **mcli alias list**
 
+Since this is a lab, the passwords for nodes that are used are trivial, in production use best practice to set values.
+
 Now, to see the buckets on cluster1, node1, one simply can issue:
 
 **mcli ls cluster1**
@@ -251,8 +253,8 @@ a second storage pool was added, and any cluster member will service S3 read req
 written previously to storage.*
 
 
-Task 5: Scale out easily: add the 4th MinIO AIStor node to the pool
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP origin pool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +---------------------------------------------------------------------------------------------------------------+
 | 1. In BIG‑IP TMUI: Local Traffic → Pools → Cluster‑1 → Members.  Add a New member and choose Node List menu.  |
@@ -264,12 +266,14 @@ Task 5: Scale out easily: add the 4th MinIO AIStor node to the pool
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 2. Click **Add.... -> Node List ->** select cl1-nd4                                                           |
+| 2. Click **Add.... -> Node List ->** select cl1-nd3                                                           |
 |                                                                                                               |
 | 3. Set **Service Port** to 9000 and click **Finished**                                                        |                                             
 |                                                                                                               | 
 |  .. Note::                                                                                                    |
 |      Health checks for the new member will drive the LED from blue to green (ready) shortly                   |
+|                                                                                                               |
+| 4. Repeate for node 4 (cl1-nd4)                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab042|                                                                                                      |
 |                                                                                                               |
