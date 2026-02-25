@@ -10,74 +10,63 @@ This mechanism is a critical Outer Layer boundary control.
 Executive Summary
 -----------------
 
-   Production data-plane VLANs should enforce a default-deny posture
-   using **Allow Custom**, permitting only explicitly required services.
-   Administrative services must not be exposed on DMZ or application VLANs.
+   Production data-plane VLANs must enforce a default-deny posture
+   using **Allow None**. Administrative services must never be exposed
+   on DMZ or application VLANs.
+
+   Self IP Port Lockdown complements IP Allowlisting by ensuring that
+   management services are not reachable from unintended network segments.
 
 Objective
 ---------
 
 This lab will:
 
-* Configure Self IPs with a least-privilege model
-* Prevent unintended exposure of control-plane services
-* Validate service reachability
-* Confirm correct VLAN segmentation posture
+* Identify data-plane Self IPs
+* Demonstrate unintended service exposure
+* Apply least-privilege Port Lockdown
+* Validate service restriction from a data-plane host
+* Reinforce Outer Layer segmentation principles
 
 Hardened Enterprise Reference Design
 ------------------------------------
 
-The goal is to separate control-plane access from data-plane traffic.
-
 .. note::
 
-   This is a reference design. Your topology may differ, but the principle remains:
-   use **Allow Custom** on production VLANs and reserve **Allow Default**
-   for isolated management or HA networks only.
+   This is a reference design. Your topology may differ, but the principle
+   remains: data-plane VLANs should never expose control-plane services.
 
 .. nwdiag::
-   :caption: Reference Design – Control Plane Segmentation for Self IPs
+   :caption: Reference Design – Control Plane Segmentation
    :name: selfip-port-lockdown-reference-design
 
    nwdiag {
      internet [shape = cloud];
-     network dmz     { address = "VLAN: External/DMZ (Data Plane)"; }
-     network internal{ address = "VLAN: Internal/App (Data Plane)"; }
-     network ha      { address = "VLAN: HA (ConfigSync/Failover)"; }
-     network mgmt    { address = "OOB Mgmt Network"; }
+     network dmz     { address = "External VLAN (Data Plane)"; }
+     network internal{ address = "Internal VLAN (Data Plane)"; }
+     network mgmt    { address = "OOB Management"; }
 
      internet -- dmz;
 
-     bigip_a [description = "BIG-IP A\nDMZ: Allow Custom\nInternal: Allow Custom\nHA: Allow Default\nMgmt: Restricted"];
-     bigip_b [description = "BIG-IP B\nDMZ: Allow Custom\nInternal: Allow Custom\nHA: Allow Default\nMgmt: Restricted"];
+     bigip [description = "BIG-IP\nMgmt: Restricted\nData Plane: Allow None"];
 
-     dmz -- bigip_a;
-     dmz -- bigip_b;
-
-     internal -- bigip_a;
-     internal -- bigip_b;
-
-     ha -- bigip_a;
-     ha -- bigip_b;
-
-     mgmt -- bigip_a;
-     mgmt -- bigip_b;
+     dmz -- bigip;
+     internal -- bigip;
+     mgmt -- bigip;
    }
 
 Recommended VLAN Posture
 ------------------------
 
-+----------------+----------------------------+--------------------+---------------------------------------------+
-| VLAN           | Purpose                    | Port Lockdown Mode | Rationale                                    |
-+================+============================+====================+=============================================+
-| Mgmt (OOB)     | Administrative access      | Allow Default      | Isolated admin network                        |
-+----------------+----------------------------+--------------------+---------------------------------------------+
-| HA VLAN        | ConfigSync + Failover      | Allow Default      | Dedicated HA communication                    |
-+----------------+----------------------------+--------------------+---------------------------------------------+
-| External (DMZ) | Client-side data plane     | Allow Custom       | Prevent mgmt/control-plane exposure           |
-+----------------+----------------------------+--------------------+---------------------------------------------+
-| Internal       | Server-side data plane     | Allow Custom       | Prevent lateral movement to control plane     |
-+----------------+----------------------------+--------------------+---------------------------------------------+
++----------------+----------------------------+--------------------+--------------------------------------+
+| VLAN           | Purpose                    | Port Lockdown Mode | Rationale                             |
++================+============================+====================+======================================+
+| Mgmt (OOB)     | Administrative access      | Allow Default      | Isolated management network           |
++----------------+----------------------------+--------------------+--------------------------------------+
+| External (DMZ) | Client-side data plane     | Allow None         | Prevent control-plane exposure        |
++----------------+----------------------------+--------------------+--------------------------------------+
+| Internal       | Server-side data plane     | Allow None         | Prevent lateral movement              |
++----------------+----------------------------+--------------------+--------------------------------------+
 
 Port Lockdown Modes
 -------------------
@@ -85,7 +74,7 @@ Port Lockdown Modes
 +--------------+---------------------------------------------------+
 | Mode         | Behavior                                          |
 +==============+===================================================+
-| Allow None   | Blocks all services                               |
+| Allow None   | Blocks all control-plane services                 |
 +--------------+---------------------------------------------------+
 | Allow Default| Enables system-defined administrative services    |
 +--------------+---------------------------------------------------+
@@ -94,149 +83,140 @@ Port Lockdown Modes
 
 .. warning::
 
-   "Allow Default" may expose SSH, HTTPS, SNMP, and other services.
-   It should never be used on internet-facing or shared production VLANs.
+   "Allow Default" on production VLANs may expose SSH and HTTPS
+   to unintended network segments.
 
-GUI Configuration Procedure
----------------------------
+---------------------------------------------------------------------
 
-Step 1 – Access Self IP Configuration
+Lab Procedure
+-------------
+
+Step 1 – Identify Data-Plane Self IPs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Log in to the BIG-IP Configuration Utility.
 2. Navigate to **Network → Self IPs**.
-3. Select the target data-plane Self IP (for example: ``external_self``).
+3. Identify Self IPs associated with:
+   * External VLAN
+   * Internal VLAN
 
-Step 2 – Configure Port Lockdown
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. image:: ../_images/selfip_01_selfip_list.png
+   :alt: Self IP List showing VLAN assignments
+   :align: center
 
-1. Locate the **Port Lockdown** setting.
-2. Select **Allow Custom**.
+Document the IP address of the internal Self IP
+(for example: ``10.1.20.242``).
 
-Step 3 – Define Explicit Services
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------
 
-Add only services required for your environment.
+Step 2 – Inspect Port Lockdown Mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Typical minimal configuration for data-plane VLANs:
+1. Click the internal Self IP.
+2. Review the **Port Lockdown** setting.
 
-* ``big3d`` (TCP/4353) – if DNS/GTM monitoring is required
+If it is set to **Allow Default**, control-plane services
+may be exposed on this VLAN.
 
-Only if operationally necessary:
+.. image:: ../_images/selfip_02_allow_default_exposure.png
+   :alt: Self IP Properties showing Allow Default
+   :align: center
 
-* ``ConfigSync``
-* ``Failover``
+---------------------------------------------------------------------
 
-Remove all other services.
+Step 3 – Validate Service Exposure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4. Click **Update**.
+From a host on the same data-plane network
+(for example: Windows Jumpbox on 10.1.20.0/24):
 
-Step 4 – Apply to All Production VLAN Self IPs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: powershell
 
-Ensure consistent configuration across all data-plane VLANs.
+   Test-NetConnection 10.1.20.242 -Port 443
+   Test-NetConnection 10.1.20.242 -Port 22
 
-When to Use Allow Default
--------------------------
+Expected (vulnerable state):
 
-Use **Allow Default** only when the Self IP resides on:
+* TcpTestSucceeded: True
 
-* A dedicated HA VLAN
-* An isolated out-of-band management network
+.. image:: ../_images/selfip_03_exposed_ports_test.png
+   :alt: PowerShell showing successful TCP connections
+   :align: center
 
-Never use Allow Default on DMZ or application VLANs.
+This confirms control-plane services are reachable
+from the data-plane VLAN.
 
-Verification
-------------
+---------------------------------------------------------------------
 
-GUI Verification
-~~~~~~~~~~~~~~~~
+Step 4 – Remediate with Allow None
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Navigate to **Network → Self IPs**.
-2. Confirm data-plane Self IPs show:
-   * **Port Lockdown: Allow Custom**
-   * Only required services listed
+1. Navigate back to the Self IP configuration.
+2. Change **Port Lockdown** to:
 
-CLI Verification (Optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   **Allow None**
 
-.. code-block:: bash
+3. Click **Update**.
 
-   tmsh list net self <self-ip-name>
+.. image:: ../_images/selfip_04_allow_none_configured.png
+   :alt: Self IP configured with Allow None
+   :align: center
 
-Confirm:
+This enforces a default-deny posture.
 
-.. code-block:: text
+---------------------------------------------------------------------
 
-   allow-service {
-       big3d
-   }
+Step 5 – Re-Test from Data-Plane Host
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Network Validation
-~~~~~~~~~~~~~~~~~~
+From the same Windows host:
 
-From a host on the same VLAN:
+.. code-block:: powershell
 
-.. code-block:: bash
+   Test-NetConnection 10.1.20.242 -Port 443
+   Test-NetConnection 10.1.20.242 -Port 22
 
-   nmap -p 22,80,161,443,4353 <self-ip-address>
+Expected (secure state):
 
-Expected (data-plane VLAN):
+* TcpTestSucceeded: False
+* Warning: TCP connect failed
 
-* SSH (22) – closed/filtered
-* HTTPS (443) – closed/filtered
-* SNMP (161) – closed/filtered
-* big3d (4353) – open only if required
+.. image:: ../_images/selfip_05_ports_blocked_test.png
+   :alt: PowerShell showing blocked TCP connections
+   :align: center
 
-iHealth Validation
+---------------------------------------------------------------------
+
+Validation Summary
 ------------------
 
-Upload a QKView and confirm:
+After remediation:
 
-* No management interface public exposure heuristics
-* No high-risk Self IP findings
-* No unintended administrative service exposure
+* SSH not reachable on data-plane VLAN
+* HTTPS not reachable on data-plane VLAN
+* Control-plane services isolated to management interface only
 
-Instructor Notes
-----------------
+Outer Layer Alignment
+---------------------
 
-.. admonition:: Instructor Guidance
-   :class: tip
+IP Allowlisting protects:
 
-   Self IPs are frequently misunderstood. Even without virtual servers,
-   they may respond to administrative services. Port Lockdown is
-   essential to preventing unintended exposure.
+* **Who** can access management services.
 
-   Reinforce that Port Lockdown complements:
-   * Firewall controls
-   * Management interface isolation
-   * AAA enforcement
+Self IP Port Lockdown protects:
 
-Lab Challenge – Misconfiguration Scenario
-------------------------------------------
+* **Where** management services are exposed.
 
-Scenario:
+Together they enforce:
 
-A DMZ Self IP is configured with **Allow Default**, and security scans
-show SSH and HTTPS reachable.
-
-Student Tasks:
-
-1. Confirm exposure via port scan.
-2. Inspect configuration under **Network → Self IPs**.
-3. Change to **Allow Custom**.
-4. Remove administrative services.
-5. Re-scan and confirm exposure is eliminated.
+* Least privilege
+* Network segmentation
+* Control-plane isolation
 
 Success Criteria
-~~~~~~~~~~~~~~~~
+----------------
 
-* SSH/HTTPS not reachable on data-plane VLAN
-* HA and ConfigSync remain operational
-* DNS/GTM monitoring unaffected (if applicable)
-
-Advanced Exercise
-~~~~~~~~~~~~~~~~~
-
-Remove a required HA service from an HA VLAN Self IP,
-observe synchronization behavior, then restore proper configuration.
+* Data-plane VLAN Self IPs use **Allow None**
+* No administrative services reachable from data-plane hosts
+* Management interface access remains functional
+* No unintended exposure remains
