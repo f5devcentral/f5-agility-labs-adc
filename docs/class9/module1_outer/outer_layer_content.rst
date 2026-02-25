@@ -151,14 +151,6 @@ This validation confirms that:
 
 For detailed configuration steps and validation exercises, see:
 
-Lab
-===
-
-.. toctree::
-   :maxdepth: 1
-
-   lab/index
-
 Route Domain and Segmentation Controls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
