@@ -3,7 +3,7 @@ Audit Logging & Controls
 
 
 Objective
-=========
+~~~~~~~~~
 
 In this lab you will examine The Audit Capabilities of the F5 BIG-IP Platform.
 
