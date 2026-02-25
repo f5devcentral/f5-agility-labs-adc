@@ -8,3 +8,6 @@ Objective
 This lab demonstrates basic access control using partitions.
 
 
+Create a User
+~~~~~~~~~~~~~
+
