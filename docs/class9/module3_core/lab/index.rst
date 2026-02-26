@@ -3,3 +3,4 @@
 
    partitions
    audit_logging
+   ihealth
