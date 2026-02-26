@@ -87,13 +87,19 @@ Step 1 – Identify Interface Inventory
    * External Self IP (Network → Self IPs)
    * Internal Self IP (Network → Self IPs)
 
-.. image:: ../_images/segval_01_platform_mgmt_ip.png
-   :alt: Platform screen showing management IP
+.. figure:: ../_images/control-plane-segmentation-01-platform-mgmt-ip.png
+   :alt: Platform screen showing management IP configuration
    :align: center
+   :width: 900px
 
-.. image:: ../_images/segval_02_selfip_list.png
-   :alt: Self IP list showing external and internal Self IPs
+   Platform configuration showing the BIG-IP management IP address.
+
+.. figure:: ../_images/control-plane-segmentation-02-selfip-inventory.png
+   :alt: Self IP inventory showing external and internal Self IPs
    :align: center
+   :width: 900px
+
+   Self IP inventory identifying external and internal data-plane interfaces.
 
 Record the following values:
 
@@ -117,9 +123,12 @@ Expected:
 
 * TcpTestSucceeded: True (for required services)
 
-.. image:: ../_images/segval_03_mgmt_reachability.png
-   :alt: PowerShell output showing management IP reachability
+.. figure:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
+   :alt: PowerShell output showing management IP reachable on TCP 22 and 443 from an authorized host
    :align: center
+   :width: 900px
+
+   Authorized-path validation from the management network showing SSH (22) and HTTPS (443) reachable on the management IP.
 
 ---------------------------------------------------------------------
 
@@ -137,9 +146,12 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/segval_04_external_selfip_blocked.png
-   :alt: PowerShell output showing external self IP ports blocked
+.. figure:: ../_images/control-plane-segmentation-04-external-selfip-blocked.png
+   :alt: Validation showing external Self IP blocked on TCP 22 and 443
    :align: center
+   :width: 900px
+
+   External Self IP validation showing SSH (22) and HTTPS (443) not reachable.
 
 From an internal host (if available):
 
@@ -152,9 +164,12 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/segval_05_internal_selfip_blocked.png
-   :alt: PowerShell output showing internal self IP ports blocked
+.. figure:: ../_images/control-plane-segmentation-05-internal-selfip-blocked.png
+   :alt: Validation showing internal Self IP blocked on TCP 22 and 443
    :align: center
+   :width: 900px
+
+   Internal Self IP validation showing SSH (22) and HTTPS (443) not reachable.
 
 .. note::
 

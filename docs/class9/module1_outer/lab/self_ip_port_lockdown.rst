@@ -100,12 +100,15 @@ Step 1 – Identify Data-Plane Self IPs
    * External VLAN
    * Internal VLAN
 
-.. image:: ../_images/selfip_01_selfip_list.png
-   :alt: Self IP List showing VLAN assignments
+.. figure:: ../_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
+   :alt: Baseline Self IP list
    :align: center
+   :width: 900px
 
-Document the IP address of the internal Self IP
-(for example: ``10.1.20.242``).
+   Baseline view of configured Self IPs prior to lockdown validation.
+
+Document the IP address of the internal (data-plane) Self IP
+(for example: ``10.1.20.242``). You will use this IP in Steps 3 and 5.
 
 ---------------------------------------------------------------------
 
@@ -118,9 +121,12 @@ Step 2 – Inspect Port Lockdown Mode
 If it is set to **Allow Default**, control-plane services
 may be exposed on this VLAN.
 
-.. image:: ../_images/selfip_02_allow_default_exposure.png
-   :alt: Self IP Properties showing Allow Default
+.. figure:: ../_images/self-ip-port-lockdown-02-external-self-ip-default-lockdown.png
+   :alt: External Self IP showing default Port Lockdown configuration
    :align: center
+   :width: 900px
+
+   External Self IP configured with the default Port Lockdown posture (pre-hardening).
 
 ---------------------------------------------------------------------
 
@@ -139,9 +145,12 @@ Expected (vulnerable state):
 
 * TcpTestSucceeded: True
 
-.. image:: ../_images/selfip_03_exposed_ports_test.png
-   :alt: PowerShell showing successful TCP connections
+.. figure:: ../_images/self-ip-port-lockdown-03-exposed-ports-test.png
+   :alt: PowerShell validation showing exposed control-plane ports on the Self IP
    :align: center
+   :width: 900px
+
+   Baseline validation from a data-plane host showing TCP 443 and 22 reachable (vulnerable state).
 
 This confirms control-plane services are reachable
 from the data-plane VLAN.
@@ -158,9 +167,12 @@ Step 4 – Remediate with Allow None
 
 3. Click **Update**.
 
-.. image:: ../_images/selfip_04_allow_none_configured.png
-   :alt: Self IP configured with Allow None
+.. figure:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
+   :alt: Internal Self IP configured with Port Lockdown set to Allow None
    :align: center
+   :width: 900px
+
+   Remediation: Internal Self IP Port Lockdown set to Allow None (default-deny for control-plane services).
 
 This enforces a default-deny posture.
 
@@ -181,9 +193,12 @@ Expected (secure state):
 * TcpTestSucceeded: False
 * Warning: TCP connect failed
 
-.. image:: ../_images/selfip_05_ports_blocked_test.png
-   :alt: PowerShell showing blocked TCP connections
+.. figure:: ../_images/self-ip-port-lockdown-05-ports-blocked-test.png
+   :alt: PowerShell validation showing control-plane ports blocked after Allow None
    :align: center
+   :width: 900px
+
+   Post-remediation validation from the data-plane host: TCP 443 and 22 blocked while ICMP remains reachable.
 
 ---------------------------------------------------------------------
 

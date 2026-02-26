@@ -101,9 +101,12 @@ Step 1 – Identify Management IP
 2. Navigate to **System → Platform**.
 3. Document the Management IP address.
 
-.. image:: ../_images/ipallow_01_platform_mgmt_ip.png
-   :alt: Platform screen showing management IP
+.. figure:: ../_images/ip-allowlisting-01-ssh-access-all-addresses.png
+   :alt: SSH access enabled with IP Allow set to All Addresses
    :align: center
+   :width: 900px
+
+   Baseline configuration showing SSH access enabled and IP Allow set to All Addresses (unrestricted management-plane exposure).
 
 ---------------------------------------------------------------------
 
@@ -132,9 +135,12 @@ Step 3 – Restrict SSH to Approved Subnet
    (for example: 10.1.1.0/24).
 3. Click **Update**.
 
-.. image:: ../_images/ipallow_03_ssh_restricted.png
-   :alt: SSH IP Allow restricted to approved subnet
+.. figure:: ../_images/ip-allowlisting-02-ssh-restricted-to-10.1.1.0-24.png
+   :alt: SSH access restricted to management subnet 10.1.1.0/24
    :align: center
+   :width: 900px
+
+   Remediation: SSH access restricted to the management subnet (10.1.1.0/24) using IP Allow.
 
 ---------------------------------------------------------------------
 
@@ -161,9 +167,19 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/ipallow_04_ssh_validation.png
-   :alt: PowerShell validation of SSH restriction
+.. figure:: ../_images/ip-allowlisting-03-ssh-allowed-from-mgmt.png
+   :alt: SSH access allowed from management subnet
    :align: center
+   :width: 900px
+
+   Validation from the management subnet (10.1.1.0/24) showing SSH access permitted.
+
+.. figure:: ../_images/ip-allowlisting-04-ssh-blocked-from-non-mgmt.png
+   :alt: SSH access blocked from non-management network
+   :align: center
+   :width: 900px
+
+   Validation from a non-management host showing SSH connection attempt timed out due to IP allowlisting.
 
 ---------------------------------------------------------------------
 
@@ -179,9 +195,12 @@ Remove broad entries such as:
 * 0.0.0.0/0
 * Entire internal ranges
 
-.. image:: ../_images/ipallow_05_snmp_client_list.png
+.. figure:: ../_images/ip-allowlisting-05-snmp-client-list.png
    :alt: SNMP Client Allow List configuration
    :align: center
+   :width: 900px
+
+   SNMP Client Allow List restricted to approved monitoring systems (no broad network ranges).
 
 ---------------------------------------------------------------------
 
@@ -208,9 +227,12 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/ipallow_06_https_validation.png
-   :alt: PowerShell validation of HTTPS restriction
+.. figure:: ../_images/ip-allowlisting-06-https-validation.png
+   :alt: HTTPS management access validation
    :align: center
+   :width: 900px
+
+   Validation showing HTTPS (TMUI) access restricted to the management subnet.
 
 ---------------------------------------------------------------------
 
