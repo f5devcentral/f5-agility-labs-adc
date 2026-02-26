@@ -10,15 +10,15 @@ Supporting Documents:
 
 |   v15 TCP Profiles - https://my.f5.com/manage/s/article/K74767112   
 |   v16+ TCP Profiles - https://my.f5.com/manage/s/article/K50411377
-    v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
+|   v10-12 TCP-WAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7405
 |   v10-12 TCP-LAN-OPTIMIZED - https://my.f5.com/manage/s/article/K7406   
-    v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
+|   v15+ F5-TCP_WAN Profile - https://my.f5.com/manage/s/article/K10281257
 |   v15+ F5-TCP_LAN Profile - https://my.f5.com/manage/s/article/K37412295
 |   F5-tcp-progressive - https://my.f5.com/manage/s/article/K15800216
 |   Content Spooling - https://my.f5.com/manage/s/article/K3422
 |   TCP Autobuffer Tuning - https://community.f5.com/kb/technicalarticles/tcp-configuration-just-got-easier-autobuffer-tuning/290712
     
-
+    
 Lab Tasks:
 ----------
 

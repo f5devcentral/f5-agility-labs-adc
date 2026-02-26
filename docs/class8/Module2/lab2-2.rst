@@ -1,5 +1,5 @@
-Task 2:  Benefits of Modified TCP Profiles
-==========================================
+Task 2:  Using Modified TCP Profiles
+====================================
 
 
 1. Go the the UI of BIGIP01 and change the TCP profiles of **web01_vs1** to **F5-tcp-progressive** and click the **Update** button at the bottom of the page to save changes.
@@ -8,7 +8,7 @@ Task 2:  Benefits of Modified TCP Profiles
        :width: 600px
 
 
-   The main difference with **F5-tcp-progessive** is Auto Proxy Buffer is enabled in the Memory Management section.  Auto Proxy Buffer adjuests the TCP buffers settings based on performance of the conenctions.
+   The main difference with **f5-tcp-progessive** is Auto Proxy Buffer is enabled in the Memory Management section.  Auto Proxy Buffer adjuests the TCP buffers settings based on performance of the conenctions.
 
    .. image:: ../images/tcp_progressive_buffers.png
        :width: 800px
@@ -59,7 +59,7 @@ Task 2:  Benefits of Modified TCP Profiles
       user  0m0.092s
       sys   0m0.100s
 
-   With the **F5-tcp-progressive** TCP profiles, the download performance is much better even though TCP Zero Window packet were still seen during the capture.  This profile allows for TCP Window scaling so more data can be in flight pending an ACK.  It should take ~19 seconds to transfer 27MB of data.  Notice that within each of the 3 runs there is still a difference in throughput from download of file 1 and files 2/3 because the TCP WIndow sizes were still ramping up during download 1.
+   With the **f5-tcp-progressive** TCP profiles, the download performance is much better even though TCP Zero Window packet were still seen during the capture.  This profile allows for TCP Window scaling so more data can be in flight pending an ACK.  It should take ~19 seconds to transfer 27MB of data.  Notice that within each of the 3 runs there is still a difference in throughput from download of file 1 and files 2/3 because the TCP WIndow sizes were still ramping up during download 1.
 
 
 Test With Custom TCP Buffers
