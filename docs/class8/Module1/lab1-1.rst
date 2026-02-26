@@ -29,7 +29,7 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
    .. figure:: ../images/avr_http_responses.png
       :width: 300px
 
-      For lab, 301 responses are a result of redirect.html.  Redirects may be necessary or could be left over from a previous application migration.  You can take these results back to the application team(s) to see if redirects are expected.  It could be something as simple as clients requesting /login instead of /login/ that is causing the redirects.  Unneccesary redirects add time to the client connections and uses resources on the BIGIP and/or application servers.
+      For lab, 301 responses are a result of redirect.html.  Redirects may be necessary or could be left over from a previous application migration.  You can take these results back to the application team(s) to see if redirects are expected.  It could be something as simple as clients requesting /login instead of /login/ that is causing the redirects.  Unneccesary redirects add time to the client connections and uses resources on the BIG-IP and/or application servers.
 
 5. Go back to the Response Codes filter and click 301 to deselect it, then click on 404.
    
