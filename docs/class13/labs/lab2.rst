@@ -338,7 +338,7 @@ What You Learned — Value of BIG-IP LTM
    :width: 800px
 .. |lab323| image:: ../_static/policy_updated.png
    :width: 800px
-.. |lab324| image:: ../_static/b_traffic-switches
+.. |lab324| image:: ../_static/b_traffic_switches_in_grafana.png
    :width: 800px
 .. |lab325| image:: ../_static/apply_policy_updated.png
    :width: 800px
