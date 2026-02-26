@@ -14,9 +14,9 @@ Lab Components
 The following components have been included in your lab environment:
 
 * F5 BIG-IP VE (bigip01)
-* Ubuntu router - For adding 200ms network latency between the client and BIG-IP Virtual Servers
+* Ubuntu Router - For adding 200ms network latency between the client and BIG-IP Virtual Servers
 * Ubuntu Client - For generating test traffic
-* Ubuntu Webserver
+* Ubuntu Webserver - Hosting HTTP content and DNS services
 * Windows Client - For Wireshark
 
 Lab Topology Diagram
