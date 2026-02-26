@@ -44,7 +44,7 @@ b. Enter:
 
    iii. **Common Name**: www.f5demo.com
 
-   iv.  Fill out the rest any way you would like.
+   iv.  Fill out the rest any way you would like and then click Finished.
 
 Creating SSL Client Profile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +104,7 @@ Building our New Secure Virtual Server
    h. **Finish**
 
 2. Testing our secure server. 
-      - **UDF** - Go to you **secure_vs** at **https://10.1.10.105**
+      - **UDF** - Go to your RDP session and browse to **secure_vs** at **https://10.1.10.105**
 
    a. If you want to watch member traffic, go to the **www_pool** and
       reset the statistics.
@@ -118,14 +118,14 @@ Securing web applications with the HTTP profile
 
 1. Let’s begin by creating a custom HTTP profile.
 
-   a. Go to **Local Traffic> Profiles>Services**, select HTTP create a
+   a. Go to **Local Traffic> Profiles>Services**, by default you are in HTTP profiles, click Create and generate a
       new profile
 
    b. Under **General Properties**
 
       i. **Name**: secure-my-website
 
-   c. Under **Settings**:
+   c. Under **Settings** use Custom settings and modify the following:
 
       i.   Set the **Fallback Host**: https://www.f5.com *(this will take you an alternate site)*
 
@@ -143,9 +143,9 @@ Securing web applications with the HTTP profile
 
    v. Select **Finish**
 
-   vi. Attach your new HTTP Profile to your secure_vs (HTTPS) virtual server
+   vi. Attach your new HTTP Profile to your secure_vs (HTTPS) virtual server by going to the virtual server, selecting the **HTTP Profile** and changing it from **None** to **secure-my-website**.
 
-1. Browse to your secure virtual server.
+1. Browse to your secure virtual server in RDP session.
 
    a. Do web pages appear normal?
 

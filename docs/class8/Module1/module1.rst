@@ -1,11 +1,14 @@
-BIG-IP HA - do it the proper way
-================================
+Lab 1: Viewing Application Data
+===============================
 
-In this module you will learn how to configure BIG-IP HA - the proper way.
+In Lab 1, you will use AVR and iRules for reviewing the application flows through TMOS at the HTTP and TCP layers.  Without knowing the details and behaviors of the traffic flowing through the system, you won't know what can be done to improve application performance.
+
+Lab Tasks:
+**********
 
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
-   Lab*
+   lab*
