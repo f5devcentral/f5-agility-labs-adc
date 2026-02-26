@@ -293,7 +293,8 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 | |lab044|                                                                                                      |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
-
+**You will see the presence of the new nodes but data may not yet be reflected in the MinIO screen shown above,
+set the time to last 4 hours and data will appear in a few minutes**
 
 **Key Takeaway** There were no client changes and S3 applications still continue to talk to the same VIP;
 topology changes are absorbed by *BIG‑IP* at the dataplane.
