@@ -80,19 +80,23 @@ If you don't know how to view the above data using Wireshark,  follow the steps 
 9. Right-Click on either a SYN or SYN/ACK from the server-side flow and select **Follow > TCP Stream**
 
    .. image:: ../images/ws_follow_tcp_stream.png
-       :width: 400px
+       :width: 500px
 
 
 10. Close the TCP Stream dialog box by either clicking the **X** on the top corner or clicking the **Close** button at the bottom of the dialog.
 
     .. image:: ../images/ws_close_dialog.png
-        :width: 400px
+        :width: 800px
 
 
 11. Click **Statistics > TCP Stream Graphs > Window Scaling**
 
+    .. image:: ../images/ws_statistics_stream.png
+        :width: 500px
+        
+
     .. figure:: ../images/tcp_base_ws_server.png
-       :width: 500px
+       :width: 950px
 
        This sample has the **Bytes Out** option unchecked to make it easier to see the TCP Window Scale behavior.  **Bytes Out** is also interesting as it shows the in-flight data but the pattern is usually similar to **Rcv Win** where there are TCP Zero Window packets in the flow.
 
