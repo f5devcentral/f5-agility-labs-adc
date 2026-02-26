@@ -163,7 +163,7 @@ with BIG-IP **origin pools**, which frequently are just simply referred to as BI
 
 **Step 1 — Verify current cluster state**
 
-Open a web shell session to **cluster1-node1** (equivalent to an SSH session) and confirm the cluster is healthy:
+Open a **web shell** session to **cluster1-node1** (equivalent to an SSH session) and confirm the cluster is healthy:
 
 mcli admin info cluster1
 
@@ -175,10 +175,10 @@ Open another web shell sessions to **cluster1-node2**, so that you have sessions
 
 sudo vi /etc/default/minio
 
-(if you are not comfortable with vi editor, you may wish to issue #sudo nanon /etc/default/minio)
+(if you are not comfortable with vi editor, you may wish to instead issue #sudo nano /etc/default/minio)
 
-•	**Comment out** the single-pool MINIO_VOLUMES line
-•	**Uncomment (eg ADD)** the two-pool MINIO_VOLUMES line
+•	**Comment out** the single storage pool MINIO_VOLUMES line
+•	**Uncomment (eg ADD)** the two storage :wpool MINIO_VOLUMES line
 
 The result should look like:
 
@@ -196,19 +196,20 @@ On both nodes, start the MinIO service:
 
 **sudo systemctl start minio**
 
-These nodes already have the two-pool MINIO_VOLUMES pre-configured.
-The issued command with not provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
+These nodes already have the two storage pool MINIO_VOLUMES pre-configured.
+The issued command with **no**t provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
 storage pool.
 
 **Step 4 — Restart Cluster 1 to pick up the new 4 server topology**
 
-Back on cluster1-node1, restart the cluster:
+Back on cluster1-node1, restart the cluster (make sure you go to the browser tab for node1, if in doubt issue the command #ip a and 
+confirm the last address in the list is shown to be  10.1.10.100/24):
 
 **mcli admin service stop cluster1**
 
 **mcli admin service restart cluster1**
 
-This restarts all MinIO processes across the cluster, causing Storage Pool 1 nodes to recognize the new two-pool topology and Storage Pool 2 nodes to join.
+This restarts all MinIO processes across the cluster, causing storage pool 1 nodes to recognize the new two-pool topology and storage pool 2 nodes to join.
 
 **Step 5 — Verify the expanded cluster**
 
@@ -222,7 +223,7 @@ You should now see 4 nodes and 2 storage pools.
 
 **Brief aside on the MinIO mcli command**
 
-mcli, which until recently was imply *mc* is MinIO's utility to both administer and monitor AIStor clusters.  It is installed on each
+mcli, which until recently was just simply *mc* is MinIO's utility to both administer and monitor AIStor clusters.  It is installed on each
 node in the lab, but can equally be installed on any Linux or Windows host, providing a powerful way to undrestand your environment.
 
 To make things easy, mcli allows the setting of an alias for each device, such as an AIStor server using the following syntax:
@@ -231,7 +232,7 @@ To make things easy, mcli allows the setting of an alias for each device, such a
 
 *Note: as opposed to using an S3 access key and secret key, one can also utilize user ids and passwords when reaching a node*
 
-For intance, to see the alias values for this lab, simply issue:
+For intance, to see the alias values for this lab, simply issue the following on cluster1-node1:
 
 **mcli alias list**
 
@@ -245,8 +246,8 @@ Now, to see the buckets on cluster1, node1, one simply can issue:
 
 Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefixing mcli to a command and choosing an alias.
 
-The second administrative command shows an example of tracing where the erasure coded chunks of a given sample object, are actually stored, along with meta
-data details.
+The second administrative command in the screenshot above shows an example of tracing where the erasure coded chunks of a given sample object are
+actually stored, along with meta data details.
 
 *Note: in the output of our command we see the chunks are stored on storage pool 1 members 10.1.10.100 and 10.1.10.101.   It's worth noting that although
 a second storage pool was added, and any cluster member will service S3 read requests, simply expanding the cluster does not re-distribute content already
@@ -292,7 +293,8 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 | |lab044|                                                                                                      |
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
-
+**You will see the presence of the new nodes but data may not yet be reflected in the MinIO screen shown above,
+set the time to last 4 hours and data will appear in a few minutes**
 
 **Key Takeaway** There were no client changes and S3 applications still continue to talk to the same VIP;
 topology changes are absorbed by *BIG‑IP* at the dataplane.
@@ -313,10 +315,13 @@ dashboards powered by Grafana.   We will verify the load balancing method and po
 | 3. Check Members tab:  All members green (up) with active connections.                                        |
 |                                                                                                               |
 | 4. Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.                               |
-|    Login as **admin / admin**, when prompted to change password simply retain the value as **admin**          |
+|    Login as **admin / admin**, when prompted to change password simply retain the value as **admin** or       |
+|    simply click the "skip" hyperlink.                                                                         |
 |                                                                                                               |
-| 5. In AST, choose Dashboards - BigIP - Device - Device Pools look at the key metrics, such as Active Pool     |
-|            Connections.   For "Pool" in top menu, adjust to "Cluster-1" and examine last 15 minutes.          |
+| 5. In AST, choose Dashboards - BigIP - Device (expand group) - select Device Pools look at the key metrics,   |
+|    such as **Active Pool Member Connections**.   For "Pool" in top menu, adjust to "Cluster-1" instead of     |
+|    of "All" and change the time range to inspect just the last 15 minutes.                                    |
+|                                                                                                               |
 |                                                                                                               |
 | 6. Click on the "3 dots" menu → View on any graphical widget to see the full panel.  Click "Refresh" often.   |
 |                                                                                                               |
@@ -328,7 +333,7 @@ dashboards powered by Grafana.   We will verify the load balancing method and po
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 
-The charts indicate an even distribution for MinIO AIStor nodes, hot spots have been successfully avoided.
+The charts indicate an traffic being distributed across all MinIO AIStor nodes, hot spots have been successfully avoided.
 
 
 Validation
