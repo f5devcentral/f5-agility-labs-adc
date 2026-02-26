@@ -163,7 +163,7 @@ with BIG-IP **origin pools**, which frequently are just simply referred to as BI
 
 **Step 1 — Verify current cluster state**
 
-Open a web shell session to **cluster1-node1** (equivalent to an SSH session) and confirm the cluster is healthy:
+Open a **web shell** session to **cluster1-node1** (equivalent to an SSH session) and confirm the cluster is healthy:
 
 mcli admin info cluster1
 
@@ -175,10 +175,10 @@ Open another web shell sessions to **cluster1-node2**, so that you have sessions
 
 sudo vi /etc/default/minio
 
-(if you are not comfortable with vi editor, you may wish to issue #sudo nanon /etc/default/minio)
+(if you are not comfortable with vi editor, you may wish to instead issue #sudo nano /etc/default/minio)
 
-•	**Comment out** the single-pool MINIO_VOLUMES line
-•	**Uncomment (eg ADD)** the two-pool MINIO_VOLUMES line
+•	**Comment out** the single storage pool MINIO_VOLUMES line
+•	**Uncomment (eg ADD)** the two storage :wpool MINIO_VOLUMES line
 
 The result should look like:
 
@@ -196,19 +196,20 @@ On both nodes, start the MinIO service:
 
 **sudo systemctl start minio**
 
-These nodes already have the two-pool MINIO_VOLUMES pre-configured.
-The issued command with not provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
+These nodes already have the two storage pool MINIO_VOLUMES pre-configured.
+The issued command with **no**t provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
 storage pool.
 
 **Step 4 — Restart Cluster 1 to pick up the new 4 server topology**
 
-Back on cluster1-node1, restart the cluster:
+Back on cluster1-node1, restart the cluster (make sure you go to the browser tab for node1, if in doubt issue the command #ip a and 
+confirm the last address in the list is shown to be  10.1.10.100/24):
 
 **mcli admin service stop cluster1**
 
 **mcli admin service restart cluster1**
 
-This restarts all MinIO processes across the cluster, causing Storage Pool 1 nodes to recognize the new two-pool topology and Storage Pool 2 nodes to join.
+This restarts all MinIO processes across the cluster, causing storage pool 1 nodes to recognize the new two-pool topology and storage pool 2 nodes to join.
 
 **Step 5 — Verify the expanded cluster**
 
