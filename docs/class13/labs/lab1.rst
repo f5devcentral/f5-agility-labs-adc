@@ -223,7 +223,7 @@ You should now see 4 nodes and 2 storage pools.
 
 **Brief aside on the MinIO mcli command**
 
-mcli, which until recently was imply *mc* is MinIO's utility to both administer and monitor AIStor clusters.  It is installed on each
+mcli, which until recently was just simply *mc* is MinIO's utility to both administer and monitor AIStor clusters.  It is installed on each
 node in the lab, but can equally be installed on any Linux or Windows host, providing a powerful way to undrestand your environment.
 
 To make things easy, mcli allows the setting of an alias for each device, such as an AIStor server using the following syntax:
@@ -232,7 +232,7 @@ To make things easy, mcli allows the setting of an alias for each device, such a
 
 *Note: as opposed to using an S3 access key and secret key, one can also utilize user ids and passwords when reaching a node*
 
-For intance, to see the alias values for this lab, simply issue:
+For intance, to see the alias values for this lab, simply issue the following on cluster1-node1:
 
 **mcli alias list**
 
@@ -246,8 +246,8 @@ Now, to see the buckets on cluster1, node1, one simply can issue:
 
 Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefixing mcli to a command and choosing an alias.
 
-The second administrative command shows an example of tracing where the erasure coded chunks of a given sample object, are actually stored, along with meta
-data details.
+The second administrative command in the screenshot above shows an example of tracing where the erasure coded chunks of a given sample object are
+actually stored, along with meta data details.
 
 *Note: in the output of our command we see the chunks are stored on storage pool 1 members 10.1.10.100 and 10.1.10.101.   It's worth noting that although
 a second storage pool was added, and any cluster member will service S3 read requests, simply expanding the cluster does not re-distribute content already
