@@ -18,7 +18,7 @@ Create a Partition
 #. Click **Create** in the upper right corner.
 #. Name the partition **App01**
 
- .. image:: ./_images/partition-1.png
+    .. image:: ./_images/partition-1.png
 
 #. Click **Finished**.
 
@@ -31,17 +31,17 @@ Add Users
 #. Name the user **App01Admin** and choose any password you can remember for the next few steps.
 #. Select the role **Manager** and assign it to the partition you just created (**App01**).
 
- .. image:: ./_images/partition-2.png
+    .. image:: ./_images/partition-2.png
 
 #. Click **Add**, ensure that the role and partition are displayed in the box below, then click **Finished**.
 
- .. image:: ./_images/partition-3.png
+    .. image:: ./_images/partition-3.png
 
 #. Create another user by once navigating to **System -> Users -> User List**.
 #. Name the user **App01Operator** and assign a passowrd.
 #. Select the role **Operator** and assign it to the partition **App01** then click **Finished**.
 
- .. image:: ./_images/partition-4.png
+    .. image:: ./_images/partition-4.png
 
 
 Explore & Create Objects
@@ -51,7 +51,7 @@ Explore & Create Objects
 #. Since it's you're first time logging in, you'll regrettably be asked to change your password.  While this can be an annoyance, this is the default behavior and an important security control.  Again, choose a password you can remember.
 #. If you've done everything correctly so far, you'll notice that your user is locked to the **App01** Partition.
 
- .. image:: ./_images/partition-5.png
+    .. image:: ./_images/partition-5.png
 
 #. Navigate to **Local Traffic -> Virtual Servers**.
 #. **Click** any of the Virtual Servers in the list.
@@ -61,7 +61,7 @@ Explore & Create Objects
 #. Name the pool **App01Pool** and select the **http health monitor**.
 #. Add a node with the IP Address **10.1.10.50** on **port 80** (don't forget to click add).  It should look like this:
 
- .. image:: ./_images/partition-6.png
+    .. image:: ./_images/partition-6.png
 
 #. If it looks correct, click **Finished.**
 #. **Return** to the **virtual servers list**.
@@ -97,11 +97,11 @@ Test Limited Access
 #. Navigate to **Local Traffic -> Pools**.
 #. Click on **App01Pool**.  You'll notice that this is also greyed out:
 
- .. image:: ./_images/partition-7.png
+    .. image:: ./_images/partition-7.png
 
 #. Click on the **Members** tab.  Even though all other options are greyed out, you'll notice that you have the ability to enable and disable pool members:
 
- .. image:: ./_images/partition-8.png
+    .. image:: ./_images/partition-8.png
 
 
 **That Concludes this lab.**
