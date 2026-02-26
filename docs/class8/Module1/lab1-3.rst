@@ -25,11 +25,11 @@ The traffic generated in the lab is not very complex nor a high number of client
         log local0. "Content-Length (Bytes): [HTTP::header value Content-Length] - URI: $reqURI" 
       }
 
-   .. image:: ../images/iRule_Content-Length.png
+   .. image:: ../images/iRule_ContentLength_rule.png
        :width: 900px
 
 
-3. Click the Update button at the bottom of the page to save the changes.
+3. Click the **Finished** button at the bottom of the page to save the changes.
 
 Assign New iRule to Virtual Server
 ----------------------------------
@@ -53,7 +53,7 @@ Assign New iRule to Virtual Server
        :width: 700px
   
 
-5. Click Finished button at the bottom of the page to save the change
+5. Click **Finished** button at the bottom of the page to save the change
 
 
 View the new log data from the BIG-IP command-line
@@ -67,7 +67,7 @@ View the new log data from the BIG-IP command-line
 
 2. Monitor the logs to see the content-length of the HTTP responses::
   
-      tail -f /var/log/ltm | grep Content-Length
+      tail -10 /var/log/ltm | grep Content-Length
   
 
    The files names in the lab include the file size but that is most likely not going to be the case in other environments so the Content-Length header shows the size in bytes.  This traffic mix contains files 16KB to 3MB (you may need to scroll right in the box to see all of the log data)::
@@ -79,7 +79,6 @@ View the new log data from the BIG-IP command-line
     Feb 12 13:04:41 bigip01.f5tcp.lab info tmm2[16963]: Rule /Common/lab_ContentLength_rule <HTTP_RESPONSE>: Content-Length (Bytes): 262144 - URI: /file_256kb.txt
     Feb 12 13:04:41 bigip01.f5tcp.lab info tmm[16963]: Rule /Common/lab_ContentLength_rule <HTTP_RESPONSE>: 
 
-3. Type <ctrl-c> to exit the tail command
 
 Detach The iRule From The Virtual Server
 ----------------------------------------
@@ -90,13 +89,12 @@ Detach The iRule From The Virtual Server
       tmsh save sys config
 
 
-2. Type 'q' and <enter> to exist tmsh
-3. Verify the iRule is no longer logging.  You may see a few older log entries but it should not be scrolling::
+2. Verify the iRule is no longer logging.  You may see a few older log entries but it should not be scrolling::
 
       tail -f /var/log/ltm | grep Content-Length
 
 
-4. Type <ctrl-c> to exit the tail command
+3. Type <ctrl-c> to exit the tail command
 
 Create Another iRule
 --------------------
@@ -119,7 +117,7 @@ Create Another iRule
          }
        }
 
-12. Click the update button at the bottom of the page to save the changes.
+12. Click the **Finished** button at the bottom of the page to save the changes.
   
 
 Assign New iRule to Virtual Server
@@ -142,7 +140,7 @@ View the new log data from the BIG-IP command-line
 
 2. Monitor the logs to see the content-length of the HTTP responses::
   
-    tail -f /var/log/ltm | grep "Response Code"
+    tail -20 /var/log/ltm | grep "Response Code"
 
 
    As we saw in the AVR example, the 40x response codes are related to the URL wiith the typo - /file_16kd.txt::
@@ -152,23 +150,21 @@ View the new log data from the BIG-IP command-line
     Feb 17 23:35:29 bigip01.f5tcp.lab info tmm1[17067]: Rule /Common/lab_ResponseCode_rule <HTTP_RESPONSE>: Response Code: 404 - URI: /file_16kd.txt
     Feb 17 23:35:30 bigip01.f5tcp.lab info tmm1[17067]: Rule /Common/lab_ResponseCode_rule <HTTP_RESPONSE>: Response Code: 404 - URI: /file_16kd.txt
 
-3. Type <ctrl-c> to exit the tail command
 
 Detach The iRule From The Virtual Server
 ----------------------------------------
 
-1. Since you are connected to BIG-IP01 via SSH, modify the web01_vs1 Virtual Server from tmsh.  Enter the following commands to remove the **lab_ContentLength_rule** iRule::
+1. Since you are connected to BIG-IP01 via SSH, modify the web01_vs1 Virtual Server from tmsh.  Enter the following commands to remove the **lab_ResponseCode_rule** iRule::
 
       tmsh modify ltm virtual web01_vs1 rules none
       tmsh save sys config
 
 
-2. Type 'q' and <enter> to exist tmsh
-3. Verify the iRule is no longer logging.  You may see a few log entries but it should not be scrolling::
+2. Verify the iRule is no longer logging.  You may see a few log old entries but it should not be scrolling::
 
       tail -f /var/log/ltm | grep "Response Code"
 
 
-4. Type <ctrl-c> to exit the tail command
+3. Type <ctrl-c> to exit the tail command
 
 This completes Lab 1.  Even though this lab did not contain any performance modification, the data learned is necessary for later optimizations or for cleaning up network noise (bad URLs, old/bad redirects, block scanners, etc) that will free up performance. <<reword?>>
