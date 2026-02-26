@@ -173,15 +173,14 @@ Step 4 – Apply Hardened Profiles to the Virtual Server
 Step 5 – Confirm Certificate and Chain Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Navigate to **Local Traffic → SSL Certificates**.
-2. Verify the correct certificate and chain are applied
-   through the Client SSL profile.
+1. Navigate to **System → Certificate Management → Traffic Certificate Management → SSL Certificate List**.
+2. Select the certificate used by the Client SSL profile.
+3. Confirm certificate properties:
 
-3. Confirm certificate validity:
-
-   - Correct CN/SAN coverage
-   - Valid expiration window
-   - Strong key algorithm and size
+   * Public key algorithm (RSA 2048+ or ECDSA)
+   * Valid expiration window
+   * Correct CN or SAN coverage
+   * Trusted issuer (lab: self-signed acceptable)
 
 Verification
 ------------
@@ -198,33 +197,57 @@ GUI Verification
 3. Navigate to **System → Logs → Local Traffic**.
 4. Confirm there are no SSL negotiation errors for legitimate clients.
 
-CLI Verification (Optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CLI Validation – Deterministic Protocol Enforcement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From a client host, validate negotiated protocol and cipher.
+Validate protocol enforcement directly from a client capable of reaching
+the virtual server.
 
-Test TLS 1.2:
-
-.. code-block:: bash
-
-   openssl s_client -connect <vs-ip>:443 -tls1_2
-
-Test TLS 1.3:
+Test TLS 1.2 (Expected: Success)
 
 .. code-block:: bash
 
-   openssl s_client -connect <vs-ip>:443 -tls1_3
+   openssl s_client -connect <vs-ip>:443 -tls1_2 < /dev/null 2>/dev/null | grep -E "Protocol|Cipher"
 
-Attempt a blocked legacy protocol:
+Expected Output:
+
+* ``Protocol : TLSv1.2``
+* Cipher reflects approved suite (example: ``ECDHE-RSA-AES128-GCM-SHA256``)
+
+Test TLS 1.0 (Expected: Blocked)
 
 .. code-block:: bash
 
    openssl s_client -connect <vs-ip>:443 -tls1
 
-Expected:
+Expected Result:
 
-* TLS 1.2/1.3 succeeds (as allowed)
-* TLS 1.0 fails (blocked)
+* Handshake failure
+* No cipher negotiated
+* SSL alert handshake failure observed
+
+Test TLS 1.1 (Expected: Blocked)
+
+.. code-block:: bash
+
+   openssl s_client -connect <vs-ip>:443 -tls1_1
+
+Expected Result:
+
+* Handshake failure
+* No cipher negotiated
+* Protocol not permitted by profile configuration
+
+Security Interpretation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Successful TLS 1.2 negotiation combined with TLS 1.0/1.1 handshake
+failure confirms:
+
+* Cryptographic downgrade resistance
+* Deterministic protocol enforcement
+* Elimination of legacy exposure risk
+* Compliance with enterprise TLS baseline policy
 
 Network Validation
 ~~~~~~~~~~~~~~~~~~

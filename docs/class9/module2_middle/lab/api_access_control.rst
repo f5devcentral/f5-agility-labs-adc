@@ -1,225 +1,322 @@
-API Access Control (AS3 / DO via CI)
-=====================================
+API Access Control – AS3 & Declarative Onboarding (CI Validation)
+==================================================================
 
-API access control restricts programmatic configuration access to BIG-IP
-through iControl REST, which is used by AS3 and DO automation pipelines.
-
-In the Middle Layer, API access must be restricted to dedicated CI systems,
-enforced through least privilege, network segmentation, and logging.
-
-This mechanism is a critical Middle Layer automation security control.
-
-Executive Summary
------------------
-
-   AS3 and DO automation must access BIG-IP only through
-   explicitly authorized CI systems.
-
-   Management APIs must never be reachable from application VLANs
-   or broad internal networks.
+The Middle Layer enforces authentication, authorization, and API control
+over the BIG-IP control plane. This lab validates secure access to
+service extensions (AS3 and Declarative Onboarding) using token-based
+authentication and role-based authorization.
 
 Objective
 ---------
 
-This lab will:
+Validate secure, deterministic API access to BIG-IP service extensions
+while enforcing:
 
-* Identify iControl REST exposure on the management interface
-* Create a dedicated least-privilege automation account
-* Restrict API access to CI subnet only
-* Validate blocked access from unauthorized hosts
-* Confirm logging and audit posture
+* Token-based authentication
+* Role-based authorization
+* Least privilege iteration
+* Token lifecycle management
+* Management-plane network isolation
+* Deterministic CI behavior
 
-Hardened Enterprise Reference Design
-------------------------------------
-
-The goal is to isolate management API access to CI systems over
-the OOB management network.
-
-.. note::
-
-   This lab assumes BIG-IP management is OOB-only.
-   Management services are not reachable via Self IPs.
-
-.. nwdiag::
-   :caption: Reference Design – AS3/DO Automation via OOB Management
-   :name: api-access-as3-do-reference-design
-
-   nwdiag {
-     network ci        { address = "CI/CD Subnet"; }
-     network admin     { address = "Admin Subnet"; }
-     network mgmt      { address = "OOB Management Network"; }
-
-     ci -- mgmt;
-     admin -- mgmt;
-
-     bigip [description = "BIG-IP\nMgmt Interface\nAS3/DO via iControl REST"];
-     mgmt -- bigip;
-   }
-
-Recommended Automation Posture
-------------------------------
-
-+----------------------+----------------------+----------------------+-------------------------------------------+
-| Source               | Destination          | Interface            | Action                                    |
-+======================+======================+======================+===========================================+
-| CI Subnet            | BIG-IP Mgmt IP       | iControl REST (443)  | Permit (Logged)                           |
-+----------------------+----------------------+----------------------+-------------------------------------------+
-| Admin Subnet         | BIG-IP Mgmt IP       | TMUI / SSH           | Permit (Logged)                           |
-+----------------------+----------------------+----------------------+-------------------------------------------+
-| Any                  | BIG-IP Mgmt IP       | Mgmt Ports           | Deny (Logged)                             |
-+----------------------+----------------------+----------------------+-------------------------------------------+
-
-.. warning::
-
-   Do not use the built-in admin account for AS3/DO automation.
-   Automation must use a dedicated least-privilege account.
-
-GUI Configuration Procedure
----------------------------
-
-Step 1 – Confirm Management Interface Isolation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. Log in to the BIG-IP Configuration Utility.
-2. Navigate to **System → Platform**.
-3. Confirm the Management IP resides on a dedicated OOB subnet.
-4. Navigate to **Network → Self IPs**.
-5. Confirm no data-plane Self IP exposes management services.
-
-Step 2 – Create Dedicated AS3/DO Automation User
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. Navigate to **System → Users → User List**.
-2. Click **Create**.
-3. Configure:
-
-   - Username: ``ci_as3_do``
-   - Role: Application Editor (or minimum required role)
-   - Partition access: Restricted to required partitions
-   - Shell: None (if CLI access not required)
-
-4. Click **Finished**.
-
-Step 3 – Restrict Management API by Source IP
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-On the upstream firewall protecting the OOB network:
-
-1. Permit TCP 443 from:
-   - CI subnet
-   - Authorized admin subnet
-
-2. Deny TCP 443 from:
-   - Internal application VLANs
-   - Internet-facing networks
-   - Any unauthorized internal subnet
-
-3. Enable logging on both permit and deny rules.
-
-Step 4 – Validate AS3/DO API Access
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-From a CI system:
-
-.. code-block:: bash
-
-   curl -sku ci_as3_do:<password> https://<mgmt-ip>/mgmt/shared/echo
-
-Expected:
-
-* HTTP 200 response
-* Authentication successful
-
-Deploy a test AS3 declaration via CI pipeline and confirm success.
-
-Verification
+Threat Model
 ------------
 
-GUI Verification
-~~~~~~~~~~~~~~~~
+This lab assumes an adversary may attempt to:
 
-1. Navigate to **System → Users → User List**.
-2. Confirm ``ci_as3_do`` exists and is least privilege.
-3. Navigate to **System → Logs → Local Traffic**.
-4. Confirm API access from CI subnet is logged.
+* Reach the BIG-IP management plane from unauthorized networks (control-plane exposure).
+* Reuse leaked credentials or embed static passwords in automation (credential abuse).
+* Steal or replay authentication tokens (token theft / replay).
+* Abuse overly privileged service accounts (excessive authorization).
+* Exploit differences between partition-scoped roles and device-scoped service extensions (RBAC gaps).
+* Submit unauthorized or destructive declarations via AS3/DO (configuration integrity risk).
 
-CLI Verification (Optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Controls validated in this lab mitigate these threats via:
 
-From unauthorized host:
+* Management-plane network isolation (jumphost-only access).
+* Token-based authentication with enforced expiration.
+* Role-based authorization enforcement (demonstrated least-privilege attempt and escalation).
+* Deterministic, idempotent declarative deployment suitable for CI/CD.
+
+Architecture Overview
+---------------------
+
+.. figure:: ../images/module2/api_access_control_flow.png
+   :align: center
+   :alt: API Access Control Flow
+
+   Token-based CI access to BIG-IP service extensions via management plane.
+
+Control Flow:
+
+1. CI/Jumphost authenticates to ``/mgmt/shared/authn/login``
+2. BIG-IP issues short-lived auth token
+3. CI uses ``X-F5-Auth-Token`` header
+4. REST framework validates:
+   * Authentication
+   * Role authorization
+   * Partition scope
+5. Service extension (AS3) processes declaration
+
+Phase 1 – Baseline Validation
+-----------------------------
+
+Verify AS3 and DO Installed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Navigate to:
+
+``iApps → Package Management LX``
+
+Confirm:
+
+* ``f5-appsvcs``
+* ``f5-declarative-onboarding``
+
+Management Plane Segmentation Validation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From the Windows Jumphost:
+
+.. code-block:: powershell
+
+   curl.exe -k https://10.1.1.6/mgmt/shared/echo
+
+Expected:
+JSON response returned.
+
+From an external workstation:
 
 .. code-block:: bash
 
-   curl -sku ci_as3_do:<password> https://<mgmt-ip>/mgmt/shared/echo
+   curl -k https://10.1.1.6/mgmt/shared/echo
+
+Expected:
+Connection failure.
+
+.. admonition:: Security Principle
+   :class: important
+
+   The BIG-IP management interface must only be reachable from authorized
+   management networks (CI/jumphost subnet). API security depends on
+   network segmentation as the first control boundary.
+
+Phase 2 – Least Privilege Attempt (Intentional Failure)
+-------------------------------------------------------
+
+Restrict Service Account
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Modify ``svc_as3do``:
+
+* Role: Application Editor
+* Partition: Common
+* Terminal Access: Disabled
+
+Re-authenticate and test:
+
+.. code-block:: powershell
+
+   curl.exe -k -s "$BIGIP/mgmt/shared/appsvcs/info" -H "X-F5-Auth-Token: $TOKEN"
 
 Expected:
 
-* Connection blocked or timeout
+.. code-block:: text
 
-Network Validation
-~~~~~~~~~~~~~~~~~~
+   401 Authorization failed
 
-From unauthorized host:
+Why This Fails
+^^^^^^^^^^^^^^
 
-.. code-block:: bash
+AS3 and Declarative Onboarding operate under:
 
-   nmap -p 443 <mgmt-ip>
+``/mgmt/shared/*``
+
+These are device-scoped service extensions, not partition-scoped LTM objects.
+
+Partition-level roles (Application Editor) cannot invoke shared
+extension endpoints.
+
+.. admonition:: Architectural Insight
+   :class: note
+
+   Service extensions execute at the device scope. Partition scoping
+   applies only to configuration objects (virtual servers, pools, etc.),
+   not to shared REST extensions.
+
+This failure is expected and confirms authorization enforcement.
+
+Phase 3 – Secure Escalation (Enterprise Balance)
+------------------------------------------------
+
+Adjust ``svc_as3do``:
+
+* Role: Resource Administrator
+* Partition: All
+* Terminal Access: Disabled
+
+Re-authenticate and test:
+
+.. code-block:: powershell
+
+   curl.exe -k -s "$BIGIP/mgmt/shared/appsvcs/info" -H "X-F5-Auth-Token: $TOKEN"
 
 Expected:
 
-* Port filtered
+.. code-block:: json
 
-iHealth Validation
-------------------
+   {"version":"3.53.0","release":"7","schemaCurrent":"3.53.0","schemaMinimum":"3.0.0"}
 
-Upload a QKView and confirm:
+This confirms:
 
-* No public management exposure
-* No broad internal API access
-* No over-privileged automation account findings
+* Authentication success
+* Proper authorization
+* Correct privilege boundary
 
-Instructor Notes
-----------------
+Phase 4 – Token Lifecycle Validation
+-------------------------------------
 
-.. admonition:: Instructor Guidance
-   :class: tip
+Allow token to expire or force expiration.
 
-   Emphasize that automation expands attack surface.
+Expected response:
 
-   Reinforce:
-   * Dedicated automation account
-   * Least privilege
-   * OOB-only management access
-   * Logging and credential rotation
+.. code-block:: text
 
-Lab Challenge – Overexposed CI Scenario
----------------------------------------
+   401 X-F5-Auth-Token has expired
 
-Scenario:
+Re-authenticate:
 
-The CI system can reach BIG-IP via both management interface
-and internal Self IP.
+.. code-block:: powershell
 
-Student Tasks:
+   $login = curl.exe -k -s -X POST "$BIGIP/mgmt/shared/authn/login" `
+     -H "Content-Type: application/json" `
+     -d "{ `"username`":`"$USER`", `"password`":`"$PASS`", `"loginProviderName`":`"tmos`" }"
 
-1. Identify unintended management exposure.
-2. Remove Self IP management reachability.
-3. Restrict firewall policy to CI subnet only.
-4. Validate unauthorized hosts cannot reach API endpoint.
+   $TOKEN = ($login | ConvertFrom-Json).token.token
 
-Success Criteria
-~~~~~~~~~~~~~~~~
+This validates:
 
-* AS3/DO automation works from CI subnet only
-* No API reachability from application VLANs
-* Dedicated least-privilege automation account used
-* Unauthorized API access blocked and logged
+* Token TTL enforcement
+* Pipeline resiliency requirement
+* Secure re-authentication flow
 
-Advanced Exercise
-~~~~~~~~~~~~~~~~~
+Phase 5 – Deterministic CI Deployment
+--------------------------------------
 
-Implement partition-level separation:
+Deploy minimal AS3 declaration:
 
-1. Restrict ``ci_as3_do`` to a specific partition.
-2. Attempt to deploy AS3 declaration outside allowed partition.
-3. Confirm deployment fails due to role restriction.
+.. code-block:: powershell
+
+   curl.exe -k -s -X POST "$BIGIP/mgmt/shared/appsvcs/declare" `
+     -H "Content-Type: application/json" `
+     -H "X-F5-Auth-Token: $TOKEN" `
+     --data-binary "@ci_validation.json"
+
+Expected:
+
+.. code-block:: json
+
+   {
+     "results": [
+       {
+         "code": 200,
+         "message": "no change"
+       }
+     ]
+   }
+
+This confirms:
+
+* Idempotent declaration behavior
+* Deterministic CI execution
+* Proper service account permissions
+
+Final Hardened Configuration
+----------------------------
+
+Service Account: ``svc_as3do``
+
+* Role: Resource Administrator
+* Partition: All
+* Terminal Access: Disabled
+* Management Plane: Restricted to jumphost subnet
+* Authentication: Token-based in CI pipelines
+
+Security Controls Validated
+---------------------------
+
++-------------------------------------+-----------+
+| Control                             | Validated |
++=====================================+===========+
+| Token-based authentication          | ✔         |
++-------------------------------------+-----------+
+| Token expiration enforcement        | ✔         |
++-------------------------------------+-----------+
+| Role-based authorization            | ✔         |
++-------------------------------------+-----------+
+| Partition scoping behavior          | ✔         |
++-------------------------------------+-----------+
+| Least privilege iteration           | ✔         |
++-------------------------------------+-----------+
+| Management plane segmentation       | ✔         |
++-------------------------------------+-----------+
+| CI determinism (idempotent deploy)  | ✔         |
++-------------------------------------+-----------+
+
+Detection & Evidence
+--------------------
+
+The following system locations provide operational evidence of API access,
+authentication failures, and service extension activity.
+
+Authentication & Authorization Events
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* ``/var/log/restjavad.*`` – iControl REST authentication and authorization events
+* ``/var/log/ltm`` – Management login events
+* ``System → Logs → Audit`` (GUI) – User and configuration changes
+
+Expired Token / 401 Events
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Failed token usage generates REST framework responses:
+
+* HTTP 401 Unauthorized
+* Logged under REST framework logs (restjavad)
+
+AS3 / Service Extension Activity
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* ``/var/log/restnoded/restnoded.log`` – AS3 request handling
+* ``/var/log/ltm`` – Configuration commit operations
+* ``iApps → Application Services`` – Declarative deployment state
+
+Network Access Validation
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Management plane access can be verified via:
+
+* Self IP Port Lockdown configuration (Outer Layer)
+* AFM management ACLs (if provisioned)
+* Network firewall policy enforcement
+
+These log locations provide traceability for:
+
+* Unauthorized access attempts
+* Token misuse
+* Service account activity
+* Declarative configuration changes
+
+Executive Summary
+-----------------
+
+This lab demonstrates secure API access enforcement for BIG-IP service
+extensions through layered controls:
+
+* Network isolation (Outer Layer)
+* Token-based authentication (Middle Layer)
+* Role-based authorization (Middle Layer)
+* Deterministic declarative deployment (Operational Integrity)
+
+Together, these controls align with Zero Trust principles and enterprise
+CI/CD security practices.
