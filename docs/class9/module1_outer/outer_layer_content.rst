@@ -46,7 +46,7 @@ The Outer Layer is guided by the following principles:
 * **Network isolation:** Management traffic must be segregated from data-plane traffic.
 * **Explicit allowlisting:** Only approved IP ranges may access management services.
 * **Service exposure reduction:** Only required control-plane services are reachable.
-* **Perimeter enforcement:** Upstream firewalls reinforce segmentation.
+* **Perimeter reinforcement:** Upstream firewalls reinforce segmentation.
 * **Deterministic routing:** Administrative paths are predictable and controlled.
 
 Control-Plane Services in Scope
@@ -76,17 +76,26 @@ Best practices include:
 * Restrict management interface access using IP allowlists
 * Ensure management routes are not reachable from untrusted networks
 
-Firewall Enforcement
-~~~~~~~~~~~~~~~~~~~~
+Perimeter Firewall Reinforcement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Upstream network devices must restrict access to control-plane services.
+Upstream network devices should reinforce control-plane isolation.
+
+While device-level protections are critical, perimeter firewalls
+provide an additional enforcement layer.
 
 Best practices include:
 
-* Permit access only from authorized administrative subnets
+* Permit management access only from authorized administrative subnets
 * Block management ports from internet-facing networks
-* Log all management-plane connection attempts
-* Periodically review firewall rules for drift
+* Log management-plane connection attempts
+* Periodically review firewall rules for policy drift
+
+.. note::
+
+   In this module, firewall enforcement is treated as architectural
+   guidance. Hands-on segmentation validation is performed using
+   BIG-IP configuration and testing.
 
 IP Allowlisting
 ~~~~~~~~~~~~~~~
@@ -110,20 +119,37 @@ control-plane services unless explicitly restricted.
 
 Best practices include:
 
-* Use **Allow Custom** on all production data-plane VLAN Self IPs
-* Explicitly allow only required services (for example, ``big3d`` on TCP/4353)
+* Use **Allow None** on all production data-plane VLAN Self IPs
+* Ensure no administrative services are exposed on DMZ or application VLANs
 * Use **Allow Default** only on dedicated HA or isolated management VLANs
-* Avoid exposing SSH, HTTPS, SNMP, or API services on DMZ or application VLANs
-* Validate service exposure using network scanning tools
+* Validate service exposure using network testing tools
+* Confirm no unintended control-plane reachability exists
+
+.. note::
+
+   In advanced enterprise deployments, **Allow Custom** may be used to
+   explicitly permit required services. However, for hardened production
+   VLANs, a default-deny posture using **Allow None** is preferred.
 
 .. warning::
 
    "Allow Default" enables multiple administrative services and should not be
    configured on internet-facing or shared production VLANs.
 
-For detailed configuration steps and lab validation, see:
+Control-Plane Segmentation Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:doc:`lab/self_ip_port_lockdown`
+Control-plane segmentation must be validated to ensure that
+administrative services are reachable only through intended paths.
+
+This validation confirms that:
+
+* Management services are accessible only via the management interface
+* Data-plane VLANs do not expose control-plane services
+* No unintended lateral movement paths exist
+* Administrative access paths are deterministic and controlled
+
+For detailed configuration steps and validation exercises, see:
 
 Route Domain and Segmentation Controls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
