@@ -4,8 +4,7 @@ Task 3:  TCP Buffers and Window Scaling
 Window Scale Review Using Wireshark Screenshots
 -----------------------------------------------
 
-To speed up the process, you will review TCP Window Scale screenshots taken from packet captures from the 3 TCP profiles used in the previous sectiona.
-
+To speed up the process, you will review TCP Window Scale screenshots taken from packet captures already saved on the Windows client system.
 
 1. Base Condition** - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
 
@@ -20,7 +19,7 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
    .. figure:: ../images/tcp_prog_ws_server.png
       :width: 950px
 
-      Server-side: The TCP Window size grows a bit larger towards the end of the TCP stream but there are still many drops to zero bytes.  This is due to the was TCP_Progressive calculates the buffers with a low latency link.
+      Server-side: The TCP Window size grows a bit larger towards the end of the TCP stream but there are still many drops to zero bytes.  This is due to the way **f5-tcp_progressive** calculates the buffers with a low latency link.
 
 
 3. Tcp_3mb Profile
@@ -34,7 +33,7 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
 Wireshark Instructions for Windows Scaling View
 -----------------------------------------------
 
-If you don't know how to view the above data using Wireshark,  follow the steps below, either from the Windows-Client or using TCP capture file you may already have lopcal on your system.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
+If you don't know how to view the above data using Wireshark, follow the steps below, either from the Windows-Client or using TCP captures you may already have on your local system.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
 
 1. Open RDP session to the Windows Client. An RDP file will save to your browser's download location.
 
@@ -92,8 +91,8 @@ If you don't know how to view the above data using Wireshark,  follow the steps 
 11. Click **Statistics > TCP Stream Graphs > Window Scaling**
 
     .. image:: ../images/ws_statistics_stream.png
-        :width: 500px
-        
+        :width: 550px
+
 
     .. figure:: ../images/tcp_base_ws_server.png
        :width: 950px
