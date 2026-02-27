@@ -13,7 +13,7 @@ Looking at a DNS design where you want to load balance across a large pool of DN
        :width: 450px
 
 
-3. Reset the statistics for all pool memvbers if they are not already all zeros
+3. Reset the statistics for all pool members if they are not already all zeros
 4. Set **Auto Refresh** to 20 seconds if it isn't already set from earlier stats reviews
 5. From the Ubuntu-Client SSH window, run the following command::
 
@@ -26,12 +26,12 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 6. From BIGIP01 UI, check the pool stats.  You should see all 1000 queries have gone to a single server
 
    .. image:: ../images/dns_stats_base.png
-       :width: 550px
+       :width: 650px
 
 
 7. From BIGIP01 UI, go to **Local Traffic > Profiles > Protocol > UDP** and click on **udp_lab** from the list of profiles
-8. On the right side, check the boxes for Idle Timeout and Datagram LB
-9. Change Idle Timeout to 1 second and check Datagram LB.  Click the **Update** button at the bottom of the page to save the settings.
+8. On the right side, check the boxes for **Idle Timeout** and **Datagram LB**
+9. Change Idle Timeout to 1 second and check the Datagram LB option.  Click the **Update** button at the bottom of the page to save the settings.
 
    .. image:: ../images/udp_profile_mod.png
        :width: 600px
@@ -48,6 +48,6 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 14. From BIGIP01 UI, check the pool stats.  You should see all 1000 queries evenly split across the pool members
 
    .. image:: ../images/dns_stats_datagram_lb.png
-       :width: 550px
+       :width: 650px
 
 
