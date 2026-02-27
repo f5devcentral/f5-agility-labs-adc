@@ -10,7 +10,7 @@ In this lab you will examine the some of the security auditing capabilities of i
 Lab
 ---
 
-Estimatied completion time: 10-12 minutes.
+Estimatied completion time: 10-15 minutes.
 
 
 Create a Qkview
@@ -72,20 +72,20 @@ Analyze a QKView
     .. image:: ./_images/ihealth-9.png
 
     .. important::
-         Depending on when this lab is run and when the blueprint is last updated the hostname and the version may be different.  Ensure you're looking for the QKView with the description you put in during the upload step.
+         Depending on when this lab is run and when the blueprint was last updated, the hostname and even the BIG-IP version may be different.  Ensure you're looking for the QKView with the description you entered during the upload step.
 
 #. You should be greeted by a screen that looks like the one below.  Familiarize yourself with the information avaiable on the main screen, then click **Diagnostics** on the menu to the left.
 
     .. image:: ./_images/ihealth-10.png
 
     .. important::
-         As with the last step, any screenshots from this point forward may not be exactly the same as what you are seeing as you work through the lab.  This is because the findings, heuristics, and BIG-IP versions will change over time throughout the lifecycle of this lab excercise.  Take all screenshots as examples only unless otherwise noted.
+         As with the last step, any screenshots from this point forward may not be exactly the same as what you are seeing as you work through the lab.  This is because the findings, heuristics, and BIG-IP versions will change over time.  Take all screenshots as examples only unless otherwise noted.
 
-#. The diagnostic tab is perhaps one of the most important and useful functions of iHealth.  It is also one of the easiest to use.  This menu presents you with a list of configuration and security issues (including CVEs) that apply specifically to the system that the QKView just came from.  The menu on the left allows you to show or hide alerts based on their criticality.
+#. The diagnostic tab is perhaps one of the most important and useful functions of iHealth.  It is also one of the easiest to use.  This menu presents you with a list of configuration and security issues (including CVEs) that apply specifically to the system that the QKView came from.  The menu on the left allows you to show or hide alerts based on their criticality.
 
     .. image:: ./_images/ihealth-11.png
 
-#. Below the filter menu, you'll see that there is also a download menu.  It allows these alerts to be exported as either a PDF or a CSV.
+#. Below the filter menu, you'll see that there is also a download menu.  It allows these alerts to be exported as either a PDF or a CSV.  Feel free to explore this option if you're interested.
 
     .. image:: ./_images/ihealth-12.png
 
