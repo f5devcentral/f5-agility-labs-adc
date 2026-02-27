@@ -20,7 +20,7 @@ Here are some connection re-use numbers from the lab::
     Total Reuses       1477
     New                  23
 
-These numbers are the result of a 1500 HTTPS transaction test with each creating a new client-side and server-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the 1500 HTTPS transactions.
+These numbers are the result of a 1500 HTTPS transaction test with each creating a new client-side and server-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the entire test.
 
 Here are some of the time and packet savings from the same 1500 transaction test with and without OneConnect::
 
@@ -38,7 +38,7 @@ Here are some of the time and packet savings from the same 1500 transaction test
         Total Time:     75.21s
         Server Time:    70.17s
 
-There is a reduction in server-side packet count due to 1477 fewer TCP and TLS handshakes.  The packet count is also reduced from the TCP Window staying large during the re-used connections.  For this test, the server-side connections were open for around 70s eliminating most of the TCP ramp up delays from individual server-sde connections as shown below.  3MB buffers are not needed for the small 256KB files being transferred but the profile was used for the test for configuration simplicity.
+There is a reduction in server-side packet count due to 1477 fewer TCP and TLS handshakes.  The packet count is also reduced from the TCP Window staying large during the re-used connections.  For this test, the server-side connections were open for around 70s eliminating most of the TCP ramp up delays from individual server-sde connections.  Contrast that with the server-side connection durations and ramp up shown without OneConnect below.  The 3MB buffers are not needed for the small 256KB files being transferred but the **tcp_3mb** TCP Profile from earlier tasks was left in place for configuration simplicity.
 
 .. image:: ../images/tcp_oc_ws.png
     :width: 950px
