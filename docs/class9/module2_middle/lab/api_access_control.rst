@@ -1,10 +1,40 @@
-API Access Control – AS3 & Declarative Onboarding (CI Validation)
-==================================================================
+API Access Control – Role-Based Enforcement (AS3 & Declarative Onboarding)
+===========================================================================
 
-The Middle Layer enforces authentication, authorization, and API control
-over the BIG-IP control plane. This lab validates secure access to
-service extensions (AS3 and Declarative Onboarding) using token-based
-authentication and role-based authorization.
+The Middle Layer enforces authentication and authorization controls
+over the BIG-IP control plane. This lab validates secure access
+to service extensions (AS3 and Declarative Onboarding) using
+role-based authorization and deterministic REST validation.
+
+This lab assumes:
+
+* Network-layer segmentation (Outer Layer) is enforced.
+* Administrative authentication (MFA) is in place or delegated to centralized AAA.
+
+This lab focuses on **authorization enforcement** at the REST framework layer.
+
+Authentication answers:
+
+* **Who are you?**
+
+Authorization answers:
+
+* **What are you allowed to do?**
+
+Executive Summary
+-----------------
+
+This lab demonstrates secure API access enforcement for BIG-IP
+service extensions through layered controls:
+
+* Network segmentation (Outer Layer)
+* REST authentication
+* Role-based authorization
+* Device-scoped extension protection
+* Deterministic authorization failure behavior
+
+Together, these controls enforce least privilege and protect
+declarative service extensions from unauthorized invocation.
 
 Objective
 ---------
@@ -12,51 +42,54 @@ Objective
 Validate secure, deterministic API access to BIG-IP service extensions
 while enforcing:
 
-* Token-based authentication
 * Role-based authorization
-* Least privilege iteration
-* Token lifecycle management
-* Management-plane network isolation
-* Deterministic CI behavior
+* Least privilege validation
+* Device-scoped extension protection
+* Management-plane isolation (Outer Layer reference)
+* Deterministic authorization failure behavior
 
 Threat Model
 ------------
 
 This lab assumes an adversary may attempt to:
 
-* Reach the BIG-IP management plane from unauthorized networks (control-plane exposure).
-* Reuse leaked credentials or embed static passwords in automation (credential abuse).
-* Steal or replay authentication tokens (token theft / replay).
-* Abuse overly privileged service accounts (excessive authorization).
-* Exploit differences between partition-scoped roles and device-scoped service extensions (RBAC gaps).
-* Submit unauthorized or destructive declarations via AS3/DO (configuration integrity risk).
+* Use valid credentials with insufficient privileges to invoke device-scoped APIs.
+* Access the BIG-IP management API from an authorized network without sufficient privileges.
+* Abuse overly privileged accounts to deploy unauthorized configurations.
+* Invoke device-scoped service extensions (AS3/DO) using partition-scoped roles.
+* Submit unauthorized or destructive declarative configurations.
 
 Controls validated in this lab mitigate these threats via:
 
-* Management-plane network isolation (jumphost-only access).
-* Token-based authentication with enforced expiration.
-* Role-based authorization enforcement (demonstrated least-privilege attempt and escalation).
-* Deterministic, idempotent declarative deployment suitable for CI/CD.
+* Management-plane segmentation (validated in the Outer Layer module).
+* Strict REST authentication enforcement.
+* Role-based authorization at the REST framework layer.
+* Explicit denial of device-scoped extension access to non-administrative roles.
 
 Architecture Overview
 ---------------------
 
-.. figure:: ../images/module2/api_access_control_flow.png
-   :align: center
-   :alt: API Access Control Flow
+AS3 and Declarative Onboarding operate under:
 
-   Token-based CI access to BIG-IP service extensions via management plane.
+::
 
-Control Flow:
+   /mgmt/shared/*
 
-1. CI/Jumphost authenticates to ``/mgmt/shared/authn/login``
-2. BIG-IP issues short-lived auth token
-3. CI uses ``X-F5-Auth-Token`` header
-4. REST framework validates:
-   * Authentication
-   * Role authorization
-   * Partition scope
-5. Service extension (AS3) processes declaration
+These endpoints are:
+
+* Device-scoped
+* Not partition-scoped
+* Protected by REST framework authorization
+* Not configurable for partition-level delegation
+
+Authorization Flow:
+
+1. Client authenticates using REST Basic Authentication.
+2. REST framework validates the user’s credentials.
+3. Authorization policy evaluates the user’s assigned role.
+4. Service extension executes only if role permits.
+
+---------------------------------------------------------------------
 
 Phase 1 – Baseline Validation
 -----------------------------
@@ -66,257 +99,263 @@ Verify AS3 and DO Installed
 
 Navigate to:
 
-``iApps → Package Management LX``
+::
 
-Confirm:
+   iApps → Package Management LX
+
+Confirm the following packages are installed:
 
 * ``f5-appsvcs``
 * ``f5-declarative-onboarding``
 
-Management Plane Segmentation Validation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. figure:: ../_images/api-access-control-02-lx-packages-as3-do.png
+   :align: center
+   :alt: AS3 and DO packages installed
+
+   Package Management LX showing AS3 and DO installed.
+
+Management Surface Baseline (Outer Layer Reference)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_images/api-access-control-03-external-self-ip-lockdown-baseline.png
+   :align: center
+   :alt: External self IP port lockdown baseline
+
+   External Self IP port lockdown baseline documenting exposed management surface.
+
+Jumphost Source IP Baseline
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_images/api-access-control-04-jumphost-source-ips.png
+   :align: center
+   :alt: Jumphost source IP addresses
+
+   Jumphost source interfaces used for deterministic API testing.
+
+Baseline API Reachability (Administrator)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+REST Basic Authentication is used for deterministic validation.
 
 From the Windows Jumphost:
 
-.. code-block:: powershell
-
-   curl.exe -k https://10.1.1.6/mgmt/shared/echo
-
-Expected:
-JSON response returned.
-
-From an external workstation:
-
 .. code-block:: bash
 
-   curl -k https://10.1.1.6/mgmt/shared/echo
+   read -s -p "Admin Password: " ADMIN_PASS; echo
+   curl -sk -u admin:$ADMIN_PASS \
+   https://10.1.1.6/mgmt/shared/appsvcs/info
 
 Expected:
-Connection failure.
+
+* HTTP 200
+* JSON response containing AS3 version information
+
+.. figure:: ../_images/api-access-control-01-baseline-endpoint-probes.png
+   :align: center
+   :alt: Baseline API endpoint probe from jumphost
+
+This confirms:
+
+* Management plane reachable
+* AS3 extension operational
+* Administrative authorization functioning
 
 .. admonition:: Security Principle
    :class: important
 
-   The BIG-IP management interface must only be reachable from authorized
-   management networks (CI/jumphost subnet). API security depends on
-   network segmentation as the first control boundary.
+   Management-plane reachability alone does not grant configuration authority.
+   Authorization enforcement occurs at the REST framework layer.
 
-Phase 2 – Least Privilege Attempt (Intentional Failure)
+---------------------------------------------------------------------
+
+Phase 2 – Least Privilege Enforcement (Operator Denied)
 -------------------------------------------------------
 
-Restrict Service Account
-^^^^^^^^^^^^^^^^^^^^^^^^
+Create Restricted User
+^^^^^^^^^^^^^^^^^^^^^^
 
-Modify ``svc_as3do``:
+Create a local user with limited privileges:
 
-* Role: Application Editor
+* Username: ``api_test_user``
+* Role: Operator
 * Partition: Common
 * Terminal Access: Disabled
 
-Re-authenticate and test:
+.. figure:: ../_images/api-access-control-05-operator-user-create.png
+   :align: center
+   :alt: Operator user creation
 
-.. code-block:: powershell
+.. figure:: ../_images/api-access-control-06-operator-user-list.png
+   :align: center
+   :alt: Operator user present
 
-   curl.exe -k -s "$BIGIP/mgmt/shared/appsvcs/info" -H "X-F5-Auth-Token: $TOKEN"
+Test AS3 Access (GET)
+^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   read -s -p "Operator Password: " OP_PASS; echo
+   curl -sk -u api_test_user:$OP_PASS \
+   https://10.1.1.6/mgmt/shared/appsvcs/info
 
 Expected:
 
-.. code-block:: text
+* HTTP 401 (Unauthorized / Authorization failed)
 
-   401 Authorization failed
+Test Declarative Onboarding Access (GET)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   curl -sk -u api_test_user:$OP_PASS \
+   https://10.1.1.6/mgmt/shared/declarative-onboarding/info
+
+Expected:
+
+* HTTP 401 (Unauthorized)
+
+Test AS3 Declaration Attempt (POST)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   curl -sk -u api_test_user:$OP_PASS \
+     -H "Content-Type: application/json" \
+     -X POST \
+     https://10.1.1.6/mgmt/shared/appsvcs/declare \
+     --data-binary @test.json
+
+Expected:
+
+* HTTP 401 (Unauthorized)
 
 Why This Fails
 ^^^^^^^^^^^^^^
 
 AS3 and Declarative Onboarding operate under:
 
-``/mgmt/shared/*``
+::
 
-These are device-scoped service extensions, not partition-scoped LTM objects.
+   /mgmt/shared/*
 
-Partition-level roles (Application Editor) cannot invoke shared
-extension endpoints.
+These are device-scoped service extensions.
+
+Partition-scoped roles (Operator, Application Editor) cannot invoke
+shared extension endpoints.
+
+This failure confirms proper REST authorization enforcement.
 
 .. admonition:: Architectural Insight
    :class: note
 
-   Service extensions execute at the device scope. Partition scoping
-   applies only to configuration objects (virtual servers, pools, etc.),
-   not to shared REST extensions.
+   Service extensions execute at the device scope.
+   Partition roles apply only to configuration objects
+   (virtual servers, pools, etc.), not to shared REST extensions.
 
-This failure is expected and confirms authorization enforcement.
+---------------------------------------------------------------------
 
-Phase 3 – Secure Escalation (Enterprise Balance)
+Phase 3 – Administrative Authorization (Allowed)
 ------------------------------------------------
 
-Adjust ``svc_as3do``:
+Test Administrative Access
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Role: Resource Administrator
-* Partition: All
-* Terminal Access: Disabled
+.. code-block:: bash
 
-Re-authenticate and test:
-
-.. code-block:: powershell
-
-   curl.exe -k -s "$BIGIP/mgmt/shared/appsvcs/info" -H "X-F5-Auth-Token: $TOKEN"
+   read -s -p "Admin Password: " ADMIN_PASS; echo
+   curl -sk -u admin:$ADMIN_PASS \
+   https://10.1.1.6/mgmt/shared/appsvcs/info
 
 Expected:
 
-.. code-block:: json
+* HTTP 200
+* JSON response returned
 
-   {"version":"3.53.0","release":"7","schemaCurrent":"3.53.0","schemaMinimum":"3.0.0"}
+.. figure:: ../_images/api-access-control-08-admin-as3-info-allowed.png
+   :align: center
+   :alt: Admin allowed AS3 info
 
 This confirms:
 
-* Authentication success
+* Successful authentication
 * Proper authorization
 * Correct privilege boundary
 
-Phase 4 – Token Lifecycle Validation
--------------------------------------
+---------------------------------------------------------------------
 
-Allow token to expire or force expiration.
+Deterministic Validation Matrix
+-------------------------------
 
-Expected response:
++-------------------------------------------+-----------------------------+-----------------------------+
+| Test Case                                 | Expected Result             | Observed Result             |
++===========================================+=============================+=============================+
+| Operator GET AS3 info                     | HTTP 401                    |                             |
++-------------------------------------------+-----------------------------+-----------------------------+
+| Operator GET DO info                      | HTTP 401                    |                             |
++-------------------------------------------+-----------------------------+-----------------------------+
+| Operator POST AS3 declare                 | HTTP 401                    |                             |
++-------------------------------------------+-----------------------------+-----------------------------+
+| Administrator GET AS3 info                | HTTP 200 + JSON             |                             |
++-------------------------------------------+-----------------------------+-----------------------------+
 
-.. code-block:: text
-
-   401 X-F5-Auth-Token has expired
-
-Re-authenticate:
-
-.. code-block:: powershell
-
-   $login = curl.exe -k -s -X POST "$BIGIP/mgmt/shared/authn/login" `
-     -H "Content-Type: application/json" `
-     -d "{ `"username`":`"$USER`", `"password`":`"$PASS`", `"loginProviderName`":`"tmos`" }"
-
-   $TOKEN = ($login | ConvertFrom-Json).token.token
-
-This validates:
-
-* Token TTL enforcement
-* Pipeline resiliency requirement
-* Secure re-authentication flow
-
-Phase 5 – Deterministic CI Deployment
---------------------------------------
-
-Deploy minimal AS3 declaration:
-
-.. code-block:: powershell
-
-   curl.exe -k -s -X POST "$BIGIP/mgmt/shared/appsvcs/declare" `
-     -H "Content-Type: application/json" `
-     -H "X-F5-Auth-Token: $TOKEN" `
-     --data-binary "@ci_validation.json"
-
-Expected:
-
-.. code-block:: json
-
-   {
-     "results": [
-       {
-         "code": 200,
-         "message": "no change"
-       }
-     ]
-   }
-
-This confirms:
-
-* Idempotent declaration behavior
-* Deterministic CI execution
-* Proper service account permissions
-
-Final Hardened Configuration
-----------------------------
-
-Service Account: ``svc_as3do``
-
-* Role: Resource Administrator
-* Partition: All
-* Terminal Access: Disabled
-* Management Plane: Restricted to jumphost subnet
-* Authentication: Token-based in CI pipelines
+---------------------------------------------------------------------
 
 Security Controls Validated
 ---------------------------
 
-+-------------------------------------+-----------+
-| Control                             | Validated |
-+=====================================+===========+
-| Token-based authentication          | ✔         |
-+-------------------------------------+-----------+
-| Token expiration enforcement        | ✔         |
-+-------------------------------------+-----------+
-| Role-based authorization            | ✔         |
-+-------------------------------------+-----------+
-| Partition scoping behavior          | ✔         |
-+-------------------------------------+-----------+
-| Least privilege iteration           | ✔         |
-+-------------------------------------+-----------+
-| Management plane segmentation       | ✔         |
-+-------------------------------------+-----------+
-| CI determinism (idempotent deploy)  | ✔         |
-+-------------------------------------+-----------+
++-------------------------------------------+-----------+
+| Control                                   | Validated |
++===========================================+===========+
+| REST authentication enforcement           | ✔         |
++-------------------------------------------+-----------+
+| Role-based authorization enforcement      | ✔         |
++-------------------------------------------+-----------+
+| Device-scoped extension protection        | ✔         |
++-------------------------------------------+-----------+
+| Least privilege validation                | ✔         |
++-------------------------------------------+-----------+
+| Deterministic failure behavior            | ✔         |
++-------------------------------------------+-----------+
+
+---------------------------------------------------------------------
 
 Detection & Evidence
 --------------------
 
-The following system locations provide operational evidence of API access,
-authentication failures, and service extension activity.
+Relevant log locations include:
 
-Authentication & Authorization Events
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* ``/var/log/restjavad.*`` – iControl REST authentication and authorization events
-* ``/var/log/ltm`` – Management login events
-* ``System → Logs → Audit`` (GUI) – User and configuration changes
-
-Expired Token / 401 Events
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Failed token usage generates REST framework responses:
-
-* HTTP 401 Unauthorized
-* Logged under REST framework logs (restjavad)
-
-AS3 / Service Extension Activity
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+* ``/var/log/restjavad.*`` – REST authentication and authorization events
 * ``/var/log/restnoded/restnoded.log`` – AS3 request handling
-* ``/var/log/ltm`` – Configuration commit operations
-* ``iApps → Application Services`` – Declarative deployment state
+* ``System → Logs → Audit`` – User and configuration changes
 
-Network Access Validation
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Authorization failures generate:
 
-Management plane access can be verified via:
+* HTTP 401 responses
+* REST framework log entries
+* No MCP configuration transactions
+* No configuration modification events
 
-* Self IP Port Lockdown configuration (Outer Layer)
-* AFM management ACLs (if provisioned)
-* Network firewall policy enforcement
+---------------------------------------------------------------------
 
-These log locations provide traceability for:
+Middle Layer Cohesion
+---------------------
 
-* Unauthorized access attempts
-* Token misuse
-* Service account activity
-* Declarative configuration changes
+Within the Middle Layer:
 
-Executive Summary
------------------
+* MFA validates administrative identity.
+* TLS enforces secure transport.
+* API Access Control enforces privilege boundaries.
 
-This lab demonstrates secure API access enforcement for BIG-IP service
-extensions through layered controls:
+Together, these controls prevent credential abuse,
+transport downgrade, and unauthorized configuration deployment.
 
-* Network isolation (Outer Layer)
-* Token-based authentication (Middle Layer)
-* Role-based authorization (Middle Layer)
-* Deterministic declarative deployment (Operational Integrity)
+---------------------------------------------------------------------
 
-Together, these controls align with Zero Trust principles and enterprise
-CI/CD security practices.
+Success Criteria
+----------------
+
+* Operator role denied access to device-scoped endpoints
+* Administrator role permitted access
+* HTTP 401 returned for unauthorized requests
+* No configuration changes occur for denied attempts
+* Deterministic privilege boundary confirmed
