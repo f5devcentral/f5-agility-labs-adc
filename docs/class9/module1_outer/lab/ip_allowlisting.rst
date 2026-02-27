@@ -4,7 +4,7 @@ IP Allowlisting
 IP Allowlisting restricts administrative access to the BIG-IP device
 based on source IP address. Only explicitly approved management and
 monitoring systems should be able to initiate connections to the
-management interface.
+BIG-IP management interface (OOB management), not data-plane Self IPs.
 
 This mechanism is a critical Outer Layer boundary control.
 
@@ -12,11 +12,26 @@ Executive Summary
 -----------------
 
    Administrative access must be restricted by explicit source IP.
-   Broad internal access (e.g., 10.0.0.0/8) is not acceptable without
-   documented justification.
+   Broad internal access (e.g., 10.0.0.0/8) undermines segmentation and
+   should not be permitted without explicit risk acceptance.
 
    IP Allowlisting complements Self IP Port Lockdown by controlling
-   who may access management services.
+   who may access management services, while Port Lockdown controls
+   where those services are exposed.
+
+Threat Scenario
+---------------
+
+In the absence of IP allowlisting:
+
+* A compromised internal host could attempt SSH brute-force access
+  to the BIG-IP management IP.
+* A flat enterprise network could allow unintended access to TMUI.
+* Monitoring services (SNMP) could be queried from unauthorized segments.
+* Lateral movement within the network could reach the control plane.
+
+IP Allowlisting reduces this risk by ensuring only explicitly approved
+administrative and monitoring systems can reach management services.
 
 Objective
 ---------
@@ -35,7 +50,7 @@ Hardened Enterprise Reference Design
 .. note::
 
    IP Allowlisting should exist at multiple layers:
-   upstream firewall and device-level enforcement.
+   upstream firewall enforcement and device-level enforcement.
 
 .. nwdiag::
    :caption: Reference Design – Administrative Access Control
@@ -106,7 +121,8 @@ Step 1 – Identify Management IP
    :align: center
    :width: 900px
 
-   Baseline configuration showing SSH access enabled and IP Allow set to All Addresses (unrestricted management-plane exposure).
+   Baseline configuration showing SSH IP Allow set to “All Addresses”
+   (equivalent to unrestricted management-plane exposure).
 
 ---------------------------------------------------------------------
 
@@ -119,6 +135,12 @@ Step 2 – Inspect SSH Access Scope
 
 If configured broadly (e.g., 0.0.0.0/0 or large internal range),
 administrative access may be overly permissive.
+
+.. note::
+
+   SSH IP Allow applies to the management interface.
+   Self IP administrative exposure is controlled separately via
+   Self IP Port Lockdown.
 
 .. image:: ../_images/ipallow_02_ssh_allow_scope.png
    :alt: SSH IP Allow configuration
@@ -140,14 +162,16 @@ Step 3 – Restrict SSH to Approved Subnet
    :align: center
    :width: 900px
 
-   Remediation: SSH access restricted to the management subnet (10.1.1.0/24) using IP Allow.
+   Remediation: SSH access restricted to the management subnet
+   (10.1.1.0/24) using IP Allow.
 
 ---------------------------------------------------------------------
 
 Step 4 – Validate SSH Restriction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From an authorized administrative host:
+From an authorized administrative host
+(for example: 10.1.1.10 within 10.1.1.0/24):
 
 .. code-block:: powershell
 
@@ -157,7 +181,8 @@ Expected:
 
 * TcpTestSucceeded: True
 
-From an unauthorized host:
+From an unauthorized host
+(for example: 10.1.20.15 outside 10.1.1.0/24):
 
 .. code-block:: powershell
 
@@ -172,14 +197,20 @@ Expected:
    :align: center
    :width: 900px
 
-   Validation from the management subnet (10.1.1.0/24) showing SSH access permitted.
+   Validation from the authorized management subnet showing SSH permitted.
 
 .. figure:: ../_images/ip-allowlisting-04-ssh-blocked-from-non-mgmt.png
    :alt: SSH access blocked from non-management network
    :align: center
    :width: 900px
 
-   Validation from a non-management host showing SSH connection attempt timed out due to IP allowlisting.
+   Validation from a non-management host showing SSH connection attempt blocked due to IP allowlisting.
+
+.. note::
+
+   This test validates network-layer access control.
+   Authentication enforcement (e.g., MFA) is addressed separately
+   in the Middle Layer.
 
 ---------------------------------------------------------------------
 
@@ -200,7 +231,7 @@ Remove broad entries such as:
    :align: center
    :width: 900px
 
-   SNMP Client Allow List restricted to approved monitoring systems (no broad network ranges).
+   SNMP Client Allow List restricted to approved monitoring systems.
 
 ---------------------------------------------------------------------
 
@@ -234,6 +265,12 @@ Expected:
 
    Validation showing HTTPS (TMUI) access restricted to the management subnet.
 
+.. note::
+
+   ICMP to the management IP may still respond.
+   This lab validates service-level access control,
+   not basic IP reachability.
+
 ---------------------------------------------------------------------
 
 Validation Summary
@@ -244,7 +281,7 @@ After remediation:
 * SSH restricted to authorized admin subnet
 * HTTPS restricted to authorized admin subnet
 * SNMP restricted to monitoring systems
-* Unauthorized hosts blocked
+* Unauthorized hosts blocked at the management interface
 
 Outer Layer Alignment
 ---------------------
@@ -260,7 +297,7 @@ Self IP Port Lockdown protects:
 Together they enforce:
 
 * Least privilege
-* Deterministic administrative access
+* Deterministic administrative access paths
 * Control-plane isolation
 * Zero Trust segmentation principles
 
