@@ -56,7 +56,7 @@ Task 1: Review Base TCP Profiles
        :width: 500px
 
 
-10. Run the following command from the Ubuntu-Client SSH window::
+10. Run the following command from the Ubuntu-Client SSH window <<verify this is the correct script for this psection>>::
     
       ~/zerowindow3.sh
 

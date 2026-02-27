@@ -24,7 +24,7 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
        :width: 700px
 
 
-5. Click the **Auto Refresh** dropdown and set the time to 10 seconds
+5. Click the **Auto Refresh** dropdown and set the time to 20 seconds
    
    .. image:: ../images/http_pool_stats_refresh20.png
        :width: 450px
@@ -32,10 +32,10 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 
 6. From the Ubuntu-Client SSH window, run the following command::
 
-      ~/web02_testing.sh 
+      ~/http_l7
 
 
-   The script uses curl  to request a list of 5 files 2 times from HTTPS Virtual Server **web02_vs1**
+   The script uses curl to request a list of 5 files 2 times from HTTPS Virtual Server **web02_vs1** over a single TCP connection.
 
 7. From BIGIP01 UI, check the pool stats.  You should see all 10 requests have gone to a single server
    
@@ -51,6 +51,14 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
         :width: 600px
 
 
-    Add info about OC profiles
+    When a OneConnect profile is enabled for an HTTP virtual server, and an HTTP client sends multiple requests within a single connection, the BIG-IP system is able to process each HTTP request individually.  See https://my.f5.com/manage/s/article/K7208 for more information about the OneConnect profile and specifically the section on Content Switching.
 
-11. 
+11. From the Ubuntu-Client SSH window, run the following test command again::
+
+      ~/http_l7.sh
+
+
+12. From BIGIP01 UI, check the pool stats again.  You should see all 10 requests spread across all pool members
+   
+   .. image:: ../images/http_pool_stats_l7.png
+       :width: 950px
