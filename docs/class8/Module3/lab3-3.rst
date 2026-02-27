@@ -20,13 +20,13 @@ Looking at a DNS design where you want to load balance across a large pool of DN
       ~/dns_loop.sh
 
 
-   The script runs 1000 DNS queries through UDP Virtual Server **dns_vs1**.  The VS is currently configured with the default UDP Profile.
+   The script runs 1000 DNS queries through UDP Virtual Server **dns_vs1**.  The VS is currently configured with a custom UDP Profile but all settings are default.
 
 
 6. From BIGIP01 UI, check the pool stats.  You should see all 1000 queries have gone to a single server
 
    .. image:: ../images/dns_stats_base.png
-       :width: 650px
+       :width: 750px
 
 
 7. From BIGIP01 UI, go to **Local Traffic > Profiles > Protocol > UDP** and click on **udp_lab** from the list of profiles
@@ -34,7 +34,7 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 9. Change Idle Timeout to 1 second and check the Datagram LB option.  Click the **Update** button at the bottom of the page to save the settings.
 
    .. image:: ../images/udp_profile_mod.png
-       :width: 600px
+       :width: 700px
 
 
 10. This UDP Profile is already assigned to Virtual Server **dns_vs1**
@@ -47,7 +47,7 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 
 14. From BIGIP01 UI, check the pool stats.  You should see all 1000 queries evenly split across the pool members
 
-   .. image:: ../images/dns_stats_datagram_lb.png
-       :width: 650px
+    .. image:: ../images/dns_stats_datagram_lb.png
+        :width: 750px
 
 
