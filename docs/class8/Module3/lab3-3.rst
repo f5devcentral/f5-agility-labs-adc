@@ -14,6 +14,11 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 
 
 3. Reset the statistics for all pool members if they are not already all zeros
+
+   .. image:: ../images/udp_pool_reset.png
+       :width: 500px
+
+
 4. Set **Auto Refresh** to 20 seconds if it isn't already set from earlier stats reviews
 5. From the Ubuntu-Client SSH window, run the following command::
 
@@ -34,7 +39,7 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 9. Change Idle Timeout to 1 second and check the Datagram LB option.  Click the **Update** button at the bottom of the page to save the settings.
 
    .. image:: ../images/udp_profile_mod.png
-       :width: 700px
+       :width: 750px
 
 
 10. This UDP Profile is already assigned to Virtual Server **dns_vs1**
