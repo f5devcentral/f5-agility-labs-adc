@@ -1,7 +1,4 @@
-Task 3: HTTP Compression (even if your servers already perform it)
-==================================================================
+Task 2: Layer 7 LB for UDP
+==========================
 
-In Lab 1, you will see several options for reviewing the application flows through the TMOS at the HTTP and TCP layers.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.
-
-
-
+Even though EDP is connectionless, TMOS will load balance UDP to the same pool member based on the client's source IP:Port by default.  This behavior can be changed through use of UDP Profiles.
