@@ -12,7 +12,7 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 
 1. From the BIGIP01 UI, go to **Local Traffic > Pools > Pool List**
 2. Click on **web02_pool**
-3. Click on **Statistics** from the top right menu
+3. Click on **Statistics** from the top right of the pool menu
    
    .. image:: ../images/http_pool_stats_button.png
        :width: 400px
@@ -27,12 +27,12 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 5. Click the **Auto Refresh** dropdown and set the time to 20 seconds
    
    .. image:: ../images/http_pool_stats_refresh20.png
-       :width: 450px
+       :width: 500px
 
 
 6. From the Ubuntu-Client SSH window, run the following command::
 
-      ~/http_l7
+      ~/http_l7.sh
 
 
    The script uses curl to request a list of 5 files 2 times from HTTPS Virtual Server **web02_vs1** over a single TCP connection.
@@ -47,7 +47,7 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 9. Go to **Local Traffic > Virtual Servers > Virtual Server List** and click on Virtual Server **web02_vs1**
 10. Go to the **Acceleration** section at the bottom of the Virtual Server properties and select **lab_OneConnect** for the OneConnect Profile.  Click the **Update** button to save the changes
 
-    ..image:: ../images/http_oc_select.png
+    .. image:: ../images/http_oc_select.png
         :width: 600px
 
 
@@ -60,8 +60,8 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 
 12. From BIGIP01 UI, check the pool stats again.  You should see all 10 requests spread across the 5 pool members
    
-   .. image:: ../images/http_pool_stats_l7.png
-       :width: 950px
+    .. image:: ../images/http_pool_stats_l7.png
+        :width: 950px
 
 
 OneConnect Summary
@@ -69,7 +69,7 @@ OneConnect Summary
 
 The typical use for a OneConnect profile is to reduce TCP connection time by re-using idle TCP connections.  In most cases, the lan-side TMOS to pool member TCP 3-way handshake is less than 1ms.  There will also be a TMOS memory savings with the connection re-use but 3-way handshake time reduction will be small.  The TCP connection re-use may also help in environments where the application servers are unable to support a large number of active connections.
 
-The larger time savings comes from re-using idle pool member TLS connections.  In this lab environment, the typical TLS handshake is 18ms. Saving 18ms per connection can be important when you scale that up to many thousands of connections per second. of The net time savings will vary based on connection rate and concurency.
+The larger time savings comes from re-using idle pool member TLS connections.  In this lab environment, the typical TLS handshake is 18ms. Saving 18ms per connection can be important when you scale that up to many thousands of connections per second. The net time savings will vary based on connection rate and concurency.
 
 Here are some connection re-use numbers from the lab::
 
@@ -86,7 +86,7 @@ Here are some connection re-use numbers from the lab::
 
 These number were a result of a 1500 HTTPS transaction test with each being a new client-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the 1500 HTTPS transactions.
 
-Here are some of the time and packet savings from the same test::
+Here are some of the time and packet savings from the same 1500 transaction test::
 
     No OneConnect Profile Assigned
         Total Packets:  145,431
