@@ -1,7 +1,7 @@
 OneConnect Summary
 ==================
 
-The typical use for a OneConnect profile is to reduce TCP connection time by re-using idle TCP connections.  In most cases, the lan-side TMOS to pool member TCP 3-way handshake is less than 1ms.  This doesn't look like much at first.  There is a lot of back and forth with TCP after the 3-way handshake in setting up Window Sizes, Slow Start, Congestion control etc.  Most of negotiaion happen near the start of a connection unless there is congestion/packet loss somewher during the flow causing a reduction in TCP Window.  You will see the benefit of a re-used connection in the graphs below. 
+The typical use for a OneConnect profile is to reduce TCP connection time by re-using idle TCP connections.  In most cases, the lan-side TMOS to pool member TCP 3-way handshake is less than 1ms.  This doesn't look like much at first.  There is a lot of back and forth with TCP after the 3-way handshake in setting up Window Sizes, Slow Start, Congestion control etc.  Most of negotiaions happen near the start of a connection unless there is congestion/packet loss somewhere during the flow causing a reduction in TCP Window size.  You will see the benefit of a re-used connection in the graphs below. 
 
 There will also be a TMOS memory savings with the connection re-use but 3-way handshake time reduction will be small.  The TCP connection re-use may also help in environments where the application servers are unable to support a large number of active connections.
 
@@ -20,9 +20,9 @@ Here are some connection re-use numbers from the lab::
     Total Reuses       1477
     New                  23
 
-These number were a result of a 1500 HTTPS transaction test with each being a new client-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the 1500 HTTPS transactions.
+These numbers are the result of a 1500 HTTPS transaction test with each creating a new client-side and server-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the 1500 HTTPS transactions.
 
-Here are some of the time and packet savings from the same 1500 transaction test::
+Here are some of the time and packet savings from the same 1500 transaction test with and without OneConnect::
 
     No OneConnect Profile Assigned
         Total Packets:  145,431
@@ -38,13 +38,13 @@ Here are some of the time and packet savings from the same 1500 transaction test
         Total Time:     75.21s
         Server Time:    70.17s
 
-There is a reduction in server-side packet count due to 1477 fewer TCP and TLS handshakes.  The packet count is also reduced from the TCP Window staying large during the re-used connections.  For this test, the server-side connections were open for around 70s. 
+There is a reduction in server-side packet count due to 1477 fewer TCP and TLS handshakes.  The packet count is also reduced from the TCP Window staying large during the re-used connections.  For this test, the server-side connections were open for around 70s eliminating most of the TCP ramp up delays from individual server-sde connections as shown below.  3MB buffers are not needed for the small 256KB files being transferred but the profile was used for the test for configuration simplicity.
 
 .. image:: ../images/tcp_oc_ws.png
     :width: 950px
 
 
-Without OneConnect, the server-side connections are only open for the length of a single client request - around 38ms for the 256KB requests in the test.
+Without OneConnect, the server-side connections are only open for the length of a single client request - around 38ms for the 256KB requests in the test.  The server-side connections are not open long enough for the TCP Window size to fully open to 3MB and each new connection restarts the ramp up process.
 
 .. image:: ../images/tcp_no_oc_ws.png
     :width: 950px 
