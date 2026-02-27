@@ -26,7 +26,7 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 
 5. Click the **Auto Refresh** dropdown and set the time to 10 seconds
    
-   .. image:: ../images/http_pool_stats_refresh10.png
+   .. image:: ../images/http_pool_stats_refresh20.png
        :width: 450px
 
 
@@ -40,8 +40,17 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
 7. From BIGIP01 UI, check the pool stats.  You should see all 10 requests have gone to a single server
    
    .. image:: ../images/http_pool_stats_base.png
-       :width: 900px
+       :width: 950px
 
 
-8. Clear the pool stats
-9. 
+8. Clear the pool stats again (see step 4)
+9. Go to **Local Traffic > Virtual Servers > Virtual Server List** and click on Virtual Server **web02_vs1**
+10. Go to the **Acceleration** section at the bottom of the Virtual Server properties and select **lab_OneConnect** for the OneConnect Profile.  Click the **Update** button to save the changes
+
+    ..image:: ../images/http_oc_select.png
+        :width: 600px
+
+
+    Add info about OC profiles
+
+11. 
