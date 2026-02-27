@@ -7,7 +7,7 @@ In most cases this could be OK many applications being front-end by a CDN <<or o
 
 Here is an example (need a graphic):
 
-A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN may merge multiple requests together on the way in to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  This allows for more warm cache hits and a reduction in cache layer storage redundancy as all channel data doesn't have to be on each cache layer server. <<boil this down?>>
+A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN may merge multiple requests together on the way in to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  This allows for more warm cache hits and a reduction is cache layer storage redundancy as all channel data doesn't have to be on each cache layer server. <<boil this down?>>
 
 
 1. From the BIGIP01 UI, go to **Local Traffic > Pools > Pool List**
@@ -17,31 +17,27 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
    .. image:: ../images/http_pool_stats_button.png
        :width: 400px
 
-
 4. Clear any pool stats if they are not already all zeros. Click the check mark next to the **Status** dropdown on the left to select all pool members. Then clcik reset at the bottom to clear all of the stats.
 
    .. image:: ../images/http_pool_stats_reset.png
        :width: 700px
-
 
 5. Click the **Auto Refresh** dropdown and set the time to 10 seconds
    
    .. image:: ../images/http_pool_stats_refresh10.png
        :width: 450px
 
-
 6. From the Ubuntu-Client SSH window, run the following command::
 
       ~/web02_testing.sh 
 
 
-   The script uses curl  to request a list of 5 files 2 times from HTTPS Virtual Server **web02_vs1**
+   The script will run a curl times requesting a list of 5 files 2 times from Virtual Server **web01_vs1**
 
 7. From BIGIP01 UI, check the pool stats.  You should see all 10 requests have gone to a single server
    
    .. image:: ../images/http_pool_stats_base.png
        :width: 900px
-
 
 8. Clear the pool stats
 9. 
