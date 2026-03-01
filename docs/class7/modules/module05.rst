@@ -118,7 +118,7 @@ Configure HA
 
             Select **Update**.
 
-2. On **bigip01.f5demo.com** build the Device Trust.
+3. On **bigip01.f5demo.com** build the Device Trust.
 
    a. Under **Device Management > Device Trust > Device Trust Members** and
       select **Add** to add other BIG-IP(s) you will trust.
@@ -141,7 +141,7 @@ Configure HA
 
       iv. Select **Add Device**. Now you should see the other BIG-IP in the list of trusted devices.
 
-      Check the other BIG-IP in the **Peer and Subordinate Devices** list. 
+      Check on the other BIG-IP bigip02 in the **Peer and Subordinate Devices** list to verify that bigip01 is trusted. 
 
 
       .. image:: ../images/image66.png
@@ -167,7 +167,7 @@ Configure HA
     b. Click on **In Sync** in the upper right corner or **Device
        Management > Overview** to see the **device_trust_group**.
 
-5. On bigip01.f5demo.com create a new **Sync-Failover** device group
+5. On **bigip01.f5demo.com** create a new **Sync-Failover** device group
 
    a. **Under Device Management > Device Groups** create a new device
       group.
@@ -179,7 +179,7 @@ Configure HA
       iii.  Add the members of the group to the **Includes** box and
             select **Finished**.
 
-      iv.   Check **Device Groups** on each BIG-IP.
+      iv.   Check **Device Groups** on bigip02 BIG-IP to verify that the new device group is there.
 
       v.    Did you have to create the Device Group on the other BIG-IP?
 
