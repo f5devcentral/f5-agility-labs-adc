@@ -37,16 +37,16 @@ b. You will be using your third interface (1.3) for Network Failover and
       need to set up the base networking. 
 
 
-+----------------+----------------+-----------------+-----------------+
-| **Interface**  | **Untagged     | **Self IP**     | **Netmask**     |
-|                | VLAN**         |                 |                 |
-+================+================+=================+=================+
-| 1.1            | client_vlan    | 10.1.10.246     | 255.255.255.0   |
-+----------------+----------------+-----------------+-----------------+
-| 1.2            | server_vlan    | 10.1.20.246     | 255.255.255.0   |
-+----------------+----------------+-----------------+-----------------+
-| 1.3            | ha_vlan        | 10.1.30.246     | 255.255.255.0   |
-+----------------+----------------+-----------------+-----------------+
++----------------+----------------+----------------+-----------------+-----------------+
+| **Interface**  | **Untagged     | **IP Name**    | **Self IP**     | **Netmask**     |
+|                | VLAN**         |                |                 |                 |
++================+================+================+=================+=================+
+| 1.1            | client_vlan    | client_ip      | 10.1.10.246     | 255.255.255.0   |
++----------------+----------------+----------------+-----------------+-----------------+
+| 1.2            | server_vlan    | server_ip      | 10.1.20.246     | 255.255.255.0   |
++----------------+----------------+----------------+-----------------+-----------------+
+| 1.3            | ha_vlan        | ha_ip          | 10.1.30.246     | 255.255.255.0   |
++----------------+----------------+----------------+-----------------+-----------------+
 
 b. On the **ha_vlan** ip configure set **Port Lockdown** to **Allow
    Default**
@@ -64,59 +64,59 @@ Configure HA
    recommended renewing the BIG-IP self-signed certificate with valid
    information and re-generating the local Device Trust certificate.
 
-a. Under **System > Certificate Management > Device Certificate Management** select the
-   **Renew…** button
+   a. Under **System > Certificate Management > Device Certificate Management** select the
+      **Renew…** button
 
-   i.   **Common Name**: <the Hostname of the BIG-IP in the upper left
-        corner>
+      i.   **Common Name**: <the Hostname of the BIG-IP in the upper left
+           corner>
 
-   ii.  **Country**: United States (or your country of preference)
+      ii.  **Country**: United States (or your country of preference)
 
-   iii. **Lifetime**: 3650
+      iii. **Lifetime**: 3650
 
-        1. Lifetime is important, if your cert expires your HA setup
-           will fail.
+         Lifetime is important, if your cert expires your HA setup
+         will fail.
 
-   iv.  Select **Finished**. Your browser will ask to exchange certs
+      iv.  Select **Finished**. Your browser will ask to exchange certs
         with the BIG-IP again, and refresh the page.
 
-b. Under **Device Management > Device Trust > Local Domain** select
-   **Reset Device Trust…**
+   b. Under **Device Management > Device Trust > Local Domain** select
+      **Reset Device Trust…**
 
-   i. In the **Certificate Signing Authority** select **Generate New
-   Self-Signed Authority** and hit **Update**.
+      In the **Certificate Signing Authority** select **Generate New
+      Self-Signed Authority** and hit **Update**.
 
-   ii. **On each BIG-IP** configure the device object failover parameters
-   the BIG-IP will send to other BIG-IPs that want to be a part of a
-   sync-only or sync-failover group.
+2. **On each BIG-IP** configure the device object failover parameters
+      the BIG-IP will send to other BIG-IPs that want to be a part of a
+      sync-only or sync-failover group.
 
-   Click **Device Management > Device** and select the local BIG-IP. It will have the self suffix. 
+      Click **Device Management > Device** and select the local BIG-IP. It will have the self suffix. 
 
-      i.  On the top bar select **ConfigSync**.
+         i.  On the top bar select **ConfigSync**.
 
-          Use the Self IP address of the HA VLAN for your **Local Address**.
+            Use the Self IP address of the HA VLAN for your **Local Address**.
 
-          Hit **Update**.
+            Hit **Update**.
 
-      ii. On the top bar select **Failover Network**.
+         ii. On the top bar select **Failover Network**.
 
-          In the **Failover Unicast Configuration** section select the **Add** button.
+            In the **Failover Unicast Configuration** section select the **Add** button.
 
-          Use the Self IP address the HA VLAN for your **Address**.
+            Use the Self IP address the HA VLAN for your **Address**.
 
-          Leave the **Port** at the default setting of 1026.
+            Leave the **Port** at the default setting of 1026.
 
-          **Note:** Multicast is for Viprion chasses only.
+            **Note:** Multicast is for Viprion chasses only.
 
-          Select **Finished**.
+            Select **Finished**.
 
-      iii. On the top bar select **Mirroring**.
+         iii. On the top bar select **Mirroring**.
 
-         **Primary Local Mirror Address**: use the Self IP address of the HA VLAN.
+            **Primary Local Mirror Address**: use the Self IP address of the HA VLAN.
 
-         **Secondary Local Mirror Address:** None.
+            **Secondary Local Mirror Address:** None.
 
-         Select **Update**.
+            Select **Update**.
 
 2. On **bigip01.f5demo.com** build the Device Trust.
 
