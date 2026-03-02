@@ -34,7 +34,9 @@ In this section, you will primarily perform the following tasks:
 
    BIG-IP utilizes SSL Profiles for client and server-side TLS negotiations. Within the SSL Profile, attached cipher groups manage the cipher rules for negotiation.
 
-   The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference: [K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS](https://my.f5.com/manage/s/article/K000149577)
+   The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference:
+
+   .. _K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS: https://my.f5.com/manage/s/article/K000149577
  
 
 3. Navigate to BIG-IP cipher rules
