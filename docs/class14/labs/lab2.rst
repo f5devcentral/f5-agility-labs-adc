@@ -19,7 +19,7 @@ In this section, you will primarily perform the following tasks:
 
    From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`
 
-   User: admin  
+   User: admin |br|   
    Password admin  
      
 
