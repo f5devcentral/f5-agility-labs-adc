@@ -36,7 +36,8 @@ In this configuration, we can see the listening port, the certificate and key us
 
   
 
-### NGINX Chrome PQC settings
+NGINX Chrome PQC settings
+-------------------------
 
 The Chrome browser has experimental features that enable Kyber and ML-KEM. However, as mentioned earlier, these features have been removed from the current version of Chrome due to a security gap. In this section we will enable this feature to test PQC
 
@@ -87,6 +88,7 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 
 
 
-That concludes the lab, you should have learned why PQC is a strategic security priority and how PQC is implemented in BIG-IP and NGINX.
+That concludes the lab, you should have learned why PQC is a strategic security priority and how PQC is implemented in BIG-IP and NGINX.  
+
 Lab Complete
 ------------
