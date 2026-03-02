@@ -43,7 +43,7 @@ This lab environment contains three parts:
 
 
 
-.. image:: ../_static/image00-R.png
+.. image:: ../_static/image00-R.png  
 
 
 
