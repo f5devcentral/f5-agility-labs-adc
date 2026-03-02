@@ -78,13 +78,11 @@ In this section, you will primarily perform the following tasks:
      
 
 10. Navigate to the BIG-IP virtual servers  
-
-   .. image:: ../_static/image19.png  
+.. image:: ../_static/image19.png  
      
 
-11. Explore the pqc_vs virtual server, and verify the setup  
-
-   .. image:: ../_static/image20.png
+11. Explore the pqc_vs virtual server, and verify the setup
+.. image:: ../_static/image20.png
  
  
 
