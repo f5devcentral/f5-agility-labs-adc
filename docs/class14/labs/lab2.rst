@@ -13,7 +13,8 @@ In this section, you will primarily perform the following tasks:
 - Verify the virtual server configuration
 
 **Note:** We will not demonstrate server-side SSL PQC in this lab; however, the environment supports it, for exploration.  
-| 
+
+|  
  
 
 1. Log into the BIG-IP to verify access and configuration
