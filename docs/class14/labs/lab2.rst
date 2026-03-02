@@ -150,7 +150,7 @@ View PQC Statistics on BIG-IP
 
 2. View the ``TMSH_PQC`` profile statistics 
 
-    ``tmsh show ltm profile client-ssl TMSH_PQC``
+   ``tmsh show ltm profile client-ssl TMSH_PQC``
 
    **Note:** the **protocol** and **DH group** 
     
