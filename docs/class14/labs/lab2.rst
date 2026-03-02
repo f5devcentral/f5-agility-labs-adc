@@ -124,7 +124,7 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
    .. image:: ../_static/image24.png  
      
 
-4. Open the Chrome browser developer tools
+4. Open the Chrome browser developer tools  
 
    .. image:: ../_static/image25.png)  
       
