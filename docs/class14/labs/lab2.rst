@@ -12,8 +12,8 @@ In this section, you will primarily perform the following tasks:
 - Review BIG-IP client ssl profile
 - Verify the virtual server configuration
 
-> Note: We will not demonstrate server-side SSL PQC in this lab; however, the environment supports it, for exploration.  
-<br>
+**Note:** We will not demonstrate server-side SSL PQC in this lab; however, the environment supports it, for exploration.  
+ 
 
 1. Log into the BIG-IP to verify access and configuration
 
@@ -21,72 +21,72 @@ In this section, you will primarily perform the following tasks:
 
     User: admin  
     Password admin  
-    <br>
+     
 
-    ![tmui-warning](images/image08.png)  
-    <br>
+   .. image:: ../_static/image08.png  
+     
 
-    ![tmui-accept](images/image09.png)  
-    <br>
+   .. image:: ../_static/image09.png
+     
 
-    ![tmui-login](images/image10.png)
-<br>
+   .. image:: ../_static/image10.png
+ 
 
 2. Post-quantum crypto configuration
 
     BIG-IP utilizes SSL Profiles for client and server-side TLS negotiations. Within the SSL Profile, attached cipher groups manage the cipher rules for negotiation.
 
     The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference: [K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS](https://my.f5.com/manage/s/article/K000149577)
-<br>
+ 
 
 3. Navigate to BIG-IP cipher rules
 
-    ![cipher-rules](images/image11.png)
-<br>
+   .. image:: ../_static/image11.png
+ 
 
 4. The `TMSH_PQC` PQC profile has been created for you using TMSH.  Please review it using the TMUI.
 
-    ![pqc-tmsh](images/image12.png)
-<br>
+   .. image:: ../_static/image12.png
+ 
 
 5. Explore the TMSH_PQC rule, and verify the setup
 
-    ![pqc-tmsh-rule](images/image13.png)
-<br>
+   .. image:: ../_static/image13.png
+ 
 
 6. Navigate to BIG-IP cipher groups
 
-    ![cipher-groups](images/image14.png)
-<br>
+   .. image:: ../_static/image14.png
+ 
 
 7. Explore the TMSH_PQC group, and verify the setup
 
-    ![pqc-tmsh-group](images/image15.png)
-<br>
+   .. image:: ../_static/image15.png
+ 
 
 8. Navigate to SSL Client profiles
 
-    ![client-profiles](images/image16.png)
-<br>
+   .. image:: ../_static/image16.png
+ 
 
 9. Explore the TMSH_PQC client SSL profile, and verify the setup
 
-    ![pqc-client-ssl](images/image17.png)
-    <br>
+   .. image:: ../_static/image17.png
+     
     
-    ![pqc-client-ssl-settings](images/image18.png)  
-    <br>
+   .. image:: ../_static/image18.png  
+     
 
 10. Navigate to the BIG-IP virtual servers
 
-    ![virtual-servers](images/image19.png)  
-    <br>
+   .. image:: ../_static/image19.png  
+     
 
 11. Explore the pqc_vs virtual server, and verify the setup
 
-    ![pqc-virtual-server](images/image20.png)
-<br>
-<br>
+   .. image:: ../_static/image20.png
+ 
+ 
 
 ### BIG-IP Chrome PQC settings
 
@@ -98,10 +98,10 @@ Enable the security features in Chrome to use the Kyber settings and disable the
 
 2. Change the experimental settings to enable "TLS 1.3 post-quantum key agreement", and disable "Use ML-KEM in TLS 1.3", and relaunch the browser  
 
-    >Note: Use find (ctrl-f) to quickly locate the `"tls"` settings above  
-    <br>  
+    **Note:** Use find (ctrl-f) to quickly locate the `"tls"` settings above  
+       
 
-    ![pqc-big-ip-browser-settings](images/image21.png)
+   .. image:: ../_static/image21.png
 
 ### BIG-IP PQC Virtual Server Validation
 
@@ -109,63 +109,63 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 
 1. Open Chrome and browse to `https://10.1.10.100` the virtual server address on the BIG-IP with the PQC SSL Client profile attached
 
-    ![ssl-error](images/image22.png)  
-    <br>
+   .. image:: ../_static/image22.png 
+     
 
 2. Proceed to the website
 
-    ![ssl-proceed](images/image23.png)  
-    <br>
+   .. image:: ../_static/image23.png 
+     
 
 3. The loaded page is the NGINX default page
 
-    ![nginx-homepage](images/image24.png)  
-    <br>
+   .. image:: ../_static/image24.png  
+     
 
 4. Open the Chrome browser developer tools 
 
-    ![developer-tools](images/image25.png)  
-    <br>
+   .. image:: ../_static/image25.png)  
+     
 
 5. Scroll the developer tools to the left, exposing Privacy and security to show the TLS negotiation
 
-    ![tls-kyber](images/image26.png)  
-<br>
-<br>
+   .. image:: ../_static/image26.png)  
+ 
+ 
 
 ### View PQC Statistics on BIG-IP  
 
 1. Log into TMSH on BIG-IP using the `Web Shell`  
 
-    >Note: Do not disconnect or close your existing TMUI connection  
-    <br>  
+   **Note:** Do not disconnect or close your existing TMUI connection  
+       
 
-    ![web_shell](images/image50.png)
+   .. image:: ../_static/image50.png
     
-    ![web_shell1](images/image51.png)  
+   .. image:: ../_static/image51.png
 
-<br>
-<br>
+ 
+ 
 
 2. View the `TMSH_PQC` profile statistics 
 
     `tmsh show ltm profile client-ssl TMSH_PQC`
 
-    >Note: the **protocol** and **DH group** 
+   **Note:** the **protocol** and **DH group** 
     
-    <br>   
+        
 
-    ![profile_stats](images/image52.png)
+   .. image:: ../_static/image52.png
 
-<br>
+ 
 
 3.  View the `pqc_vs` virtual server statistics
 
     `tmsh show ltm virtual pqc_vs`  
 
-    <br>  
+       
 
-    ![vip_stats](images/image53.png)
+   .. image:: ../_static/image53.png
 
-<br>
-<br>
+ 
+ 
