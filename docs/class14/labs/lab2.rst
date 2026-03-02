@@ -106,6 +106,8 @@ Enable the security features in Chrome to use the Kyber settings and disable the
 
    .. image:: ../_static/image21.png
 
+|  
+
 BIG-IP PQC Virtual Server Validation
 ------------------------------------
 
@@ -134,6 +136,7 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 
    .. image:: ../_static/image26.png)
 
+|  
 
 View PQC Statistics on BIG-IP
 -----------------------------  
