@@ -36,7 +36,7 @@ In this section, you will primarily perform the following tasks:
 
    The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference:
 
-   `K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS <https://my.f5.com/manage/s/article/K000149577>`
+   `K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS <https://my.f5.com/manage/s/article/K000149577>`_
  
 
 3. Navigate to BIG-IP cipher rules
@@ -44,7 +44,7 @@ In this section, you will primarily perform the following tasks:
    .. image:: ../_static/image11.png
  
 
-4. The `TMSH_PQC` PQC profile has been created for you using TMSH.  Please review it using the TMUI.
+4. The ``TMSH_PQC`` PQC profile has been created for you using TMSH.  Please review it using the TMUI.
 
    .. image:: ../_static/image12.png
  
