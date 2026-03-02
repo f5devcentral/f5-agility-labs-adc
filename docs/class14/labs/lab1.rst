@@ -3,9 +3,10 @@ Lab 1: Windows-client
 
 From the Windows-client we will be able to access the BIG-IP TMUI, NGINX, and the websites protected with PQC profiles/OpenSSL. 
 
-In this section, you will primarily perform the following tasks:
+| In this section, you will primarily perform the following tasks:
 - Log in to the Windows client and set the Google Chrome as the default browser
 
+| 
 1. Navigate to the details button of the Windows-client. Select either RDP or Console to access the Windows-client.  
     - MAC users should connect with RDP 
     - Windows users: If the RDP session does not display properly or cannot be resized to a larger screen, please connect using the Console instead
