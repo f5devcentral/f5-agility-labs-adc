@@ -5,15 +5,15 @@ From the Windows-client we will be able to access the BIG-IP TMUI, NGINX, and th
 
 - Log in to the Windows client and set the Google Chrome as the default browser
 
-1. Navigate to the details button of the Windows-client. Select either RDP or Console to access the Windows-client.
+1. Navigate to the details button of the Windows-client. Select either RDP or Console to access the Windows-client.  
     - MAC users should connect with RDP 
     - Windows users: If the RDP session does not display properly or cannot be resized to a larger screen, please connect using the Console instead
    
 
-   **Note: For RDP, select the appropriate resolution format -- This will initiate the rdp file download which then can be used to access the Windows-client.**  
+   **Note:** For RDP, select the appropriate resolution format -- This will initiate the rdp file download which then can be used to access the Windows-client.
       
 
-   **Note: To run the RDP session in "windowed" mode, choose a screen size from the drop-down list**
+   **Note:** To run the RDP session in "windowed" mode, choose a screen size from the drop-down list
 
    .. image:: ../_static/image01.png
 
