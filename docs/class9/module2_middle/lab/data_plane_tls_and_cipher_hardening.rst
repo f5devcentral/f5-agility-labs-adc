@@ -169,11 +169,7 @@ If TLS 1.0 or TLS 1.1 succeeds, this confirms legacy protocol exposure.
 
 Capture evidence.
 
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls10-success.png
-   :alt: TLS 1.0 negotiation success before hardening
-   :width: 900
-
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
+.. figure:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
    :alt: TLS 1.1 negotiation success before hardening
    :width: 900   
 
