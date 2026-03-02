@@ -17,11 +17,11 @@ In this section, you will primarily perform the following tasks:
 
 1. Log into the BIG-IP to verify access and configuration
 
-   From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`
+   From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`  
 
    User: admin
    Password admin
-   
+
    .. image:: ../_static/image08.png  
      
 
