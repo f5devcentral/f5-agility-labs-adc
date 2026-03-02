@@ -11,7 +11,7 @@ In this section, you will primarily perform the following tasks:
 
 1. From the UDF lab page, access the NGINX Web Shell  
 
-    **Note:** Do not disconnect or close your existing Windows-client connection
+   **Note:** Do not disconnect or close your existing Windows-client connection
 
    .. image:: ../_static/image28.png
     
@@ -19,7 +19,7 @@ In this section, you will primarily perform the following tasks:
 
 2. View the NGINX configuration file from the prompt with: 
 
-    ``cat /opt/nginx/nginx.conf``
+   ``cat /opt/nginx/nginx.conf``
 
    .. image:: ../_static/image29.png
 
@@ -27,7 +27,7 @@ In this section, you will primarily perform the following tasks:
 
 3. The nginx conf file includes another location for the PQC listener. From the prompt, view the included PQC listener: 
 
-    ``cat /opt/nginx/conf.d/pqc.conf``
+   ``cat /opt/nginx/conf.d/pqc.conf``
 
    .. image:: ../_static/image30.png
     
