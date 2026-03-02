@@ -88,7 +88,7 @@ In this section, you will primarily perform the following tasks:
 
     .. image:: ../_static/image20.png
  
- 
+|   
 
 BIG-IP Chrome PQC settings
 --------------------------
