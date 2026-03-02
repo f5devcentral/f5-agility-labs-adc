@@ -33,9 +33,9 @@ In this section, you will primarily perform the following tasks:
    .. image:: ../_static/image30.png
     
 
-In this configuration, we can see the listening port, the certificate and key used, and the SSL options for exchange, ML-KEM.
+In this configuration, we can see the listening port, the certificate and key used, and the SSL options for exchange, ML-KEM.  
 
-| 
+|  
 
 NGINX Chrome PQC settings
 -------------------------
@@ -46,7 +46,8 @@ Enable the security features in Chrome to use the Kyber settings, but prefer ML-
 
 In this section, you will primarily perform the following tasks:
 
-- Validate TLS Negotiation
+- Validate TLS Negotiation  
+| 
 
 1. Open the Chrome browser and browse to ``chrome://flags/``
 
