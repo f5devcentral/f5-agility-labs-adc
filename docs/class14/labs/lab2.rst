@@ -84,7 +84,7 @@ In this section, you will primarily perform the following tasks:
 
 11. Explore the pqc_vs virtual server, and verify the setup  
 
-   .. image:: ../_static/image20.png
+    .. image:: ../_static/image20.png
  
  
 
