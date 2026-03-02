@@ -164,9 +164,10 @@ View PQC Statistics on BIG-IP
    .. image:: ../_static/image52.png
 
 3.  View the ``pqc_vs`` virtual server statistics  
-   ``tmsh show ltm virtual pqc_vs``  
-   
-   .. image:: ../_static/image53.png
+
+``tmsh show ltm virtual pqc_vs``  
+
+.. image:: ../_static/image53.png
 
  
  
