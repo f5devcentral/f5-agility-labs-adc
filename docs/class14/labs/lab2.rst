@@ -21,8 +21,6 @@ In this section, you will primarily perform the following tasks:
 
    User: admin
    Password admin  
-     
-
    .. image:: ../_static/image08.png  
      
 
