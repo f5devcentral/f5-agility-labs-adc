@@ -148,9 +148,9 @@ View PQC Statistics on BIG-IP
  
  
 
-2. View the `TMSH_PQC` profile statistics 
+2. View the ``TMSH_PQC`` profile statistics 
 
-    `tmsh show ltm profile client-ssl TMSH_PQC`
+    ``tmsh show ltm profile client-ssl TMSH_PQC``
 
    **Note:** the **protocol** and **DH group** 
     
@@ -160,9 +160,9 @@ View PQC Statistics on BIG-IP
 
  
 
-3.  View the `pqc_vs` virtual server statistics
+3.  View the ``pqc_vs`` virtual server statistics
 
-    `tmsh show ltm virtual pqc_vs`  
+    ``tmsh show ltm virtual pqc_vs``  
 
        
 
