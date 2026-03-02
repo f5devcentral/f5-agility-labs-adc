@@ -43,6 +43,6 @@ This lab environment contains three parts:
 
 - Windows-client
 
-.. image:: ../_static/image00.png
+.. image:: ../_static/image01.png
   
 
