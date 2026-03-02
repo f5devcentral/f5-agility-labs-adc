@@ -38,9 +38,11 @@ The lab will be using F5's UDF environment where we have deployed the following 
 This lab environment contains three parts:
 
 - BIG-IP Version 17.5.1.3.0.0.19
+
 - NGINX Open Source Server
+
 - Windows-client
 
-|  
+.. image:: ../_static/image00-R.png
+  
 
-.. image:: ../_static/image00-R.png  
