@@ -15,12 +15,12 @@ Note: For RDP, select the appropriate resolution format -- This will initiate th
 
 Note: To run the RDP session in "windowed" mode, choose a screen size from the drop-down list 
 
-.. image:: ../_static/image01.png
+   .. image:: ../_static/image01.png
 
 
 2. Windows-client admin credentials - **uQpLYwsLUrsyz**
 
-.. image:: ../_static/image02.png
+   .. image:: ../_static/image02.png
 
 3. Accept the RDP certificate error if prompted
 
