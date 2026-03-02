@@ -13,13 +13,14 @@ In this section, you will primarily perform the following tasks:
 - Verify the virtual server configuration
 
 **Note:** We will not demonstrate server-side SSL PQC in this lab; however, the environment supports it, for exploration.  
+| 
  
 
 1. Log into the BIG-IP to verify access and configuration
 
    From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`  
 
-   **User:** admin -- **Password:** admin
+   **User:** admin | **Password:** admin
 
    .. image:: ../_static/image08.png  
      
