@@ -35,7 +35,7 @@ In this section, you will primarily perform the following tasks:
 
 In this configuration, we can see the listening port, the certificate and key used, and the SSL options for exchange, ML-KEM.
 
-  
+| 
 
 NGINX Chrome PQC settings
 -------------------------
@@ -56,6 +56,7 @@ In this section, you will primarily perform the following tasks:
    **Note:** Use find (ctrl-f) to quickly locate the ``"tls"`` settings above  
    .. image:: ../_static/image27.png    
 
+| 
 
 NGINX PQC Listener Validation
 -----------------------------
@@ -90,6 +91,8 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 
 
 That concludes the lab, you should have learned why PQC is a strategic security priority and how PQC is implemented in BIG-IP and NGINX.  
+
+| 
 
 Lab Complete
 ------------
