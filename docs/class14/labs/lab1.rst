@@ -15,7 +15,7 @@ From the Windows-client we will be able to access the BIG-IP TMUI, NGINX, and th
 
    > Note: To run the RDP session in "windowed" mode, choose a screen size from the drop-down list 
 
-      
+      .. image:: ../_static/image01.png
 image:: _static/image01.png
    ![rdp](images/image01.png)
 
