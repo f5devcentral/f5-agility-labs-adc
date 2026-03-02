@@ -127,6 +127,9 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 4. Open the Chrome browser developer tools  
 
    .. image:: ../_static/image25.png)  
+
+
+      
       
 5. Scroll the developer tools to the left, exposing Privacy and security to show the TLS negotiation
 
