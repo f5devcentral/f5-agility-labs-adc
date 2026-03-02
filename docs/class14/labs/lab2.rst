@@ -104,7 +104,8 @@ Enable the security features in Chrome to use the Kyber settings and disable the
 
    .. image:: ../_static/image21.png
 
-### BIG-IP PQC Virtual Server Validation
+BIG-IP PQC Virtual Server Validation
+------------------------------------
 
 With Chrome, check the version of TLS negotiation and the ciphers used.
 
@@ -123,18 +124,19 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
    .. image:: ../_static/image24.png  
      
 
-4. Open the Chrome browser developer tools 
+4. Open the Chrome browser developer tools
 
-   .. image:: ../_static/image25.png)  
+    .. image:: ../_static/image25.png)  
      
 
 5. Scroll the developer tools to the left, exposing Privacy and security to show the TLS negotiation
 
-   .. image:: ../_static/image26.png)  
+    .. image:: ../_static/image26.png)  
  
  
 
-### View PQC Statistics on BIG-IP  
+View PQC Statistics on BIG-IP
+-----------------------------  
 
 1. Log into TMSH on BIG-IP using the `Web Shell`  
 
