@@ -33,7 +33,7 @@ This lab provides hands-on experience with PQC across modern application deliver
 Lab & Tasks:
 ------------
 
-The next page (Introduction) will cover the lab environment, access, and lab variables. The lab will be using a shared AWS account where we have deployed the following resources:
+The lab will be using F5's UDF environment where we have deployed the following resources:
 
 This lab environment contains three parts:
 
@@ -41,6 +41,7 @@ This lab environment contains three parts:
 - NGINX Open Source Server
 - Windows-client
 
-During the lab exercises we will explore different methods of protecting and exposing object storage services
-that are included in the lab
+   .. image:: ../_static/image00-R.png
+
+    
 
