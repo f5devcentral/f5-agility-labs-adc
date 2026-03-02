@@ -1,350 +1,171 @@
 
-Lab 2: Fine-grained Policy Enforcement & Bucket Migration
-====================================
-
-AI training and fine-tuning workloads generate highly variable request rates. Spikes in requests per second
-(RPS) can saturate storage clusters, disrupting other workloads and risking missed SLAs.
-At the same time, data migrations are common — moving buckets between clusters or rebalancing capacity.
-Migrations need to be surgical and transparent, without requiring client reconfiguration.
-
-**Technical Problem**
-
-- No central control: clients can easily flood individual nodes with requests, overwhelming cluster members.
-- Data migrations require manual endpoint changes or application rewrites.
-- Lack of policy enforcement leads to instability and risk during transitions.
-
-**Solution with BIG-IP Local Traffic Manager (LTM)**
-
-- **iRules** can be applied to cap connections, control RPS, and enforce thresholds at the dataplane.
-- **Local Traffic Policies** redirect traffic based on bucket or host headers.
-- **Outcome**: Clusters are stabilized under load, migrations are executed seamlessly, and clients keep using the same VIP.
-
-
-Task 1. Review the Lab Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-These values align with the UDF topology. Keep them unchanged unless your
-environment differs.
-
-======================== ========================================= ==================================
-Component                Purpose                                   Where to access
-======================== ========================================= ==================================
-BIG‑IP VIP for Cluster‑1 Single front door for MinIO cluster       WARP parameters: 10.1.40.160:9000
------------------------- ----------------------------------------- ----------------------------------
-Cluster‑1 MinIO AIStor   Primary storage cluster                   10.1.10.100-103:9000
------------------------- ----------------------------------------- ----------------------------------
-Cluster‑2 MinIO AIStor   Migration target for bucket A             10.1.20.100:9000
------------------------- ----------------------------------------- ----------------------------------
-WARP GUI                 Generate high-RPS S3 workloads            UDF → Traffic-Gen → Firefox
------------------------- ----------------------------------------- ----------------------------------
-BIG‑IP TMUI              Attach iRules, configure policies         UDF → BIG‑IP → Access → TMUI
-======================== ========================================= ==================================
-      
-
-Task 2: Rate Limiting S3 Traffic with iRules
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following steps will create a massive spike in sudden S3 activity, and an approach using BIG-IP to
-throttle down a specific source of the excessive load being received.
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).                                       |
-|                                                                                                               |
-| 2. Set the load target to Endpoint: 10.1.40.160:9000 (BIG-IP VIP for Cluster-1).                              |
-|                                                                                                               |
-| 3. Duration: 5 minutes, Concurrency 50 threads.                                                               |
-|                                                                                                               |
-| 4. Click Run Benchmark.                                                                                       |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab314|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open BIG-IP TMUI (UDF → Components → BIG-IP 21 → Access → TMUI).  The credentials are under lab            |
-|    Documentation tab (admin/bigip123).                                                                        |
-|                                                                                                               |
-| 2. Select Statistics -> Dashboard                                                                             |
-|                                                                                                               |
-| 3. Set Dashboard type pulldown (upper left) to "LTM" and click under View (upper right) to "Minio-Cluster-1"  |
-|                                                                                                               |
-| 4. Since traffic is already underway, the moment the spike started may not be visible as displayed below.     |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab315|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
-
-
-Task 3: Apply Rate Limiting iRule
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following steps will demonstrate how one S3 source address may be throttled, allowing only a specific number of 
-transactions over time, once a threshold has been first exceeded.
-
-
-+---------------------------------------------------------------------------------------------------------------+
-| 1. In BIG-IP TMUI go to Local Traffic -> iRules -> iRule List                                                 | 
-|                                                                                                               |
-| 2.  Choose "Show All" in list display control at bottom right of iRule list.                                  |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab316|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-
+Lab 2: BIG-IP Setup
+===================
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open and review the iRule-RateLimit-Cluster1                                                               | 
-|                                                                                                               |
-| 2. This simple example has the iRule act as a gatekeeper, a unique source IP address may transact with a      |
-|    URL (eg an S3 endpoint) 10 times, after which new transactions are limited to a rolling 6 second           |
-|    window used to re-admit new S3 commands.                                                                   |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab317|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+BIG-IP has version 17.5.1.3.0.0.19 installed. In version 17.1, PQC for client-side SSL profiles was introduced, which we will explore in this lab. In version 17.5.1, PQC for server-side SSL profiles was added, and both client and server-side ciphers were updated to the NIST standards at the time of publication.
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Attach the iRule to the Virtual Server in BIG-IP TMUI: Local Traffic -> Virtual Servers-> MinIO-Cluster-1  |                                                             
-|    (you will find iRules on the "Resources" tab of the Virtual Server configuration).                         |                                                                                  
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab318|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+BIG-IP supports both Kyber and ML-KEM, in this lab we will demonstrate Kyber, though ML-KEM is more widely adopted.
 
+In this section, you will primarily perform the following tasks:
 
+- Review BIG-IP cipher rules and cipher groups
+- Review BIG-IP client ssl profile
+- Verify the virtual server configuration
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Within the Resources tab, click on Manage button.                                                          | 
-|                                                                                                               |
-| 2. Select the **iRule-RateLimit-Cluster1** from the list, click Finished.                                     |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab319|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+> Note: We will not demonstrate server-side SSL PQC in this lab; however, the environment supports it, for exploration.  
+<br>
 
+1. Log into the BIG-IP to verify access and configuration
 
-Re-Run the WARP workload, now that the iRule is in place.
+    From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`
 
-**Expected:**
+    User: admin  
+    Password admin  
+    <br>
 
-- Active Connections drop aggressively
-- Cluster remains stable under the controlled load.
+    ![tmui-warning](images/image08.png)  
+    <br>
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1.  Use the BIG-IP Dashboard to demonstrate the transactions per second has been brought down after           |                                             
-|     the initial trafficexceeds what the iRule will permit.                                                    |                                                                                  
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab320|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+    ![tmui-accept](images/image09.png)  
+    <br>
 
+    ![tmui-login](images/image10.png)
+<br>
 
+2. Post-quantum crypto configuration
 
-Task 4: Bucket Migration with Local Traffic Policies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    BIG-IP utilizes SSL Profiles for client and server-side TLS negotiations. Within the SSL Profile, attached cipher groups manage the cipher rules for negotiation.
 
-This scenario addresses BIG-IP LTM applying traffic policy to route traffic that only targets a specific S3 bucket
-to a different (backup) cluster. This allows for very granual migrations and AI DAta delivery traffic controls.
+    The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference: [K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS](https://my.f5.com/manage/s/article/K000149577)
+<br>
 
+3. Navigate to BIG-IP cipher rules
 
-+---------------------------------------------------------------------------------------------------------------+
-| 1. Open MinIO Warp tool (UDF → Components → Traffic-Gen → Access → Firefox,                                   |
-|    from Documentation tab admin/admin).                                                                       |
-|                                                                                                               |
-| 2. Select the nwq target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**                                 |
-|                                                                                                               |
-| 3. Select **only** the cluster1-bucket-a bucket (Bucket A), which is present on both MinIO clusters           |
-|    configured in UDF.                                                                                         |
-|                                                                                                               |
-| 4. Use the sliders to set Duration to 10 mins and Concurrency to 20 threads                                   |
-|                                                                                                               |
-| 5. Make sure that the IP address in WARP Parameters is a new BIG-IP VIP at  10.1.40.161:9000                  |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
-| |lab321|                                                                                                      |
-|                                                                                                               |
-|                                                                                                               |
-+---------------------------------------------------------------------------------------------------------------+
+    ![cipher-rules](images/image11.png)
+<br>
 
-Click Run Benchmark button in Warp to send load to the cluster.
+4. The `TMSH_PQC` PQC profile has been created for you using TMSH.  Please review it using the TMUI.
 
-**Expected Result**  Traffic is targeting a new VIP configured in the Virtual Server *minio-cluster-migration*, which is
-the starting point of our scenario, where all traffic is being sent to the original cluster *Cluster-1*. Next we will
-attach an LTM "local traffic" policy, to strip out just the bucket A requests and forward them to a different pool/cluster
-*Cluster-2*.
+    ![pqc-tmsh](images/image12.png)
+<br>
 
-Go to the **BIG-IP TMUI**.
+5. Explore the TMSH_PQC rule, and verify the setup
 
-Click on Local Traffic -> Policies -> Policy List
+    ![pqc-tmsh-rule](images/image13.png)
+<br>
 
-|lab322|
+6. Navigate to BIG-IP cipher groups
 
-Click on our one policy to review the conditions/action:
+    ![cipher-groups](images/image14.png)
+<br>
 
-- Condition: HTTP URI path starts with /cluster1-bucket-a
-- Action: Forward to Cluster-2 pool
+7. Explore the TMSH_PQC group, and verify the setup
 
-|lab323|
+    ![pqc-tmsh-group](images/image15.png)
+<br>
 
-This is an example of a published local policy, as such you will not be able to add new rules with more conditions and actions.  Rather, to experiment with possible additional rules, one may add a new policy in the policy list screen and investigate rule possibilities.
+8. Navigate to SSL Client profiles
 
-Let us now apply the local policy to the virtual server titled **minio-cluster-migration** (not the original virtual server)
+    ![client-profiles](images/image16.png)
+<br>
 
-- Find the virtual server and click **Edit** in the **Resources** tab
+9. Explore the TMSH_PQC client SSL profile, and verify the setup
 
-- Click **Manage** button for **Policies**
+    ![pqc-client-ssl](images/image17.png)
+    <br>
+    
+    ![pqc-client-ssl-settings](images/image18.png)  
+    <br>
 
-- Add **ltm-migrate-cluster1-cluster2** policy and click **Finish**.   The policy is added to the virtual server immediately, rules with action take effect.
+10. Navigate to the BIG-IP virtual servers
 
-|lab325|
+    ![virtual-servers](images/image19.png)  
+    <br>
 
+11. Explore the pqc_vs virtual server, and verify the setup
 
-**Verification**
+    ![pqc-virtual-server](images/image20.png)
+<br>
+<br>
 
-Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.
+### BIG-IP Chrome PQC settings
 
-- In AST: Dashboards → BigIP - Device → Device Pools look at the key metrics, such as **Active Pool Connections**.
-- Click the 3 dots and choose "View" to increase the size to full screen.
-- For ease of display, alter the pools being graphed to **only** include Cluster-1 and Cluster-2
+The Chrome browser, on the Windows-client has experimental features that enable Kyber and ML-KEM. However, as mentioned earlier, these features have been removed from the current version of Chrome due to a security gap. In this section you will enable the required settings in chrome to implement PQC
 
-|lab324|
+Enable the security features in Chrome to use the Kyber settings and disable the ML-KEM settings
 
+1. Open the Chrome browser and browse to chrome://flags/
 
-A complementary way to demonstrate this switch over in S3 delivery, based upon the local policy being invoked, is
-to use TMUI Pool Statistics and examing the current TCP connections delivering S3 data.
+2. Change the experimental settings to enable "TLS 1.3 post-quantum key agreement", and disable "Use ML-KEM in TLS 1.3", and relaunch the browser  
 
-At the moment the policy kicks in, the current connections count will drop to **zero** on cluster-1 nodes.   All traffic and current connections
-will exclusively be seen on cluster-2.
+    >Note: Use find (ctrl-f) to quickly locate the `"tls"` settings above  
+    <br>  
 
-|lab326|
+    ![pqc-big-ip-browser-settings](images/image21.png)
 
+### BIG-IP PQC Virtual Server Validation
 
-Task 5: Generate Traffic for Multiple Buckets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+With Chrome, check the version of TLS negotiation and the ciphers used.
 
-Open the MinIO Warp bench tool (UDF -> Components -> Traffic-Gen -> Access -> Firefox)
+1. Open Chrome and browse to `https://10.1.10.100` the virtual server address on the BIG-IP with the PQC SSL Client profile attached
 
-- Select the target: **BigIP-cluster-1 (cluster1-bucket-a) -> cluster2**
+    ![ssl-error](images/image22.png)  
+    <br>
 
-- Select *all* buckets (not just bucket-a)
+2. Proceed to the website
 
-- Place sliders at Duration 180 seconds and Concurrenct to 20 threads
+    ![ssl-proceed](images/image23.png)  
+    <br>
 
-- Make sure the IP address in the Warp Parameters is set to the new BIG-IP virtual server **10.1.40.161:9000**
+3. The loaded page is the NGINX default page
 
-Click **Run Benchmark** to start the S3 traffic load.
+    ![nginx-homepage](images/image24.png)  
+    <br>
 
-**Expectation**:
+4. Open the Chrome browser developer tools 
 
-Traffic is still being sent to the VIP configured in the Virtual Server minio-cluster-migration,
-however it has a mix of different buckets. Because of the policy we previously applied, the traffic to Bucket A will be routed
-to the new cluster Cluster-2, while all **other** buckets are being sent to the original cluster Cluster-1.
+    ![developer-tools](images/image25.png)  
+    <br>
 
-|lab327|
+5. Scroll the developer tools to the left, exposing Privacy and security to show the TLS negotiation
 
-As expected, the green line Cluster-1 connections carry S3 traffic for buckets B and C; while the yellow line for
-Cluster-2 represents only those connections required to service bucket A load generated by the WARP tool.
+    ![tls-kyber](images/image26.png)  
+<br>
+<br>
 
-Troubleshooting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### View PQC Statistics on BIG-IP  
 
-**Policy not applied:** Ensure the policy is attached to the correct virtual server.   The iRule is applied on on virtual server while the local policy was
-applied to another virtual server
+1. Log into TMSH on BIG-IP using the `Web Shell`  
 
-**Traffic not redirected:** Double-check WARP tool selections **Bucket A** or all buckets.
+    >Note: Do not disconnect or close your existing TMUI connection  
+    <br>  
 
+    ![web_shell](images/image50.png)
+    
+    ![web_shell1](images/image51.png)  
 
-What You Learned — Value of BIG-IP LTM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<br>
+<br>
 
-- **Resilience under spikes:** iRules stabilize request load.
-- **Seamless migrations:** Local Traffic Policies redirect buckets without endpoint changes.
-- **Business alignment:** Traffic is steered by business rules, not app rewrites.
-- **Outcome:** AI data pipelines stay predictable, protected, and flexible.
+2. View the `TMSH_PQC` profile statistics 
 
+    `tmsh show ltm profile client-ssl TMSH_PQC`
 
+    >Note: the **protocol** and **DH group** 
+    
+    <br>   
 
+    ![profile_stats](images/image52.png)
 
-+-----------------------------------------------------------------------------------------------------------------------------------+
-| **End of Lab 2**.  In this lab you explored data plane programability by adding an iRule to police excessive S3 traffic           |
-| generators.   Without toching any endpoint, a local policy re-directed traffic from cluster-1 to cluster-2.                       |
-| Real-time impacts of iRules and policies was demonstrated when traffic was steered in the middle of Warp S3 test runs.            |
-+-----------------------------------------------------------------------------------------------------------------------------------+
-|  |labend|                                                                                                                         |
-+-----------------------------------------------------------------------------------------------------------------------------------+
+<br>
 
-.. |lab300| image:: ../_static/lab3-appworld2025-topology-diagram.png
-   :width: 800px
-.. |lab301| image:: ../_static/lab3-appworld2025-task1-originserverr.png
-   :width: 800px
-.. |lab302| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool.png
-   :width: 800px
-.. |lab303| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool2.png
-   :width: 800px
-.. |lab304| image:: ../_static/lab3-appworld2025-task2-lb-origin-pool-added.png
-   :width: 800px
-.. |lab305| image:: ../_static/lab3-appworld2025-task2-lb-other-settings.png
-   :width: 800px
-.. |lab306| image:: ../_static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
-   :width: 800px
-.. |lab307| image:: ../_static/lab3-appworld2025-list-sites-advertise.png
-   :width: 800px
-.. |lab308| image:: ../_static/lab3-appworld2025-task2-lb-site-change.png
-   :width: 800px
-.. |lab309| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px
-.. |lab310| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px
-.. |lab311| image:: ../_static/lab2-appworld2025-task2-lb.png
-   :width: 800px 
-.. |lab312| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px 
-.. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px 
-.. |lab314| image:: ../_static/b_warp_parameters_lab2.png
-   :width: 800px
-.. |lab315| image:: ../_static/b_dashboard_no_irule.png
-   :width: 800px
-.. |lab316| image:: ../_static/b_irule_list.png
-   :width: 800px
-.. |lab317| image:: ../_static/b_irule_shown.png
-   :width: 800px
-.. |lab318| image:: ../_static/b_irule_attach.png
-   :width: 800px
-.. |lab319| image:: ../_static/b_apply_irule.png
-   :width: 800px
-.. |lab320| image:: ../_static/b_irule_before_and_after.png
-   :width: 800px
-.. |lab321| image:: ../_static/b_warp_params_bucket_move.png
-   :width: 800px
-.. |lab322| image:: ../_static/b_local_policy_list.png
-   :width: 800px
-.. |lab323| image:: ../_static/b_matching_condition.png
-   :width: 800px
-.. |lab324| image:: ../_static/b_traffic_switches_in_grafana.png
-   :width: 800px
-.. |lab325| image:: ../_static/b_apply_local_policy.png
-   :width: 800px
-.. |lab326| image:: ../_static/b_tmui_pool_stats_after_switch_over.png
-   :width: 800px
-.. |lab327| image:: ../_static/b-traffic_to_all_buckets.png
-   :width: 800px
-.. |labend| image:: ../_static/labend.png
-   :width: 800px
+3.  View the `pqc_vs` virtual server statistics
+
+    `tmsh show ltm virtual pqc_vs`  
+
+    <br>  
+
+    ![vip_stats](images/image53.png)
+
+<br>
+<br>
