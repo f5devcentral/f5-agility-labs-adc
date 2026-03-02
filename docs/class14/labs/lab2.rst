@@ -77,12 +77,12 @@ In this section, you will primarily perform the following tasks:
    .. image:: ../_static/image18.png  
      
 
-10. Navigate to the BIG-IP virtual servers
+10. Navigate to the BIG-IP virtual servers  
 
    .. image:: ../_static/image19.png  
      
 
-11. Explore the pqc_vs virtual server, and verify the setup
+11. Explore the pqc_vs virtual server, and verify the setup  
 
    .. image:: ../_static/image20.png
  
@@ -108,12 +108,12 @@ Enable the security features in Chrome to use the Kyber settings and disable the
 
 With Chrome, check the version of TLS negotiation and the ciphers used.
 
-1. Open Chrome and browse to `https://10.1.10.100` the virtual server address on the BIG-IP with the PQC SSL Client profile attached
+1. Open Chrome and browse to `https://10.1.10.100` the virtual server address on the BIG-IP with the PQC SSL Client profile attached  
 
    .. image:: ../_static/image22.png 
      
 
-2. Proceed to the website
+2. Proceed to the website  
 
    .. image:: ../_static/image23.png 
      
