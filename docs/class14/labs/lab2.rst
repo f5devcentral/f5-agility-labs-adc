@@ -88,7 +88,8 @@ In this section, you will primarily perform the following tasks:
  
  
 
-### BIG-IP Chrome PQC settings
+BIG-IP Chrome PQC settings
+--------------------------
 
 The Chrome browser, on the Windows-client has experimental features that enable Kyber and ML-KEM. However, as mentioned earlier, these features have been removed from the current version of Chrome due to a security gap. In this section you will enable the required settings in chrome to implement PQC
 
