@@ -36,7 +36,7 @@ In this section, you will primarily perform the following tasks:
 
    The BIG-IP Configuration has already been completed for the lab. If you would like to configure and familiarize yourself with a new SSL profile, please use the following knowledge article as a reference:
 
-   .. _K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS: https://my.f5.com/manage/s/article/K000149577
+   `K000149577: Enable post-quantum cryptography in F5 BIG-IP TMOS <https://my.f5.com/manage/s/article/K000149577>`_
  
 
 3. Navigate to BIG-IP cipher rules
