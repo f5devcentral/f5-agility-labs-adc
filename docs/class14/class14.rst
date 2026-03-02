@@ -16,9 +16,9 @@ F5 ADSP plays a pivotal role in network and application architectures by managin
 
 NGINX provides PQC support using the Open Quantum Safe provider library for OpenSSL 3.x (oqs-provider). This library is available from the Open Quantum Safe (OQS) project. The oqs-provider library integrates the post-quantum algorithms from the OQS project into network protocols (e.g., TLS) for applications that use OpenSSL 3. All ciphers/algorithms provided by oqs-provider are supported by NGINX. 
 
-[F5 Post-quantum cryptography readiness](https://www.f5.com/pdf/solution-overview/f5-pqc-readiness.pdf)
+`F5 Post-quantum cryptography readiness <https://www.f5.com/pdf/solution-overview/f5-pqc-readiness.pdf>`_.
 
-[Understanding PQC Standards and Timelines](https://www.f5.com/company/blog/understanding-pqc-standards-and-timelines) 
+`Understanding PQC Standards and Timelines <https://www.f5.com/company/blog/understanding-pqc-standards-and-timelines>`_.
 
 Objectives:
 -----------
