@@ -350,11 +350,11 @@ In this lab we will configure a couple types of persistence and view their behav
        
                2. Each new IP address will create a new persistence record.
 
-          .. hint::
-          You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
-
           iii.  Click the Finished button.
        
+         .. hint:: 
+            You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
+
        e. You have just created your first custom Profile.
        
           i. Note the check box for your new custom profile isn’t grayed out
