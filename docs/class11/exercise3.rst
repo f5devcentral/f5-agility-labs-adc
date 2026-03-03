@@ -74,7 +74,7 @@ From the tenant, we can see TMM processed traffic statistics, not network interf
 
 All layer 2 interface statistics for ports and trunks are monitored by F5OS. Details can be viewed in the F5OS webUI, viewed in the F5OS CLI, polling via SNMP or API interface calls.
 
-In the webUI navigate to *Network -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 3.0 and 4.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
+In the webUI navigate to *Network Settings -> Network Details*. This view shows stats on interfaces and LAGs in the lower section. Selecting an individual interface will display a graph of the traffic. For our lab interface 3.0 and 4.0 will carry traffic. Due to the nature of the lab traffic, the statistics between interfaces 3.0 and 4.0 may be unequal even though they are configured as LACP.
  
 .. image:: images/image21.png
    :alt: image21.png
@@ -194,7 +194,7 @@ The F5OS webUI does not currently support viewing or searching log files, instea
 
 
 
-The F5OS CLI does contain interfaces to show log files. When coupled with *match* commands, log files can be quickly searched. The CLI command begines with *file list path*, flollowed by using tab completion to view options for directories and paths. 
+The F5OS CLI does contain interfaces to show log files. When coupled with *match* commands, log files can be quickly searched. The CLI command begins with *file list path*, followed by using tab completion to view options for directories and paths. 
 
 .. code-block:: none
    
@@ -205,10 +205,11 @@ For example, suppose we want to find a history of all F5OS boot sequences which 
 This command would show the first occurence, but not every occurance. How can we alter this command to see the last time the system was booted? To show all boot times? 
 
 .. code-block:: none
+
    r5900-1# file show log/system/platform.log | begin BOOT | until BOOT
 
 
-Like TMOS, F5OS utilizes a qkview as the collection of information for support engineers or iHealth to analyze. F5OS has been designed to generate and download qkviews locally, be uploaded directly to iHealth using tokens, or to transferred off the device via secure file transfer protocols, which is different than the XUI or ssh/bash interface for TMOS qkviews.
+Like TMOS, F5OS utilizes a qkview as the collection of information for support engineers or iHealth to analyze. F5OS has been designed to generate and download qkviews locally, be uploaded directly to iHealth using tokens, or transferred off the device via secure file transfer protocols, which is different than the XUI or ssh/bash interface for TMOS qkviews.
 
 Start by navigating to the *Diagnostics -> System Reports*. This screen shows any currently stored qkview files by name and generation date along with logs of any uploaded to iHealth directly from the BIG-IP. To generate a new qkview, click the **Generate QKView** button. New to F5OS is the pop up box below that allows for optional collection settings:
 
@@ -237,7 +238,5 @@ To view the qkview completion percentage updated every 10 seconds:
    
    r5900-1# show system diagnostics qkview state status percentage | repeat 10
 
-
- Team: space to put any additional operational/intersting items for the students to perform here>
 
 //End of Exercise 3
