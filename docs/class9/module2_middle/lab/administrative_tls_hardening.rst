@@ -119,7 +119,7 @@ Test TLS 1.2:
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_2
 
-.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_2.png
+.. image:: ../_images/phase1_base_tlsv1_2.png
    :align: center
    :alt: Baseline TLS 1.2 handshake
    :width: 900px

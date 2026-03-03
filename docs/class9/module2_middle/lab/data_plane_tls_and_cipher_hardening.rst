@@ -14,15 +14,17 @@ separately.
 
 This mechanism is a critical Middle Layer cryptographic control.
 
+
 Executive Summary
 -----------------
 
-Applications must enforce modern TLS versions and strong ciphers.
+Applications must enforce modern TLS versions and strong cipher suites.
 Legacy protocols and weak cryptographic algorithms must be disabled
-unless explicitly required and risk-approved.
+unless explicitly required and formally risk-approved.
 
-Hardening must be validated using deterministic handshake testing,
+Hardening must be validated using deterministic handshake testing —
 not configuration inspection alone.
+
 
 Threat Scenario
 ---------------
@@ -38,6 +40,7 @@ In the absence of TLS hardening:
 TLS hardening reduces this risk by enforcing modern protocol and
 cipher negotiation at the data plane.
 
+
 Objective
 ---------
 
@@ -50,6 +53,7 @@ This lab will:
 * Validate deterministic protocol enforcement
 * Confirm weak protocols and ciphers are eliminated
 
+
 Hardened Enterprise Reference Design
 ------------------------------------
 
@@ -60,17 +64,19 @@ The goal is to standardize strong TLS posture at the BIG-IP data plane.
    Use dedicated SSL profiles.
    Never modify built-in profiles directly.
 
+
 Middle Layer Cohesion
 ---------------------
 
 Within the Middle Layer:
 
-* MFA protects **administrative authentication**.
-* TLS and Cipher Hardening protects **transport confidentiality and integrity**.
-* API Access Control protects **administrative authorization**.
+* MFA protects **administrative authentication**
+* TLS and Cipher Hardening protects **transport confidentiality and integrity**
+* API Access Control protects **administrative authorization**
 
-Together, these controls prevent credential abuse, downgrade attacks,
-and privilege misuse.
+Together, these controls prevent credential abuse,
+downgrade attacks, and privilege misuse.
+
 
 ---------------------------------------------------------------------
 
@@ -85,6 +91,7 @@ The lab environment includes:
 
 Students are not required to build the baseline application service.
 
+
 ---------------------------------------------------------------------
 
 Phase 1 – Inspect Baseline HTTPS Service
@@ -94,11 +101,8 @@ Step 1 – Locate HTTPS Virtual Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Navigate to **Local Traffic → Virtual Servers**.
-2. Identify the preconfigured HTTPS virtual server:
-
-   Example:
-   ``primary-app-site-1-https-vip``
-
+2. Identify the preconfigured HTTPS virtual server  
+   (example: ``primary-app-site-1-https-vip``).
 3. Confirm:
 
    * Destination Address: ``10.1.10.50``
@@ -106,31 +110,27 @@ Step 1 – Locate HTTPS Virtual Server
    * SSL Profile (Client): ``clientssl``
    * Default Pool assigned
 
-This confirms the application is already operational.
-
 .. image:: ../_images/data_plane_phase1_step1.png
-   :alt: User List showing local administrative accounts
+   :alt: Baseline HTTPS virtual server configuration
    :align: center
    :width: 900px
 
----------------------------------------------------------------------
 
 Step 2 – Confirm Backend Health
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Navigate to **Local Traffic → Pools**.
-2. Identify the associated pool (for example: ``app-2``).
+2. Identify the associated pool.
 3. Confirm:
 
    * Members are green (Available)
    * Health monitor is functioning
 
-This validates backend reachability before TLS posture changes.
-
 .. image:: ../_images/data_plane_phase1_step2.png
-   :alt: User List showing local administrative accounts
+   :alt: Backend pool health validation
    :align: center
    :width: 900px
+
 
 ---------------------------------------------------------------------
 
@@ -140,52 +140,45 @@ Phase 2 – Baseline TLS Observation
 From the jumphost, perform deterministic handshake testing.
 
 Test TLS 1.2 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1_2
 
 .. image:: ../_images/data_plane_phase2_tls1_2.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.2 handshake success before hardening
    :align: center
    :width: 900px
 
+
 Test TLS 1.1 (Expected: Likely Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1_1
 
 .. image:: ../_images/data_plane_phase2_tls1_1.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.1 handshake success before hardening
    :align: center
    :width: 900px
 
+
 Test TLS 1.0 (Expected: Likely Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. figure:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
-=======
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls10-success.png
-   :alt: TLS 1.0 negotiation success before hardening
-   :width: 900
-
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
-   :alt: TLS 1.1 negotiation success before hardening
-   :width: 900   
-
-=======
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1
 
-.. image:: ../_images//data_plane_phase2_tls1.png
-   :alt: User List showing local administrative accounts
+.. image:: ../_images/data_plane_phase2_tls1.png
+   :alt: TLS 1.0 handshake success before hardening
    :align: center
    :width: 900px
 
 If TLS 1.0 or TLS 1.1 succeeds, legacy protocol exposure is confirmed.
 
-This establishes the baseline cryptographic posture.
 
 ---------------------------------------------------------------------
 
@@ -224,9 +217,10 @@ Phase 3 – Create Hardened Client SSL Profile
 6. Click **Finished**.
 
 .. image:: ../_images/data_plane_phase3_step1.png
-   :alt: User List showing local administrative accounts
+   :alt: Hardened Client SSL profile configuration
    :align: center
    :width: 900px
+
 
 ---------------------------------------------------------------------
 
@@ -242,9 +236,10 @@ Phase 4 – Apply Hardened Profile
 4. Click **Update**.
 
 .. image:: ../_images/data_plane_phase4_step1.png
-   :alt: User List showing local administrative accounts
+   :alt: Virtual server updated with hardened SSL profile
    :align: center
    :width: 900px
+
 
 ---------------------------------------------------------------------
 
@@ -252,6 +247,7 @@ Phase 5 – Deterministic Validation
 -----------------------------------
 
 Test TLS 1.0 (Expected: Failure)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -263,13 +259,13 @@ Expected result:
 * No cipher negotiated
 
 .. image:: ../_images/data_plane_phase5_tls1_0.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.0 handshake failure after hardening
    :align: center
    :width: 900px
 
----------------------------------------------------------------------
 
 Test TLS 1.1 (Expected: Failure)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -281,37 +277,36 @@ Expected result:
 * No cipher negotiated
 
 .. image:: ../_images/data_plane_phase5_tls1_1.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.1 handshake failure after hardening
    :align: center
    :width: 900px
 
----------------------------------------------------------------------
 
 Test TLS 1.2 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1_2
 
 .. image:: ../_images/data_plane_phase5_tls1_2.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.2 handshake success after hardening
    :align: center
    :width: 900px
 
----------------------------------------------------------------------
 
 Test TLS 1.3 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1_3
 
 .. image:: ../_images/data_plane_phase5_tls1_3.png
-   :alt: User List showing local administrative accounts
+   :alt: TLS 1.3 handshake success after hardening
    :align: center
    :width: 900px
 
----------------------------------------------------------------------
 
 Optional – Weak Cipher Validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,9 +323,10 @@ Expected result:
 * Cipher not negotiated
 
 .. image:: ../_images/data_plane_phase5_cipher.png
-   :alt: User List showing local administrative accounts
+   :alt: Weak cipher rejected after hardening
    :align: center
    :width: 900px
+
 
 ---------------------------------------------------------------------
 
@@ -341,12 +337,11 @@ After remediation:
 
 * TLS 1.0 disabled
 * TLS 1.1 disabled
-* Only TLS 1.2 / TLS 1.3 permitted
+* Only TLS 1.2 and TLS 1.3 permitted
 * Weak ciphers removed
 * Backend service remains operational
 * Deterministic enforcement confirmed via handshake testing
 
----------------------------------------------------------------------
 
 Success Criteria
 ----------------
