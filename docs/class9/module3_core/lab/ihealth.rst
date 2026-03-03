@@ -4,7 +4,7 @@ Working with iHealth
 Objective
 ---------
 
-In this lab you will examine the some of the security auditing capabilities of iHealth.
+In this lab you will examine the some of the security auditing capabilities of iHealth.  iHealth is a free (for F5 customers) diagnostic application that aids in troubleshooting and performance analysis of F5's BIG-IP platform.  It is frequently used by F5 support for debugging, but is also a fantastic tool for F5 administrators.
 
 
 Lab
@@ -12,11 +12,18 @@ Lab
 
 Estimatied completion time: 10-15 minutes.
 
+Login to the BIG-IP
++++++++++++++++++++
+
+#. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
+#. Select **Access -> TMUI** to connect to the management interface.
+#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+
 
 Create a Qkview
 ~~~~~~~~~~~~~~~
 
-#. Ensure you are logged into the TMUI as admin.
+#. Ensure you are logged into the TMUI as **admin**.
 
 #. Navigate to **System -> Support**.
 

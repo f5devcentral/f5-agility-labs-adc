@@ -1,256 +1,100 @@
 
-Lab 3: Cluster Health Monitoring with Read/Write Quorum
-====================================
+Lab 3: NGINX Setup
+==================
 
-AI data pipelines depend on **consistent, correct S3 access**. Storage failures can lead to partial writes,
-corrupted data, or stalled training jobs. Simply passing traffic to unhealthy nodes risks **pipeline disruption**
-and **data loss**.
+NGINX utilizes the OpenSSL package installed on the host operating system for the SSL library. The OpenSSL 3.5 package, SSL certificate, SSL Key, and NGINX configuration are already complete. Review the settings for understanding.
 
-**Technical Problem**
+In this section, you will primarily perform the following tasks:
 
-- Without quorum checks, clients may send writes when a cluster cannot maintain consistency.
+- Review PQC config on NGINX
+- Inspect PQC listener settings
+| 
 
-- Failures cascade into downstream AI jobs.
+1. From the UDF lab page, access the NGINX Web Shell  
 
-- Operators need automated controls to switch between **read/write** states, ensuring safe traffic handling.
+   **Note:** Do not disconnect or close your existing Windows-client connection
 
-**Solution with BIG-IP LTM**
+   .. image:: ../_static/image28.png
+    
 
-BIG-IP integrates with MinIO health endpoints to monitor quorum readiness. With custom monitors, it can:
 
-- **Block writes** when quorum is lost.
-- **Shift traffic** to a read-only pool to keep dashboards and queries alive.
-- **Automatically restore writes** once quorum returns.
-- **Outcome**: AI workloads remain consistent and responsive even under node failures.
+2. View the NGINX configuration file from the prompt with: 
 
-Task 1. Validate healthy write quorum
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ``cat /opt/nginx/nginx.conf``
 
-In **BIG-IP TMUI**:
+   .. image:: ../_static/image29.png
 
-- Navigate to Local **Traffic → Pools → cluster1-write-quorum**.
-- Confirm all 4 members are **green**.
 
-|lab400|
 
+3. The nginx conf file includes another location for the PQC listener. From the prompt, view the included PQC listener: 
 
-**Expectation:** Pool entirely healthy; write quorum is satisfied.
+   ``cat /opt/nginx/conf.d/pqc.conf``
 
-Review the Monitors, under Local Traffic, where you will see one for read and one for write quorum.
-Open the minio-health-check to see the configuration of the monitor.
+   .. image:: ../_static/image30.png
+    
 
-|lab401|
+In this configuration, we can see the listening port, the certificate and key used, and the SSL options for exchange, ML-KEM.  
 
-A custom monitor allows one to specify a URL to send requests to and custom strings expected back which serve to check the
-validity of the response. This monitor simply checks for the HTTP return code, 200 Okay suggests positive server health.
+|  
 
-- Using HTTP "HEAD" as opposed to "GET" lowers network impact as only the HTTP response code is returned, no content is delivered
-- F5 provides more advanced monitors, Extended Application Verfication (EAV), allowing more advanced actions such as using an S3
-  access token/secret to upload a small object, such as the current UNIX timestamp, and immediately downloading the object.
-- In this lab, the monitors are already applied to their respective pools.
+NGINX Chrome PQC settings
+-------------------------
 
-Task 2.  Run baseline workload (repesenting typical read/write load)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Chrome browser has experimental features that enable Kyber and ML-KEM. However, as mentioned earlier, these features have been removed from the current version of Chrome due to a security gap. In this section we will enable this feature to test PQC
 
-Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> Firefox**)
+Enable the security features in Chrome to use the Kyber settings, but prefer ML-KEM settings
 
-- Select the target: **BigIP-cluster-1 (healthcheck + quorum)**
-- Select **all** three buckets.
-- Put sliders on **Duration** of 10 mins and **Concurrency** at 20 threads
-- Make sure that the IP address in WARP Parameters is a new BIG-IP virtual server at **10.1.40.162:9000**
+In this section, you will primarily perform the following tasks:
 
-|lab402|
+- Validate TLS Negotiation  
+| 
 
-Click the **Run Benchmark** button to start a long, full ten minutes of high rate S3 load.
+1. Open the Chrome browser and browse to ``chrome://flags/``
 
-|lab403|
 
-We observe all members of the pool cluster-1-write-quorum are getting close to the same number of total HTTP (S3) requests.
+2. Change the experimental settings to enable "TLS 1.3 post-quantum key agreement", and enable "Use ML-KEM in TLS 1.3", and relaunch the browser
 
-Task 3.  Disable one node
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   **Note:** Use find (ctrl-f) to quickly locate the **"tls"** settings above
+   
+   .. image:: ../_static/image27.png    
 
-In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be careful not to inadvertently use WIN-JUMP-HOST).
+| 
 
-- Check the active user: #whoami
-- If it returns **root**, switch to user ubuntu: #su - ubuntu
+NGINX PQC Listener Validation
+-----------------------------
 
-|lab404|
+With Chrome, check the version of TLS negotiation and the ciphers used.
 
-- Change to /home/ubuntu/minio directory
-- run the ansible playbook $ansible-playbook cluster1-stop-one-node.yml
+1. Open Chrome and browse to ``https://10.1.10.30`` the listener address on NGINX with the PQC SSL options
 
-|lab405|
+   .. image:: ../_static/image32.png
 
 
+2. Proceed to the website
 
+   .. image:: ../_static/image31.png
 
 
-In the BIG-IP Pool being used, called cluster1-write-quorum, click on the **Members / Statistics** tab and observe 1 marked **red**, this is the expected behavor.
 
-|lab406|
+3. NGINX is hosting a page with the negotiated SSL curve version listed
 
-Note that the red, down node in the above screenshot has no current TCP connections terminating upon it.
+   .. image:: ../_static/image33.png
 
-**Expectation:**  Write quorum still exists, as three nodes remain up, only one node is down.
 
-Task 4.  Disable a second node
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Open the Chrome browser developer tools 
 
-From the JumpHost shell, issue the following Ansible command to take down a second node in the pool.
+   .. image:: ../_static/image34.png
+  
 
-|lab407|
+5. Scroll the developer tools to the left, exposing **Privacy and security** to show the TLS negotiation
 
-Ansible takes out another node. However, because of the **write quorum** health check in the monitor, which uses a specific endpoint,
-the entire pool will be taken out because the healthcheck no longer returns 200 OK and therefore write write quorum isn't achieved.
+   .. image:: ../_static/image35.png
 
-BIG-IP marks the entire pool as **red**.
 
-|lab408|
 
-Notice that all nodes are down, however a few TCP connections remain active.  No new S3 traffic will be proxied to these nodes by the corresponding
-virtual server, still though existing transactions may run to completion.  Within seconds all nodes will display zero active connections.
+That concludes the lab, you should have learned why PQC is a strategic security priority and how PQC is implemented in BIG-IP and NGINX.  
 
+| 
 
-Task 5.  Read-only cluster & verification of failover
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-An F5 iRule or policy could be configured to shift traffic from a pool that is no longer available to another. In
-our configuration, the cluster1-write-quorum automatically fails over to the cluster1-read-quorum pool.  The iRule used can be seen on the Resources
-tab of the virtual server named **minio-cluster-healthcheck**.
-
-Let's look at the pool that the iRule will now be directing S3 traffic towards.
-
-In **BIG-IP TMUI** open (Traffic -> Pools -> Pool List -> *cluster1-read-quorum* -> Members)
-
-Two nodes are shown as down (nodes 2 and 4), however there are **two healthy nodes** (nodes 1 and 3), which is sufficient to satisfy the
-read quorum, hence the pool can still operate and fully accept read operations.
-
-We see in the following screen, the two healthy nodes continue to handle transactions while unhealthy nodes reflect no active connections.
-
-|lab409|
-
-Open UDF -> AST -> Access -> Grafana; Select **Device Pools**.
-
-Enlarge the Active Pool Connections chart, and select **only** pools cluster1-write-quarum and cluster1-read-quarum.
-
-If the WARP ten minute load generator was active when the ansible disater simulation playbook ran, taking down two nodes, one will be able
-to see this moment.
-
-Keep in mind, AST plots a data point only on one-minute boundaries thus the transitions in active connections will
-be expected to follow a slope.   As mentioned earlier, a node failing a health check and being removed from a pool may still finish
-supporting active connections for a number of seconds.
-
-|lab410|
-
-In the chart above, yellow reflects connections to the write-quorum pool and green represents read-quarum pool connections.
-
-**Client Impact:**  AIStor Read-only operations remain available, writes are paused.
-
-
-Task 6.  Restore the cluster
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-On the JumpHost shell, issue the $ansible-playbook fix-disaster-minio.yml command to restore all nodes to full health.
-
-*$cd /home/ubuntu/minio*
-
-*$ansible-playbook fix-disaster-minio.yml*
-
-If the ten-minute Warp load test from the previous task has completed, simply click the **Run Benchmark** button one more, for another
-ten minute S3 load.
-
-In the following, one can see the original Ansible disaster simulation script being run, followed by the Ansible "fix-disaster" recovery script.
-
-|lab411|
-
-**Expectation:**  Without any operator intervention, or requirements on the part of S3 client configuration, the entire S3 storage solution has recovered.
-Traffic destined for the **write-quarum pool** has automatically resumed handling reads and writes.
-
-
-Troubleshooting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Monitor shows red for all nodes:** Verify MinIO nodes are running; check custom monitor.
-
-- **Writes still allowed when quorum lost:** Ensure correct monitor assigned to pool.
-
-- **Traffic not shifting to read pool:** Check iRule/policy bindings on VIPs.
-
-
-What You Learned - BIG-IP and AIStor Impact
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Data integrity protected:** Writes only allowed with quorum.
-
-- **Resilience:** Reads continue even during write outages.
-
-- **Automation at the dataplane:** Failover handled by BIG-IP, not clients.
-
-- **Outcome:** AI pipelines remain **stable, consistent, and observable** under stress.
-
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------+
-| **End of Lab 3**.  Congratulations, you have successfully configured and secured S3 application access with F5 BIG-IP             |
-|                                    and MinIO AIStor!  This marks the end of the lab.                                              |
-|                                                                                                                                   |
-+-----------------------------------------------------------------------------------------------------------------------------------+
-|  |labend|                                                                                                                         |
-+-----------------------------------------------------------------------------------------------------------------------------------+
-
-
-.. |lab300| image:: ../_static/lab3-appworld2025-topology-diagram.png
-   :width: 800px
-.. |lab301| image:: ../_static/lab3-appworld2025-task1-originserverr.png
-   :width: 800px
-.. |lab302| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool.png
-   :width: 800px
-.. |lab303| image:: ../_static/lab3-appworld2025-task2-lb-add-origin-pool2.png
-   :width: 800px
-.. |lab304| image:: ../_static/lab3-appworld2025-task2-lb-origin-pool-added.png
-   :width: 800px
-.. |lab305| image:: ../_static/lab3-appworld2025-task2-lb-other-settings.png
-   :width: 800px
-.. |lab306| image:: ../_static/lab3-appworld2025-task2-lb-change-vip-advertisement.png
-   :width: 800px
-.. |lab307| image:: ../_static/lab3-appworld2025-list-sites-advertise.png
-   :width: 800px
-.. |lab308| image:: ../_static/lab3-appworld2025-task2-lb-site-changee.png
-   :width: 800px
-.. |lab309| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px
-.. |lab310| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px
-.. |lab311| image:: ../_static/lab3-appworld2025-task2-lb-updated.png
-   :width: 800px 
-.. |lab312| image:: ../_static/screenshot-global-vip-private.png
-   :width: 800px 
-.. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
-   :width: 800px
-.. |lab400| image:: ../_static/c_write_quorom_pool.png
-   :width: 800px
-.. |lab401| image:: ../_static/c_health_monitor.png
-   :width: 800px
-.. |lab402| image:: ../_static/c_warp_params.png
-   :width: 800px
-.. |lab403| image:: ../_static/c_traffic_to_all_nodes.png
-   :width: 800px
-.. |lab404| image:: ../_static/c_connect_to_linux_host.png
-   :width: 800px
-.. |lab405| image:: ../_static/c_ansible_take_one_node_down_2.png
-   :width: 800px
-.. |lab406| image:: ../_static/c_one_node_down.png
-   :width: 800px
-.. |lab407| image:: ../_static/c_take_down_second_node.png
-   :width: 800px
-.. |lab408| image:: ../_static/c_all_nodes_down.png
-   :width: 800px
-.. |lab409| image:: ../_static/c_2_healthy_nodes.png
-   :width: 800px
-.. |lab410| image:: ../_static/c_trans_write_to_read_quorum.png
-   :width: 800px
-.. |lab411| image:: ../_static/c_back_to_steady_state.png
-   :width: 800px
-.. |labend| image:: ../_static/labend.png
-   :width: 800px
+Lab Complete
+------------
