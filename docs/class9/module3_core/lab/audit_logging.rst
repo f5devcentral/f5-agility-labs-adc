@@ -22,7 +22,7 @@ Login to the BIG-IP
 
 
 Review the Audit Logs
-~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++
 
 #. Ensure you are logged into the BIG-IP's TMUI as **admin**.  If you're still logged in as App01Operator from the last lab, the log menu will not appear.
 #. Navigate to **System -> Logs**.
@@ -55,17 +55,20 @@ Review the Audit Logs
 \
 
 Search the Audit Logs
-~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++
 
 #. Hover over the **Audit** tab and click **Search**.
 
-#. Replace the asterisk in the **User Name** search box with **App01Admin**:
+#. Replace the asterisk in the **User Name** field with **App01Admin**:
 
     .. image:: ./_images/audit-6.png
 
 #. The search criteria will automatically be populated with the current date and time.  Be sure to adjust accordingly so that you can see events from the prior lab then click **Search**
 
     .. image:: ./_images/audit-7.png
+
+    .. important::
+       Double check the time zone that the BIG-IP is set to.  As of this writing, the lab was configured in PST.  The time zone is visible at the top of the screen.
 
 #. You'll notice that you don't see any of the object creation events in the audit log:
 
@@ -74,7 +77,7 @@ Search the Audit Logs
     .. important::
        This is because the TMUI is executing commands on behalf of the user and the username is not logged in the User Name field.
 
-#. Return to the search box and replace the username with an asterisk, then replace the event text with \*App01Admin\*, then click **Search** again.
+#. Return to the search box and replace the username with an asterisk, then replace the event text with \*App01Admin\*. Click **Search** again.
 
     .. image:: ./_images/audit-9.png
 
