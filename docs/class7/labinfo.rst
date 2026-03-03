@@ -41,17 +41,17 @@ take for each lab:
 +------------------------------------------------------+------------------+
 | LAB Name (Description)                               | Time Allocated   |
 +======================================================+==================+
-| LAB 1 - Networking, Pools and Virtual Servers        | 10 minutes       |
+| LAB 1 - Networking, Pools and Virtual Servers        | 15 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 2 - Load Balancing, Monitoring and Persistence   | 10 minutes       |
+| LAB 2 - Load Balancing, Monitoring and Persistence   | 15 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 3 - SSL Offload and Security                     | 10 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 4 - BIG-IP Policies and iRules                   | 10 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 5 - Support and Troubleshooting                  | 10 minutes       |
+| LAB 5 - Device Service Clusters (DSC)                | 15 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 6 - Device Service Clusters (DSC)                | 10 minutes       |
+| Bonus Lab - Support and Troubleshooting              | 10 minutes       |
 +------------------------------------------------------+------------------+
 
 .. |image0| image:: images/image3.jpg
