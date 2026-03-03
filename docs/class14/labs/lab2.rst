@@ -19,7 +19,7 @@ In this section, you will primarily perform the following tasks:
 
 1. Log into the BIG-IP to verify access and configuration
 
-   From the Chrome browser, open the BIG-IP TMUI: `https://10.1.1.6`  
+   From the Chrome browser, open the BIG-IP TMUI: ``https://10.1.1.6``
 
    **User:** admin | **Password:** admin
 
@@ -101,7 +101,7 @@ Enable the security features in Chrome to use the Kyber settings and disable the
 
 2. Change the experimental settings to enable "TLS 1.3 post-quantum key agreement", and disable "Use ML-KEM in TLS 1.3", and relaunch the browser  
 
-   **Note:** Use find (ctrl-f) to quickly locate the `"tls"` settings above  
+   **Note:** Use find (ctrl-f) to quickly locate the **"tls"** settings above  
        
 
    .. image:: ../_static/image21.png
@@ -113,7 +113,7 @@ BIG-IP PQC Virtual Server Validation
 
 With Chrome, check the version of TLS negotiation and the ciphers used.
 
-1. Open Chrome and browse to `https://10.1.10.100` the virtual server address on the BIG-IP with the PQC SSL Client profile attached  
+1. Open Chrome and browse to ``https://10.1.10.100`` the virtual server address on the BIG-IP with the PQC SSL Client profile attached  
 
    .. image:: ../_static/image22.png 
      
@@ -141,7 +141,7 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
 View PQC Statistics on BIG-IP
 -----------------------------  
 
-1. Log into TMSH on BIG-IP using the `Web Shell`  
+1. Log into TMSH on BIG-IP using the ``Web Shell``  
 
    **Note:** Do not disconnect or close your existing TMUI connection  
        
