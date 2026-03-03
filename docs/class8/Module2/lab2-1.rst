@@ -9,7 +9,7 @@ Task 1: Review Base TCP Profiles
    .. figure:: ../images/tcp_profiles_sorted.png
       :width: 750px
 
-      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles.  For example, tcp-legacy was created containing the settings from previous TMOS version.
+      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatibility with previous releases, new child profiles have been created to override the base profile with the settings of the older profiles.  For example, **tcp-legacy** was created containing the settings from previous TMOS version.
 
 
 3. Click on the **tcp-legacy** profile name to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
