@@ -54,7 +54,8 @@ In this section, you will primarily perform the following tasks:
 
 2. Change the experimental settings to enable "TLS 1.3 post-quantum key agreement", and enable "Use ML-KEM in TLS 1.3", and relaunch the browser
 
-   **Note:** Use find (ctrl-f) to quickly locate the ``"tls"`` settings above  
+   **Note:** Use find (ctrl-f) to quickly locate the ``"tls"`` settings above
+   
    .. image:: ../_static/image27.png    
 
 | 
