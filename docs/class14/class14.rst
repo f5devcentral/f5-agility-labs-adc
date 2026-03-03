@@ -46,3 +46,12 @@ This lab environment contains three parts:
 
 .. image:: ../class14/_static/image00.png
   
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Labs:
+   :glob:
+
+   intro*
+   labs/lab*
+   close*
