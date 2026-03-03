@@ -53,7 +53,7 @@ Access from UDF Components Tab
     :width: 500px
 
 
-9. You may see the same prompts show with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
+9. You may see the same prompts with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
 
 10. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 

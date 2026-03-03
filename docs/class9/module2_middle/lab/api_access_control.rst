@@ -11,15 +11,17 @@ This lab assumes:
 * Network-layer segmentation (Outer Layer) is enforced.
 * Administrative authentication (MFA) is in place or delegated to centralized AAA.
 
-This lab focuses on **authorization enforcement** at the REST framework layer.
+This lab focuses on authorization enforcement at the REST framework layer.
 
 Authentication answers:
 
-* **Who are you?**
+* Who are you?
 
 Authorization answers:
 
-* **What are you allowed to do?**
+* What are you allowed to do?
+
+---------------------------------------------------------------------
 
 Executive Summary
 -----------------
@@ -36,6 +38,8 @@ service extensions through layered controls:
 Together, these controls enforce least privilege and protect
 declarative service extensions from unauthorized invocation.
 
+---------------------------------------------------------------------
+
 Objective
 ---------
 
@@ -45,8 +49,10 @@ while enforcing:
 * Role-based authorization
 * Least privilege validation
 * Device-scoped extension protection
-* Management-plane isolation (Outer Layer reference)
+* Management-plane isolation
 * Deterministic authorization failure behavior
+
+---------------------------------------------------------------------
 
 Threat Model
 ------------
@@ -57,14 +63,16 @@ This lab assumes an adversary may attempt to:
 * Access the BIG-IP management API from an authorized network without sufficient privileges.
 * Abuse overly privileged accounts to deploy unauthorized configurations.
 * Invoke device-scoped service extensions (AS3/DO) using partition-scoped roles.
-* Submit unauthorized or destructive declarative configurations.
+* Submit unauthorized declarative configurations.
 
 Controls validated in this lab mitigate these threats via:
 
-* Management-plane segmentation (validated in the Outer Layer module).
+* Management-plane segmentation.
 * Strict REST authentication enforcement.
 * Role-based authorization at the REST framework layer.
 * Explicit denial of device-scoped extension access to non-administrative roles.
+
+---------------------------------------------------------------------
 
 Architecture Overview
 ---------------------
@@ -85,9 +93,26 @@ These endpoints are:
 Authorization Flow:
 
 1. Client authenticates using REST Basic Authentication.
-2. REST framework validates the user’s credentials.
-3. Authorization policy evaluates the user’s assigned role.
+2. REST framework validates credentials.
+3. Authorization policy evaluates assigned role.
 4. Service extension executes only if role permits.
+
+---------------------------------------------------------------------
+
+Lab Environment Reference
+-------------------------
+
+Management IP of BIG-IP:
+
+::
+
+   10.1.1.5
+
+All API testing in this lab will target:
+
+::
+
+   https://10.1.1.5
 
 ---------------------------------------------------------------------
 
@@ -108,63 +133,33 @@ Confirm the following packages are installed:
 * ``f5-appsvcs``
 * ``f5-declarative-onboarding``
 
-.. figure:: ../_images/api-access-control-02-lx-packages-as3-do.png
+.. image:: ../_images/api_access_control-as3_do_check.png
+   :alt: Package Management LX showing AS3 and Declarative Onboarding installed
    :align: center
-   :alt: AS3 and DO packages installed
+   :width: 900px
 
-   Package Management LX showing AS3 and DO installed.
-
-Management Surface Baseline (Outer Layer Reference)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. figure:: ../_images/api-access-control-03-external-self-ip-lockdown-baseline.png
-   :align: center
-   :alt: External self IP port lockdown baseline
-
-   External Self IP port lockdown baseline documenting exposed management surface.
-
-Jumphost Source IP Baseline
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. figure:: ../_images/api-access-control-04-jumphost-source-ips.png
-   :align: center
-   :alt: Jumphost source IP addresses
-
-   Jumphost source interfaces used for deterministic API testing.
+---------------------------------------------------------------------
 
 Baseline API Reachability (Administrator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-REST Basic Authentication is used for deterministic validation.
-
-From the Windows Jumphost:
+From Git Bash on the Windows Jumphost:
 
 .. code-block:: bash
 
-   read -s -p "Admin Password: " ADMIN_PASS; echo
-   curl -sk -u admin:$ADMIN_PASS \
-   https://10.1.1.6/mgmt/shared/appsvcs/info
+   curl -sk -u 'admin:f5Twister!' \
+   https://10.1.1.5/mgmt/shared/appsvcs/info \
+   -w "\nHTTP Status: %{http_code}\n"
 
 Expected:
 
-* HTTP 200
+* HTTP Status: 200
 * JSON response containing AS3 version information
 
-.. figure:: ../_images/api-access-control-01-baseline-endpoint-probes.png
+.. image:: ../_images/api_access_control-baseline_api_reachablity_jumphost.png
+   :alt: Git Bash curl to AS3 info endpoint returning HTTP 200
    :align: center
-   :alt: Baseline API endpoint probe from jumphost
-
-This confirms:
-
-* Management plane reachable
-* AS3 extension operational
-* Administrative authorization functioning
-
-.. admonition:: Security Principle
-   :class: important
-
-   Management-plane reachability alone does not grant configuration authority.
-   Authorization enforcement occurs at the REST framework layer.
+   :width: 900px
 
 ---------------------------------------------------------------------
 
@@ -177,57 +172,119 @@ Create Restricted User
 Create a local user with limited privileges:
 
 * Username: ``api_test_user``
-* Role: Operator
-* Partition: Common
-* Terminal Access: Disabled
+* Role: ``Operator``
+* Partition: ``Common``
+* Terminal Access: ``Disabled``
 
-.. figure:: ../_images/api-access-control-05-operator-user-create.png
+.. image:: ../_images/api_access_control-create_local_user.png
+   :alt: Create local user api_test_user with Operator role
    :align: center
-   :alt: Operator user creation
+   :width: 900px
 
-.. figure:: ../_images/api-access-control-06-operator-user-list.png
+---------------------------------------------------------------------
+
+Create AS3 Test Declaration (Git Bash)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create a minimal AS3 declaration payload locally on the jumphost. This
+payload is intentionally minimal and used only to validate authorization
+behavior.
+
+From Git Bash:
+
+.. code-block:: bash
+
+   cat <<'EOF' > test.json
+   {
+     "class": "AS3",
+     "declaration": {
+       "class": "ADC",
+       "schemaVersion": "3.0.0",
+       "id": "lab-test",
+       "label": "lab-test"
+     }
+   }
+   EOF
+
+Verify file creation:
+
+.. code-block:: bash
+
+   ls -l test.json
+
+Expected:
+
+* ``test.json`` exists and has a non-zero size
+
+.. image:: ../_images/api_access_control-create_declaration.png
+   :alt: Create local user api_test_user with Operator role
    :align: center
-   :alt: Operator user present
+   :width: 900px
+
+---------------------------------------------------------------------
 
 Test AS3 Access (GET)
 ^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   read -s -p "Operator Password: " OP_PASS; echo
-   curl -sk -u api_test_user:$OP_PASS \
-   https://10.1.1.6/mgmt/shared/appsvcs/info
+   curl -sk -u 'api_test_user:f5Twister!' \
+   https://10.1.1.5/mgmt/shared/appsvcs/info \
+   -w "\nHTTP Status: %{http_code}\n"
 
 Expected:
 
-* HTTP 401 (Unauthorized / Authorization failed)
+* HTTP Status: 401
+
+.. image:: ../_images/api_access_control-as3_test_acess.png
+   :alt: Operator role denied (HTTP 401) when querying AS3 info endpoint
+   :align: center
+   :width: 900px
+
+---------------------------------------------------------------------
 
 Test Declarative Onboarding Access (GET)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   curl -sk -u api_test_user:$OP_PASS \
-   https://10.1.1.6/mgmt/shared/declarative-onboarding/info
+   curl -sk -u 'api_test_user:f5Twister!' \
+   https://10.1.1.5/mgmt/shared/declarative-onboarding/info \
+   -w "\nHTTP Status: %{http_code}\n"
 
 Expected:
 
-* HTTP 401 (Unauthorized)
+* HTTP Status: 401
+
+.. image:: ../_images/do_test_access.png
+   :alt: Operator role denied (HTTP 401) when querying Declarative Onboarding info endpoint
+   :align: center
+   :width: 900px
+
+---------------------------------------------------------------------
 
 Test AS3 Declaration Attempt (POST)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
-   curl -sk -u api_test_user:$OP_PASS \
+   curl -sk -u 'api_test_user:f5Twister!' \
      -H "Content-Type: application/json" \
      -X POST \
-     https://10.1.1.6/mgmt/shared/appsvcs/declare \
-     --data-binary @test.json
+     https://10.1.1.5/mgmt/shared/appsvcs/declare \
+     --data-binary @test.json \
+     -w "\nHTTP Status: %{http_code}\n"
 
 Expected:
 
-* HTTP 401 (Unauthorized)
+* HTTP Status: 401
+
+.. image:: ../_images/as3_test_declaration_post.png
+   :alt: Operator role denied (HTTP 401) when attempting AS3 declaration POST
+   :align: center
+   :width: 900px
+
+---------------------------------------------------------------------
 
 Why This Fails
 ^^^^^^^^^^^^^^
@@ -243,14 +300,7 @@ These are device-scoped service extensions.
 Partition-scoped roles (Operator, Application Editor) cannot invoke
 shared extension endpoints.
 
-This failure confirms proper REST authorization enforcement.
-
-.. admonition:: Architectural Insight
-   :class: note
-
-   Service extensions execute at the device scope.
-   Partition roles apply only to configuration objects
-   (virtual servers, pools, etc.), not to shared REST extensions.
+This confirms proper REST authorization enforcement.
 
 ---------------------------------------------------------------------
 
@@ -262,41 +312,36 @@ Test Administrative Access
 
 .. code-block:: bash
 
-   read -s -p "Admin Password: " ADMIN_PASS; echo
-   curl -sk -u admin:$ADMIN_PASS \
-   https://10.1.1.6/mgmt/shared/appsvcs/info
+   curl -sk -u 'admin:f5Twister!' \
+   https://10.1.1.5/mgmt/shared/appsvcs/info \
+   -w "\nHTTP Status: %{http_code}\n"
 
 Expected:
 
-* HTTP 200
+* HTTP Status: 200
 * JSON response returned
 
-.. figure:: ../_images/api-access-control-08-admin-as3-info-allowed.png
+.. image:: ../_images/as3_test_admin_auth_access.png
+   :alt: Administrator permitted (HTTP 200) when querying AS3 info endpoint
    :align: center
-   :alt: Admin allowed AS3 info
-
-This confirms:
-
-* Successful authentication
-* Proper authorization
-* Correct privilege boundary
+   :width: 900px
 
 ---------------------------------------------------------------------
 
 Deterministic Validation Matrix
 -------------------------------
 
-+-------------------------------------------+-----------------------------+-----------------------------+
-| Test Case                                 | Expected Result             | Observed Result             |
-+===========================================+=============================+=============================+
-| Operator GET AS3 info                     | HTTP 401                    |                             |
-+-------------------------------------------+-----------------------------+-----------------------------+
-| Operator GET DO info                      | HTTP 401                    |                             |
-+-------------------------------------------+-----------------------------+-----------------------------+
-| Operator POST AS3 declare                 | HTTP 401                    |                             |
-+-------------------------------------------+-----------------------------+-----------------------------+
-| Administrator GET AS3 info                | HTTP 200 + JSON             |                             |
-+-------------------------------------------+-----------------------------+-----------------------------+
++-------------------------------------------+-----------------------------+
+| Test Case                                 | Expected Result             |
++===========================================+=============================+
+| Operator GET AS3 info                     | HTTP 401                    |
++-------------------------------------------+-----------------------------+
+| Operator GET DO info                      | HTTP 401                    |
++-------------------------------------------+-----------------------------+
+| Operator POST AS3 declare                 | HTTP 401                    |
++-------------------------------------------+-----------------------------+
+| Administrator GET AS3 info                | HTTP 200                    |
++-------------------------------------------+-----------------------------+
 
 ---------------------------------------------------------------------
 
@@ -322,11 +367,11 @@ Security Controls Validated
 Detection & Evidence
 --------------------
 
-Relevant log locations include:
+Relevant log locations:
 
-* ``/var/log/restjavad.*`` – REST authentication and authorization events
+* ``/var/log/restjavad.*`` – REST authentication and authorization
 * ``/var/log/restnoded/restnoded.log`` – AS3 request handling
-* ``System → Logs → Audit`` – User and configuration changes
+* **System → Logs → Audit** – User and configuration changes
 
 Authorization failures generate:
 

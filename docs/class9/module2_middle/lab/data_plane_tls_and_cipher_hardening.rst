@@ -1,5 +1,5 @@
 Data Plane TLS and Cipher Hardening
-========================
+===================================
 
 TLS and cipher hardening reduces the risk of cryptographic downgrade,
 weak cipher negotiation, and non-compliant protocol exposure.
@@ -14,15 +14,17 @@ separately.
 
 This mechanism is a critical Middle Layer cryptographic control.
 
+
 Executive Summary
 -----------------
 
-Applications must enforce modern TLS versions and strong ciphers.
+Applications must enforce modern TLS versions and strong cipher suites.
 Legacy protocols and weak cryptographic algorithms must be disabled
-unless explicitly required and risk-approved.
+unless explicitly required and formally risk-approved.
 
-Hardening must be validated using deterministic handshake testing,
+Hardening must be validated using deterministic handshake testing —
 not configuration inspection alone.
+
 
 Threat Scenario
 ---------------
@@ -38,17 +40,19 @@ In the absence of TLS hardening:
 TLS hardening reduces this risk by enforcing modern protocol and
 cipher negotiation at the data plane.
 
+
 Objective
 ---------
 
 This lab will:
 
-* Build a baseline HTTPS application service
-* Observe default TLS posture
+* Inspect an existing HTTPS virtual server
+* Observe baseline TLS posture
 * Create a hardened Client SSL profile
 * Apply hardened configuration to a virtual server
 * Validate deterministic protocol enforcement
 * Confirm weak protocols and ciphers are eliminated
+
 
 Hardened Enterprise Reference Design
 ------------------------------------
@@ -60,122 +64,121 @@ The goal is to standardize strong TLS posture at the BIG-IP data plane.
    Use dedicated SSL profiles.
    Never modify built-in profiles directly.
 
+
 Middle Layer Cohesion
 ---------------------
 
 Within the Middle Layer:
 
-* MFA protects **administrative authentication**.
-* TLS and Cipher Hardening protects **transport confidentiality and integrity**.
-* API Access Control protects **administrative authorization**.
+* MFA protects **administrative authentication**
+* TLS and Cipher Hardening protects **transport confidentiality and integrity**
+* API Access Control protects **administrative authorization**
 
-Together, these controls prevent credential abuse, downgrade attacks,
-and privilege misuse.
+Together, these controls prevent credential abuse,
+downgrade attacks, and privilege misuse.
 
----------------------------------------------------------------------
-
-Phase 0 – Backend Reachability Validation
-------------------------------------------
-
-Before building TLS services, confirm backend reachability.
-
-1. Open BIG-IP **Web Shell**.
-2. Run:
-
-.. code-block:: bash
-
-   ping 10.1.20.252
-
-Expected Result:
-Successful replies with 0% packet loss.
-
-.. image:: ../_images/tls-and-cipher-hardening-00-internal-reachability.png
-   :alt: BIG-IP Web Shell ping to backend server
-   :width: 900
-
-This confirms pool member reachability and isolates TLS testing
-from backend connectivity issues.
 
 ---------------------------------------------------------------------
 
-Phase 1 – Build Baseline HTTPS Service
----------------------------------------
+Pre-Provisioned Lab Environment
+-------------------------------
 
-Step 1 – Create Pool
-~~~~~~~~~~~~~~~~~~~~
+The lab environment includes:
 
-1. Navigate to **Local Traffic → Pools → Create**.
-2. Configure:
+* A functional HTTPS virtual server
+* Associated pool and backend members
+* Default ``clientssl`` profile applied
 
-   * Name: ``tls_lab_pool``
-   * Health Monitor: ``http``
+Students are not required to build the baseline application service.
 
-3. Add member:
 
-   * Address: ``10.1.20.252``
-   * Service Port: ``80``
+---------------------------------------------------------------------
 
-4. Click **Finished**.
+Phase 1 – Inspect Baseline HTTPS Service
+----------------------------------------
 
-.. image:: ../_images/tls-and-cipher-hardening-01-pool-created.png
-   :alt: Pool with backend member
-   :width: 900
+Step 1 – Locate HTTPS Virtual Server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Step 2 – Create HTTPS Virtual Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Navigate to **Local Traffic → Virtual Servers**.
+2. Identify the preconfigured HTTPS virtual server  
+   (example: ``primary-app-site-1-https-vip``).
+3. Confirm:
 
-1. Navigate to **Local Traffic → Virtual Servers → Create**.
-2. Configure:
+   * Destination Address: ``10.1.10.50``
+   * Service Port: ``443 (HTTPS)``
+   * SSL Profile (Client): ``clientssl``
+   * Default Pool assigned
 
-   * Name: ``tls_lab_vs``
-   * Destination Address: ``10.1.10.242``
-   * Service Port: ``443``
-   * HTTP Profile: ``http``
-   * SSL Profile (Client): ``clientssl`` (default)
-   * Default Pool: ``tls_lab_pool``
+.. image:: ../_images/data_plane_phase1_step1.png
+   :alt: Baseline HTTPS virtual server configuration
+   :align: center
+   :width: 900px
 
-3. Click **Finished**.
 
-.. image:: ../_images/tls-and-cipher-hardening-02-virtual-server-baseline.png
-   :alt: Baseline HTTPS virtual server using default clientssl profile
-   :width: 900
+Step 2 – Confirm Backend Health
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Navigate to **Local Traffic → Pools**.
+2. Identify the associated pool.
+3. Confirm:
+
+   * Members are green (Available)
+   * Health monitor is functioning
+
+.. image:: ../_images/data_plane_phase1_step2.png
+   :alt: Backend pool health validation
+   :align: center
+   :width: 900px
+
 
 ---------------------------------------------------------------------
 
 Phase 2 – Baseline TLS Observation
 -----------------------------------
 
-From the jumphost:
+From the jumphost, perform deterministic handshake testing.
 
 Test TLS 1.2 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1_2
+   openssl s_client -connect 10.1.10.50:443 -tls1_2
 
-Test TLS 1.0 (Expected: Likely Success)
+.. image:: ../_images/data_plane_phase2_tls1_2.png
+   :alt: TLS 1.2 handshake success before hardening
+   :align: center
+   :width: 900px
 
-.. code-block:: bash
-
-   openssl s_client -connect 10.1.10.242:443 -tls1
 
 Test TLS 1.1 (Expected: Likely Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1_1
+   openssl s_client -connect 10.1.10.50:443 -tls1_1
 
-If TLS 1.0 or TLS 1.1 succeeds, this confirms legacy protocol exposure.
+.. image:: ../_images/data_plane_phase2_tls1_1.png
+   :alt: TLS 1.1 handshake success before hardening
+   :align: center
+   :width: 900px
 
-Capture evidence.
 
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls10-success.png
-   :alt: TLS 1.0 negotiation success before hardening
-   :width: 900
+Test TLS 1.0 (Expected: Likely Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
-   :alt: TLS 1.1 negotiation success before hardening
-   :width: 900   
+.. code-block:: bash
+
+   openssl s_client -connect 10.1.10.50:443 -tls1
+
+.. image:: ../_images/data_plane_phase2_tls1.png
+   :alt: TLS 1.0 handshake success before hardening
+   :align: center
+   :width: 900px
+
+If TLS 1.0 or TLS 1.1 succeeds, legacy protocol exposure is confirmed.
+
 
 ---------------------------------------------------------------------
 
@@ -199,9 +202,11 @@ Phase 3 – Create Hardened Client SSL Profile
    * TLS 1.2
    * TLS 1.3
 
-5. Set cipher string:
+5. Set the cipher group:
 
-   ECDHE+AES-GCM:ECDHE+CHACHA20:!3DES:!RC4:!MD5:!EXPORT:!NULL
+   ::
+
+      f5-secure
 
 .. note::
 
@@ -211,23 +216,30 @@ Phase 3 – Create Hardened Client SSL Profile
 
 6. Click **Finished**.
 
-.. image:: ../_images/tls-and-cipher-hardening-04-clientssl-hardened.png
-   :alt: Hardened client SSL profile configuration
-   :width: 900
+.. image:: ../_images/data_plane_phase3_step1.png
+   :alt: Hardened Client SSL profile configuration
+   :align: center
+   :width: 900px
+
 
 ---------------------------------------------------------------------
 
 Phase 4 – Apply Hardened Profile
 ---------------------------------
 
-1. Navigate to **Local Traffic → Virtual Servers → tls_lab_vs**.
-2. Replace Client SSL profile with ``clientssl_hardened``.
-3. Click **Update**.
+1. Navigate to **Local Traffic → Virtual Servers**.
+2. Select ``primary-app-site-1-https-vip``.
+3. Replace the Client SSL profile with:
 
-.. image:: ../_images/tls-and-cipher-hardening-05-vs-hardened.png
-   :alt: Virtual server with clientssl_hardened profile applied
-   :width: 900
-   :align: center   
+   ``clientssl_hardened``
+
+4. Click **Update**.
+
+.. image:: ../_images/data_plane_phase4_step1.png
+   :alt: Virtual server updated with hardened SSL profile
+   :align: center
+   :width: 900px
+
 
 ---------------------------------------------------------------------
 
@@ -235,58 +247,66 @@ Phase 5 – Deterministic Validation
 -----------------------------------
 
 Test TLS 1.0 (Expected: Failure)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1
+   openssl s_client -connect 10.1.10.50:443 -tls1
 
-Expected Result:
+Expected result:
 
 * Handshake failure
 * No cipher negotiated
 
-.. figure:: ../_images/tls-and-cipher-hardening-06-tls10-failed.png
-   :alt: TLS 1.0 handshake fails after hardening
+.. image:: ../_images/data_plane_phase5_tls1_0.png
+   :alt: TLS 1.0 handshake failure after hardening
    :align: center
-   :width: 90%
+   :width: 900px
+
 
 Test TLS 1.1 (Expected: Failure)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1_1
+   openssl s_client -connect 10.1.10.50:443 -tls1_1
 
-Expected Result:
+Expected result:
 
 * Handshake failure
 * No cipher negotiated
 
-.. figure:: ../_images/tls-and-cipher-hardening-07-tls11-failed.png
-   :alt: TLS 1.1 handshake fails after hardening
+.. image:: ../_images/data_plane_phase5_tls1_1.png
+   :alt: TLS 1.1 handshake failure after hardening
    :align: center
-   :width: 90%
+   :width: 900px
+
 
 Test TLS 1.2 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1_2
+   openssl s_client -connect 10.1.10.50:443 -tls1_2
 
-.. image:: ../_images/tls-and-cipher-hardening-08-tls12-success.png
-   :alt: TLS 1.2 negotiation success with hardened profile
-   :width: 900
-   :align: center   
+.. image:: ../_images/data_plane_phase5_tls1_2.png
+   :alt: TLS 1.2 handshake success after hardening
+   :align: center
+   :width: 900px
+
 
 Test TLS 1.3 (Expected: Success)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -tls1_3
+   openssl s_client -connect 10.1.10.50:443 -tls1_3
 
-.. image:: ../_images/tls-and-cipher-hardening-09-tls13-success.png
-   :alt: TLS 1.3 negotiation success with hardened profile
-   :width: 900
+.. image:: ../_images/data_plane_phase5_tls1_3.png
+   :alt: TLS 1.3 handshake success after hardening
    :align: center
+   :width: 900px
+
 
 Optional – Weak Cipher Validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -295,20 +315,39 @@ Test a deprecated cipher (Expected: Failure)
 
 .. code-block:: bash
 
-   openssl s_client -connect 10.1.10.242:443 -cipher DES-CBC3-SHA
+   openssl s_client -connect 10.1.10.50:443 -cipher DES-CBC3-SHA
 
-Expected Result:
+Expected result:
 
 * Handshake failure
 * Cipher not negotiated
 
+.. image:: ../_images/data_plane_phase5_cipher.png
+   :alt: Weak cipher rejected after hardening
+   :align: center
+   :width: 900px
+
+
 ---------------------------------------------------------------------
+
+Validation Summary
+------------------
+
+After remediation:
+
+* TLS 1.0 disabled
+* TLS 1.1 disabled
+* Only TLS 1.2 and TLS 1.3 permitted
+* Weak ciphers removed
+* Backend service remains operational
+* Deterministic enforcement confirmed via handshake testing
+
 
 Success Criteria
 ----------------
 
-* Virtual server supports only TLS 1.2 / 1.3
-* TLS 1.0 and 1.1 are blocked
+* Virtual server supports only TLS 1.2 and TLS 1.3
+* TLS 1.0 and TLS 1.1 are blocked
 * Weak ciphers are not offered
-* Backend service remains reachable
-* Deterministic enforcement confirmed via handshake testing
+* Application availability maintained
+* Protocol enforcement verified through active testing
