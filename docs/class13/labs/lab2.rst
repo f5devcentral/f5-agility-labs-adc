@@ -334,13 +334,13 @@ What You Learned — Value of BIG-IP LTM
    :width: 800px
 .. |lab321| image:: ../_static/b_warp_params_bucket_move.png
    :width: 800px
-.. |lab322| image:: ../_static/b_local_policy_list.png
+.. |lab322| image:: ../_static/migrate_updated_screenshot.png
    :width: 800px
-.. |lab323| image:: ../_static/b_matching_condition.png
+.. |lab323| image:: ../_static/policy_updated.png
    :width: 800px
 .. |lab324| image:: ../_static/b_traffic_switches_in_grafana.png
    :width: 800px
-.. |lab325| image:: ../_static/b_apply_local_policy.png
+.. |lab325| image:: ../_static/apply_policy_updated.png
    :width: 800px
 .. |lab326| image:: ../_static/b_tmui_pool_stats_after_switch_over.png
    :width: 800px

@@ -141,7 +141,7 @@ Remote authentication will NOT be activated.
 This lab focuses on configuration review and architectural understanding,
 not activation of remote authentication.
 
-Instead, students will:
+Students will:
 
 * Review configuration interfaces
 * Discuss enterprise integration requirements
@@ -162,12 +162,12 @@ Step 1 – Confirm Administrative Baseline
 3. Confirm the presence of a documented local break-glass administrator.
 4. Verify partition access and role assignments.
 
-.. figure:: ../_images/multi-factor-authentication-01-user-list-baseline.png
+.. image:: ../_images/multi-factor-authentication-01-user-list-baseline.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
 
-   Baseline administrative users prior to centralized authentication integration.
+Baseline administrative users prior to centralized authentication integration.
 
 ---------------------------------------------------------------------
 
@@ -186,12 +186,12 @@ Step 2 – Review Authentication Configuration Screen
 
 Do NOT change the authentication source in this lab.
 
-.. figure:: ../_images/multi-factor-authentication-02-authentication-baseline.png
+.. image:: ../_images/multi-factor-authentication-02-authentication-baseline.png
    :alt: Authentication configuration screen showing Local mode
    :align: center
    :width: 900px
 
-   Baseline authentication mode set to Local.
+Baseline authentication mode set to Local.
 
 ---------------------------------------------------------------------
 
@@ -222,12 +222,12 @@ Step 4 – Review Remote Role Groups Configuration
    * Assigned Role
    * Partition Access
 
-.. figure:: ../_images/multi-factor-authentication-03-remote-role-groups.png
+.. image:: ../_images/multi-factor-authentication-03-remote-role-groups.png
    :alt: Remote Role Groups configuration screen
    :align: center
    :width: 900px
 
-   Remote Role Groups configuration interface used to map AAA attributes to BIG-IP administrative roles.
+Remote Role Groups configuration interface used to map AAA attributes to BIG-IP administrative roles.
 
 This configuration maps AAA-returned attributes to BIG-IP roles
 for dynamic authorization enforcement after successful authentication.
