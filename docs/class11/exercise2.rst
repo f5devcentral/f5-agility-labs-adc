@@ -134,7 +134,7 @@ The final tenant migration step is to load the UCS file, using the platform-migr
    …
    Platform migrate loaded successfully. Saving configuration.
    /var/tmp/r5900-1a.ucs is loaded.
-   root@(i5000-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
+   root@(bigip-1-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
 
 Within a minute or two the BIG‑IP status will change to Active and the configuration will be loaded. View the configuration in the UI or with tmsh to examine the virtual server, pool, and other settings. The Pool should be passing health checks and available along with the Virtual Servers
 
@@ -202,7 +202,7 @@ Note the trailing *-1* for the tenant name, and wonder why is that needed? To fi
 
 .. code-block:: none
 
-   [root@appliance-1(r5900-11.aw26.lab):Active] ~ # su admin
+   [root@appliance-1(r5900-1.aw26.lab):Active] ~ # su admin
    r5900-11# show tenants tenant
 
 Full knowledge article on rSeries tenant console access: https://my.f5.com/manage/s/article/K33373310
