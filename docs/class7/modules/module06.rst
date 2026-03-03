@@ -1,5 +1,5 @@
 Bonus Lab 6: Support and Troubleshooting
-==================================
+========================================
 
 In this lab you will review basic troubleshooting commands on the BIG-IP
 
