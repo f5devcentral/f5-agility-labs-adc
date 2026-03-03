@@ -18,7 +18,7 @@ Login to the BIG-IP
 
 #. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
 #. Select **Access -> TMUI** to connect to the management interface.
-#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+#. Login as **admin**.  If you need the password, it can be found under the system details in UDF.
 
 
 Review the Audit Logs
