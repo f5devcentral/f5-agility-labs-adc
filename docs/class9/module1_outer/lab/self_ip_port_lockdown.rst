@@ -83,7 +83,7 @@ Step 1 – Identify Data-Plane Self IPs
    * External VLAN
    * Internal VLAN
 
-.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
+.. image:: ../_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
    :alt: Baseline Self IP list
    :align: center
    :width: 900px
@@ -121,7 +121,7 @@ Expected (vulnerable state):
 
 * TcpTestSucceeded: True
 
-.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-03-exposed-ports-test.png
+.. image:: ../_images/self-ip-port-lockdown-03-exposed-ports-test.png
    :alt: Exposed control-plane ports validation
    :align: center
    :width: 900px
@@ -149,7 +149,7 @@ Step 4 – Remediate with Allow None
    access. Ensure OOB management access remains available before enforcing
    this control.
 
-.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
+.. image:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
    :alt: Internal Self IP configured with Allow None
    :align: center
    :width: 900px
@@ -176,7 +176,7 @@ Expected (secure state):
 * TcpTestSucceeded: False
 * Warning: TCP connect failed
 
-.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-05-ports-blocked-test.png
+.. image:: ../_images/self-ip-port-lockdown-05-ports-blocked-test.png
    :alt: Ports blocked after Allow None
    :align: center
    :width: 900px
