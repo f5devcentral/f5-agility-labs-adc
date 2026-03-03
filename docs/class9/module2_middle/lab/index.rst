@@ -5,5 +5,6 @@ Lab
    :maxdepth: 1
 
    multi_factor_authentication
-   tls_and_cipher_hardening
+   administrative_tls_hardening
+   data_plane_tls_and_cipher_hardening
    api_access_control

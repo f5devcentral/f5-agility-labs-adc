@@ -4,9 +4,18 @@ Multi-Factor Authentication
 Multi-Factor Authentication (MFA) strengthens administrative access by
 requiring a second factor beyond username and password.
 
-In the Middle Layer, MFA prevents credential-only administrative compromise
-by integrating BIG-IP administrative authentication with a centralized
-AAA or identity provider that enforces MFA for TMUI and SSH access paths.
+In the Middle Layer, MFA protects the authentication process by preventing
+credential-only administrative compromise. BIG-IP administrative authentication
+is delegated to a centralized AAA or identity provider (IdP) that enforces MFA
+for TMUI and SSH access paths.
+
+Authentication answers the question:
+
+* **Who are you?**
+
+Authorization (covered in the API Access Control lab) answers:
+
+* **What are you allowed to do?**
 
 This mechanism is a critical Middle Layer identity control.
 
@@ -20,23 +29,36 @@ This mechanism is a critical Middle Layer identity control.
    that enforces MFA, while maintaining deterministic local fallback
    for break-glass recovery.
 
+Threat Scenario
+---------------
+
+In the absence of MFA enforcement:
+
+* A stolen or phished password could grant administrative access.
+* Password reuse across systems could expose TMUI or SSH.
+* Credential stuffing could target management interfaces.
+* A compromised workstation could be used for lateral administrative access.
+
+MFA reduces this risk by requiring a second authentication factor
+before administrative access is granted.
+
 Objective
 ---------
 
 This lab will:
 
-* Configure BIG-IP to use centralized authentication suitable for MFA
-* Validate remote AAA reachability before enabling authentication
-* Enable deterministic fallback to local authentication
-* Validate successful MFA-based login
-* Validate failure conditions and fallback behavior
-* Confirm operational visibility and audit posture
+* Review centralized MFA integration architecture
+* Examine BIG-IP remote authentication configuration options
+* Demonstrate safe configuration review without activation
+* Reinforce deterministic fallback principles
+* Validate break-glass account posture
+* Understand authentication vs authorization separation
 
 .. warning::
 
    Misconfiguration of remote authentication can result in administrative lockout.
 
-   Before changing authentication source:
+   Before enabling remote authentication in production:
 
    * Ensure console or SSH access is available.
    * Confirm a documented break-glass local administrator account exists.
@@ -51,15 +73,20 @@ centralized identity provider that enforces MFA.
 
 .. note::
 
+   BIG-IP does not natively generate MFA challenges.
+   It relies on the upstream AAA or identity provider to enforce MFA
+   before returning an authentication decision.
+
    BIG-IP can integrate with enterprise AAA systems such as:
 
    * RADIUS
    * TACACS+
    * LDAP (when upstream MFA is enforced)
-   * SAML (where supported for administrative access)
+   * SAML (administrative support depends on TMOS version and platform capability)
 
    The reference design assumes MFA enforcement occurs at the upstream
-   identity provider. BIG-IP consumes the authentication decision.
+   identity provider. BIG-IP consumes the authentication result and
+   applies role mapping locally.
 
 .. nwdiag::
    :caption: Reference Design – BIG-IP Administrative Access with Centralized MFA
@@ -89,6 +116,41 @@ Recommended MFA Posture
 | Break-glass account  | Local (restricted)         | Stored securely, monitored, least use      |
 +----------------------+----------------------------+-------------------------------------------+
 
+Middle Layer Cohesion
+---------------------
+
+Within the Middle Layer:
+
+* MFA protects **administrative authentication**.
+* TLS and Cipher Hardening protects **administrative transport security**.
+* API Access Control protects **administrative authorization**.
+
+Together, these controls prevent credential abuse, transport downgrade,
+and privilege misuse.
+
+---------------------------------------------------------------------
+
+Lab Environment Notice
+----------------------
+
+This lab environment does not include a live RADIUS, TACACS+, LDAP,
+or SAML identity provider.
+
+Remote authentication will NOT be activated.
+
+This lab focuses on configuration review and architectural understanding,
+not activation of remote authentication.
+
+Students will:
+
+* Review configuration interfaces
+* Discuss enterprise integration requirements
+* Validate break-glass posture
+* Understand fallback behavior
+* Simulate authentication drift scenarios safely
+
+---------------------------------------------------------------------
+
 GUI Configuration Procedure
 ---------------------------
 
@@ -100,120 +162,100 @@ Step 1 – Confirm Administrative Baseline
 3. Confirm the presence of a documented local break-glass administrator.
 4. Verify partition access and role assignments.
 
-Step 2 – Validate AAA Reachability (Required)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. image:: ../_images/multi-factor-authentication-01-user-list-baseline.png
+   :alt: User List showing local administrative accounts
+   :align: center
+   :width: 900px
 
-Before enabling remote authentication, validate connectivity.
+Baseline administrative users prior to centralized authentication integration.
 
-Enter TMSH:
+---------------------------------------------------------------------
 
-.. code-block:: bash
-
-   run util bash
-   ping -c 3 <radius-server-ip>
-
-Expected:
-
-* Successful ICMP replies.
-* No "Destination Host Unreachable" errors.
-
-If unreachable, correct routing before proceeding.
-
-Step 3 – Configure Remote Authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 2 – Review Authentication Configuration Screen
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Navigate to **System → Users → Authentication**.
-2. Set:
+2. Observe available authentication modes.
+3. Review the following options:
 
-   * Authentication: **Advanced**
-   * User Directory: **Remote – RADIUS**
-   * Service Type: **Authenticate Only**
-   * Fallback to Local: **Enabled**
+   * Local
+   * Remote – RADIUS
+   * Remote – TACACS+
+   * LDAP
+   * SAML (where supported)
 
-3. Configure:
+Do NOT change the authentication source in this lab.
 
-   * Host (RADIUS server IP)
-   * Port (default 1812)
-   * Shared secret
+.. image:: ../_images/multi-factor-authentication-02-authentication-baseline.png
+   :alt: Authentication configuration screen showing Local mode
+   :align: center
+   :width: 900px
 
-4. Click **Update**.
+Baseline authentication mode set to Local.
 
-Fallback Behavior
-~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------
 
-If the RADIUS server is reachable:
+Step 3 – Discuss Remote Authentication Requirements (Conceptual)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Authentication is delegated to the AAA server.
+In a production environment, enabling Remote – RADIUS would require:
 
-If the RADIUS server is unreachable:
+* Confirmed reachability to the RADIUS server
+* Correct shared secret configuration
+* Remote role group mapping
+* Fallback to Local enabled
+* Successful login validation before session termination
 
-* BIG-IP attempts remote authentication.
-* After timeout, authentication falls back to local accounts (if enabled).
-* If fallback is disabled, administrative access may fail entirely.
+Failure to validate reachability may result in administrative lockout.
 
-Step 4 – Configure Remote Role Groups
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------
+
+Step 4 – Review Remote Role Groups Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Navigate to **System → Users → Remote Role Groups**.
-2. Click **Create**.
-3. Define:
+2. Click **Create** (do not save changes).
+3. Review configuration fields:
 
-   * Attribute String (based on AAA attribute policy)
-   * Assigned Role (e.g., Administrator)
-   * Partition Access (All or as required)
+   * Attribute String (e.g., RADIUS Class, TACACS+ privilege level,
+     LDAP group membership, or SAML assertion)
+   * Assigned Role
+   * Partition Access
 
-4. Click **Finished**.
+.. image:: ../_images/multi-factor-authentication-03-remote-role-groups.png
+   :alt: Remote Role Groups configuration screen
+   :align: center
+   :width: 900px
 
-Verification
-------------
+Remote Role Groups configuration interface used to map AAA attributes to BIG-IP administrative roles.
 
-GUI Verification
-~~~~~~~~~~~~~~~~
+This configuration maps AAA-returned attributes to BIG-IP roles
+for dynamic authorization enforcement after successful authentication.
 
-1. Open a browser from the lab jump host.
-2. Navigate to:
+.. note::
 
-   https://<mgmt-ip>
+   No AAA attributes will be evaluated in this lab environment.
+   This step is demonstrative only.
 
-3. Log in using a centralized AAA user.
-4. Complete MFA challenge (if enforced by IdP).
-5. Confirm successful login.
+---------------------------------------------------------------------
 
-Negative Test – Remote Unreachable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Verification (Simulation)
+--------------------------
 
-Temporarily configure an unused RADIUS IP.
+In a production deployment:
 
-Expected:
+* Administrative login is delegated to centralized AAA.
+* MFA challenge occurs upstream at the identity provider.
+* BIG-IP consumes the authentication result.
+* Role mapping is enforced dynamically.
 
-* Login fails or times out.
-* If fallback is enabled and valid local credentials are used,
-  login succeeds.
+In this lab:
 
-Packet-Level Verification (Advanced)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Authentication remains local.
+* Role mapping configuration is reviewed.
+* Fallback principles are discussed conceptually.
 
-From TMSH:
-
-.. code-block:: bash
-
-   run util bash
-   tcpdump -ni mgmt udp port 1812
-
-Attempt login.
-
-Expected:
-
-* RADIUS Access-Request packets observed.
-
-iHealth Validation
-------------------
-
-Upload a QKView and confirm:
-
-* Authentication source is remote.
-* Fallback is configured.
-* No findings related to weak administrative authentication posture.
+---------------------------------------------------------------------
 
 Instructor Notes
 ----------------
@@ -228,6 +270,8 @@ Instructor Notes
    * Always test login before ending configuration.
    * Remote authentication without reachability validation is operationally unsafe.
 
+---------------------------------------------------------------------
+
 Lab Challenge – Authentication Drift Scenario
 ---------------------------------------------
 
@@ -240,26 +284,19 @@ Student Tasks:
 1. Identify the account under **System → Users**.
 2. Confirm it bypasses centralized authentication.
 3. Restrict or document it as break-glass only.
-4. Validate centralized MFA is used for routine administrative access.
+4. Explain how centralized MFA would enforce stronger control.
+
+Local accounts in MFA-enabled environments should be disabled,
+restricted, or documented strictly as break-glass access.
+
+---------------------------------------------------------------------
 
 Success Criteria
-~~~~~~~~~~~~~~~~
+----------------
 
-* Remote authentication source configured.
-* RADIUS reachability validated.
-* Remote role group mapped correctly.
-* Fallback to local authentication enabled.
-* TMUI login validated.
-* RADIUS traffic observable via packet capture (optional).
-* Local-only routine administrative access eliminated.
-
-Advanced Exercise
-~~~~~~~~~~~~~~~~~
-
-Simulate AAA outage:
-
-1. Change RADIUS IP to unused address.
-2. Attempt login.
-3. Validate fallback behavior.
-4. Restore correct server IP.
-5. Confirm normal operation resumes.
+* Break-glass account documented
+* Authentication vs authorization distinction understood
+* Authentication screen reviewed
+* Remote authentication risks understood
+* Fallback behavior explained correctly
+* Centralized MFA integration architecture understood
