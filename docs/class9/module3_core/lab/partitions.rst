@@ -5,13 +5,22 @@ Partitions and RBAC
 Objective
 ---------
 
-This lab demonstrates basic access control using partitions.
+This lab demonstrates basic role based access control using partitions.  Role based access control allows different users to have different privileges to different objects in the system depending on their group (role). This is useful for giving certain teams access to certain applications, or allowing users to view or edit only the portions of the configuration that are relevant to their job.
 
 
 Lab
 ---
 
 Estimatied completion time: 10-12 minutes.
+
+
+Login to the BIG-IP
++++++++++++++++++++
+
+#. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
+#. Select **Access -> TMUI** to connect to the management interface.
+#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+
 
 Create a Partition
 ++++++++++++++++++

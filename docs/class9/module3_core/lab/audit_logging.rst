@@ -5,13 +5,21 @@ Audit Logging & Controls
 Objective
 ---------
 
-In this lab you will examine the audit capabilities of the F5 BIG-IP platform.
+In this lab you will examine the audit capabilities of the F5 BIG-IP platform.  Audit controls allow administrators to review changes that have been made to the system, and determine what users have made those changes.  This can help to uncover mistakes or unauthorized changes to the configuration.
 
 
 Lab
 ---
 
 Estimatied completion time: 10-12 minutes.
+
+Login to the BIG-IP
++++++++++++++++++++
+
+#. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
+#. Select **Access -> TMUI** to connect to the management interface.
+#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+
 
 Review the Audit Logs
 ~~~~~~~~~~~~~~~~~~~~~
