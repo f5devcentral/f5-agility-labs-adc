@@ -86,7 +86,7 @@ With Chrome, check the version of TLS negotiation and the ciphers used.
    .. image:: ../_static/image34.png
   
 
-5. Scroll the developer tools to the left, exposing Privacy and security to show the TLS negotiation
+5. Scroll the developer tools to the left, exposing **Privacy and security** to show the TLS negotiation
 
    .. image:: ../_static/image35.png
 
