@@ -5,7 +5,7 @@ From the Windows-client we will be able to access the BIG-IP TMUI, NGINX, and th
 
 | In this section, you will primarily perform the following tasks:
 
-- Log in to the Windows client and set the Google Chrome as the default browser
+- Log in to the Windows client and set Google Chrome as the default browser
 
 | 
 1. Navigate to the details button of the Windows-client. Select either RDP or Console to access the Windows-client.
