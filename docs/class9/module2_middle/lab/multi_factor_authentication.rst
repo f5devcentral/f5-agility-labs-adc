@@ -162,7 +162,7 @@ Step 1 – Confirm Administrative Baseline
 3. Confirm the presence of a documented local break-glass administrator.
 4. Verify partition access and role assignments.
 
-.. image:: /class9/module2_middle/_images/multi-factor-authentication-01-user-list-baseline.png
+.. image:: ../_images/multi-factor-authentication-01-user-list-baseline.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -186,7 +186,7 @@ Step 2 – Review Authentication Configuration Screen
 
 Do NOT change the authentication source in this lab.
 
-.. image:: /class9/module2_middle/_images/multi-factor-authentication-02-authentication-baseline.png
+.. image:: ../_images/multi-factor-authentication-02-authentication-baseline.png
    :alt: Authentication configuration screen showing Local mode
    :align: center
    :width: 900px
@@ -222,7 +222,7 @@ Step 4 – Review Remote Role Groups Configuration
    * Assigned Role
    * Partition Access
 
-.. image:: /class9/module2_middle/_images/multi-factor-authentication-03-remote-role-groups.png
+.. image:: ../_images/multi-factor-authentication-03-remote-role-groups.png
    :alt: Remote Role Groups configuration screen
    :align: center
    :width: 900px

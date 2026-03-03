@@ -133,7 +133,7 @@ Confirm the following packages are installed:
 * ``f5-appsvcs``
 * ``f5-declarative-onboarding``
 
-.. image:: /class9/module2_middle/_images/api_access_control-as3_do_check.png
+.. image:: ../_images/api_access_control-as3_do_check.png
    :alt: Package Management LX showing AS3 and Declarative Onboarding installed
    :align: center
    :width: 900px
@@ -156,7 +156,7 @@ Expected:
 * HTTP Status: 200
 * JSON response containing AS3 version information
 
-.. image:: /class9/module2_middle/_images/api_access_control-baseline_api_reachablity_jumphost.png
+.. image:: ../_images/api_access_control-baseline_api_reachablity_jumphost.png
    :alt: Git Bash curl to AS3 info endpoint returning HTTP 200
    :align: center
    :width: 900px
@@ -176,7 +176,7 @@ Create a local user with limited privileges:
 * Partition: ``Common``
 * Terminal Access: ``Disabled``
 
-.. image:: /class9/module2_middle/_images/api_access_control-create_local_user.png
+.. image:: ../_images/api_access_control-create_local_user.png
    :alt: Create local user api_test_user with Operator role
    :align: center
    :width: 900px
@@ -216,7 +216,7 @@ Expected:
 
 * ``test.json`` exists and has a non-zero size
 
-.. image:: /class9/module2_middle/_images/api_access_control-create_declaration.png
+.. image:: ../_images/api_access_control-create_declaration.png
    :alt: Create local user api_test_user with Operator role
    :align: center
    :width: 900px
@@ -236,7 +236,7 @@ Expected:
 
 * HTTP Status: 401
 
-.. image:: /class9/module2_middle/_images/api_access_control-as3_test_acess.png
+.. image:: ../_images/api_access_control-as3_test_acess.png
    :alt: Operator role denied (HTTP 401) when querying AS3 info endpoint
    :align: center
    :width: 900px
@@ -256,7 +256,7 @@ Expected:
 
 * HTTP Status: 401
 
-.. image:: /class9/module2_middle/_images/do_test_access.png
+.. image:: ../_images/do_test_access.png
    :alt: Operator role denied (HTTP 401) when querying Declarative Onboarding info endpoint
    :align: center
    :width: 900px
@@ -279,7 +279,7 @@ Expected:
 
 * HTTP Status: 401
 
-.. image:: /class9/module2_middle/_images/as3_test_declaration_post.png
+.. image:: ../_images/as3_test_declaration_post.png
    :alt: Operator role denied (HTTP 401) when attempting AS3 declaration POST
    :align: center
    :width: 900px
@@ -321,7 +321,7 @@ Expected:
 * HTTP Status: 200
 * JSON response returned
 
-.. image:: /class9/module2_middle/_images/as3_test_admin_auth_access.png
+.. image:: ../_images/as3_test_admin_auth_access.png
    :alt: Administrator permitted (HTTP 200) when querying AS3 info endpoint
    :align: center
    :width: 900px

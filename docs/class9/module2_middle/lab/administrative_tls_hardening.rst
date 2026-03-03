@@ -97,7 +97,7 @@ Test TLS 1.0:
 
    openssl s_client -connect <mgmt-ip>:443 -tls1
 
-.. image:: /class9/module2_middle/_images/phase1_base_tlsv1.png
+.. image:: ../_images/phase1_base_tlsv1.png
    :align: center
    :alt: Baseline TLS 1.0 handshake
    :width: 900px
@@ -108,7 +108,7 @@ Test TLS 1.1:
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_1
 
-.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_1.png
+.. image:: ../_images/phase1_base_tlsv1_1.png
    :align: center
    :alt: Baseline TLS 1.1 handshake
    :width: 900px
@@ -130,7 +130,7 @@ Test TLS 1.3:
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_3
 
-.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_3.png
+.. image:: ../_images/phase1_base_tlsv1_3.png
    :align: center
    :alt: Baseline TLS 1.3 handshake result
    :width: 900px
@@ -171,7 +171,7 @@ Expected result:
 
    ssl-protocol "all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1"
 
-.. image:: /class9/module2_middle/_images/phase2_step1.png
+.. image:: ../_images/phase2_step1.png
    :align: center
    :alt: Management TLS protocol hardened
    :width: 900px
@@ -191,7 +191,7 @@ Verify:
 
    tmsh list sys httpd ssl-ciphersuite
 
-.. image:: /class9/module2_middle/_images/phase2_step2.png
+.. image:: ../_images/phase2_step2.png
    :align: center
    :alt: Management TLS cipher suite hardened
    :width: 900px
@@ -207,7 +207,7 @@ Test TLS 1.0 (Expected: Failure)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1
 
-.. image:: /class9/module2_middle/_images/phase3_test_1_0.png
+.. image:: ../_images/phase3_test_1_0.png
    :align: center
    :alt: TLS 1.0 handshake failure after hardening
    :width: 900px
@@ -218,7 +218,7 @@ Test TLS 1.1 (Expected: Failure)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_1
 
-.. image:: /class9/module2_middle/_images/phase3_test_1_1.png
+.. image:: ../_images/phase3_test_1_1.png
    :align: center
    :alt: TLS 1.1 handshake failure after hardening
    :width: 900px
@@ -229,7 +229,7 @@ Test TLS 1.2 (Expected: Success)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_2
 
-.. image:: /class9/module2_middle/_images/phase3_test_1_2.png
+.. image:: ../_images/phase3_test_1_2.png
    :align: center
    :alt: TLS 1.2 handshake success after hardening
    :width: 900px
@@ -240,7 +240,7 @@ Test TLS 1.3 (Version-Dependent)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_3
 
-.. image:: /class9/module2_middle/_images/phase3_test_1_3.png
+.. image:: ../_images/phase3_test_1_3.png
    :align: center
    :alt: TLS 1.3 handshake result
    :width: 900px
@@ -254,7 +254,7 @@ Attempt deprecated SHA1 cipher:
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_2 -cipher AES128-SHA
 
-.. image:: /class9/module2_middle/_images/phase3_test_cipher.png
+.. image:: ../_images/phase3_test_cipher.png
    :align: center
    :alt: Weak cipher rejected
    :width: 900px

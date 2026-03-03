@@ -109,14 +109,14 @@ Step 1 – Identify Interface Inventory
    * Management IP (**Top Right Corner**)
    * External & Internal Self IP (**Network → Self IPs**)
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-01-platform-mgmt-ip.png
+.. image:: ../_images/control-plane-segmentation-01-platform-mgmt-ip.png
    :alt: Platform screen showing management IP configuration
    :align: center
    :width: 900px
 
 Platform configuration showing the BIG-IP management IP address.
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-02-selfip-inventory.png
+.. image:: ../_images/control-plane-segmentation-02-selfip-inventory.png
    :alt: Self IP inventory showing external and internal Self IPs
    :align: center
    :width: 900px
@@ -145,7 +145,7 @@ Expected:
 
 * TcpTestSucceeded: True (for enabled services)
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-03-mgmt-ip-reachable.png
+... image:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
    :alt: PowerShell output showing management IP reachable on TCP 22 and 443 from an authorized host
    :align: center
    :width: 900px
@@ -169,7 +169,7 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-04-external-selfip-blocked.png
+.. image:: ../_images/control-plane-segmentation-04-external-selfip-blocked.png
    :alt: Validation showing external Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
@@ -187,7 +187,7 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-05-internal-selfip-blocked.png
+.. image:: ../_images/control-plane-segmentation-05-internal-selfip-blocked.png
    :alt: Validation showing internal Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
@@ -221,7 +221,7 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: /class9/module1_outer/_images/control-plane-segmentation-06-mgmt-ip-blocked-unauthorized.png
+.. image:: ../_images/control-plane-segmentation-06-mgmt-ip-blocked-unauthorized.png
    :alt: Validation showing management IP blocked from unauthorized host
    :align: center
    :width: 900px

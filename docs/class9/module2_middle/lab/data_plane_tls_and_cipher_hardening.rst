@@ -108,7 +108,7 @@ Step 1 – Locate HTTPS Virtual Server
 
 This confirms the application is already operational.
 
-.. image:: /class9/module2_middle/_images/data_plane_phase1_step1.png
+.. image:: ../_images/data_plane_phase1_step1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -127,7 +127,7 @@ Step 2 – Confirm Backend Health
 
 This validates backend reachability before TLS posture changes.
 
-.. image:: /class9/module2_middle/_images/data_plane_phase1_step2.png
+.. image:: ../_images/data_plane_phase1_step2.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -145,7 +145,7 @@ Test TLS 1.2 (Expected: Success)
 
    openssl s_client -connect 10.1.10.50:443 -tls1_2
 
-.. image:: /class9/module2_middle/_images/data_plane_phase2_tls1_2.png
+.. image:: ../_images/data_plane_phase2_tls1_2.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -156,31 +156,29 @@ Test TLS 1.1 (Expected: Likely Success)
 
    openssl s_client -connect 10.1.10.50:443 -tls1_1
 
-.. image:: /class9/module2_middle/_images/data_plane_phase2_tls1_1.png
+.. image:: ../_images/data_plane_phase2_tls1_1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
 
 Test TLS 1.0 (Expected: Likely Success)
 
-<<<<<<< HEAD
 .. figure:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
 =======
-<<<<<<< Updated upstream
 .. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls10-success.png
    :alt: TLS 1.0 negotiation success before hardening
    :width: 900
 
 .. image:: ../_images/tls-and-cipher-hardening-03-baseline-tls11-success.png
->>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
    :alt: TLS 1.1 negotiation success before hardening
    :width: 900   
+
 =======
 .. code-block:: bash
 
    openssl s_client -connect 10.1.10.50:443 -tls1
 
-.. image:: /class9/module2_middle/_images/data_plane_phase2_tls1.png
+.. image:: ../_images//data_plane_phase2_tls1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -188,7 +186,6 @@ Test TLS 1.0 (Expected: Likely Success)
 If TLS 1.0 or TLS 1.1 succeeds, legacy protocol exposure is confirmed.
 
 This establishes the baseline cryptographic posture.
->>>>>>> Stashed changes
 
 ---------------------------------------------------------------------
 
@@ -226,7 +223,7 @@ Phase 3 – Create Hardened Client SSL Profile
 
 6. Click **Finished**.
 
-.. image:: /class9/module2_middle/_images/data_plane_phase3_step1.png
+.. image:: ../_images/data_plane_phase3_step1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -244,7 +241,7 @@ Phase 4 – Apply Hardened Profile
 
 4. Click **Update**.
 
-.. image:: /class9/module2_middle/_images/data_plane_phase4_step1.png
+.. image:: ../_images/data_plane_phase4_step1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -265,7 +262,7 @@ Expected result:
 * Handshake failure
 * No cipher negotiated
 
-.. image:: /class9/module2_middle/_images/data_plane_phase5_tls1_0.png
+.. image:: ../_images/data_plane_phase5_tls1_0.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -283,7 +280,7 @@ Expected result:
 * Handshake failure
 * No cipher negotiated
 
-.. image:: /class9/module2_middle/_images/data_plane_phase5_tls1_1.png
+.. image:: ../_images/data_plane_phase5_tls1_1.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -296,7 +293,7 @@ Test TLS 1.2 (Expected: Success)
 
    openssl s_client -connect 10.1.10.50:443 -tls1_2
 
-.. image:: /class9/module2_middle/_images/data_plane_phase5_tls1_2.png
+.. image:: ../_images/data_plane_phase5_tls1_2.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -309,7 +306,7 @@ Test TLS 1.3 (Expected: Success)
 
    openssl s_client -connect 10.1.10.50:443 -tls1_3
 
-.. image:: /class9/module2_middle/_images/data_plane_phase5_tls1_3.png
+.. image:: ../_images/data_plane_phase5_tls1_3.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
@@ -330,7 +327,7 @@ Expected result:
 * Handshake failure
 * Cipher not negotiated
 
-.. image:: /class9/module2_middle/_images/data_plane_phase5_cipher.png
+.. image:: ../_images/data_plane_phase5_cipher.png
    :alt: User List showing local administrative accounts
    :align: center
    :width: 900px
