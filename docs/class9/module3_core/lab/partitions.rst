@@ -19,7 +19,7 @@ Login to the BIG-IP
 
 #. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
 #. Select **Access -> TMUI** to connect to the management interface.
-#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+#. Login as **admin**.  If you need the password, it can be found under the system details in UDF.
 
 
 Create a Partition
@@ -44,13 +44,13 @@ Add Users
 
     .. image:: ./_images/partition-2.png
 
-#. Click **Add**, ensure that the role and partition are displayed in the partition access box below, then click **Finished**.
+#. Click **Add**. Ensure that the role and partition are displayed in the partition access box below, then click **Finished**.
 
     .. image:: ./_images/partition-3.png
 
 #. Create another user by clicking **Create** again.
 #. Name the user **App01Operator** and assign a passowrd.
-#. Select the role **Operator** and assign it to the partition **App01** then click **Finished**.
+#. Select the role **Operator**. Assign the role to the partition **App01** then click **Finished**.
 
     .. image:: ./_images/partition-4.png
 
@@ -59,23 +59,25 @@ Explore & Create Objects
 ++++++++++++++++++++++++
 
 #. Logout of the TMUI and lock back in as **App01Admin**.
-#. Since it's you're first time logging in, you'll regrettably be asked to change your password.  While this can be an annoyance, this is the default behavior and an important security control.  Again, choose a password you can remember.
+#. Since it's your first time logging in, you'll regrettably be asked to change your password.  While this can be an annoyance, this is the default behavior and an important security control.  Again, choose a password you can remember.
 #. If you've done everything correctly so far, you'll notice that your user is locked to the **App01** Partition.
 
     .. image:: ./_images/partition-5.png
 
 #. Navigate to **Local Traffic -> Virtual Servers**.
 #. **Click** any of the Virtual Servers in the list.
-#. You'll notice that all of the options are greyed out and you cannot make changes.  This is because these objects are in the common partition which is owned by box level administrators and you do not have sufficient privilege with this account.
+#. You'll notice that all of the options are greyed out and you cannot make changes.  This is because these objects are in the common partition which is owned by box level administrators and you do not have sufficient privilege with your current account.
 #. Navigate to **Local Traffic -> Pools**.
 #. Click **Create**.
 #. Name the pool **App01Pool** and select the **http health monitor**.
-#. Add a node with the IP Address **10.1.10.50** on **port 80** (don't forget to click add).  It should look like this:
+#. Add a node with the IP Address **10.1.20.100** on **port 80** (don't forget to click add) and another with the IP address **10.1.20.101** also on **port 80**.  
+    
+   It should look like this:
 
-    .. image:: ./_images/partition-6.png
+     .. image:: ./_images/partition-6.png
 
 #. If it looks correct, click **Finished.**
-#. **Return** to the **virtual servers list**.
+#. **Return** to the **virtual server list**.
 #. Click **Create**.
 #. **Configure** the following virtual server settings:
 
@@ -118,7 +120,9 @@ Test Limited Access
 
     .. image:: ./_images/partition-8.png
 
-   The operator role allows read access to allowed partitions and basic actions like enabling and disabling pool members and nodes.  For more details on roles and their permissions, see below.
+   The operator role allows read access to allowed partitions and basic actions like enabling and disabling pool members and nodes.  
+
+   For more details on roles and their permissions, see below.
 
 
 More Information about User Roles

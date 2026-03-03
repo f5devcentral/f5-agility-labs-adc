@@ -4,7 +4,7 @@ Working with iHealth
 Objective
 ---------
 
-In this lab you will examine the some of the security auditing capabilities of iHealth.  iHealth is a free (for F5 customers) diagnostic application that aids in troubleshooting and performance analysis of F5's BIG-IP platform.  It is frequently used by F5 support for debugging, but is also a fantastic tool for F5 administrators.
+In this lab you will examine the some of the security auditing capabilities of iHealth.  iHealth is a free (for F5 customers) diagnostic application that aids in the troubleshooting and performance analysis of F5's BIG-IP platform.  It is frequently used by F5 support for debugging, but is also a fantastic tool for F5 administrators.
 
 
 Lab
@@ -17,11 +17,11 @@ Login to the BIG-IP
 
 #. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
 #. Select **Access -> TMUI** to connect to the management interface.
-#. Login as **admin**.  If you need the password,it can be found under the system details in UDF.
+#. Login as **admin**.  If you need the password, it can be found under the system details in UDF.
 
 
 Create a Qkview
-~~~~~~~~~~~~~~~
++++++++++++++++
 
 #. Ensure you are logged into the TMUI as **admin**.
 
@@ -48,11 +48,11 @@ Create a Qkview
 
 
 Upload a Qkview
-~~~~~~~~~~~~~~~
++++++++++++++++
 
 #. From your web browser, navigate to `https://ihealth.f5.com <https://ihealth.f5.com>`_
 
-#. Since your are logged into UDF already, you most likely will not have to log in again.  If you do, the same account that got you access to UDF (your myf5 account) should also get you into iHealth.
+#. Since you are logged into UDF already, you most likely will not have to log in again.  If you do, the same account that got you access to UDF (your myf5 account) should also get you into iHealth.
 
 #. Click **Upload**.
 
@@ -72,7 +72,7 @@ Upload a Qkview
     .. image:: ./_images/ihealth-8.png
 
 Analyze a QKView
-~~~~~~~~~~~~~~~~
+++++++++++++++++
 
 #. Once the QKView is availabile, go ahead and click on its description:
 
@@ -81,7 +81,7 @@ Analyze a QKView
     .. important::
          Depending on when this lab is run and when the blueprint was last updated, the hostname and even the BIG-IP version may be different.  Ensure you're looking for the QKView with the description you entered during the upload step.
 
-#. You should be greeted by a screen that looks like the one below.  Familiarize yourself with the information avaiable on the main screen, then click **Diagnostics** on the menu to the left.
+#. You should be greeted by a screen that looks like the one below.  Familiarize yourself with the information avaiable on the main screen, then click **Diagnostics** in the menu to the left.
 
     .. image:: ./_images/ihealth-10.png
 
