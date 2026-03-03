@@ -85,34 +85,89 @@ Test TLS 1.0:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1
+   openssl s_client -connect 10.1.1.5:443 -tls1
+
+.. image:: /class9/module2_middle/_images/phase1_base_tlsv1.png
+   :align: center
+   :alt: Baseline TLS handshake results prior to hardening
+   :width: 900px   
 
 Test TLS 1.1:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_1
+   openssl s_client -connect 10.1.1.5:443 -tls1_1
 
+<<<<<<< HEAD
 Test TLS 1.2:
+=======
+<<<<<<< Updated upstream
+Test TLS 1.2 (Expected: Success)
+=======
+.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_1.png
+   :align: center
+   :alt: Baseline TLS handshake results prior to hardening
+   :width: 900px
+Test TLS 1.2:
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_2
+   openssl s_client -connect 10.1.1.5:443 -tls1_2
 
+<<<<<<< HEAD
+=======
+.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_2.png
+   :align: center
+   :alt: Baseline TLS handshake results prior to hardening
+   :width: 900px
+
+<<<<<<< Updated upstream
+=======
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 Test TLS 1.3:
 
 .. code-block:: bash
 
+<<<<<<< HEAD
    openssl s_client -connect <mgmt-ip>:443 -tls1_3
 
+=======
+   openssl s_client -connect 10.1.1.5:443 -tls1_3
+
+.. image:: /class9/module2_middle/_images/phase1_base_tlsv1_3.png
+   :align: center
+   :alt: Baseline TLS handshake results prior to hardening
+   :width: 900px
+
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 Capture:
 
 * Negotiated protocol
 * Negotiated cipher suite
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase1_base_tlsv1.png
    :align: center
    :alt: Baseline TLS handshake results prior to hardening
+=======
+<<<<<<< Updated upstream
+.. figure:: ../_images/administrative-tls-hardening-01-baseline-tls-observation.png
+   :align: center
+   :alt: Baseline TLS handshake against management interface
+
+   Baseline TLS handshake results for the management interface prior to hardening.
+=======
+.. image:: /class9/module2_middle/_images/phase1_base_tlsv1.png
+   :align: center
+   :alt: Baseline TLS handshake results prior to hardening
+   :width: 900px
+
+Baseline TLS handshake results for the management interface prior to hardening.
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 If TLS 1.0 or TLS 1.1 succeeds, legacy protocol exposure is confirmed.
 
@@ -140,6 +195,7 @@ Verify:
 
 .. code-block:: bash
 
+<<<<<<< HEAD
    tmsh list sys httpd ssl-protocol
 
 Expected result:
@@ -151,10 +207,34 @@ Expected result:
 .. figure:: ../_images/phase2_step1.png
    :align: center
    :alt: Management TLS protocol hardened
+=======
+<<<<<<< Updated upstream
+.. figure:: ../_images/administrative-tls-hardening-02-hardened-config.png
+   :align: center
+   :alt: Hardened management TLS configuration screen
+=======
+   tmsh list sys httpd ssl-protocol
+
+Expected result:
+
+.. image:: /class9/module2_middle/_images/phase2_step1.png
+   :align: center
+   :alt: Management TLS protocol hardened
+   :width: 900px
+
+Management TLS protocol configuration updated to disable TLS 1.0 and TLS 1.1.
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 Step 2 – Enforce Balanced Enterprise Cipher Posture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+---------------------------------------------------------------------
+=======
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 Apply reduced cipher list:
 
 .. code-block:: bash
@@ -167,9 +247,19 @@ Verify:
 
    tmsh list sys httpd ssl-ciphersuite
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase2_step2.png
    :align: center
    :alt: Management TLS cipher suite hardened
+=======
+.. image:: /class9/module2_middle/_images/phase2_step2.png
+   :align: center
+   :alt: Management TLS cipher suite hardened
+   :width: 900px
+
+Management TLS cipher suite reduced to remove SHA1-based ciphers while preserving enterprise compatibility.
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 Phase 3 – Deterministic Validation
 -----------------------------------
@@ -178,11 +268,27 @@ Test TLS 1.0 (Expected: Failure)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1
+   openssl s_client -connect 10.1.1.5:443 -tls1
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase3_test_1_0.png
+=======
+<<<<<<< Updated upstream
+Expected Result:
+
+* Handshake failure
+* No cipher negotiated
+
+.. figure:: ../_images/administrative-tls-hardening-03-tls10-blocked.png
+=======
+.. image:: /class9/module2_middle/_images/phase3_test_1_0.png
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
    :align: center
    :alt: TLS 1.0 handshake failure after hardening
+   :width: 900px
+
+TLS 1.0 handshake failure after hardening.
 
 Test TLS 1.1 (Expected: Failure)
 
@@ -190,9 +296,25 @@ Test TLS 1.1 (Expected: Failure)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_1
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase3_test_1_1.png
+=======
+<<<<<<< Updated upstream
+Expected Result:
+
+* Handshake failure
+* No cipher negotiated
+
+.. figure:: ../_images/administrative-tls-hardening-04-tls11-blocked.png
+=======
+.. image:: /class9/module2_middle/_images/phase3_test_1_1.png
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
    :align: center
    :alt: TLS 1.1 handshake failure after hardening
+   :width: 900px
+
+TLS 1.1 handshake failure after hardening.
 
 Test TLS 1.2 (Expected: Success)
 
@@ -200,9 +322,20 @@ Test TLS 1.2 (Expected: Success)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_2
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase3_test_1_2.png
+=======
+<<<<<<< Updated upstream
+.. figure:: ../_images/administrative-tls-hardening-05-tls12-success.png
+=======
+.. image:: /class9/module2_middle/_images/phase3_test_1_2.png
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
    :align: center
    :alt: TLS 1.2 handshake success after hardening
+   :width: 900px
+
+TLS 1.2 handshake success after hardening.
 
 Test TLS 1.3 (Version-Dependent)
 
@@ -210,11 +343,28 @@ Test TLS 1.3 (Version-Dependent)
 
    openssl s_client -connect <mgmt-ip>:443 -tls1_3
 
+<<<<<<< HEAD
 In this TMOS build, TLS 1.3 may not be active on the management plane. A handshake failure confirms TLS 1.3 is not enabled for management services.
 
 .. figure:: ../_images/phase3_test_1_3.png
    :align: center
    :alt: TLS 1.3 handshake result
+=======
+<<<<<<< Updated upstream
+.. figure:: ../_images/administrative-tls-hardening-06-tls13-success.png
+   :align: center
+   :alt: TLS 1.3 handshake success after hardening
+=======
+In this TMOS build, TLS 1.3 may not be active on the management plane. A handshake failure confirms TLS 1.3 is not enabled for management services.
+
+.. image:: /class9/module2_middle/_images/phase3_test_1_3.png
+   :align: center
+   :alt: TLS 1.3 handshake result
+   :width: 900px
+
+TLS 1.3 test result against the management interface (version-dependent).
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 Optional – Weak Cipher Validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,9 +380,22 @@ Expected result:
 * Handshake failure
 * No cipher negotiated
 
+<<<<<<< HEAD
 .. figure:: ../_images/phase3_test_cipher.png
    :align: center
    :alt: Weak cipher rejected
+=======
+<<<<<<< Updated upstream
+---------------------------------------------------------------------
+=======
+.. image:: /class9/module2_middle/_images/phase3_test_cipher.png
+   :align: center
+   :alt: Weak cipher rejected
+   :width: 900px
+
+Weak cipher negotiation attempt rejected (SHA1-based cipher not permitted).
+>>>>>>> Stashed changes
+>>>>>>> 9612adc (Class9: align outer/middle labs and screenshots to current environment)
 
 Deterministic Validation Matrix
 -------------------------------
@@ -254,17 +417,17 @@ Deterministic Validation Matrix
 Security Controls Validated
 ---------------------------
 
-+-------------------------------------+-----------+
-| Control                             | Validated |
-+=====================================+===========+
-| Legacy protocol elimination         | ✔         |
-+-------------------------------------+-----------+
-| Strong cipher enforcement           | ✔         |
-+-------------------------------------+-----------+
-| Deterministic handshake validation  | ✔         |
-+-------------------------------------+-----------+
-| Management-plane cryptographic hardening | ✔   |
-+-------------------------------------+-----------+
++-------------------------------------------+-----------+
+| Control                                   | Validated |
++===========================================+===========+
+| Legacy protocol elimination               | ✔         |
++-------------------------------------------+-----------+
+| Strong cipher enforcement                 | ✔         |
++-------------------------------------------+-----------+
+| Deterministic handshake validation        | ✔         |
++-------------------------------------------+-----------+
+| Management-plane cryptographic hardening  | ✔         |
++-------------------------------------------+-----------+
 
 ---------------------------------------------------------------------
 

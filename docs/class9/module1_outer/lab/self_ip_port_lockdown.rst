@@ -69,38 +69,6 @@ Hardened Enterprise Reference Design
      mgmt -- bigip;
    }
 
-Recommended VLAN Posture
-------------------------
-
-+----------------+----------------------------+--------------------+--------------------------------------+
-| VLAN           | Purpose                    | Port Lockdown Mode | Rationale                             |
-+================+============================+====================+======================================+
-| Mgmt (OOB)     | Administrative access      | Allow Default      | Isolated management network           |
-+----------------+----------------------------+--------------------+--------------------------------------+
-| External (DMZ) | Client-side data plane     | Allow None         | Prevent control-plane exposure        |
-+----------------+----------------------------+--------------------+--------------------------------------+
-| Internal       | Server-side data plane     | Allow None         | Prevent lateral movement              |
-+----------------+----------------------------+--------------------+--------------------------------------+
-
-Port Lockdown Modes
--------------------
-
-+--------------+---------------------------------------------------+
-| Mode         | Behavior                                          |
-+==============+===================================================+
-| Allow None   | Blocks all control-plane services                 |
-+--------------+---------------------------------------------------+
-| Allow Default| Enables system-defined administrative services    |
-|              | (e.g., SSH 22, HTTPS 443, and related services)  |
-+--------------+---------------------------------------------------+
-| Allow Custom | Enables only explicitly defined services          |
-+--------------+---------------------------------------------------+
-
-.. warning::
-
-   "Allow Default" on production VLANs may expose SSH (TCP 22) and
-   HTTPS (TCP 443) to unintended network segments.
-
 ---------------------------------------------------------------------
 
 Lab Procedure
@@ -115,12 +83,12 @@ Step 1 – Identify Data-Plane Self IPs
    * External VLAN
    * Internal VLAN
 
-.. figure:: ../_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
+.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
    :alt: Baseline Self IP list
    :align: center
    :width: 900px
 
-   Baseline view of configured Self IPs prior to lockdown validation.
+Baseline view of configured Self IPs prior to lockdown validation.
 
 Document the IP address of the internal (data-plane) Self IP
 (for example: ``10.1.20.242``). You will use this IP in Steps 3 and 5.
@@ -146,19 +114,19 @@ From a host on the same data-plane network
 
 .. code-block:: powershell
 
-   Test-NetConnection 10.1.20.242 -Port 443
-   Test-NetConnection 10.1.20.242 -Port 22
+   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
+   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
 
 Expected (vulnerable state):
 
 * TcpTestSucceeded: True
 
-.. figure:: ../_images/self-ip-port-lockdown-03-exposed-ports-test.png
-   :alt: PowerShell validation showing exposed control-plane ports on the Self IP
+.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-03-exposed-ports-test.png
+   :alt: Exposed control-plane ports validation
    :align: center
    :width: 900px
 
-   Baseline validation from a data-plane host showing TCP 443 and 22 reachable (vulnerable state).
+Baseline validation from a data-plane host showing TCP 443 and 22 reachable (vulnerable state).
 
 This confirms that administrative services are exposed to the
 data-plane network segment, creating lateral movement risk.
@@ -181,12 +149,12 @@ Step 4 – Remediate with Allow None
    access. Ensure OOB management access remains available before enforcing
    this control.
 
-.. figure:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
-   :alt: Internal Self IP configured with Port Lockdown set to Allow None
+.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
+   :alt: Internal Self IP configured with Allow None
    :align: center
    :width: 900px
 
-   Remediation: Internal Self IP Port Lockdown set to Allow None (default-deny for control-plane services).
+Remediation: Internal Self IP Port Lockdown set to Allow None (default-deny posture).
 
 This enforces a default-deny posture for control-plane services
 on the data-plane VLAN.
@@ -200,20 +168,20 @@ From the same Windows host:
 
 .. code-block:: powershell
 
-   Test-NetConnection 10.1.20.242 -Port 443
-   Test-NetConnection 10.1.20.242 -Port 22
+   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
+   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
 
 Expected (secure state):
 
 * TcpTestSucceeded: False
 * Warning: TCP connect failed
 
-.. figure:: ../_images/self-ip-port-lockdown-05-ports-blocked-test.png
-   :alt: PowerShell validation showing control-plane ports blocked after Allow None
+.. image:: /class9/module1_outer/_images/self-ip-port-lockdown-05-ports-blocked-test.png
+   :alt: Ports blocked after Allow None
    :align: center
    :width: 900px
 
-   Post-remediation validation from the data-plane host: TCP 443 and 22 blocked.
+Post-remediation validation from the data-plane host: TCP 443 and 22 blocked.
 
 .. note::
 

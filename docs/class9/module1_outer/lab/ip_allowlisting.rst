@@ -113,16 +113,16 @@ Step 1 – Identify Management IP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Log in to the BIG-IP Configuration Utility.
-2. Navigate to **System → Platform**.
+2. Navigate to top left corner of the home page.
 3. Document the Management IP address.
 
-.. figure:: ../_images/ip-allowlisting-01-ssh-access-all-addresses.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-01-ssh-access-all-addresses.png
    :alt: SSH access enabled with IP Allow set to All Addresses
    :align: center
    :width: 900px
 
-   Baseline configuration showing SSH IP Allow set to “All Addresses”
-   (equivalent to unrestricted management-plane exposure).
+Baseline configuration showing SSH IP Allow set to “All Addresses”
+(equivalent to unrestricted management-plane exposure).
 
 ---------------------------------------------------------------------
 
@@ -142,9 +142,12 @@ administrative access may be overly permissive.
    Self IP administrative exposure is controlled separately via
    Self IP Port Lockdown.
 
-.. image:: ../_images/ipallow_02_ssh_allow_scope.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-02-ssh-allow-scope.png
    :alt: SSH IP Allow configuration
    :align: center
+   :width: 900px
+
+SSH IP Allow scope review in the Platform configuration screen.
 
 ---------------------------------------------------------------------
 
@@ -157,13 +160,13 @@ Step 3 – Restrict SSH to Approved Subnet
    (for example: 10.1.1.0/24).
 3. Click **Update**.
 
-.. figure:: ../_images/ip-allowlisting-02-ssh-restricted-to-10.1.1.0-24.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-02-ssh-restricted-to-10.1.1.0-24.png
    :alt: SSH access restricted to management subnet 10.1.1.0/24
    :align: center
    :width: 900px
 
-   Remediation: SSH access restricted to the management subnet
-   (10.1.1.0/24) using IP Allow.
+Remediation: SSH access restricted to the management subnet
+(10.1.1.0/24) using IP Allow.
 
 ---------------------------------------------------------------------
 
@@ -171,40 +174,40 @@ Step 4 – Validate SSH Restriction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 From an authorized administrative host
-(for example: 10.1.1.10 within 10.1.1.0/24):
+(for example: 10.1.1.5 within 10.1.1.0/24):
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 22
+    Test-NetConnection 10.1.1.5 -Port 22
 
 Expected:
 
-* TcpTestSucceeded: True
+* TcpTestSucceeded : True
+
+.. image:: /class9/module1_outer/_images/ip-allowlisting-03-ssh-allowed-from-mgmt.png
+   :alt: SSH access allowed from management subnet
+   :align: center
+   :width: 900px
 
 From an unauthorized host
 (for example: 10.1.20.15 outside 10.1.1.0/24):
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 22
+    Test-NetConnection 10.1.1.5 -Port 22
 
 Expected:
 
-* TcpTestSucceeded: False
+* TcpTestSucceeded : False
 
-.. figure:: ../_images/ip-allowlisting-03-ssh-allowed-from-mgmt.png
-   :alt: SSH access allowed from management subnet
-   :align: center
-   :width: 900px
+Validation from the authorized management subnet showing SSH permitted.
 
-   Validation from the authorized management subnet showing SSH permitted.
-
-.. figure:: ../_images/ip-allowlisting-04-ssh-blocked-from-non-mgmt.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-04-ssh-blocked-from-non-mgmt.png
    :alt: SSH access blocked from non-management network
    :align: center
    :width: 900px
 
-   Validation from a non-management host showing SSH connection attempt blocked due to IP allowlisting.
+Validation from a non-management host showing SSH connection attempt blocked due to IP allowlisting.
 
 .. note::
 
@@ -226,12 +229,12 @@ Remove broad entries such as:
 * 0.0.0.0/0
 * Entire internal ranges
 
-.. figure:: ../_images/ip-allowlisting-05-snmp-client-list.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-05-snmp-client-list.png
    :alt: SNMP Client Allow List configuration
    :align: center
    :width: 900px
 
-   SNMP Client Allow List restricted to approved monitoring systems.
+SNMP Client Allow List restricted to approved monitoring systems.
 
 ---------------------------------------------------------------------
 
@@ -242,28 +245,33 @@ From authorized host:
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection 10.1.1.5 -Port 443
 
 Expected:
 
 * TcpTestSucceeded: True
 
+.. image:: /class9/module1_outer/_images/ip-allowlisting-06-https-validation_true.png
+   :alt: HTTPS management access validation
+   :align: center
+   :width: 900px
+
 From unauthorized host:
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection 10.1.1.5 -Port 443
 
 Expected:
 
 * TcpTestSucceeded: False
 
-.. figure:: ../_images/ip-allowlisting-06-https-validation.png
+.. image:: /class9/module1_outer/_images/ip-allowlisting-06-https-validation_false.png
    :alt: HTTPS management access validation
    :align: center
    :width: 900px
 
-   Validation showing HTTPS (TMUI) access restricted to the management subnet.
+Validation showing HTTPS (TMUI) access restricted to the management subnet.
 
 .. note::
 

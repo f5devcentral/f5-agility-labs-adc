@@ -106,23 +106,22 @@ Step 1 – Identify Interface Inventory
 
 1. Log in to the BIG-IP Configuration Utility.
 2. Document:
-   * Management IP (**System → Platform**)
-   * External Self IP (**Network → Self IPs**)
-   * Internal Self IP (**Network → Self IPs**)
+   * Management IP (**Top Right Corner**)
+   * External & Internal Self IP (**Network → Self IPs**)
 
-.. figure:: ../_images/control-plane-segmentation-01-platform-mgmt-ip.png
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-01-platform-mgmt-ip.png
    :alt: Platform screen showing management IP configuration
    :align: center
    :width: 900px
 
-   Platform configuration showing the BIG-IP management IP address.
+Platform configuration showing the BIG-IP management IP address.
 
-.. figure:: ../_images/control-plane-segmentation-02-selfip-inventory.png
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-02-selfip-inventory.png
    :alt: Self IP inventory showing external and internal Self IPs
    :align: center
    :width: 900px
 
-   Self IP inventory identifying external and internal data-plane interfaces.
+Self IP inventory identifying external and internal data-plane interfaces.
 
 Record the following values:
 
@@ -146,13 +145,13 @@ Expected:
 
 * TcpTestSucceeded: True (for enabled services)
 
-.. figure:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-03-mgmt-ip-reachable.png
    :alt: PowerShell output showing management IP reachable on TCP 22 and 443 from an authorized host
    :align: center
    :width: 900px
 
-   Authorized-path validation showing SSH (22) and HTTPS (443)
-   reachable on the management IP.
+Authorized-path validation showing SSH (22) and HTTPS (443)
+reachable on the management IP.
 
 ---------------------------------------------------------------------
 
@@ -170,12 +169,12 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. figure:: ../_images/control-plane-segmentation-04-external-selfip-blocked.png
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-04-external-selfip-blocked.png
    :alt: Validation showing external Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
 
-   External Self IP validation showing SSH (22) and HTTPS (443) not reachable.
+External Self IP validation showing SSH (22) and HTTPS (443) not reachable.
 
 From an internal host (if available, e.g., 10.1.20.0/24):
 
@@ -188,19 +187,18 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. figure:: ../_images/control-plane-segmentation-05-internal-selfip-blocked.png
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-05-internal-selfip-blocked.png
    :alt: Validation showing internal Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
 
-   Internal Self IP validation showing SSH (22) and HTTPS (443) not reachable.
+Internal Self IP validation showing SSH (22) and HTTPS (443) not reachable.
 
 .. note::
 
    If a native internal test host is not available, validation may be
-   performed from the management host. However, this does not represent
-   the native internal VLAN path and should be documented accordingly.
-   This test confirms service non-exposure, not full path equivalency.
+   performed from the management host. This confirms service non-exposure,
+   but does not represent the native VLAN path.
 
 .. note::
 
@@ -209,7 +207,30 @@ Expected:
 
 ---------------------------------------------------------------------
 
-Step 4 – Document the Exposure Matrix
+Step 4 – Validate Unauthorized Access to Management IP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From a non-authorized host (outside the approved admin subnet):
+
+.. code-block:: powershell
+
+   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection <mgmt-ip> -Port 22
+
+Expected:
+
+* TcpTestSucceeded: False
+
+.. image:: /class9/module1_outer/_images/control-plane-segmentation-06-mgmt-ip-blocked-unauthorized.png
+   :alt: Validation showing management IP blocked from unauthorized host
+   :align: center
+   :width: 900px
+
+Validation confirming that unauthorized hosts cannot reach management services.
+
+---------------------------------------------------------------------
+
+Step 5 – Document the Exposure Matrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Complete and document the following matrix:
@@ -219,12 +240,14 @@ Complete and document the following matrix:
 +======================+====================+====================+====================+====================+
 | Management IP        | Open (authorized)  |                    | Open (authorized)  |                    |
 +----------------------+--------------------+--------------------+--------------------+--------------------+
+| Management IP        | Blocked (unauth)   |                    | Blocked (unauth)   |                    |
++----------------------+--------------------+--------------------+--------------------+--------------------+
 | External Self IP     | Blocked            |                    | Blocked            |                    |
 +----------------------+--------------------+--------------------+--------------------+--------------------+
 | Internal Self IP     | Blocked            |                    | Blocked            |                    |
 +----------------------+--------------------+--------------------+--------------------+--------------------+
 
-This matrix serves as evidence that control-plane segmentation
+This matrix serves as documented evidence that control-plane segmentation
 is functioning as designed.
 
 ---------------------------------------------------------------------
@@ -236,6 +259,7 @@ If segmentation is correctly enforced:
 
 * Management services are reachable only through the management interface
 * Only authorized administrative hosts can reach the management IP
+* Unauthorized hosts cannot reach the management IP
 * Data-plane VLAN Self IPs do not expose SSH or HTTPS
 * No alternate administrative access paths exist
 
