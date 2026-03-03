@@ -1,7 +1,7 @@
 TMOS - Performance Tuning
 =========================
 
-This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, ajustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
+This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, adjustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
 
 Getting Started
 ---------------
@@ -14,9 +14,9 @@ Lab Components
 The following components have been included in your lab environment:
 
 * F5 BIG-IP VE (bigip01)
-* Ubuntu router - For adding 200ms network latency between the client and BIGIP Virtual Servers
+* Ubuntu Router - For adding 200ms network latency between the client and BIG-IP Virtual Servers
 * Ubuntu Client - For generating test traffic
-* Ubuntu Webserver
+* Ubuntu Webserver - Hosting HTTP content and DNS services
 * Windows Client - For Wireshark
 
 Lab Topology Diagram
