@@ -41,10 +41,10 @@ Open the minio-health-check to see the configuration of the monitor.
 
 |lab401|
 
-A custom monitor allows one to specify URL to send requests to and custom strings on which to check the
-validity of the response. This monitor just checks for the HTTP return code, 200 Okay suggest server health.
+A custom monitor allows one to specify a URL to send requests to and custom strings expected back which serve to check the
+validity of the response. This monitor simply checks for the HTTP return code, 200 Okay suggests positive server health.
 
-- Using HTTP "HEAD" as opposed to "GET" lowers network impact as only the HTTP response code is sent, no content is delivered
+- Using HTTP "HEAD" as opposed to "GET" lowers network impact as only the HTTP response code is returned, no content is delivered
 - F5 provides more advanced monitors, Extended Application Verfication (EAV), allowing more advanced actions such as using an S3
   access token/secret to upload a small object, such as the current UNIX timestamp, and immediately downloading the object.
 - In this lab, the monitors are already applied to their respective pools.
@@ -61,7 +61,7 @@ Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> 
 
 |lab402|
 
-Click the **Run Benchmark** button to start a long, ten minutes of high rate S3 load.
+Click the **Run Benchmark** button to start a long, full ten minutes of high rate S3 load.
 
 |lab403|
 
@@ -109,11 +109,11 @@ BIG-IP marks the entire pool as **red**.
 |lab408|
 
 Notice that all nodes are down, however a few TCP connections remain active.  No new S3 traffic will be proxied to these nodes by the corresponding
-virtual server, however existing transactions may run to completion.  Within seconds all nodes will display zero active connections.
+virtual server, still though existing transactions may run to completion.  Within seconds all nodes will display zero active connections.
 
 
 Task 5.  Read-only cluster & verification of failover
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An F5 iRule or policy could be configured to shift traffic from a pool that is no longer available to another. In
 our configuration, the cluster1-write-quorum automatically fails over to the cluster1-read-quorum pool.  The iRule used can be seen on the Resources
@@ -124,7 +124,7 @@ Let's look at the pool that the iRule will now be directing S3 traffic towards.
 In **BIG-IP TMUI** open (Traffic -> Pools -> Pool List -> *cluster1-read-quorum* -> Members)
 
 Two nodes are shown as down (nodes 2 and 4), however there are **two healthy nodes** (nodes 1 and 3), which is sufficient to satisfy the
-read quorum, hence the pool can still operate to accept read operations.
+read quorum, hence the pool can still operate and fully accept read operations.
 
 We see in the following screen, the two healthy nodes continue to handle transactions while unhealthy nodes reflect no active connections.
 
@@ -132,18 +132,18 @@ We see in the following screen, the two healthy nodes continue to handle transac
 
 Open UDF -> AST -> Access -> Grafana; Select **Device Pools**.
 
-Elarge the Active Pool Connections chart, and select only pools cluster1-write-quarum and cluster1-read-quarum.
+Enlarge the Active Pool Connections chart, and select **only** pools cluster1-write-quarum and cluster1-read-quarum.
 
 If the WARP ten minute load generator was active when the ansible disater simulation playbook ran, taking down two nodes, one will be able
 to see this moment.
 
-Keep in mind, AST plots a data point only on one-minute boundaries thus the transitions in active connection will
+Keep in mind, AST plots a data point only on one-minute boundaries thus the transitions in active connections will
 be expected to follow a slope.   As mentioned earlier, a node failing a health check and being removed from a pool may still finish
 supporting active connections for a number of seconds.
 
 |lab410|
 
-In the chart above, yellow reflects connection to the write-quorum pool and green represents read-quarum pool connections.
+In the chart above, yellow reflects connections to the write-quorum pool and green represents read-quarum pool connections.
 
 **Client Impact:**  AIStor Read-only operations remain available, writes are paused.
 
@@ -151,7 +151,7 @@ In the chart above, yellow reflects connection to the write-quorum pool and gree
 Task 6.  Restore the cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-On the JumpHost shell, issue the $ansible-playbook fix-disaster-minio.yml command to restore all nodes to health.
+On the JumpHost shell, issue the $ansible-playbook fix-disaster-minio.yml command to restore all nodes to full health.
 
 *$cd /home/ubuntu/minio*
 

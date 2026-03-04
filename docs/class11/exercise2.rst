@@ -3,7 +3,7 @@ Exercise 2: Tenant Creation and Migration
 
 In this exercise, each student must create a new tenant and migrate a configuration into it; individual settings may differ for Student A and Student B, as noted below.
 
-- Navigate to Tenant Deployments and click Add
+- Navigate to *Tenant Management -> Tenant Deployments* and click *Add*
 - Create a new tenant with the following new settings (all others leave as default) 
 
   - Name: r5900-X-tenant-a or r5900-X-tenant-b
@@ -68,6 +68,7 @@ After you commit the change, F5OS will start deploying the tenant. The initial d
 The tenant Status will show *Running* once it has booted; you can monitor the tenant startup by continuously pinging the management IP from your workstation -- successful replies indicate tenant services are coming up and you can log in.
 
 .. code-block:: none
+
    r5900-1# show tenants tenant state status
    NAME              STATUS
    ---------------------------
@@ -77,7 +78,7 @@ The tenant Status will show *Running* once it has booted; you can monitor the te
 
 Once the tenant is running, and management IP is reachable:
 
-- SSH into the tenant as the *root* user and password *default*, the management IP will be10.193.5.(30+X For Student A or 50+X for Student B)
+- SSH into the tenant as the *root* user and password *default*, the management IP will be 10.193.5.(30+X For Student A or 50+X for Student B)
 - When prompted, set a new password for the root user 
   
 After resetting the password in the CLI remain in the CLI for the next steps.
@@ -87,6 +88,7 @@ Next, import the master key from the tenant you're migrating. This is necessary 
 Loading the master key from the bash shell can be referenced in knowledge article https://my.f5.com/manage/s/article/K9420. For this lab, both the UCS and master key files are on a web server 10.193.5.2 that can be downloaded to a laptop then uploaded to the BIG-IP tenant, or simple directly downloaded to the tenant via HTTPS.  
 
 .. code-block:: none
+
    Filenames for Student A:
    UCS file:	r5900-<X>a.ucs
    Key file:	r5900-<X>a.key
@@ -101,9 +103,9 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
 
 .. code-block:: none
 
-   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-2a.key -o /var/tmp/r5900-2a.key
+   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-1a.key -o /var/tmp/r5900-1a.key
    
-   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-2a.ucs -o /var/tmp/r5900-2a.ucs
+   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-1a.ucs -o /var/tmp/r5900-1a.ucs
    
    [root@localhost:Active:Standalone] config # ls -la /var/tmp/r5900-*
 
@@ -112,7 +114,8 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
 
 Next, re-key the master key from the txt file downloaded, as an example: 
 
-.. code-block:: none
+.. code-block:: none 
+
    [root@localhost:Active:Standalone] config # cat /var/tmp/r5900-1a.key
    U5hNcJqbR0W4pjILPNa5/Q==
    [root@localhost:Active:Standalone] config # f5mku -r U5hNcJqbR0W4pjILPNa5/Q==
@@ -123,6 +126,7 @@ Next, re-key the master key from the txt file downloaded, as an example:
 The final tenant migration step is to load the UCS file, using the platform-migrate option which ignores network interfaces and other items in the load process
 
 .. code-block:: none
+
    tmsh
    root@(localhost)(cfg-sync Standalone)(Active)(/Common)(tmos)# load sys ucs /var/tmp/r5900-1a.ucs platform-migrate
    Replace all configuration on the system? (y/n) y
@@ -130,13 +134,16 @@ The final tenant migration step is to load the UCS file, using the platform-migr
    …
    Platform migrate loaded successfully. Saving configuration.
    /var/tmp/r5900-1a.ucs is loaded.
-   root@(i5000-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
+   root@(bigip-1-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
 
 Within a minute or two the BIG‑IP status will change to Active and the configuration will be loaded. View the configuration in the UI or with tmsh to examine the virtual server, pool, and other settings. The Pool should be passing health checks and available along with the Virtual Servers
 
-In F5OS, the virtctl command allows for a virtual console to any tenant. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
+**NOTE** The Hostname of the tenant has changed to the hostname from the UCS file, which is expected. The tenant hostname can be changed at any time via platform settings and device certificate updates. 
+
+In F5OS, the virtctl command allows for a virtual console to any tenant, but only from the *bash* shell. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
 
 .. code-block:: none
+   
    r5900-1# show system aaa authentication users
                      AUTHORIZED  LAST        TALLY                  EXPIRY
    USERNAME          KEYS        CHANGE      COUNT  ROLE            STATUS
@@ -148,34 +155,56 @@ In F5OS, the virtctl command allows for a virtual console to any tenant. In addi
    r5900-8-tenant-b  -           0           0      tenant-console  locked
    root              -           2026-01-08  0      root            enabled
 
-Notice that for each tenant, a username has been created with specific role of tenant-console. To enable use of this, a few configuration items must be done.
+Notice that for each tenant, a username has been created with specific role of **tenant-console**. 
 
-First set the password for the account (this is only to scp to console, it is not a user login role) 
+To enable use of this, a few configuration items must be done.
+
+- First set the password for the account (this is only to scp to console, it is not a user login role) 
 
 .. code-block:: none
 
    r5900-1# config
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config set-password
 
-Set Account to enabled 
+- Set Account to enabled 
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config expiry-status enabled
+   r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
 
-Set the last-change date
+- Set the last-change date
 
 .. code-block:: none
 
    r5900-1(config)# system aaa authentication users user <tenant USERNAME> config last-change <date in format YYYY-MM-DD>
+   r5900-1(config-user-r5900-1-tenant-b)# !
    r5900-1(config-user-r5900-1-tenant-b)# commit
    r5900-1(config-user-r5900-1-tenant-b)# exit
+   r5900-1(config)# exit
       
 
-Test console access to your tenant from your workstation/desktop:
-ssh <tenant-name>@<F5OS IP> -p 7001 using the password set above
-Log into the tenant console as root or admin
+Test console access to your tenant from your workstation/desktop using the password you set for the console account:
 
+.. code-block:: none
+   
+   ssh <tenant-name>@<F5OS IP> -p 7001
+
+
+Now test console access to your tenant from F5OS using the *virtctl* utility
+
+.. code-block:: none
+
+   virtctl console <tenant_name>-1
+
+Note the trailing *-1* for the tenant name, and wonder why is that needed? To find out, execute *su admin* at the following command:
+
+.. code-block:: none
+
+   [root@appliance-1(r5900-1.aw26.lab):Active] ~ # su admin
+   r5900-11# show tenants tenant
+
+Full knowledge article on rSeries tenant console access: https://my.f5.com/manage/s/article/K33373310
 
 //End of Exercise 2

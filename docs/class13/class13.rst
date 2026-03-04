@@ -5,7 +5,7 @@ Welcome
 -------
 
 In this lab, attendees will be introduced to using F5 BIG-IP as an intelligent Application Delivery Controller (ADC) 
-for S3-compatible object storage.  
+for MinIO AIStor.  
 
 Objectives:
 -----------

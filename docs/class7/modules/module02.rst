@@ -281,7 +281,7 @@ c. Click **Finish** and you will be taken back to **Local
     a. Browse to your **www_vs** virtual server. Which members are
        taking traffic?
 
-    b. Just for fun, let's reverse the monitor. Go to Properties of the pool and change the **Reverse** setting to **Yes**. Update the pool and browse to your virtual server again.
+    b. Just for fun, let's reverse the monitor. Go to Properties of the monitor and change the **Reverse** setting to **Yes**. Update the monitor and browse to your virtual server again.
     
        Now when **200 OK** is returned it indicates the server is not responding successfully. You can
        see where this would be useful if you were looking for a 404 (bad
@@ -314,8 +314,7 @@ In this lab we will configure a couple types of persistence and view their behav
           -  Hit your virtual server several times, you should see all 3
              servers respond.
        
-Simple (Source Address) Persistence
------------------------------------
+**Simple (Source Address) Persistence**
        
        1. Go to **Local** **Traffic>Profiles** and select the **Persistence**
           tab.
@@ -351,12 +350,11 @@ Simple (Source Address) Persistence
        
                2. Each new IP address will create a new persistence record.
 
-.. hint::
-   You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
-
-|
           iii.  Click the Finished button.
        
+         .. hint:: 
+            You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
+
        e. You have just created your first custom Profile.
        
           i. Note the check box for your new custom profile isn’t grayed out
@@ -436,8 +434,7 @@ Simple (Source Address) Persistence
           d. Refresh your web page prior to the Age column reaching 60. What
              happens?
        
-Cookie Persistence (Cookie Insert)
-----------------------------------
+**Cookie Persistence (Cookie Insert)**
        
        1. Go to **Local Traffic>Profiles>Persistence** tab and hit **Create**
        
