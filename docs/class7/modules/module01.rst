@@ -20,11 +20,11 @@ You can perform various tasks such as:
    4. Viewing statistics, health checks, and logs.
 
 The following sections are important to guide you through the process of creating VLANs, self IPs, pools, and virtual servers using the BIG-IP GUI.
-   1. Main/Help/About
-   2. Local Traffic >> Virtual servers, Profiles, Pools, Monitors
-   3. Device Management >> Devices, Device Trust, Traffic Groups
-   4. Network >> interfaces, self IPs, Vlans
-   5. System >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
+   1. **Main**/Help/About
+   2. **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
+   3. **Device Management** >> Devices, Device Trust, Traffic Groups
+   4. **Network** >> interfaces, self IPs, Vlans
+   5. **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
 
 Creating VLANs
 --------------
