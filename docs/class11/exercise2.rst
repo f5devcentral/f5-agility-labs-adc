@@ -3,7 +3,7 @@ Exercise 2: Tenant Creation and Migration
 
 In this exercise, each student must create a new tenant and migrate a configuration into it; individual settings may differ for Student A and Student B, as noted below.
 
-- Navigate to Tenant Deployments and click Add
+- Navigate to *Tenant Management -> Tenant Deployments* and click *Add*
 - Create a new tenant with the following new settings (all others leave as default) 
 
   - Name: r5900-X-tenant-a or r5900-X-tenant-b
@@ -78,7 +78,7 @@ The tenant Status will show *Running* once it has booted; you can monitor the te
 
 Once the tenant is running, and management IP is reachable:
 
-- SSH into the tenant as the *root* user and password *default*, the management IP will be10.193.5.(30+X For Student A or 50+X for Student B)
+- SSH into the tenant as the *root* user and password *default*, the management IP will be 10.193.5.(30+X For Student A or 50+X for Student B)
 - When prompted, set a new password for the root user 
   
 After resetting the password in the CLI remain in the CLI for the next steps.
@@ -103,9 +103,9 @@ The following commands use curl from the BIG-IP tenant (remember to change the f
 
 .. code-block:: none
 
-   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-2a.key -o /var/tmp/r5900-2a.key
+   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-1a.key -o /var/tmp/r5900-1a.key
    
-   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-2a.ucs -o /var/tmp/r5900-2a.ucs
+   [root@localhost:Active:Standalone] config # curl -k https://10.193.5.2/r5900-1a.ucs -o /var/tmp/r5900-1a.ucs
    
    [root@localhost:Active:Standalone] config # ls -la /var/tmp/r5900-*
 
@@ -134,11 +134,13 @@ The final tenant migration step is to load the UCS file, using the platform-migr
    …
    Platform migrate loaded successfully. Saving configuration.
    /var/tmp/r5900-1a.ucs is loaded.
-   root@(i5000-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
+   root@(bigip-1-a)(cfg-sync Standalone)(INOPERATIVE)(/Common)(tmos)#
 
 Within a minute or two the BIG‑IP status will change to Active and the configuration will be loaded. View the configuration in the UI or with tmsh to examine the virtual server, pool, and other settings. The Pool should be passing health checks and available along with the Virtual Servers
 
-In F5OS, the virtctl command allows for a virtual console to any tenant. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
+**NOTE** The Hostname of the tenant has changed to the hostname from the UCS file, which is expected. The tenant hostname can be changed at any time via platform settings and device certificate updates. 
+
+In F5OS, the virtctl command allows for a virtual console to any tenant, but only from the *bash* shell. In addition, ssh can be used to enable virtual console to tenants with the following configuration. Begin by viewing the system aaa settings:
 
 .. code-block:: none
    
@@ -200,7 +202,7 @@ Note the trailing *-1* for the tenant name, and wonder why is that needed? To fi
 
 .. code-block:: none
 
-   [root@appliance-1(r5900-11.aw26.lab):Active] ~ # su admin
+   [root@appliance-1(r5900-1.aw26.lab):Active] ~ # su admin
    r5900-11# show tenants tenant
 
 Full knowledge article on rSeries tenant console access: https://my.f5.com/manage/s/article/K33373310

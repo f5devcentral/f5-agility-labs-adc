@@ -5,11 +5,22 @@ Partitions and RBAC
 Objective
 ---------
 
-This lab demonstrates basic access control using partitions.
+This lab demonstrates basic role based access control using partitions.  Role based access control allows different users to have different privileges to different objects in the system depending on their group (role). This is useful for giving certain teams access to certain applications, or allowing users to view or edit only the portions of the configuration that are relevant to their job.
 
 
-Lab Steps
----------
+Lab
+---
+
+Estimatied completion time: 10-12 minutes.
+
+
+Login to the BIG-IP
++++++++++++++++++++
+
+#. If you are not already logged in, locate **BIGIP-01** in the UDF Lab environment.
+#. Select **Access -> TMUI** to connect to the management interface.
+#. Login as **admin**.  If you need the password, it can be found under the system details in UDF.
+
 
 Create a Partition
 ++++++++++++++++++
@@ -33,13 +44,13 @@ Add Users
 
     .. image:: ./_images/partition-2.png
 
-#. Click **Add**, ensure that the role and partition are displayed in the box below, then click **Finished**.
+#. Click **Add**. Ensure that the role and partition are displayed in the partition access box below, then click **Finished**.
 
     .. image:: ./_images/partition-3.png
 
-#. Create another user by once navigating to **System -> Users -> User List**.
+#. Create another user by clicking **Create** again.
 #. Name the user **App01Operator** and assign a passowrd.
-#. Select the role **Operator** and assign it to the partition **App01** then click **Finished**.
+#. Select the role **Operator**. Assign the role to the partition **App01** then click **Finished**.
 
     .. image:: ./_images/partition-4.png
 
@@ -48,25 +59,27 @@ Explore & Create Objects
 ++++++++++++++++++++++++
 
 #. Logout of the TMUI and lock back in as **App01Admin**.
-#. Since it's you're first time logging in, you'll regrettably be asked to change your password.  While this can be an annoyance, this is the default behavior and an important security control.  Again, choose a password you can remember.
+#. Since it's your first time logging in, you'll regrettably be asked to change your password.  While this can be an annoyance, this is the default behavior and an important security control.  Again, choose a password you can remember.
 #. If you've done everything correctly so far, you'll notice that your user is locked to the **App01** Partition.
 
     .. image:: ./_images/partition-5.png
 
 #. Navigate to **Local Traffic -> Virtual Servers**.
 #. **Click** any of the Virtual Servers in the list.
-#. You'll notice that all of the options are greyed out and you cannot make changes.  This is because these objects are in the common partition which is owned by box level administrators and you do not have sufficient rights with this account.
+#. You'll notice that all of the options are greyed out and you cannot make changes.  This is because these objects are in the common partition which is owned by box level administrators and you do not have sufficient privilege with your current account.
 #. Navigate to **Local Traffic -> Pools**.
 #. Click **Create**.
 #. Name the pool **App01Pool** and select the **http health monitor**.
-#. Add a node with the IP Address **10.1.10.50** on **port 80** (don't forget to click add).  It should look like this:
+#. Add a node with the IP Address **10.1.20.100** on **port 80** (don't forget to click add) and another with the IP address **10.1.20.101** also on **port 80**.  
+    
+   It should look like this:
 
-    .. image:: ./_images/partition-6.png
+     .. image:: ./_images/partition-6.png
 
 #. If it looks correct, click **Finished.**
-#. **Return** to the **virtual servers list**.
+#. **Return** to the **virtual server list**.
 #. Click **Create**.
-#. Configure the virtual server as follows:
+#. **Configure** the following virtual server settings:
 
 
     .. list-table::
@@ -77,19 +90,19 @@ Explore & Create Objects
          - Value
        * - Name
          - App01
-       * - IP Address
+       * - Destination IP Address
          - 10.1.10.75
        * - Port
          - 80
-       * - HTTP Profile
+       * - HTTP Profile (Client)
          - http
-       * - SNAT
+       * - Source Address Translation
          - Auto Map
        * - Default Pool
          - App01Pool
     
 #. Click **Finished**.
-#. You'll notice that the Virtual Server was created in the **App01** Partition instead of Common like the others.
+#. You'll notice that the Virtual Server was created in the **App01** Partition rather than Common like the others.
 
 Test Limited Access
 +++++++++++++++++++
@@ -97,15 +110,19 @@ Test Limited Access
 #. Log out of the TMUI and login as **App01Operator**.
 #. Change your password one more time.
 #. Navigate to **Local Traffic -> Virtual Servers**.
-#. Attempt to edit **App01**.  You'll notice that now you can't. 
+#. Attempt to edit **App01**.  You'll notice that you are now unable to. 
 #. Navigate to **Local Traffic -> Pools**.
-#. Click on **App01Pool**.  You'll notice that this is also greyed out:
+#. Click on **App01Pool**.  You'll notice that this dialog is also greyed out:
 
     .. image:: ./_images/partition-7.png
 
 #. Click on the **Members** tab.  Even though all other options are greyed out, you'll notice that you have the ability to enable and disable pool members:
 
     .. image:: ./_images/partition-8.png
+
+   The operator role allows read access to allowed partitions and basic actions like enabling and disabling pool members and nodes.  
+
+   For more details on roles and their permissions, see below.
 
 
 More Information about User Roles

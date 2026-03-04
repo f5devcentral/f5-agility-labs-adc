@@ -2,17 +2,17 @@ Task 1: Review Base TCP Profiles
 ================================
 
 #. From the left-side menu, go to **Local Traffic > Profiles > Protocol > TCP**
-#. Click the **Parent Profile** column title to sort the profiles
+#. Click the **Parent Profile** column title twice to sort the Parent Profiles in decending order.
 
    Most profiles in TMOS have a parent/child structure where the child can both inherit and override settings from the parent profile.  Within the list of TCP profiles, you can see that all included profiles end up sourcing from the base profile named tcp - tcp > tcp-legacy, tcp-legacy > tcp-wan-optimized, etc. 
 
    .. figure:: ../images/tcp_profiles_sorted.png
       :width: 750px
 
-      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatability with previous relases, new child profiles have been created to override the base profile with the settings of the older profiles.  For example, tcp-legacy was created containing the settings from previous TMOS version.
+      As TMOS has upgraded over the years, changes have been made to the base TCP profile and to maintain compatibility with previous releases, new child profiles have been created to override the base profile with the settings of the older profiles.  For example, **tcp-legacy** was created containing the settings from previous TMOS version.
 
 
-3. Click on the **tcp-legacy** profile to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
+3. Click on the **tcp-legacy** profile name to see how options are overridden from the TCP parent profile.  The key option carried over from the older TCP profile is the Memory Management Send Buffer limit of 65535 bytes.  This is the 16-bit Window size limit from the original TCP standard (RFC 793).
 
    .. figure:: ../images/tcp_legacy_buffers.png
       :width: 700px
@@ -20,10 +20,11 @@ Task 1: Review Base TCP Profiles
    At this point, Virtual Server **web01-vs1** is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
 
 
-4. Connect to the Ubuntu-Client via SSh using the Access dropdown
+4. Connect to the Ubuntu-Client via SSH using the Access dropdown
 
    .. image:: ../images/udf_client_ssh.png
        :width: 500px
+
 
 5. Click 'open terminal' if prompted
   
@@ -37,7 +38,7 @@ Task 1: Review Base TCP Profiles
        :width: 550px
 
 
-7. Connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
+7. If not still open from the previous lab, connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
 
    .. image:: ../images/udf_bigip01_ssh.png
        :width: 500px
@@ -55,12 +56,12 @@ Task 1: Review Base TCP Profiles
        :width: 500px
 
 
-10. Run the following command from the Ubuntu-Client SSH window::
+10. Run the following command from the Ubuntu-Client SSH window <<verify this is the correct script for this psection>>::
     
       ~/zerowindow3.sh
 
 
-    The script uses curls to request a 3MB file 3 times over a single TCP connection to **webo1_vs**.  It does this 3 times and displays the total time when finished.  This process may take a bit so you can leave it running while going through the next steps.   
+    The script uses curl to request a 3MB file 3 times over a single TCP connection to **webo1_vs**.  It does this 3 times and displays the total time when finished.  This process may take a bit so you can leave it running while going through the next steps.   
 
 11. Start a packet capture from the SSH window of BIGIP01::
 
@@ -71,7 +72,7 @@ Task 1: Review Base TCP Profiles
 
       | **timeout 5s:** Run the command for 5s then quit
       | **tcpdump:**  Command to run
-      | **-nni:** No name resolution and No part resolution and interface ID
+      | **-nni:** No name resolution and No port resolution and interface ID
       | **internal:** The 'interface' name - the server-side VLAN in the lab
       | **host 10.1.10.15:**  The internal floating selfIP used as the source filter
       | **tcp[14:2] == 0:**  Bytes 14 and 15 of the TCP header showing TCP window size - we want zero
@@ -102,7 +103,7 @@ Task 1: Review Base TCP Profiles
       11:08:34.619362 IP 10.1.30.6.44976 > 10.1.20.103.443: Flags [S], seq 1493890342, win 64240, options [mss 1460,sackOK,TS val 141834751 ecr 0,nop,wscale 7], length 0 in slot1/tmm1 lis= port=1.2 trunk=
       11:08:34.619417 IP 10.1.20.103.443 > 10.1.30.6.44976: Flags [S.], seq 4100418120, ack 1493890343, win 4380, options [mss 1460,sackOK,TS val 1828788666 ecr 141834751], length 0 out slot1/tmm1 lis=/Common/web01_vs1 port=1.2 trunk=
 
-    With the SYN, client (10.1.30.6) is advertising TCP Window Scale capability with option 'wscale 7'.  With the SYN/ACK,  BIGIP01 is responding without a wscale option since the TCP buffers sizes are limited to TCP base maximum of 65535 Bytes.  No TCP Window scaling is available to this connection.
+    With the SYN, client (10.1.30.6) is advertising TCP Window Scale capability with option **wscale 7**.  With the SYN/ACK,  BIGIP01 is responding without a wscale option since the TCP buffers sizes are limited to TCP base maximum of 65535 Bytes.  No TCP Window scaling is available to this connection.
 
 13. Check the Ubuntu-Client output from the script.  You should see something similar to this::
 

@@ -4,7 +4,7 @@ IP Allowlisting
 IP Allowlisting restricts administrative access to the BIG-IP device
 based on source IP address. Only explicitly approved management and
 monitoring systems should be able to initiate connections to the
-management interface.
+BIG-IP management interface (OOB management), not data-plane Self IPs.
 
 This mechanism is a critical Outer Layer boundary control.
 
@@ -12,11 +12,26 @@ Executive Summary
 -----------------
 
    Administrative access must be restricted by explicit source IP.
-   Broad internal access (e.g., 10.0.0.0/8) is not acceptable without
-   documented justification.
+   Broad internal access (e.g., 10.0.0.0/8) undermines segmentation and
+   should not be permitted without explicit risk acceptance.
 
    IP Allowlisting complements Self IP Port Lockdown by controlling
-   who may access management services.
+   who may access management services, while Port Lockdown controls
+   where those services are exposed.
+
+Threat Scenario
+---------------
+
+In the absence of IP allowlisting:
+
+* A compromised internal host could attempt SSH brute-force access
+  to the BIG-IP management IP.
+* A flat enterprise network could allow unintended access to TMUI.
+* Monitoring services (SNMP) could be queried from unauthorized segments.
+* Lateral movement within the network could reach the control plane.
+
+IP Allowlisting reduces this risk by ensuring only explicitly approved
+administrative and monitoring systems can reach management services.
 
 Objective
 ---------
@@ -35,7 +50,7 @@ Hardened Enterprise Reference Design
 .. note::
 
    IP Allowlisting should exist at multiple layers:
-   upstream firewall and device-level enforcement.
+   upstream firewall enforcement and device-level enforcement.
 
 .. nwdiag::
    :caption: Reference Design – Administrative Access Control
@@ -98,12 +113,16 @@ Step 1 – Identify Management IP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Log in to the BIG-IP Configuration Utility.
-2. Navigate to **System → Platform**.
+2. Navigate to top left corner of the home page.
 3. Document the Management IP address.
 
-.. image:: ../_images/ipallow_01_platform_mgmt_ip.png
-   :alt: Platform screen showing management IP
+.. image:: ../_images/ip-allowlisting-01-ssh-access-all-addresses.png
+   :alt: SSH access enabled with IP Allow set to All Addresses
    :align: center
+   :width: 900px
+
+Baseline configuration showing SSH IP Allow set to “All Addresses”
+(equivalent to unrestricted management-plane exposure).
 
 ---------------------------------------------------------------------
 
@@ -117,9 +136,18 @@ Step 2 – Inspect SSH Access Scope
 If configured broadly (e.g., 0.0.0.0/0 or large internal range),
 administrative access may be overly permissive.
 
-.. image:: ../_images/ipallow_02_ssh_allow_scope.png
+.. note::
+
+   SSH IP Allow applies to the management interface.
+   Self IP administrative exposure is controlled separately via
+   Self IP Port Lockdown.
+
+.. image:: ../_images/ip-allowlisting-02-ssh-allow-scope.png
    :alt: SSH IP Allow configuration
    :align: center
+   :width: 900px
+
+SSH IP Allow scope review in the Platform configuration screen.
 
 ---------------------------------------------------------------------
 
@@ -132,38 +160,60 @@ Step 3 – Restrict SSH to Approved Subnet
    (for example: 10.1.1.0/24).
 3. Click **Update**.
 
-.. image:: ../_images/ipallow_03_ssh_restricted.png
-   :alt: SSH IP Allow restricted to approved subnet
+.. image:: ../_images/ip-allowlisting-02-ssh-restricted-to-10.1.1.0-24.png
+   :alt: SSH access restricted to management subnet 10.1.1.0/24
    :align: center
+   :width: 900px
+
+Remediation: SSH access restricted to the management subnet
+(10.1.1.0/24) using IP Allow.
 
 ---------------------------------------------------------------------
 
 Step 4 – Validate SSH Restriction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From an authorized administrative host:
+From an authorized administrative host
+(for example: 10.1.1.5 within 10.1.1.0/24):
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 22
+    Test-NetConnection 10.1.1.5 -Port 22
 
 Expected:
 
-* TcpTestSucceeded: True
+* TcpTestSucceeded : True
 
-From an unauthorized host:
-
-.. code-block:: powershell
-
-   Test-NetConnection <mgmt-ip> -Port 22
-
-Expected:
-
-* TcpTestSucceeded: False
-
-.. image:: ../_images/ipallow_04_ssh_validation.png
-   :alt: PowerShell validation of SSH restriction
+.. image:: ../_images/ip-allowlisting-03-ssh-allowed-from-mgmt.png
+   :alt: SSH access allowed from management subnet
    :align: center
+   :width: 900px
+
+From an unauthorized host
+(for example: 10.1.20.15 outside 10.1.1.0/24):
+
+.. code-block:: powershell
+
+    Test-NetConnection 10.1.1.5 -Port 22
+
+Expected:
+
+* TcpTestSucceeded : False
+
+Validation from the authorized management subnet showing SSH permitted.
+
+.. image:: ../_images/ip-allowlisting-04-ssh-blocked-from-non-mgmt.png
+   :alt: SSH access blocked from non-management network
+   :align: center
+   :width: 900px
+
+Validation from a non-management host showing SSH connection attempt blocked due to IP allowlisting.
+
+.. note::
+
+   This test validates network-layer access control.
+   Authentication enforcement (e.g., MFA) is addressed separately
+   in the Middle Layer.
 
 ---------------------------------------------------------------------
 
@@ -179,9 +229,12 @@ Remove broad entries such as:
 * 0.0.0.0/0
 * Entire internal ranges
 
-.. image:: ../_images/ipallow_05_snmp_client_list.png
+.. image:: ../_images/ip-allowlisting-05-snmp-client-list.png
    :alt: SNMP Client Allow List configuration
    :align: center
+   :width: 900px
+
+SNMP Client Allow List restricted to approved monitoring systems.
 
 ---------------------------------------------------------------------
 
@@ -192,25 +245,39 @@ From authorized host:
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection 10.1.1.5 -Port 443
 
 Expected:
 
 * TcpTestSucceeded: True
 
+.. image:: ../_images/ip-allowlisting-06-https-validation_true.png
+   :alt: HTTPS management access validation
+   :align: center
+   :width: 900px
+
 From unauthorized host:
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection 10.1.1.5 -Port 443
 
 Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/ipallow_06_https_validation.png
-   :alt: PowerShell validation of HTTPS restriction
+.. image:: ../_images/ip-allowlisting-06-https-validation_false.png
+   :alt: HTTPS management access validation
    :align: center
+   :width: 900px
+
+Validation showing HTTPS (TMUI) access restricted to the management subnet.
+
+.. note::
+
+   ICMP to the management IP may still respond.
+   This lab validates service-level access control,
+   not basic IP reachability.
 
 ---------------------------------------------------------------------
 
@@ -222,7 +289,7 @@ After remediation:
 * SSH restricted to authorized admin subnet
 * HTTPS restricted to authorized admin subnet
 * SNMP restricted to monitoring systems
-* Unauthorized hosts blocked
+* Unauthorized hosts blocked at the management interface
 
 Outer Layer Alignment
 ---------------------
@@ -238,7 +305,7 @@ Self IP Port Lockdown protects:
 Together they enforce:
 
 * Least privilege
-* Deterministic administrative access
+* Deterministic administrative access paths
 * Control-plane isolation
 * Zero Trust segmentation principles
 

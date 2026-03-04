@@ -13,15 +13,16 @@ Lab Components
 
 The following components have been included in your lab environment:
 
-* F5 BIG-IP VE (bigip01)
-* Ubuntu router - For adding 200ms network latency between the client and BIG-IP Virtual Servers
-* Ubuntu Client - For generating test traffic
-* Ubuntu Webserver
-* Windows Client - For Wireshark
+* BIGIP01 (F5 BIG-IP VE)
+* Router - For adding 200ms network latency between the client and BIG-IP Virtual Servers
+* Ubuntu-Client - For generating test traffic
+* Ubuntu-Webserver - Hosting HTTP content and DNS services
+* Windows-Client - For Wireshark
 
 Lab Topology Diagram
 --------------------
 
+<<still need to create the image - 3/3/26>>
 .. image:: ../images/image90.png
 
 Lab Credentials
@@ -30,15 +31,15 @@ Lab Credentials
 The following table lists the management credentials for the components used in the labs:
 
 
-+----------------+-------------------------------------------------+
-| Host           | Username:Password                               |
-+================+=================================================+
-| BIGIP01 UI     | admin:admin.F5demo.com and root:root.F5demo.com |
-+----------------+-------------------------------------------------+
-| Windows Client | labUser:lab.F5demo.com                          |
-+----------------+-------------------------------------------------+
-| Linux Client   | SSH Key no password required                    |
-+----------------+-------------------------------------------------+
++----------------+------------------------------+
+| Host           | Username:Password            |
++================+==============================+
+| BIGIP01 TMUI   | admin:admin.F5demo.com       |
++----------------+------------------------------+
+| Windows Client | labUser:lab.F5demo.com       |
++----------------+------------------------------+
+| Linux Client   | SSH Key no password required |
++----------------+------------------------------+
 
 Timing for Labs
 ---------------
@@ -53,11 +54,11 @@ take for each lab:
 +------------------------------------------------------+------------------+
 | LAB Name                                             | Time Allocated   |
 +======================================================+==================+
-| LAB 1 - Getting to Know Your App Traffic             | 20 minutes       |
+| LAB 1 - Viewing Application Data.                    | 20 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 2 - Working With TCP Profiles                    | 30 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 3 - HTTP Tuning                                  | 20 minutes       |
+| LAB 3 - Layer 7 LB for HTTP and UDP                  | 20 minutes       |
 +------------------------------------------------------+------------------+
 | Appendix - Optional Packet Decryption Lab            | 15 minutes       |
 +------------------------------------------------------+------------------+

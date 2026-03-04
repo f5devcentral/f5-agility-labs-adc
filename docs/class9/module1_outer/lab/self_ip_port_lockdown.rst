@@ -1,9 +1,9 @@
 Self IP Port Lockdown
 =====================
 
-Self IP Port Lockdown restricts which control-plane services are reachable
-on each VLAN. Even without virtual servers configured, Self IPs may respond
-to administrative services unless explicitly limited.
+Self IP Port Lockdown restricts which control-plane services are exposed
+via data-plane VLAN interfaces. Even without virtual servers configured,
+Self IPs may respond to administrative services unless explicitly limited.
 
 This mechanism is a critical Outer Layer boundary control.
 
@@ -11,11 +11,25 @@ Executive Summary
 -----------------
 
    Production data-plane VLANs must enforce a default-deny posture
-   using **Allow None**. Administrative services must never be exposed
-   on DMZ or application VLANs.
+   using **Allow None**. Administrative services must never be reachable
+   from DMZ or application VLANs.
 
    Self IP Port Lockdown complements IP Allowlisting by ensuring that
-   management services are not reachable from unintended network segments.
+   management services are not exposed to unintended network segments.
+
+Threat Scenario
+---------------
+
+In the absence of Port Lockdown hardening:
+
+* A compromised workload on a server VLAN could attempt SSH access
+  to the BIG-IP Self IP.
+* An insider on an application network could reach HTTPS (TMUI).
+* Lateral movement could expose the control plane to credential abuse
+  or exploit attempts.
+
+Port Lockdown reduces this attack surface by restricting control-plane
+service exposure on data-plane interfaces.
 
 Objective
 ---------
@@ -55,37 +69,6 @@ Hardened Enterprise Reference Design
      mgmt -- bigip;
    }
 
-Recommended VLAN Posture
-------------------------
-
-+----------------+----------------------------+--------------------+--------------------------------------+
-| VLAN           | Purpose                    | Port Lockdown Mode | Rationale                             |
-+================+============================+====================+======================================+
-| Mgmt (OOB)     | Administrative access      | Allow Default      | Isolated management network           |
-+----------------+----------------------------+--------------------+--------------------------------------+
-| External (DMZ) | Client-side data plane     | Allow None         | Prevent control-plane exposure        |
-+----------------+----------------------------+--------------------+--------------------------------------+
-| Internal       | Server-side data plane     | Allow None         | Prevent lateral movement              |
-+----------------+----------------------------+--------------------+--------------------------------------+
-
-Port Lockdown Modes
--------------------
-
-+--------------+---------------------------------------------------+
-| Mode         | Behavior                                          |
-+==============+===================================================+
-| Allow None   | Blocks all control-plane services                 |
-+--------------+---------------------------------------------------+
-| Allow Default| Enables system-defined administrative services    |
-+--------------+---------------------------------------------------+
-| Allow Custom | Enables only explicitly defined services          |
-+--------------+---------------------------------------------------+
-
-.. warning::
-
-   "Allow Default" on production VLANs may expose SSH and HTTPS
-   to unintended network segments.
-
 ---------------------------------------------------------------------
 
 Lab Procedure
@@ -100,12 +83,15 @@ Step 1 – Identify Data-Plane Self IPs
    * External VLAN
    * Internal VLAN
 
-.. image:: ../_images/selfip_01_selfip_list.png
-   :alt: Self IP List showing VLAN assignments
+.. image:: ../_images/self-ip-port-lockdown-01-baseline-self-ip-list.png
+   :alt: Baseline Self IP list
    :align: center
+   :width: 900px
 
-Document the IP address of the internal Self IP
-(for example: ``10.1.20.242``).
+Baseline view of configured Self IPs prior to lockdown validation.
+
+Document the IP address of the internal (data-plane) Self IP
+(for example: ``10.1.20.242``). You will use this IP in Steps 3 and 5.
 
 ---------------------------------------------------------------------
 
@@ -115,12 +101,8 @@ Step 2 – Inspect Port Lockdown Mode
 1. Click the internal Self IP.
 2. Review the **Port Lockdown** setting.
 
-If it is set to **Allow Default**, control-plane services
-may be exposed on this VLAN.
-
-.. image:: ../_images/selfip_02_allow_default_exposure.png
-   :alt: Self IP Properties showing Allow Default
-   :align: center
+If it is set to **Allow Default**, administrative services may be
+exposed on this VLAN via the data-plane interface.
 
 ---------------------------------------------------------------------
 
@@ -132,19 +114,22 @@ From a host on the same data-plane network
 
 .. code-block:: powershell
 
-   Test-NetConnection 10.1.20.242 -Port 443
-   Test-NetConnection 10.1.20.242 -Port 22
+   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
+   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
 
 Expected (vulnerable state):
 
 * TcpTestSucceeded: True
 
-.. image:: ../_images/selfip_03_exposed_ports_test.png
-   :alt: PowerShell showing successful TCP connections
+.. image:: ../_images/self-ip-port-lockdown-03-exposed-ports-test.png
+   :alt: Exposed control-plane ports validation
    :align: center
+   :width: 900px
 
-This confirms control-plane services are reachable
-from the data-plane VLAN.
+Baseline validation from a data-plane host showing TCP 443 and 22 reachable (vulnerable state).
+
+This confirms that administrative services are exposed to the
+data-plane network segment, creating lateral movement risk.
 
 ---------------------------------------------------------------------
 
@@ -158,11 +143,21 @@ Step 4 – Remediate with Allow None
 
 3. Click **Update**.
 
-.. image:: ../_images/selfip_04_allow_none_configured.png
-   :alt: Self IP configured with Allow None
-   :align: center
+.. note::
 
-This enforces a default-deny posture.
+   Do not apply **Allow None** to a VLAN currently used for management
+   access. Ensure OOB management access remains available before enforcing
+   this control.
+
+.. image:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
+   :alt: Internal Self IP configured with Allow None
+   :align: center
+   :width: 900px
+
+Remediation: Internal Self IP Port Lockdown set to Allow None (default-deny posture).
+
+This enforces a default-deny posture for control-plane services
+on the data-plane VLAN.
 
 ---------------------------------------------------------------------
 
@@ -173,17 +168,25 @@ From the same Windows host:
 
 .. code-block:: powershell
 
-   Test-NetConnection 10.1.20.242 -Port 443
-   Test-NetConnection 10.1.20.242 -Port 22
+   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
+   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
 
 Expected (secure state):
 
 * TcpTestSucceeded: False
 * Warning: TCP connect failed
 
-.. image:: ../_images/selfip_05_ports_blocked_test.png
-   :alt: PowerShell showing blocked TCP connections
+.. image:: ../_images/self-ip-port-lockdown-05-ports-blocked-test.png
+   :alt: Ports blocked after Allow None
    :align: center
+   :width: 900px
+
+Post-remediation validation from the data-plane host: TCP 443 and 22 blocked.
+
+.. note::
+
+   ICMP echo responses may still succeed. Port Lockdown restricts
+   control-plane services, not basic IP reachability.
 
 ---------------------------------------------------------------------
 

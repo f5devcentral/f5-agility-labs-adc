@@ -6,8 +6,28 @@ VLANs, and assign self IP addresses to our VLAN. As mentioned during
 our lecture portion, BIG-IPs may be put in-line or one-armed depending
 on your customer’s requirements and topology.
 
-Log on to the bigip01 TMUI (GUI) Interface:
+Log on to the **bigip01** TMUI (GUI) Interface:
   - **UDF** - Under Components, select the **Access** drop-down and then **TMUI**
+
+Navigate the BIG-IP Configuration Utility (GUI)
+-----------------------------------------------
+
+The BIG-IP Configuration Utility (GUI) is a web-based interface that provides a point-and-click interface for managing the BIG-IP system.
+
+You can perform various tasks such as:
+
+   1. Building and managing traffic objects (e.g., virtual servers, pools, nodes).
+   2. Configuring modules (LTM, DNS/GTM, Advanced WAF/ASM, APM, AFM).
+   3. Managing system/network settings (e.g., VLANs, routes).
+   4. Viewing statistics, health checks, and logs.
+
+The following sections are important to guide you through the process of creating VLANs, self IPs, pools, and virtual servers using the BIG-IP GUI.
+
+   1. **Main**/Help/About
+   2. **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
+   3. **Device Management** >> Devices, Device Trust, Traffic Groups
+   4. **Network** >> interfaces, self IPs, Vlans
+   5. **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
 
 Creating VLANs
 --------------
@@ -58,7 +78,9 @@ d. When you have completed your VLAN configuration, hit the **Finished** button
    :width: 6.0in
    :height: 1.2in
 
--------------------------------------------
+
+Creating Self IPs
+-----------------
 
 1. Go to **Network > Self IPs**, select **Create**.
 
@@ -135,6 +157,7 @@ b. Under **Properties**
       i.  Ping your default gateway, 10.1.10.1
 
       ii. Ping a web server at 10.1.20.11.
+
 
 Creating Pools
 --------------
@@ -270,17 +293,17 @@ e. You have now created a Virtual Server
 c. Go to your BIG-IP and view the statistics for the **www_vs** virtual
    server and the **www_pool** pool and its associated members
 
-d. Go to **Statistics > Module Statistics > Local Traffic**
+d. Go to **Statistics >> Module Statistics >> Local Traffic**
 
-   i. Choose **Virtual Servers** from drop down
+   i. Choose **Virtual Servers** from "Statistics Type" drop-down menu
 
 .. image:: ../images/image22.png
    :width: 2.98593in
    :height: 1.44792in
 
-e. Go to **Local** **Traffic>Virtual Servers>Statistics**
+e. or, Go to **Local Traffic >> Virtual Servers >> Statistics**
 
-f. Go to **Local** **Traffic>Pools>Statistics**
+f. Go to **Local Traffic >> Pools >> Statistics** to see pool member statistics
 
    i.   Did each pool member receive the same number of connections?
 
@@ -328,7 +351,7 @@ Diagram for the IP address.
 
 2. Check out the Dashboard!
 
-   a. Go to **Statistics>Dashboard**
+   a. Go to **Statistics >> Dashboard**
 
 .. image:: ../images/image23.png
    :width: 3.13542in

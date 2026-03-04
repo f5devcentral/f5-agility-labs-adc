@@ -26,15 +26,18 @@ Access from UDF Components Tab
 .. image:: ../images/udf_bigip01_auth.png
     :width: 250px
 
+
 5. For SSH to BIGIP01, select SSH from the Access dropdown
 
 .. image:: ../images/udf_bigip01_ssh.png
     :width: 450px
 
+
 6. Click Open Terminal, if prompted
 
 .. image:: ../images/udf_open_terminal.png
     :width: 450px 
+
 
 7. Type yes to 'continue connecting' if prompted
 
@@ -49,12 +52,14 @@ Access from UDF Components Tab
 .. image:: ../images/udf_client_ssh.png
     :width: 500px
 
-9. You may see the same prompts show with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
+
+9. You may see the same prompts with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
 
 10. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 
 .. image:: ../images/udf_RDP_option.png
     :width: 500px
+
 
 11.  Find the .RDP file and click to open with your RDP client
 12. Use the following credentials:
@@ -65,10 +70,12 @@ Access from UDF Components Tab
 .. image:: ../images/udf_RDP_login.png
     :width: 500px
 
+
 13. Click continue to the connection prompt
 
 .. image:: ../images/udf_RDP_continue.png
     :width: 600px
+
 
 **Note:** Throughout the labs you should leave a single connection open to the following as they will be used for multiple labs/tasks:
 * BIGIP01 TMUI

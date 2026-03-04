@@ -1,29 +1,51 @@
 Control-Plane Segmentation Validation
 =====================================
 
-Control-plane segmentation must be validated to ensure that
-administrative services are reachable only through intended paths.
+Control-plane segmentation must be empirically validated to ensure that
+administrative services are reachable only through intended network paths.
+Configuration alone does not guarantee isolation.
 
-This lab ties together Outer Layer controls by verifying that:
+This lab validates the combined effect of Outer Layer controls by confirming:
 
 * Management services are accessible only via the management interface
 * Data-plane VLANs do not expose control-plane services
 * No unintended lateral movement paths exist
 * Administrative access paths are deterministic and controlled
 
+This lab validates network-layer segmentation only.
+Authentication and authorization enforcement are validated separately
+in the Middle Layer.
+
 Executive Summary
 -----------------
 
-   Segmentation is not complete until it is validated.
+   Segmentation design must be empirically validated.
    This lab confirms that IP Allowlisting and Self IP Port Lockdown
-   work together to eliminate alternate management paths.
+   work together to eliminate alternate management paths and
+   enforce control-plane isolation.
+
+Threat Scenario
+---------------
+
+In the absence of proper segmentation validation:
+
+* A data-plane Self IP may inadvertently expose SSH or HTTPS.
+* Broad source access to the management IP may allow lateral movement.
+* Routing misconfigurations may create alternate administrative paths.
+* Firewall rules may not reflect actual device-level exposure.
+
+Segmentation validation ensures that:
+
+* Only authorized administrative hosts can reach the management IP.
+* Data-plane VLAN interfaces do not expose management services.
+* No unintended control-plane access paths exist.
 
 Objective
 ---------
 
 This lab will:
 
-* Identify BIG-IP management and data-plane interfaces
+* Inventory BIG-IP management and data-plane interfaces
 * Validate management service reachability on the management interface
 * Validate management service non-reachability on data-plane Self IPs
 * Document an exposure matrix as evidence of segmentation posture
@@ -34,6 +56,7 @@ Hardened Enterprise Reference Design
 .. note::
 
    Validation should be performed from representative network locations:
+
    * Authorized administrative host (management network)
    * Data-plane host (DMZ or internal VLAN)
 
@@ -70,7 +93,7 @@ Validate the following interfaces:
 
 Services in scope:
 
-* SSH (TCP 22)
+* SSH (TCP 22) – if enabled
 * HTTPS/TMUI (TCP 443)
 
 ---------------------------------------------------------------------
@@ -83,17 +106,22 @@ Step 1 – Identify Interface Inventory
 
 1. Log in to the BIG-IP Configuration Utility.
 2. Document:
-   * Management IP (System → Platform)
-   * External Self IP (Network → Self IPs)
-   * Internal Self IP (Network → Self IPs)
+   * Management IP (**Top Right Corner**)
+   * External & Internal Self IP (**Network → Self IPs**)
 
-.. image:: ../_images/segval_01_platform_mgmt_ip.png
-   :alt: Platform screen showing management IP
+.. image:: ../_images/control-plane-segmentation-01-platform-mgmt-ip.png
+   :alt: Platform screen showing management IP configuration
    :align: center
+   :width: 900px
 
-.. image:: ../_images/segval_02_selfip_list.png
-   :alt: Self IP list showing external and internal Self IPs
+Platform configuration showing the BIG-IP management IP address.
+
+.. image:: ../_images/control-plane-segmentation-02-selfip-inventory.png
+   :alt: Self IP inventory showing external and internal Self IPs
    :align: center
+   :width: 900px
+
+Self IP inventory identifying external and internal data-plane interfaces.
 
 Record the following values:
 
@@ -106,7 +134,7 @@ Record the following values:
 Step 2 – Validate Management IP Reachability (Authorized Path)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the authorized administrative host (management network):
+From the authorized administrative host (management network, e.g., 10.1.1.0/24):
 
 .. code-block:: powershell
 
@@ -115,16 +143,20 @@ From the authorized administrative host (management network):
 
 Expected:
 
-* TcpTestSucceeded: True (for required services)
+* TcpTestSucceeded: True (for enabled services)
 
-.. image:: ../_images/segval_03_mgmt_reachability.png
-   :alt: PowerShell output showing management IP reachability
+... image:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
+   :alt: PowerShell output showing management IP reachable on TCP 22 and 443 from an authorized host
    :align: center
+   :width: 900px
+
+Authorized-path validation showing SSH (22) and HTTPS (443)
+reachable on the management IP.
 
 ---------------------------------------------------------------------
 
-Step 3 – Validate Data-Plane Self IP Non-Reachability (DMZ/Internal)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 3 – Validate Data-Plane Self IP Non-Reachability
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 From a data-plane host (for example, DMZ subnet 10.1.10.0/24):
 
@@ -137,11 +169,14 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/segval_04_external_selfip_blocked.png
-   :alt: PowerShell output showing external self IP ports blocked
+.. image:: ../_images/control-plane-segmentation-04-external-selfip-blocked.png
+   :alt: Validation showing external Self IP blocked on TCP 22 and 443
    :align: center
+   :width: 900px
 
-From an internal host (if available):
+External Self IP validation showing SSH (22) and HTTPS (443) not reachable.
+
+From an internal host (if available, e.g., 10.1.20.0/24):
 
 .. code-block:: powershell
 
@@ -152,32 +187,68 @@ Expected:
 
 * TcpTestSucceeded: False
 
-.. image:: ../_images/segval_05_internal_selfip_blocked.png
-   :alt: PowerShell output showing internal self IP ports blocked
+.. image:: ../_images/control-plane-segmentation-05-internal-selfip-blocked.png
+   :alt: Validation showing internal Self IP blocked on TCP 22 and 443
    :align: center
+   :width: 900px
+
+Internal Self IP validation showing SSH (22) and HTTPS (443) not reachable.
 
 .. note::
 
-   If an internal test host is not available in the lab environment,
-   validate the internal Self IP from the management host and document
-   that the test is not from the native internal VLAN.
+   If a native internal test host is not available, validation may be
+   performed from the management host. This confirms service non-exposure,
+   but does not represent the native VLAN path.
+
+.. note::
+
+   ICMP echo responses may still succeed.
+   This lab validates TCP service reachability only.
 
 ---------------------------------------------------------------------
 
-Step 4 – Document the Exposure Matrix
+Step 4 – Validate Unauthorized Access to Management IP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From a non-authorized host (outside the approved admin subnet):
+
+.. code-block:: powershell
+
+   Test-NetConnection <mgmt-ip> -Port 443
+   Test-NetConnection <mgmt-ip> -Port 22
+
+Expected:
+
+* TcpTestSucceeded: False
+
+.. image:: ../_images/control-plane-segmentation-06-mgmt-ip-blocked-unauthorized.png
+   :alt: Validation showing management IP blocked from unauthorized host
+   :align: center
+   :width: 900px
+
+Validation confirming that unauthorized hosts cannot reach management services.
+
+---------------------------------------------------------------------
+
+Step 5 – Document the Exposure Matrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Complete the following matrix:
+Complete and document the following matrix:
 
-+----------------------+--------------------+--------------------+
-| Target Interface     | TCP 22 (SSH)       | TCP 443 (HTTPS)    |
-+======================+====================+====================+
-| Management IP        | Expected: Open     | Expected: Open     |
-+----------------------+--------------------+--------------------+
-| External Self IP     | Expected: Blocked  | Expected: Blocked  |
-+----------------------+--------------------+--------------------+
-| Internal Self IP     | Expected: Blocked  | Expected: Blocked  |
-+----------------------+--------------------+--------------------+
++----------------------+--------------------+--------------------+--------------------+--------------------+
+| Target Interface     | TCP 22 Expected    | TCP 22 Observed    | TCP 443 Expected   | TCP 443 Observed   |
++======================+====================+====================+====================+====================+
+| Management IP        | Open (authorized)  |                    | Open (authorized)  |                    |
++----------------------+--------------------+--------------------+--------------------+--------------------+
+| Management IP        | Blocked (unauth)   |                    | Blocked (unauth)   |                    |
++----------------------+--------------------+--------------------+--------------------+--------------------+
+| External Self IP     | Blocked            |                    | Blocked            |                    |
++----------------------+--------------------+--------------------+--------------------+--------------------+
+| Internal Self IP     | Blocked            |                    | Blocked            |                    |
++----------------------+--------------------+--------------------+--------------------+--------------------+
+
+This matrix serves as documented evidence that control-plane segmentation
+is functioning as designed.
 
 ---------------------------------------------------------------------
 
@@ -187,6 +258,8 @@ Validation Summary
 If segmentation is correctly enforced:
 
 * Management services are reachable only through the management interface
+* Only authorized administrative hosts can reach the management IP
+* Unauthorized hosts cannot reach the management IP
 * Data-plane VLAN Self IPs do not expose SSH or HTTPS
 * No alternate administrative access paths exist
 
@@ -195,13 +268,21 @@ Outer Layer Alignment
 
 This lab validates the combined effect of:
 
-* IP Allowlisting (who may access management services)
-* Self IP Port Lockdown (where management services are exposed)
+* IP Allowlisting – controls **who** may access management services
+* Self IP Port Lockdown – controls **where** management services are exposed
+
+Together they enforce:
+
+* Deterministic administrative access paths
+* Network-layer least privilege
+* Control-plane isolation
+* Zero Trust segmentation principles
 
 Success Criteria
 ----------------
 
 * Mgmt IP reachable for authorized host on required ports
+* Mgmt IP not reachable for unauthorized hosts
 * External Self IP not reachable on SSH/HTTPS
 * Internal Self IP not reachable on SSH/HTTPS
-* Evidence captured via screenshots and exposure matrix
+* Exposure matrix completed and documented as evidence
