@@ -9,6 +9,26 @@ on your customer’s requirements and topology.
 Log on to the **bigip01** TMUI (GUI) Interface:
   - **UDF** - Under Components, select the **Access** drop-down and then **TMUI**
 
+Navigate the BIG-IP Configuration Utility (GUI)
+-----------------------------------------------
+
+The BIG-IP Configuration Utility (GUI) is a web-based interface that provides a point-and-click interface for managing the BIG-IP system.
+
+You can perform various tasks such as:
+
+   1. Building and managing traffic objects (e.g., virtual servers, pools, nodes).
+   2. Configuring modules (LTM, DNS/GTM, Advanced WAF/ASM, APM, AFM).
+   3. Managing system/network settings (e.g., VLANs, routes).
+   4. Viewing statistics, health checks, and logs.
+
+The following sections are important to guide you through the process of creating VLANs, self IPs, pools, and virtual servers using the BIG-IP GUI.
+
+   1. **Main**/Help/About
+   2. **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
+   3. **Device Management** >> Devices, Device Trust, Traffic Groups
+   4. **Network** >> interfaces, self IPs, Vlans
+   5. **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
+
 Creating VLANs
 --------------
 

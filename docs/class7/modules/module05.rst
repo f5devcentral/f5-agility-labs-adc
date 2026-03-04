@@ -1,6 +1,34 @@
 Lab 5: Device Service Clusters (DSC) 
 ====================================
 
+By now you have a working HTTP virtual server and pool. Let's take a moment and review what we have learned about the traffic flow through the BIG-IP. 
+
+We have a client that is sending HTTP requests to the BIG-IP, which then forwards those requests to the pool members. The pool members respond with HTTP responses, which are sent back to the client through the BIG-IP.
+
+Standard Virtual Server Packet Flow
+-----------------------------------
+
+On a standard virtual server application would follow something similar to the flow below:
+
+	1. An IPv4 or IPv6 virtual server receive the connection request​
+	2. The TCP connection between the BIG-IP and the client is set up​
+
+      I. at this point we can adjust how TCP works between the BIG-IP and the client using the client TCP profile and its parameters​
+      II. or log or manipulate the connection using iRules​
+	3. The virtual server establish and encrypted session between the BIG-IP and the client.​
+	
+      I. Again we can manipulate the SSL setup via iRules​
+	4. The decrypted data hits the HTTP profile and the HTTP information is parsed and processed according to the profile parameters, and iRules could be applied​
+	5. And so on, until we make the load balancing decision in TMOS​
+	6. Manipulate the HTTP stream as required​
+	7. Re-encrypt the stream if desired ​
+	8. At that point we create a new TCP connection based on the server-side TCP profile to the selected server​
+	9. And send the connection to the IPv4 or IPv6 pool member​
+
+Now that we have a working virtual server and pool, let's take a look at how we can make our BIG-IP highly available. 
+
+In this lab we will be creating a **high availability cluster** using two BIG-IP devices. We will configure device trust, device groups, and traffic groups to ensure that if one BIG-IP fails, the other can take over and continue to serve traffic.
+
 This lab is designed to help you understand Device and Traffic Groups, as well as the process of building an Active-Standby HA pair. While there is a wizard, we will configuring this manually. 
 
 Base Networking and HA VLAN
