@@ -3,13 +3,13 @@ Working With Components
 
 UDF refers to lab elements as Components.  For the labs, you will access a BIG-IP, an Ubuntu client and a Windows 11 client.  You can choose to access the BIG-IP and Ubuntu client from the UDF **Access** dropdown for each Component or RDP to the Windows 11 client and do the work from there.  
 
-Access from UDF Components Tab
-------------------------------
 
-1. Click on the **Deployment** tab in UDF to see the components and their status.  Each component within the deployment has multiple connection methods from the **Access** dropdown as you'll see in the connection instructions for each device.
+1. Click on the **Deployment** tab in UDF to see the components and their status.  The lab deployment will be fully operational when there is a green triangke next to each component. Each component within the deployment has at least one connection method from the **Access** dropdown as you'll see in the instructions below.
 
-   .. image:: ../images/udf_deployment_tab.png
-       :width: 900px
+   .. figure:: ../images/udf_deployment_tab.png
+      :width: 900px
+
+      This image shows a deployment in the startup phase - it should take a few minutes for startup to complete.
 
 
 2. For BIGIP01, you will use TMUI and Web Shell options during the labs
