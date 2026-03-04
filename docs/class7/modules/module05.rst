@@ -13,11 +13,11 @@ On a standard virtual server application would follow something similar to the f
 	1. An IPv4 or IPv6 virtual server receive the connection request​
 	2. The TCP connection between the BIG-IP and the client is set up​
 
-      a. at this point we can adjust how TCP works between the BIG-IP and the client using the client TCP profile and its parameters​
-      b. or log or manipulate the connection using iRules​
+      I. at this point we can adjust how TCP works between the BIG-IP and the client using the client TCP profile and its parameters​
+      II. or log or manipulate the connection using iRules​
 	3. The virtual server establish and encrypted session between the BIG-IP and the client.​
 	
-      a. Again we can manipulate the SSL setup via iRules​
+      I. Again we can manipulate the SSL setup via iRules​
 	4. The decrypted data hits the HTTP profile and the HTTP information is parsed and processed according to the profile parameters, and iRules could be applied​
 	5. And so on, until we make the load balancing decision in TMOS​
 	6. Manipulate the HTTP stream as required​
