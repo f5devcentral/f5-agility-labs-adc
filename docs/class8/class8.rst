@@ -1,7 +1,7 @@
 TMOS - Performance Tuning
 =========================
 
-This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, adjustments can be made to optimize performance.  The lab will focus on TCP and HTTP tuning options.
+This class covers performance tuning options with TMOS.  Students will learn how to review application traffic flowing through TMOS.  Once the traffic patterns are known, adjustments can be made to optimize performance.  The lab will focus on TCP, UDP and HTTP tuning options.
 
 Getting Started
 ---------------
@@ -44,17 +44,13 @@ The following table lists the management credentials for the components used in 
 Timing for Labs
 ---------------
 
-The time it takes to perform each lab varies and is mostly dependent on
-accurately completing steps. This can never be accurately predicted but
-we strived to derive an estimate among several people each having a
-different level of experience. Below is an estimate of how long it will
-take for each lab:
+The time it takes to perform each lab varies from person to person.  Below is an estimate of how long each lab should take:
 
 
 +------------------------------------------------------+------------------+
 | LAB Name                                             | Time Allocated   |
 +======================================================+==================+
-| LAB 1 - Viewing Application Data.                    | 20 minutes       |
+| LAB 1 - Viewing Application Data                     | 20 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 2 - Working With TCP Profiles                    | 30 minutes       |
 +------------------------------------------------------+------------------+
