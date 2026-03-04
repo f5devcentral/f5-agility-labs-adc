@@ -1,9 +1,9 @@
 Task 1: Layer 7 LB for HTTP
 ===========================
 
-By default, TMOS load balances HTTP traffic at layer 4.  If a client connects to an HTTP Virtual Server and requests a log of files and resources through typical browsing through a web site, the load balancing decision .is done during the initial TCP connection.  All of the requests will goo to a single pool member.
+By default, TMOS load balances HTTP traffic at layer 4.  If a client connects to an HTTP Virtual Server and requests a log of files and resources through typical browsing through a web site, the load balancing decision is done during the initial TCP connection.  All of the requests will go to a single pool member.
 
-In most cases this could be OK many applications being front-end by a CDN <<or other examples??>> requests forom multiple end clients could get aggregated before hitting the Virtual Server.  With TMOS, it is possible to load balance at the application layer (Layer 7 LB) by enabling the OneCOnnect profile on the HTTP Virtual Server.
+In most cases this could be OK many applications being front-end by a CDN <<or other examples??>> requests from multiple end clients could get aggregated before hitting the Virtual Server.  With TMOS, it is possible to load balance at the application layer (Layer 7 LB) by enabling the OneCOnnect profile on the HTTP Virtual Server.
 
 Here is an example (need a graphic):
 
