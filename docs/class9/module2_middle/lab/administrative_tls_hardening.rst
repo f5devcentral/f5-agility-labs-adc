@@ -15,17 +15,17 @@ This lab focuses on management-plane TLS hardening. Data-plane TLS
 hardening for application virtual servers is covered separately in the
 Data Plane TLS and Cipher Hardening lab.
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
-Administrative interfaces must not support legacy TLS versions or weak
-cipher suites.
+   Administrative interfaces must not support legacy TLS versions or weak
+   cipher suites.
 
-Weak protocol exposure on the management interface increases the risk
-of downgrade attacks, cryptographic exploitation, and compliance
-violations.
+   Weak protocol exposure on the management interface increases the risk
+   of downgrade attacks, cryptographic exploitation, and compliance
+   violations.
 
-Hardening must be validated using deterministic handshake testing.
+   Hardening must be validated using deterministic handshake testing.
 
 Administrative TLS Exposure Surface
 -----------------------------------
@@ -103,7 +103,11 @@ and unauthorized configuration changes.
 Phase 1 – Baseline Management TLS Observation
 ---------------------------------------------
 
-From the Windows Jumpbox (Git Bash):
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
 
 Test TLS 1.0:
 
@@ -170,8 +174,13 @@ Step 1 – Disable Legacy Protocols
 Open an SSH Session to BIG-IP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the **Windows Jump Host**, open **Git Bash** and connect to the
-BIG-IP management interface.
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (SSH client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Connect to the BIG-IP management interface:
 
 .. code-block:: bash
 
@@ -212,6 +221,12 @@ Expected result:
 Step 2 – Enforce Balanced Enterprise Cipher Posture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Execution Context:
+
+* Host: **BIG-IP (active SSH session)**
+* Interface: **Management Plane**
+* Shell: **tmsh**
+
 Apply reduced cipher list:
 
 .. code-block:: bash
@@ -233,6 +248,12 @@ Verify:
 
 Phase 3 – Deterministic Validation
 -----------------------------------
+
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
 
 Test TLS 1.0 (Expected: Failure)
 

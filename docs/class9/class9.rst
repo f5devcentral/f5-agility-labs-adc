@@ -50,7 +50,6 @@ Security Onion Modules
 .. toctree::
    :maxdepth: 1
 
-   labs/index
    module1_outer/index
    module2_middle/index
    module3_core/index

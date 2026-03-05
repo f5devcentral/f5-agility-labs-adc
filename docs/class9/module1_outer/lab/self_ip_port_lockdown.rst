@@ -7,8 +7,8 @@ Self IPs may respond to administrative services unless explicitly limited.
 
 This mechanism is a critical Outer Layer boundary control.
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
    Production data-plane VLANs must enforce a default-deny posture
    using **Allow None**. Administrative services must never be reachable
@@ -51,26 +51,26 @@ Hardened Enterprise Reference Design
    remains: data-plane VLANs should never expose control-plane services.
 
 .. nwdiag::
-   :caption: Reference Design – Self IP Port Lockdown
+   :caption: Outer Layer – Self IP Port Lockdown Reference Design (Control-Plane Exposure)
    :name: self-ip-port-lockdown-reference-design
 
    nwdiag {
 
-     internet [shape = "cloud"];
+     internet [shape = "cloud", description = "Untrusted / Internet"];
 
      network mgmt {
-       address = "Management Network\n10.1.1.0/24";
+       address = "Management Network\n10.1.1.0/24\n(Admin Access)";
      }
 
      network external {
-       address = "External / DMZ\n10.1.10.0/24";
+       address = "External / DMZ VLAN\n10.1.10.0/24\n(Data Plane)";
      }
 
      network internal {
-       address = "Internal App Network\n10.1.20.0/24";
+       address = "Internal App VLAN\n10.1.20.0/24\n(Data Plane)";
      }
 
-     bigip [shape = "roundedbox"];
+     bigip [shape = "roundedbox", description = "BIG-IP\nMgmt: 10.1.1.5\nSelf IPs: 10.1.10.5 / 10.1.20.5"];
 
      mgmt -- bigip;
      external -- bigip;
@@ -127,8 +127,12 @@ exposed on this VLAN via the data-plane interface.
 Step 3 – Validate Service Exposure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From a host on the **10.1.20.0/24 data-plane network**
-(for example using Git Bash on the Windows Jumphost):
+Execution Context:
+
+* Host: **Windows Jumphost**
+* Network Interface: **10.1.20.0/24 (Internal Data Plane)**
+
+Run the following commands:
 
 .. code-block:: powershell
 
@@ -198,7 +202,12 @@ on the data-plane VLAN.
 Step 5 – Re-Test from Data-Plane Host
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the same Windows Jumphost:
+Execution Context:
+
+* Host: **Windows Jumphost**
+* Network Interface: **10.1.20.0/24 (Internal Data-Plane Network)**
+
+Run the following commands:
 
 .. code-block:: powershell
 
