@@ -174,6 +174,7 @@ Execution Context:
 
 * Host: **Windows Jumphost (10.1.1.4)**
 * Network Interface: **Management Network (10.1.1.0/24)**
+* Powershell
 
 Run the following commands:
 
@@ -200,6 +201,7 @@ Execution Context:
 
 * Host: **App Services & Traffic Generation system (10.1.1.9)**
 * Network: **Non-authorized administrative host**
+* Webshell
 
 This test must be performed from a **non-authorized host**.
 

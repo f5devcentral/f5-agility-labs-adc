@@ -38,8 +38,8 @@ This lab will:
 
 * Identify data-plane Self IPs
 * Demonstrate unintended service exposure
-* Apply least-privilege Port Lockdown
-* Validate service restriction from a data-plane host
+* Apply least-privilege Port Lockdown across data-plane VLANs
+* Validate service restriction from representative data-plane hosts
 * Reinforce Outer Layer segmentation principles
 
 Hardened Enterprise Reference Design
@@ -100,16 +100,17 @@ Step 1 – Identify Data-Plane Self IPs
 
 Baseline view of configured Self IPs prior to lockdown validation.
 
-Document the IP address of the **internal data-plane Self IP**:
+Record the data-plane Self IPs for this lab:
 
-``10.1.20.5``
-
-This IP will be used during validation testing.
+* External Self IP: ``10.1.10.5``
+* Internal Self IP: ``10.1.20.5``
 
 ---------------------------------------------------------------------
 
-Step 2 – Inspect Port Lockdown Mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 2 – Inspect Port Lockdown Mode (Internal and External)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Port Lockdown must be evaluated on **all data-plane VLAN Self IPs**.
 
 1. Click the **internal Self IP (10.1.20.5)**.
 2. Review the **Port Lockdown** setting.
@@ -119,13 +120,24 @@ Step 2 – Inspect Port Lockdown Mode
    :align: center
    :width: 900px
 
-If it is set to **Allow Default**, administrative services may be
-exposed on this VLAN via the data-plane interface.
+3. Return to the Self IP list.
+4. Click the **external Self IP (10.1.10.5)**.
+5. Review the **Port Lockdown** setting.
+
+If either Self IP is set to **Allow Default**, administrative services may be
+exposed on that VLAN via the data-plane interface.
+
+.. note::
+
+   In the next steps you will validate exposure from a data-plane host, then
+   remediate by applying **Allow None** to BOTH the internal and external
+   data-plane Self IPs. This ensures downstream segmentation validation steps
+   (including External Self IP checks) are deterministic.
 
 ---------------------------------------------------------------------
 
-Step 3 – Validate Service Exposure
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 3 – Validate Service Exposure (Internal Data Plane)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Execution Context:
 
@@ -151,10 +163,6 @@ Expected (vulnerable state):
 
 Baseline validation from a data-plane host showing TCP 443 and 22 reachable.
 
-This behavior occurs because Self IPs are part of the BIG-IP control
-plane. Without Port Lockdown restrictions, management services such as
-SSH and HTTPS may respond on data-plane VLANs.
-
 .. note::
 
    The Windows Jumphost is multi-homed. Ensure the test originates from
@@ -166,20 +174,41 @@ SSH and HTTPS may respond on data-plane VLANs.
 
       ipconfig
 
-This confirms that administrative services are exposed to the
-data-plane network segment, creating lateral movement risk.
-
 ---------------------------------------------------------------------
 
-Step 4 – Remediate with Allow None
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 4 – Remediate with Allow None (Internal and External)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Navigate back to the Self IP configuration.
-2. Change **Port Lockdown** to:
+Apply a default-deny Port Lockdown posture to **all data-plane Self IPs**.
 
-   **Allow None**
+Internal Self IP (10.1.20.5)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3. Click **Update**.
+1. Navigate to **Network → Self IPs**.
+2. Click the **internal Self IP (10.1.20.5)**.
+3. Change **Port Lockdown** to **Allow None**.
+4. Click **Update**.
+
+.. image:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
+   :alt: Internal Self IP configured with Allow None
+   :align: center
+   :width: 900px
+
+External Self IP (10.1.10.5)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Navigate to **Network → Self IPs**.
+2. Click the **external Self IP (10.1.10.5)**.
+3. Change **Port Lockdown** to **Allow None**.
+4. Click **Update**.
+
+.. note::
+
+   Capture a screenshot of the external Self IP set to **Allow None** and
+   save it alongside the other lab images (Module 1).
+
+   Suggested filename:
+   ``self-ip-port-lockdown-04-external-selfip-allow-none.png``
 
 .. note::
 
@@ -187,20 +216,10 @@ Step 4 – Remediate with Allow None
    access. Ensure OOB management access remains available before enforcing
    this control.
 
-.. image:: ../_images/self-ip-port-lockdown-04-internal-selfip-allow-none.png
-   :alt: Internal Self IP configured with Allow None
-   :align: center
-   :width: 900px
-
-Remediation: Internal Self IP Port Lockdown set to Allow None.
-
-This enforces a default-deny posture for control-plane services
-on the data-plane VLAN.
-
 ---------------------------------------------------------------------
 
-Step 5 – Re-Test from Data-Plane Host
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Step 5 – Re-Test from Data-Plane Host (Internal Data Plane)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Execution Context:
 
@@ -239,8 +258,9 @@ Validation Summary
 
 After remediation:
 
-* SSH not reachable on data-plane VLAN
-* HTTPS not reachable on data-plane VLAN
+* SSH not reachable on internal data-plane VLAN Self IP
+* HTTPS not reachable on internal data-plane VLAN Self IP
+* External / DMZ data-plane VLAN Self IP also uses **Allow None**
 * Control-plane services are not exposed on data-plane VLAN interfaces
 
 Outer Layer Alignment
@@ -263,7 +283,7 @@ Together they enforce:
 Success Criteria
 ----------------
 
-* Data-plane VLAN Self IPs use **Allow None**
+* Internal and External data-plane VLAN Self IPs use **Allow None**
 * No administrative services reachable from data-plane hosts
 * Management interface access remains functional
 * No unintended exposure remains

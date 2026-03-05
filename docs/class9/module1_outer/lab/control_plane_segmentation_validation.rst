@@ -167,6 +167,7 @@ Execution Context:
 
 * Host: **Windows Jump Host (10.1.1.4)**
 * Network Interface: **Management Network (10.1.1.0/24)**
+* Powershell
 
 Run the following commands:
 
@@ -201,6 +202,7 @@ Execution Context:
 
 * Host: **Windows Jump Host**
 * Network Interface: **External / DMZ Network (10.1.10.10)**
+* Powershell
 
 Run the following commands:
 
@@ -234,6 +236,7 @@ Execution Context:
 
 * Host: **Ubuntu App Services host (10.1.20.9)**
 * Network Interface: **Internal Application Network (10.1.20.0/24)**
+* Webshell
 
 Run the following commands:
 
@@ -276,6 +279,7 @@ Execution Context:
 
 * Host: **Ubuntu App Services host (10.1.20.9)**
 * Network Interface: **Internal Application Network (10.1.20.0/24)**
+* Webshell
 
 Attempt to reach the BIG-IP management interface:
 
