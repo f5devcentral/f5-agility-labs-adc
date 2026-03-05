@@ -1,7 +1,66 @@
 BIG-IP Security Essentials
--------------------------
+==========================
+
+F5 Control-Plane Security Onion Lab Guide
+
+Welcome to the **BIG-IP Security Essentials** lab guide.
+
+This guide provides a structured, hands-on approach to securing the BIG-IP control plane
+(TMUI, SSH, iControl REST/SOAP, and related services) using a layered
+**Outer → Middle → Core** defense model.
+
+The content is based on F5 security best practices, DevCentral guidance,
+and iHealth diagnostics, and is intended for use in lab, training,
+and operational hardening environments.
+
+Audience
+--------
+
+This guide is intended for:
+
+* Network and security engineers
+* Platform administrators
+* Operations and hardening teams
+* Training and lab participants
+
+Learning Objectives
+-------------------
+
+After completing this guide, you will be able to:
+
+* Understand the BIG-IP control-plane security model
+* Apply layered security controls using the Security Onion framework
+* Implement enterprise authentication and protocol hardening
+* Validate configurations using F5 iHealth diagnostics
+* Establish continuous monitoring and response procedures
+
+Getting Started
+---------------
 
 .. toctree::
-  :maxdepth: 2
+   :maxdepth: 1
 
-  bigip_security_essentials/index
+   overview
+   roadmap
+   ihealth
+
+Security Onion Modules
+----------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   labs/index
+   module1_outer/index
+   module2_middle/index
+   module3_core/index
+
+
+Operational Resources
+---------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   checklist
+   references

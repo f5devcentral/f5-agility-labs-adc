@@ -63,8 +63,8 @@ If you don't know how to view the above data using Wireshark, follow the steps b
       tcp.flags.syn==1
 
 
-    .. image:: ../images/ws_tcp_syn_flags.png
-        :width: 500px
+   .. image:: ../images/ws_tcp_syn_flags.png
+       :width: 500px
   
 
 8. Click <Enter> for Wireshark to process the filter
@@ -72,7 +72,7 @@ If you don't know how to view the above data using Wireshark, follow the steps b
    You should see 2 sets of SYN packets from the lab capture.
    
      | Client-side: 10.1.30.6 <--> 10.1.20.104 
-     | Server-side: 10.1.20.15 <--> 10.1.10.31  
+     | Server-side: 10.1.10.15 <--> 10.1.10.31  
    
    If you are using you own capture file, pick a flow that is of interest.  
 

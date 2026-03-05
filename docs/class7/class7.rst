@@ -8,6 +8,7 @@ Objectives:
 2.	Understand packet flows
 3.	Identify and configure virtual objects
 4.	Understand statistics and analytics
+5. Understand High Availability and Device Service Clusters (DSC)
 
 Prerequisites:  
 •	Laptop with Internet Access and a web browser.
@@ -19,9 +20,8 @@ Contents:
 •	Lab 2: Load Balancing, Monitoring and Persistence
 •	Lab 3: SSL Offload and Security
 •	Lab 4: BIG-IP Policies and iRules
-•	Lab 5: Support and Troubleshooting
-•	Lab 6: Device Service Clusters (DSC)
-•	Bonus Lab - Traffic groups, and Active-Active
+•	Lab 5: Device Service Clusters (DSC)
+•	Bonus Lab: Support and Troubleshooting
 
  Expected time to complete: 2 hours
 

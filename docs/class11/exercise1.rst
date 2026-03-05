@@ -1,7 +1,7 @@
 Exercise 1: Initial Setup
 =========================
 
-In this lab, you will use the F5OS user interfaces to perform initial platform configuration and setup tasks, then configure new tenants. If you have no partner, complete all sections. If you are partnered up, follow the section A or section B. 
+In this lab, you will use the F5OS user interfaces to perform initial platform configuration and setup tasks, then configure new tenants. If you have no partner, complete all sections. If you are partnered up, follow section A or section B. 
 
 When done with your respective section, review the changes made in the other section to see each configuration element.
 
@@ -17,7 +17,7 @@ UI Option - See below for CLI
  - Set the Hostname to r5900-X.aw26.lab where X is your station number
    - **Note** : Allowed characters are lowercase alphanumeric characters (a-z, 0-9) and hyphens (-)
  - Configure a Login Banner such as "Welcome to Appworld 2026"
- - Configure a MOTB Banner such as "Hello from r5900-X"
+ - Configure a MOTD Banner such as "Hello from r5900-X"
  - Click the *Save* button at the bottom right of the page
  
 .. image:: images/image2.png
@@ -32,6 +32,7 @@ Click OK on the General Properties dialog box.
 
 You will be logged out of the UI and have to re-login.  Your browser may prompt to reconnect to the BIG-IP since changing the hostname updated the self-signed management certificate
 CLI from config mode
+
 
 .. code-block:: none
 
@@ -180,7 +181,7 @@ Next, we will configure LLDP on Port 3
 
 - Navigate to Network Settings -> LLDP Configuration 
 - Configure the System Name “r5900-X”
-- onfigure LLDP on interface 3.0, by selecting it using the check box.
+- Configure LLDP on interface 3.0, by selecting it using the check box.
 - This will automatically enable LLDP on port 3
 - Review the TLV map to understand what will be sent and what is configurable for the LLDP advertisement
 - Save the changes	
@@ -229,7 +230,7 @@ Navigate to *Authentication & Access -> Authentication Settings* and click on th
    :alt: image9.png
    :width: 50%
 
-CLI SHow commands
+CLI show commands
 
 .. code-block:: none
 
@@ -253,16 +254,37 @@ CLI SHow commands
    system aaa password-policy config max-age 0
    
 
+
+Finally, we look at the TLS policy for the F5OS GUI interface. Changes here could be required based on corporate security or NIST recommendations.  Navigate to *System Settings -> System* Security, and note the **httpd Cipher Suites** text box:
+
+.. image:: images/image25.png
+   :alt: image25.png
+   :width: 70%
+
+
+To update these settings, edit or paste in the suite types separated by a colon and save changes. For example, the following cipher list would remove any non ECC ciper suite. **Note**: changing the suite will restart HTTPS services 
+
+ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA
+
+CLI from config mode
+
+.. code-block:: none
+
+   r5900-1(config)# system security services service httpd config ssl-ciphersuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA
+   r5900-1(config)# commit
+
+
 //End of Exercise 1 (Student A)	
 
 
 Student B Section
 -----------------
 
-We will begin by configuring a VLAN and editing the 20G LAG. 
+UI Option - See below for CLI
 
-Navigate to *Network Settings -> VLANs*
-Click Add to add the external then the internal vlans
+ - Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
+ - Navigate to *Network Settings -> VLANs*
+ - Click Add to add the external then the internal vlans
 
  
 .. image:: images/image11.png
@@ -278,8 +300,8 @@ CLI from config mode
    
 
 Navigate to *Network Settings -> LAGs* and click the Add button
-Configure LAG_20G as shown below
-Click Save And Close button at the bottom right of the page
+- Configure LAG_20G as shown below
+- Click Save And Close button at the bottom right of the page
 
  
 .. image:: images/image12.png
@@ -301,10 +323,11 @@ CLI from config mode
    r5900-1(config)#commit
    
 
-Log into the webUI of the rSeries appliance at:  https://10.193.5.10+X 
-Navigate to *System Settings -> DNS*
-Click Add under DNS Lookup Servers, and add 8.8.8.8 and 8.8.4.4
-Save your changes
+Next, we will configure DNS
+
+- Navigate to *System Settings -> DNS*
+- Click Add under DNS Lookup Servers, and add 8.8.8.8 and 8.8.4.4
+- Save your changes
  
 .. image:: images/image13.png
    :alt: image13.png
@@ -351,15 +374,17 @@ Under Add under Communities, and add a community
 
 CLI from config mode
 
-r5900-1(config)# system snmp communities community appworld config security-model [ v2c ]
+.. code-block:: none
+   
+   r5900-1(config)# system snmp communities community appworld config security-model [ v2c ]
 
 After configuring an SNMP community, an additional step is needed to enable SNMP polling. By default, F5OS enables an implicit firewall on the management interface that restricts access to certain ports, and port 161 is blocked.
 
 The Allowed IP Addresses feature under System Settings -> System Security provides the mechanism to add additional ports/protocols as well as lock down existing services. 
-Refer to this knowledge article for more details and some general guidelines. 
+Refer to this knowledge article https://my.f5.com/manage/s/article/K000134482 for more details and some general guidelines. 
 The next step is to allow SNMP access for the lab environment.
 
-Note: Use care setting port to All: if a typo is made in the allow list (and there is not another matching allow list), the policy could lock access out requiring a console login to re-configure J 
+Note: Use care setting port to All: if a typo is made in the allow list (and there is not another matching allow list), the policy could lock access out requiring a console login to re-configure. 
 
 Navigate to *System Settings -> System Security*
 Click Add under Allowed IP Addresses, and add the following
@@ -378,12 +403,34 @@ CLI from config mode
    r5900-1(config-allowed-ip-snmp_allow)# exit
    r5900-1(config)#
    
+Additional system security settings include cipher suite configuration for HTTP and SSH services. To update the *sshd* key exchange algorithms, paste in the updated list enclosed by  [ ] brackets. 
 
-Navigate to *Network Settings -> LLDP Configuration*
-Ensure that LLDP is Enabled, the system name is the r5900-X.
-Ensure LLDP on interface 3.0 is enabled (should have been done by Student A)
-Click on interface 4.0 and selelct ePerform the same for interface 4.0
-Save the changes. 	
+.. image:: images/image26.png
+   :alt: image26.png
+   :width: 70%
+
+The following string removes Diffie Hellman key exchange algorithms. Replace the existing string in the text box and save the changes. 
+
+[ curve25519-sha256 curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521 ]
+
+CLI from config mode
+
+.. code-block:: none
+
+   r5900-1(config)# system security services service sshd config kexalgorithms [ curve25519-sha256 curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh-sha2-nistp521 ]
+   r5900-1(config)# !
+   r5900-1(config)# commit
+   The following warnings were generated:
+   'system security services service sshd': Changing SSH configuration will restart the SSHD service.
+   Proceed? [yes,no] yes
+
+- Navigate to *Network Settings -> LLDP Configuration*
+- Ensure that LLDP is Enabled, the system name is the r5900-X
+- Ensure LLDP on interface 3.0 is enabled (should have been done by Student A)
+- Configure LLDP on interface 4.0, by selecting it using the check box.
+- This will automatically enable LLDP on port 4
+- Review the TLV map to understand what will be sent and what is configurable for the LLDP advertisement
+- Save the changes	
  
 .. image:: images/image17.png
    :alt: image17.png
@@ -395,7 +442,6 @@ CLI from config mode
 .. code-block:: none
 
    r5900-1(config)# lldp config enabled
-   r5900-1(config)# lldp config system-name r5900-1
    r5900-1(config)# lldp interfaces interface 4.0
    r5900-1(config-interface-4.0)# exit
    r5900-1(config)# commit
@@ -452,22 +498,6 @@ CLI from config mode
    system aaa password-policy config root-lockout true
    system aaa password-policy config root-unlock-time 60
    system aaa password-policy config max-age 0
-   
-
-
-
-At this point, layer 1 should be up between the rSeries appliance and the upstream switch. In the webUI, explore the following tabs -- LAGs, LACP Details, and LLDP Details.  Network Details gives a table summary of all network interfaces
-
-CLI from config mode
-
-.. code-block:: none
-
-   r5900-1# show interfaces interface 3.0
-   r5900-1# show interfaces interface LAG_20G
-   r5900-1# show lacp interfaces interface LAG_20G 
-   r5900-1# show lacp interfaces interface LAG_20G state
-   r5900-1# show lacp interfaces interface LAG_20G members
-   r5900-1# show lacp interfaces interface LAG_20G members | tab
    
 
 //End of Exercise 1 (Student B)

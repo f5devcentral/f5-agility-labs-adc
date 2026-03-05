@@ -1,14 +1,14 @@
 Lab 1: High Availability & Efficient Load Distribution
 ==========================================================================================
 
-Business problem. AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
+**Business problem** : AI pipelines need consistent, high‑throughput access to S3-compatible storage. Wiring
 clients directly to specific storage nodes creates tight coupling and operational risk: a single overloaded node
 throttles the entire pipeline.
 
-Technical problem. Without a delivery layer, clients must pick a node, handle retries/failover, and live with
+**Technical problem** : Without a delivery layer, clients must pick a node, handle retries/failover, and live with
 uneven utilization (hot spots) and brittle endpoints.
 
-Solution with BIG‑IP LTM. Expose a single, resilient virtual endpoint. Behind this VIP, BIG‑IP intelligently
+**Solution with BIG‑IP LTM** : Expose a single, resilient virtual endpoint. Behind this VIP, BIG‑IP intelligently
 distributes S3 traffic across all healthy MinIO nodes and lets you scale by simply adding/removing pool
 members—no client changes required. Use Least Connections to smooth throughput for S3 workloads.
 
@@ -38,8 +38,16 @@ BIG‑IP TMUI              Verify pools/members & methods            UDF → BIG
 Task 2: Baseline: Send traffic directly to MinIO (no BIG‑IP)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following steps will validate access to the application via web browser, review the
+The following steps will validate access to the application via a web browser, review the
 Performance Monitoring dashboard, and gather request details.
+
+**Quick aside, what is Warp?**  It is a high-performance, open-source benchmarking tool designed to measure and
+analyze the throughput and latency of S3-compatible object storage systems.
+
+Warp simulates real-world workloads—such as PUT (uploads), GET (downloads), LIST, and DELETE operations—to
+evaluate performance, plan capacity, and identify bottlenecks.
+
+The labs offer an easy-to-use graphical front end for Warp, to avoid needing to issue command-line actions.
 
 +---------------------------------------------------------------------------------------------------------------+
 | 1. Open MinIO WARP (UDF → Components → Traffic‑Gen → Access → Firefox).  The credentials are under lab        |
@@ -48,7 +56,7 @@ Performance Monitoring dashboard, and gather request details.
 |                                                                                                               |
 | 2. Select the cluster‑1 profile.                                                                              |
 |                                                                                                               |
-| 3. Select all 3 buckets, when selected for use they will appear in bright orange.                             |
+| 3. Select all **3** buckets, when selected for use they will appear in bright orange.                         |
 |                                                                                                               |
 | 4. Set Duration to 3 minutes and Concurrency to 20 threads. Conncurrency refers to parallel S3 transactions.  |
 |                                                                                                               |
@@ -66,6 +74,9 @@ Performance Monitoring dashboard, and gather request details.
 |                                                                                                               |
 | 8. Observe that there are 4 AIStor servers spread across 2 clusters, however data charts require normally     |
 |    30 minutes or more to popluate so expect no traffic on the right-hand chart.                               |
+|                                                                                                               |
+|    **REMINDER of ABOVE** You will not see the charts below filling for at least the fist 20 minutes, in later |
+|    steps you will notice them filled.                                                                         |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab016|                                                                                                      |
 |                                                                                                               |
@@ -75,8 +86,8 @@ Performance Monitoring dashboard, and gather request details.
 +---------------------------------------------------------------------------------------------------------------+
 | 9.  Click on the arrow next to time to first byte, in the lower right of the screen.                          | 
 |                                                                                                               |
-| 10. Observe that once the charts populate, only traffic will be registered with only the first AIStor,        |
-|     at address 10.1.10.100 port 9000.  This traffic will task one server, creating a hot spot of load.        |
+| 10. Observe that once the charts populate, only traffic will be received by the  first AIStor,                |
+|     at address 10.1.10.100 port 9000.  This traffic will task one server, creating a **hot spot** of load.    |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab017|                                                                                                      |
 |                                                                                                               |
@@ -98,17 +109,17 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 
 
 +---------------------------------------------------------------------------------------------------------------+
-| 1. In WARP, switch target to the BIG‑IP VIP profile BigIP‑cluster‑1.                                          |
+| 1. In WARP, switch target to the BIG‑IP VIP profile **BigIP‑cluster‑1**.  Keep all three buckets active.      |
 |                                                                                                               |
 | 2. Set Duration: 5 minutes (300 seconds), Concurrency: 20 threads.                                            |
 |                                                                                                               |
-| 3. In WARP Parameters, set Endpoint to 10.1.40.160:9000.                                                      |
+| 3. In WARP Parameters, set Endpoint to 10.1.40.160:9000 (as we are now targeting a virtual server).           |
 |                                                                                                               |
 | 4. Click Run Benchmark                                                                                        |
 |                                                                                                               |
 | 5. Log into BIG-IP TMU: Local Traffic → Pools → Cluster‑1.  Confirm 3 pool members are present initially      |
-|    Click both Members and Statistics tabs.                                                                    |
-|                                                                                                               |
+|    Click both Members and Statistics tabs.  **Important:** Observe how the load balancing method has          |
+|    been set to "Least Connections".                                                                           |
 | .. note::                                                                                                     |
 |      *due to short run durations, summary analytics may not have appeared in the AIStor dashboard view yet.*  |
 +---------------------------------------------------------------------------------------------------------------+
@@ -118,13 +129,13 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.             |
-|                                                                                                               |
-|                                   |                                                                           |
+| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.  The AISTor |
+|    GUI will likley not populate for a few more minutes, but later when checked will look like the AIStor      |
+|    screenshot provided below.                                                                                 |
 +---------------------------------------------------------------------------------------------------------------+
-| |lab020|                                                                                                      |
-|                                                                                                               |
 | |lab021|                                                                                                      |
+|                                                                                                               |
+| |lab020|                                                                                                      |
 +---------------------------------------------------------------------------------------------------------------+
 
 **Expected outcome**: Traffic is distributed across the **three** nodes behind the VIP.
@@ -150,8 +161,8 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 |                                                                                                               |
 | 3. Set **Service Port** to 9000 and click **Finished**                                                        |                                             
 |                                                                                                               | 
-|  .. note::                                                                                                    |
-|      health checks for the new member will drive the LED from blue to green (ready) shortly                   |
+|  .. Note::                                                                                                    |
+|      Health checks for the new member will drive the LED from blue to green (ready) shortly                   |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab042|                                                                                                      |
 |                                                                                                               |
@@ -161,7 +172,7 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 +---------------------------------------------------------------------------------------------------------------+
 | 4. Re-run the WARP workload targetting the BIG-IP Virtual IP (VIP 10.1.40.160:9000)                           |                                                                                                  
 |                                                                                                               | 
-|  .. note::                                                                                                    |
+|  .. Note::                                                                                                    |
 |      The 4th AIStor node begins processing traffic **immediately**.  All nodes now share load                 |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab043|                                                                                                      |
@@ -171,7 +182,7 @@ Task 4: Scale out easily: add the 4th MinIO AIStor node to the pool
 +---------------------------------------------------------------------------------------------------------------+
 
 
-**Key Takeaway** There were no client changes and Applications still continue to talk to the same VIP;
+**Key Takeaway** There were no client changes and S3 applications still continue to talk to the same VIP;
 topology changes are absorbed by *BIG‑IP* at the dataplane.
 
 
@@ -184,12 +195,13 @@ dashboards powered by Grafana.   We will verify the load balancing method and po
 +---------------------------------------------------------------------------------------------------------------+
 | 1. In BIG‑IP TMUI: Local Traffic → Pools → Cluster‑1.                                                         |
 |                                                                                                               |
-| 2. Confirm Load Balancing Method: Least Connections.                                                          |
+| 2. As good practice, confirm Load Balancing Method: Least Connections.  This is seen on the                   |
+|    Pool Members list screen.                                                                                  |
 |                                                                                                               |
 | 3. Check Members tab:  All members green (up) with active connections.                                        |
 |                                                                                                               |
 | 4. Use the AST tool (to review the Dashboards) UDF -> AST -> Access -> Grafana.                               |
-|    Login as admin / admin, when prompted to change password simply retain the value as admin                  |
+|    Login as **admin / admin**, when prompted to change password simply retain the value as **admin**          |
 |                                                                                                               |
 | 5. In AST, choose Dashboards - BigIP - Device - Device Pools look at the key metrics, such as Active Pool     |
 |            Connections.   For "Pool" in top menu, adjust to "Cluster-1" and examine last 15 minutes.          |
@@ -263,7 +275,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
 | **End of Lab 1:**  This concludes Lab 1.  In this lab you ran high rate S3 loads against a single MinIO       |
 | AIStor server, leaving other AIStor instances unused.  You then adjusted the load generator to use a virtual  |
 | server with a virtual IP address on the F5 BIG-IP.   An origin pool corresponding to three AIStor instances   |
-| allow traffic to be spread, per the least connections approach, to all healthy nodes.   A fourth AIStor       |
+| allowed traffic to be spread, per the least connections approach, to all healthy nodes.   A fourth AIStor     |
 | instance was added to the pool, exercising all nodes equally and not requiring any client side adjustments,   |
 | a major benefit in scenarios with hundreds or possibly thousands of clients.                                  |
 +---------------------------------------------------------------------------------------------------------------+
@@ -298,7 +310,7 @@ What You Learned - Value of BIG-IP LTM and AIStor
    :width: 800px
 .. |lab013| image:: ../_static/lab1-013.png
    :width: 800px
-.. |lab014| image:: ../_static/image_001_WARP_ui.png
+.. |lab014| image:: ../_static/image_001_fixed_WARP_ui.png
    :width: 800px
 .. |lab015| image:: ../_static/lab1-015.png
    :width: 800px
