@@ -51,22 +51,31 @@ Hardened Enterprise Reference Design
    remains: data-plane VLANs should never expose control-plane services.
 
 .. nwdiag::
-   :caption: Reference Design – Control Plane Segmentation
-   :name: selfip-port-lockdown-reference-design
+   :caption: Reference Design – Self IP Port Lockdown
+   :name: self-ip-port-lockdown-reference-design
 
    nwdiag {
-     internet [shape = cloud];
-     network dmz     { address = "External VLAN (Data Plane)"; }
-     network internal{ address = "Internal VLAN (Data Plane)"; }
-     network mgmt    { address = "OOB Management"; }
 
-     internet -- dmz;
+     internet [shape = "cloud"];
 
-     bigip [description = "BIG-IP\nMgmt: Restricted\nData Plane: Allow None"];
+     network mgmt {
+       address = "Management Network\n10.1.1.0/24";
+     }
 
-     dmz -- bigip;
-     internal -- bigip;
+     network external {
+       address = "External / DMZ\n10.1.10.0/24";
+     }
+
+     network internal {
+       address = "Internal App Network\n10.1.20.0/24";
+     }
+
+     bigip [shape = "roundedbox"];
+
      mgmt -- bigip;
+     external -- bigip;
+     internal -- bigip;
+
    }
 
 ---------------------------------------------------------------------
@@ -80,6 +89,7 @@ Step 1 – Identify Data-Plane Self IPs
 1. Log in to the BIG-IP Configuration Utility.
 2. Navigate to **Network → Self IPs**.
 3. Identify Self IPs associated with:
+
    * External VLAN
    * Internal VLAN
 
@@ -90,16 +100,24 @@ Step 1 – Identify Data-Plane Self IPs
 
 Baseline view of configured Self IPs prior to lockdown validation.
 
-Document the IP address of the internal (data-plane) Self IP
-(for example: ``10.1.20.242``). You will use this IP in Steps 3 and 5.
+Document the IP address of the **internal data-plane Self IP**:
+
+``10.1.20.5``
+
+This IP will be used during validation testing.
 
 ---------------------------------------------------------------------
 
 Step 2 – Inspect Port Lockdown Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Click the internal Self IP.
+1. Click the **internal Self IP (10.1.20.5)**.
 2. Review the **Port Lockdown** setting.
+
+.. image:: ../_images/self_ip_base_port_lockdown.png
+   :alt: Baseline Port Lockdown Setting
+   :align: center
+   :width: 900px
 
 If it is set to **Allow Default**, administrative services may be
 exposed on this VLAN via the data-plane interface.
@@ -109,24 +127,40 @@ exposed on this VLAN via the data-plane interface.
 Step 3 – Validate Service Exposure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From a host on the same data-plane network
-(for example: Windows Jumpbox on 10.1.20.0/24):
+From a host on the **10.1.20.0/24 data-plane network**
+(for example using Git Bash on the Windows Jumphost):
 
 .. code-block:: powershell
 
-   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
-   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
+   timeout 2 bash -c "</dev/tcp/10.1.20.5/443" && echo "443 OPEN" || echo "443 BLOCKED"
+   timeout 2 bash -c "</dev/tcp/10.1.20.5/22"  && echo "22 OPEN"  || echo "22 BLOCKED"
 
 Expected (vulnerable state):
 
-* TcpTestSucceeded: True
+* Port 22: OPEN
+* Port 443: OPEN
 
 .. image:: ../_images/self-ip-port-lockdown-03-exposed-ports-test.png
    :alt: Exposed control-plane ports validation
    :align: center
    :width: 900px
 
-Baseline validation from a data-plane host showing TCP 443 and 22 reachable (vulnerable state).
+Baseline validation from a data-plane host showing TCP 443 and 22 reachable.
+
+This behavior occurs because Self IPs are part of the BIG-IP control
+plane. Without Port Lockdown restrictions, management services such as
+SSH and HTTPS may respond on data-plane VLANs.
+
+.. note::
+
+   The Windows Jumphost is multi-homed. Ensure the test originates from
+   the **10.1.20.0/24 interface**.
+
+   You can confirm this using:
+
+   .. code-block:: powershell
+
+      ipconfig
 
 This confirms that administrative services are exposed to the
 data-plane network segment, creating lateral movement risk.
@@ -154,7 +188,7 @@ Step 4 – Remediate with Allow None
    :align: center
    :width: 900px
 
-Remediation: Internal Self IP Port Lockdown set to Allow None (default-deny posture).
+Remediation: Internal Self IP Port Lockdown set to Allow None.
 
 This enforces a default-deny posture for control-plane services
 on the data-plane VLAN.
@@ -164,24 +198,25 @@ on the data-plane VLAN.
 Step 5 – Re-Test from Data-Plane Host
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the same Windows host:
+From the same Windows Jumphost:
 
 .. code-block:: powershell
 
-   openssl s_client -connect 10.1.20.5:443 -servername 10.1.20.5 -brief
-   timeout 3 bash -c '</dev/tcp/10.1.20.5/22' && echo "22 OPEN" || echo "22 BLOCKED"
+   timeout 2 bash -c "</dev/tcp/10.1.20.5/443" && echo "443 OPEN" || echo "443 BLOCKED"
+   timeout 2 bash -c "</dev/tcp/10.1.20.5/22"  && echo "22 OPEN"  || echo "22 BLOCKED"
 
 Expected (secure state):
 
-* TcpTestSucceeded: False
-* Warning: TCP connect failed
+* Port 22: BLOCKED
+* Port 443: BLOCKED
 
 .. image:: ../_images/self-ip-port-lockdown-05-ports-blocked-test.png
    :alt: Ports blocked after Allow None
    :align: center
    :width: 900px
 
-Post-remediation validation from the data-plane host: TCP 443 and 22 blocked.
+Post-remediation validation from the data-plane host showing
+control-plane services no longer reachable.
 
 .. note::
 
@@ -197,7 +232,7 @@ After remediation:
 
 * SSH not reachable on data-plane VLAN
 * HTTPS not reachable on data-plane VLAN
-* Control-plane services isolated to management interface only
+* Control-plane services are not exposed on data-plane VLAN interfaces
 
 Outer Layer Alignment
 ---------------------

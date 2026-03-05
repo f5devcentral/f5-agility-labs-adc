@@ -65,16 +65,37 @@ Hardened Enterprise Reference Design
    :name: control-plane-segmentation-validation-reference-design
 
    nwdiag {
-     network mgmt    { address = "Mgmt Network (Admin Host)"; }
-     network dmz     { address = "DMZ Network (Data Plane Host)"; }
-     network internal{ address = "Internal Network (Data Plane Host)"; }
 
-     bigip [description = "BIG-IP\nMgmt IP: Allowed (Admin only)\nSelf IPs: No mgmt services"];
+     network mgmt {
+       address = "Management Network\n10.1.1.0/24\n(Admin Workstation)";
+     }
+
+     network dmz {
+       address = "External / DMZ Network\n10.1.10.0/24\n(Data Plane)";
+     }
+
+     network internal {
+       address = "Internal Application Network\n10.1.20.0/24\n(Data Plane)";
+     }
+
+     bigip {
+       shape = "roundedbox";
+       description = "BIG-IP\nControl Plane: Mgmt 10.1.1.5 (Admin Access Allowed)\nData Plane: Self IPs 10.1.10.5 / 10.1.20.5 (Mgmt Services Blocked)";
+     }
 
      mgmt -- bigip;
      dmz -- bigip;
      internal -- bigip;
+
    }
+
+.. note::
+
+   Administrative access to the BIG-IP control plane must occur only
+   through the management network. Data-plane VLANs must not expose
+   management services.
+
+---------------------------------------------------------------------
 
 Recommended Validation Targets
 ------------------------------
@@ -82,19 +103,19 @@ Recommended Validation Targets
 Validate the following interfaces:
 
 +----------------------+---------------------------+-----------------------------+
-| Interface Type       | Example Address           | Expected Mgmt Service Reach |
+| Interface Type       | Address                   | Expected Mgmt Service Reach |
 +======================+===========================+=============================+
-| Management IP        | 10.1.1.x                  | Reachable (authorized only) |
+| Management IP        | 10.1.1.5                  | Reachable (authorized only) |
 +----------------------+---------------------------+-----------------------------+
-| External Self IP     | 10.1.10.x                 | Not reachable               |
+| External Self IP     | 10.1.10.5                 | Not reachable               |
 +----------------------+---------------------------+-----------------------------+
-| Internal Self IP     | 10.1.20.x                 | Not reachable               |
+| Internal Self IP     | 10.1.20.5                 | Not reachable               |
 +----------------------+---------------------------+-----------------------------+
 
 Services in scope:
 
-* SSH (TCP 22) – if enabled
-* HTTPS/TMUI (TCP 443)
+* SSH (TCP 22)
+* HTTPS / TMUI (TCP 443)
 
 ---------------------------------------------------------------------
 
@@ -105,9 +126,13 @@ Step 1 – Identify Interface Inventory
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Log in to the BIG-IP Configuration Utility.
-2. Document:
-   * Management IP (**Top Right Corner**)
-   * External & Internal Self IP (**Network → Self IPs**)
+2. Record the following:
+
+   * Management IP (**Platform → Configuration**)
+   * External Self IP (**Network → Self IPs**)
+   * Internal Self IP (**Network → Self IPs**)
+
+---------------------------------------------------------------------
 
 .. image:: ../_images/control-plane-segmentation-01-platform-mgmt-ip.png
    :alt: Platform screen showing management IP configuration
@@ -116,6 +141,8 @@ Step 1 – Identify Interface Inventory
 
 Platform configuration showing the BIG-IP management IP address.
 
+---------------------------------------------------------------------
+
 .. image:: ../_images/control-plane-segmentation-02-selfip-inventory.png
    :alt: Self IP inventory showing external and internal Self IPs
    :align: center
@@ -123,110 +150,134 @@ Platform configuration showing the BIG-IP management IP address.
 
 Self IP inventory identifying external and internal data-plane interfaces.
 
+---------------------------------------------------------------------
+
 Record the following values:
 
-* Mgmt IP: ``<mgmt-ip>``
-* External Self IP: ``<external-self-ip>``
-* Internal Self IP: ``<internal-self-ip>``
+* Mgmt IP: ``10.1.1.5``
+* External Self IP: ``10.1.10.5``
+* Internal Self IP: ``10.1.20.5``
 
 ---------------------------------------------------------------------
 
 Step 2 – Validate Management IP Reachability (Authorized Path)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the authorized administrative host (management network, e.g., 10.1.1.0/24):
+From the authorized administrative host
+(**Windows Jump Host – 10.1.1.4**):
 
 .. code-block:: powershell
 
-   Test-NetConnection <mgmt-ip> -Port 443
-   Test-NetConnection <mgmt-ip> -Port 22
+   Test-NetConnection 10.1.1.5 -Port 443
+   Test-NetConnection 10.1.1.5 -Port 22
 
 Expected:
 
-* TcpTestSucceeded: True (for enabled services)
+* ``TcpTestSucceeded : True`` (for enabled services)
 
-... image:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
+.. image:: ../_images/control-plane-segmentation-03-mgmt-ip-reachable.png
    :alt: PowerShell output showing management IP reachable on TCP 22 and 443 from an authorized host
    :align: center
    :width: 900px
 
-Authorized-path validation showing SSH (22) and HTTPS (443)
-reachable on the management IP.
+Authorized-path validation confirming that management services are
+reachable only from the approved administrative host.
 
 ---------------------------------------------------------------------
 
 Step 3 – Validate Data-Plane Self IP Non-Reachability
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From a data-plane host (for example, DMZ subnet 10.1.10.0/24):
+Administrative services must not be reachable on data-plane Self IPs.
+
+External Network Validation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From the **Windows Jump Host external interface (10.1.10.10)**:
 
 .. code-block:: powershell
 
-   Test-NetConnection <external-self-ip> -Port 443
-   Test-NetConnection <external-self-ip> -Port 22
+   Test-NetConnection 10.1.10.5 -Port 443
+   Test-NetConnection 10.1.10.5 -Port 22
 
 Expected:
 
-* TcpTestSucceeded: False
+* ``TcpTestSucceeded : False``
 
 .. image:: ../_images/control-plane-segmentation-04-external-selfip-blocked.png
    :alt: Validation showing external Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
 
-External Self IP validation showing SSH (22) and HTTPS (443) not reachable.
+External Self IP validation confirming that SSH (22) and HTTPS (443)
+are not exposed on the data plane.
 
-From an internal host (if available, e.g., 10.1.20.0/24):
+.. note::
 
-.. code-block:: powershell
+   The Windows Jump Host contains multiple network interfaces.
+   Windows selects the source interface automatically based on the
+   destination network.
 
-   Test-NetConnection <internal-self-ip> -Port 443
-   Test-NetConnection <internal-self-ip> -Port 22
+Internal Network Validation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From the **Ubuntu App Services host (10.1.20.9)**:
+
+.. code-block:: bash
+
+   nc -zv 10.1.20.5 443
+   nc -zv 10.1.20.5 22
 
 Expected:
 
-* TcpTestSucceeded: False
+* Connection timed out
+* Connection refused
 
 .. image:: ../_images/control-plane-segmentation-05-internal-selfip-blocked.png
    :alt: Validation showing internal Self IP blocked on TCP 22 and 443
    :align: center
    :width: 900px
 
-Internal Self IP validation showing SSH (22) and HTTPS (443) not reachable.
-
-.. note::
-
-   If a native internal test host is not available, validation may be
-   performed from the management host. This confirms service non-exposure,
-   but does not represent the native VLAN path.
+Internal Self IP validation confirming that management services are not
+reachable from application networks.
 
 .. note::
 
    ICMP echo responses may still succeed.
-   This lab validates TCP service reachability only.
+   This validation tests TCP service reachability only.
 
 ---------------------------------------------------------------------
 
 Step 4 – Validate Unauthorized Access to Management IP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From a non-authorized host (outside the approved admin subnet):
+.. note::
 
-.. code-block:: powershell
+   In UDF environments the management network may be routable
+   from other lab networks. The validation focuses on whether
+   administrative login is permitted, not whether the TCP
+   socket itself responds.
 
-   Test-NetConnection <mgmt-ip> -Port 443
-   Test-NetConnection <mgmt-ip> -Port 22
+From the **Ubuntu App Services host (10.1.20.9)** attempt to reach the
+BIG-IP management interface:
+
+.. code-block:: bash
+
+   ssh admin@10.1.1.5
 
 Expected:
 
-* TcpTestSucceeded: False
+* Permission denied
+* Connection closed by remote host
 
 .. image:: ../_images/control-plane-segmentation-06-mgmt-ip-blocked-unauthorized.png
    :alt: Validation showing management IP blocked from unauthorized host
    :align: center
    :width: 900px
 
-Validation confirming that unauthorized hosts cannot reach management services.
+This confirms that only the authorized administrative host
+(10.1.1.4) can successfully authenticate to the BIG-IP
+management interface.
 
 ---------------------------------------------------------------------
 
@@ -235,17 +286,21 @@ Step 5 – Document the Exposure Matrix
 
 Complete and document the following matrix:
 
-+----------------------+--------------------+--------------------+--------------------+--------------------+
-| Target Interface     | TCP 22 Expected    | TCP 22 Observed    | TCP 443 Expected   | TCP 443 Observed   |
-+======================+====================+====================+====================+====================+
-| Management IP        | Open (authorized)  |                    | Open (authorized)  |                    |
-+----------------------+--------------------+--------------------+--------------------+--------------------+
-| Management IP        | Blocked (unauth)   |                    | Blocked (unauth)   |                    |
-+----------------------+--------------------+--------------------+--------------------+--------------------+
-| External Self IP     | Blocked            |                    | Blocked            |                    |
-+----------------------+--------------------+--------------------+--------------------+--------------------+
-| Internal Self IP     | Blocked            |                    | Blocked            |                    |
-+----------------------+--------------------+--------------------+--------------------+--------------------+
++----------------------+----------------------+--------------------+--------------------+--------------------+--------------------+--------+
+| Source Host          | Target Interface     | TCP 22 Expected    | TCP 22 Observed    | TCP 443 Expected   | TCP 443 Observed   | Result |
++======================+======================+====================+====================+====================+====================+========+
+| Windows Jump Host    | Mgmt IP (10.1.1.5)   | Open               |                    | Open               |                    |        |
+| 10.1.1.4             | (authorized)         |                    |                    |                    |                    |        |
++----------------------+----------------------+--------------------+--------------------+--------------------+--------------------+--------+
+| Ubuntu App Services  | Mgmt IP (10.1.1.5)   | Blocked            |                    | Blocked            |                    |        |
+| 10.1.20.9            | (unauthorized)       |                    |                    |                    |                    |        |
++----------------------+----------------------+--------------------+--------------------+--------------------+--------------------+--------+
+| Windows Jump Host    | External Self IP     | Blocked            |                    | Blocked            |                    |        |
+| 10.1.10.10           | (10.1.10.5)          |                    |                    |                    |                    |        |
++----------------------+----------------------+--------------------+--------------------+--------------------+--------------------+--------+
+| Ubuntu App Services  | Internal Self IP     | Blocked            |                    | Blocked            |                    |        |
+| 10.1.20.9            | (10.1.20.5)          |                    |                    |                    |                    |        |
++----------------------+----------------------+--------------------+--------------------+--------------------+--------------------+--------+
 
 This matrix serves as documented evidence that control-plane segmentation
 is functioning as designed.
