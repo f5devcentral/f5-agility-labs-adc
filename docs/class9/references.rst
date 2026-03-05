@@ -66,7 +66,6 @@ These references support centralized authentication and encryption controls:
 These documents support enterprise identity integration and protocol hardening.
 
 Core Layer – Privilege, Survivability, and System Integrity
------------------------------------------------------------
 
 These references align with advanced least-privilege and recovery mechanisms:
 

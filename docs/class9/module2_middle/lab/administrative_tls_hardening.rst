@@ -27,6 +27,20 @@ violations.
 
 Hardening must be validated using deterministic handshake testing.
 
+Administrative TLS Exposure Surface
+-----------------------------------
+
++----------------------+------------+-------------------------------+
+| Interface            | Port       | Purpose                       |
++======================+============+===============================+
+| TMUI                 | TCP 443    | Administrative web interface  |
++----------------------+------------+-------------------------------+
+| iControl REST        | TCP 443    | Management API                |
++----------------------+------------+-------------------------------+
+
+Both services share the BIG-IP management-plane HTTPS stack and are
+protected by the same TLS configuration enforced through **sys httpd**.
+
 Threat Scenario
 ---------------
 
@@ -153,7 +167,26 @@ It is NOT configured via sys db variables or direct file edits.
 Step 1 – Disable Legacy Protocols
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From an active SSH session:
+Open an SSH Session to BIG-IP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From the **Windows Jump Host**, open **Git Bash** and connect to the
+BIG-IP management interface.
+
+.. code-block:: bash
+
+   ssh admin@10.1.1.5
+
+   Note: Keep this SSH session open while applying TLS configuration changes.
+   Closing the session before validation may result in administrative lockout.
+
+Enter the administrator password when prompted.
+
+After login you should see the BIG-IP command prompt:
+
+::
+
+   admin@(bigip-01)(Active)(/Common)(tmos)#
 
 .. code-block:: bash
 
@@ -261,8 +294,8 @@ Attempt deprecated SHA1 cipher:
 
 ---------------------------------------------------------------------
 
-Deterministic Validation Matrix
--------------------------------
+Cryptographic Enforcement Validation Matrix
+-------------------------------------------
 
 +----------------------------------+----------------------+
 | Test Case                        | Expected Result      |

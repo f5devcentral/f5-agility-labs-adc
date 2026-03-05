@@ -26,6 +26,44 @@ Hardening must be validated using deterministic handshake testing —
 not configuration inspection alone.
 
 
+Data Plane TLS Exposure Surface
+-------------------------------
+
++----------------------+------------+----------------------------------+
+| Interface            | Port       | Purpose                          |
++======================+============+==================================+
+| HTTPS Virtual Server | TCP 443    | Application TLS termination      |
++----------------------+------------+----------------------------------+
+
+TLS enforcement occurs at the BIG-IP virtual server through the
+configured **Client SSL profile**.
+
+Data Plane TLS Enforcement Architecture
+---------------------------------------
+
+.. nwdiag::
+   :caption: BIG-IP Data Plane TLS Termination
+   :name: dataplane-tls-architecture
+
+   nwdiag {
+
+     network client {
+       address = "Client\n10.1.10.10";
+     }
+
+     network bigip {
+       address = "BIG-IP Virtual Server\n10.1.10.50\nTLS Termination (HTTPS 443)";
+     }
+
+     network backend {
+       address = "Application Server\n10.1.20.9\nHTTP / HTTPS";
+     }
+
+     client -- bigip;
+     bigip -- backend;
+
+   }
+
 Threat Scenario
 ---------------
 
@@ -78,7 +116,7 @@ Together, these controls prevent credential abuse,
 downgrade attacks, and privilege misuse.
 
 
----------------------------------------------------------------------
+----
 
 Pre-Provisioned Lab Environment
 -------------------------------
@@ -91,8 +129,12 @@ The lab environment includes:
 
 Students are not required to build the baseline application service.
 
+Students will configure **BIGIP-01**.
 
----------------------------------------------------------------------
+Test traffic originates from the **Windows Jump Host (10.1.10.10)**.
+
+
+----
 
 Phase 1 – Inspect Baseline HTTPS Service
 ----------------------------------------
@@ -117,7 +159,7 @@ Step 1 – Locate HTTPS Virtual Server
 
 
 Step 2 – Confirm Backend Health
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Navigate to **Local Traffic → Pools**.
 2. Identify the associated pool.
@@ -132,15 +174,26 @@ Step 2 – Confirm Backend Health
    :width: 900px
 
 
----------------------------------------------------------------------
+----
 
 Phase 2 – Baseline TLS Observation
------------------------------------
+----------------------------------
 
-From the jumphost, perform deterministic handshake testing.
+From the **Windows Jump Host**, open **Git Bash**.
+
+.. note::
+
+   The ``openssl s_client`` command produces verbose output.
+
+   To view only the negotiated protocol and cipher, you may optionally
+   filter the output:
+
+   .. code-block:: bash
+
+      openssl s_client -connect 10.1.10.50:443 -tls1_2 2>/dev/null | grep -E "Protocol|Cipher"
 
 Test TLS 1.2 (Expected: Success)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -180,7 +233,7 @@ Test TLS 1.0 (Expected: Likely Success)
 If TLS 1.0 or TLS 1.1 succeeds, legacy protocol exposure is confirmed.
 
 
----------------------------------------------------------------------
+----
 
 Phase 3 – Create Hardened Client SSL Profile
 ---------------------------------------------
@@ -204,15 +257,16 @@ Phase 3 – Create Hardened Client SSL Profile
 
 5. Set the cipher group:
 
-   ::
+::
 
-      f5-secure
+   f5-secure
 
 .. note::
 
-   TLS 1.3 cipher suites are managed separately from legacy cipher
-   strings in newer TMOS versions. Ensure TLS 1.3 posture aligns
-   with enterprise policy where applicable.
+   TLS 1.3 cipher suites are managed independently from legacy cipher
+   strings in newer TMOS versions.
+
+   Ensure TLS 1.3 posture aligns with enterprise cryptographic policy.
 
 6. Click **Finished**.
 
@@ -222,10 +276,10 @@ Phase 3 – Create Hardened Client SSL Profile
    :width: 900px
 
 
----------------------------------------------------------------------
+----
 
 Phase 4 – Apply Hardened Profile
----------------------------------
+--------------------------------
 
 1. Navigate to **Local Traffic → Virtual Servers**.
 2. Select ``primary-app-site-1-https-vip``.
@@ -241,10 +295,10 @@ Phase 4 – Apply Hardened Profile
    :width: 900px
 
 
----------------------------------------------------------------------
+----
 
 Phase 5 – Deterministic Validation
------------------------------------
+----------------------------------
 
 Test TLS 1.0 (Expected: Failure)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -309,7 +363,7 @@ Test TLS 1.3 (Expected: Success)
 
 
 Optional – Weak Cipher Validation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Test a deprecated cipher (Expected: Failure)
 
@@ -328,7 +382,7 @@ Expected result:
    :width: 900px
 
 
----------------------------------------------------------------------
+----
 
 Validation Summary
 ------------------
