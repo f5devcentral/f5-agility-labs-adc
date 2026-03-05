@@ -13,7 +13,7 @@ With Email From UDF
    #. Click verify
    #. Click Invited-Users
 
-      .. image:: ../images/udf_inviteds_users.png
+      .. image:: ../images/udf_invited_users.png
           :width: 450px
 
 
