@@ -77,12 +77,12 @@ centralized identity provider that enforces MFA.
    It relies on the upstream AAA or identity provider to enforce MFA
    before returning an authentication decision.
 
-   BIG-IP can integrate with enterprise AAA systems such as:
+   BIG-IP can integrate with enterprise authentication services such as:
 
    * RADIUS
    * TACACS+
-   * LDAP (when upstream MFA is enforced)
-   * SAML (administrative support depends on TMOS version and platform capability)
+   * LDAP directory services (when upstream MFA is enforced)
+   * SAML identity providers (administrative support depends on TMOS version and platform capability)
 
    The reference design assumes MFA enforcement occurs at the upstream
    identity provider. BIG-IP consumes the authentication result and
@@ -93,29 +93,67 @@ centralized identity provider that enforces MFA.
    :name: mfa-reference-design
 
    nwdiag {
-     internet [shape = cloud];
 
-     network admin     { address = "Authorized Admin Subnet"; }
-     network bigipmgmt { address = "BIG-IP Management IP"; }
-     network idp       { address = "Enterprise AAA / IdP (MFA Enforced)"; }
+     network admin {
+       address = "Admin Workstation\n(10.1.1.4)";
+     }
 
-     admin -- bigipmgmt;
-     bigipmgmt -- idp;
+     network mgmt {
+       address = "BIG-IP Management\n(10.1.1.5)";
+     }
+
+     network idp {
+       address = "Enterprise AAA / IdP\n(MFA Enforced)";
+     }
+
+     admin -- mgmt;
+     mgmt -- idp;
+
    }
 
 Recommended MFA Posture
 -----------------------
 
-+----------------------+----------------------------+-------------------------------------------+
-| Access Path          | Authentication Source      | Requirement                                |
-+======================+============================+===========================================+
-| TMUI (HTTPS/443)     | Centralized AAA / IdP      | MFA enforced by AAA / IdP                  |
-+----------------------+----------------------------+-------------------------------------------+
-| SSH (TCP/22)         | Centralized AAA            | MFA or strong step-up policy               |
-+----------------------+----------------------------+-------------------------------------------+
-| Break-glass account  | Local (restricted)         | Stored securely, monitored, least use      |
-+----------------------+----------------------------+-------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 30 45
 
+   * - Access Path
+     - Authentication Source
+     - Requirement
+   * - TMUI (HTTPS/443)
+     - Centralized AAA / IdP
+     - MFA enforced by AAA / IdP
+   * - SSH (TCP/22)
+     - Centralized AAA
+     - MFA or strong step-up policy
+   * - Break-glass account
+     - Local (restricted)
+     - Stored securely, monitored, least use
+
+.. note::
+
+   In enterprise deployments, SSH access is typically integrated with
+   TACACS+ or RADIUS backed by centralized identity infrastructure
+   such as Active Directory with MFA enforcement.
+
+Administrative Authentication Surface
+-------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 15 45
+
+   * - Interface
+     - Port
+     - Authentication Source
+   * - TMUI
+     - TCP 443
+     - Local (Lab) / AAA (Prod)
+   * - SSH
+     - TCP 22
+     - Local (Lab) / AAA (Prod)
+     
 Middle Layer Cohesion
 ---------------------
 
@@ -128,7 +166,7 @@ Within the Middle Layer:
 Together, these controls prevent credential abuse, transport downgrade,
 and privilege misuse.
 
----------------------------------------------------------------------
+----
 
 Lab Environment Notice
 ----------------------
@@ -141,6 +179,9 @@ Remote authentication will NOT be activated.
 This lab focuses on configuration review and architectural understanding,
 not activation of remote authentication.
 
+Students will perform all steps on **BIGIP-01 (10.1.1.5)**.
+BIGIP-07 is present in the environment but not used in this lab.
+
 Students will:
 
 * Review configuration interfaces
@@ -149,7 +190,7 @@ Students will:
 * Understand fallback behavior
 * Simulate authentication drift scenarios safely
 
----------------------------------------------------------------------
+----
 
 GUI Configuration Procedure
 ---------------------------
@@ -157,10 +198,17 @@ GUI Configuration Procedure
 Step 1 – Confirm Administrative Baseline
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Log in to TMUI from the lab jump host.
-2. Navigate to **System → Users → User List**.
-3. Confirm the presence of a documented local break-glass administrator.
-4. Verify partition access and role assignments.
+1. From the BIG-IP TMUI (10.1.1.5)
+2. Log in to TMUI.
+3. Navigate to **System → Users → User List**.
+4. Confirm the presence of a documented local break-glass administrator.
+6. Verify partition access and role assignments.
+
+Students should observe:
+
+* Administrative users authenticate locally.
+* No centralized identity provider is configured.
+* Role assignment occurs directly on the user object.
 
 .. image:: ../_images/multi-factor-authentication-01-user-list-baseline.png
    :alt: User List showing local administrative accounts
@@ -169,7 +217,7 @@ Step 1 – Confirm Administrative Baseline
 
 Baseline administrative users prior to centralized authentication integration.
 
----------------------------------------------------------------------
+----
 
 Step 2 – Review Authentication Configuration Screen
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,7 +241,7 @@ Do NOT change the authentication source in this lab.
 
 Baseline authentication mode set to Local.
 
----------------------------------------------------------------------
+----
 
 Step 3 – Discuss Remote Authentication Requirements (Conceptual)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -206,9 +254,12 @@ In a production environment, enabling Remote – RADIUS would require:
 * Fallback to Local enabled
 * Successful login validation before session termination
 
+If Remote authentication is enabled without reachable AAA infrastructure,
+administrators may lose access to TMUI and SSH.
+
 Failure to validate reachability may result in administrative lockout.
 
----------------------------------------------------------------------
+----
 
 Step 4 – Review Remote Role Groups Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,10 +288,10 @@ for dynamic authorization enforcement after successful authentication.
    No AAA attributes will be evaluated in this lab environment.
    This step is demonstrative only.
 
----------------------------------------------------------------------
+----
 
-Verification (Simulation)
---------------------------
+Verification (Conceptual Validation)
+------------------------------------
 
 In a production deployment:
 
@@ -255,7 +306,13 @@ In this lab:
 * Role mapping configuration is reviewed.
 * Fallback principles are discussed conceptually.
 
----------------------------------------------------------------------
+Students should confirm the following:
+
+* Authentication source remains **Local**
+* No remote AAA servers are configured
+* Local administrator access is still functional
+
+----
 
 Instructor Notes
 ----------------
@@ -270,7 +327,7 @@ Instructor Notes
    * Always test login before ending configuration.
    * Remote authentication without reachability validation is operationally unsafe.
 
----------------------------------------------------------------------
+----
 
 Lab Challenge – Authentication Drift Scenario
 ---------------------------------------------
@@ -281,15 +338,15 @@ A local administrator account is being used instead of centralized MFA.
 
 Student Tasks:
 
-1. Identify the account under **System → Users**.
+1. Identify a local administrator account that would bypass centralized MFA under **System → Users**.
 2. Confirm it bypasses centralized authentication.
 3. Restrict or document it as break-glass only.
-4. Explain how centralized MFA would enforce stronger control.
+4. Explain why local accounts must be restricted when centralized MFA is deployed.
 
 Local accounts in MFA-enabled environments should be disabled,
 restricted, or documented strictly as break-glass access.
 
----------------------------------------------------------------------
+----
 
 Success Criteria
 ----------------

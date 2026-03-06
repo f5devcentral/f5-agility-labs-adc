@@ -6,7 +6,7 @@ Even though UDP is connectionless, TMOS will load balance UDP to the same pool m
 Looking at a DNS design where you want to load balance across a large pool of DNS servers, the local DNS servers may send queries in batches using the same ephemeral source port resulting in them all going to the same pool member.  Enabling Datagram LB in the UDF profile allows TMOS to send each query to the most capable pool member.
 
    
-1. From BIGIP01 UI, go to **Local Traffic > Pools > Pools List** and click on **dns_vs1**
+1. From BIGIP01 UI, go to **Local Traffic > Pools > Pools List** and click on **dns_pool**
 2. Click on **Statistics** from the menu bar
 
    .. image:: ../images/dns_stats_menu.png
@@ -43,7 +43,7 @@ Looking at a DNS design where you want to load balance across a large pool of DN
 
 
 10. This UDP Profile is already assigned to Virtual Server **dns_vs1**
-11. From BIGIP01 UI, go to **Local Traffic > Pools > Pools List** and click on **dns_vs1**
+11. From BIGIP01 UI, go to **Local Traffic > Pools > Pools List** and click on **dns_pool**
 12. Reset the pool stats again.
 13. From the Ubuntu-Client SSH window, run the following command::
 

@@ -3,9 +3,26 @@ UDF Blueprint Deployment
 
 In order to begin you will need to go to F5's Unified Demo Framework (UDF) site and launch the appropriate course. The following will walk you through that process.
 
-UDF blueprint deployment steps
-------------------------------
-To access the UDF course for this class follow the instructions below.
+With Email From UDF
+-------------------
+
+   #. Check your email for a message from **courses@notify.udf.f5.com**
+   #. Click on link
+   #. Fill out required information
+   #. Look for verification email from **F5 Accounts**
+   #. Click verify
+   #. Click Invited-Users
+
+      .. image:: ../images/udf_invited_users.png
+          :width: 450px
+
+
+   7.
+   
+
+
+Without Email From UDF
+----------------------
 
    #. Open a web browser and head to the following link `Unified Demo Framework <https://udf.f5.com/>`_.
    #. Click on the Non-F5 Users selection.
