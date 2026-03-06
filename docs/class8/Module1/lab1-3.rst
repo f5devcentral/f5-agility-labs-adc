@@ -16,7 +16,7 @@ The traffic generated in the lab is not very complex nor a high number of client
 **Note:** For code blocks like in step 2 below, you can select the text and copy it or over the far right top corder of the box and **Copy** button will appear.  Clicking the **Copy** button will select and copy all of the contents of the box to the clipboard.
 
 .. image:: ../images/irule_copy_to_clipboard.png
-    :width: 600px
+    :width: 450px
 
 
 2. Enter the following code to log HTTP content-length and the request URL to local LTM log (/var/log/ltm):
@@ -35,7 +35,7 @@ The traffic generated in the lab is not very complex nor a high number of client
    |
 
    .. image:: ../images/iRule_ContentLength_rule.png
-       :width: 900px
+       :width: 950px
 
 
 3. Click the **Finished** button at the bottom of the page to save the changes.
@@ -96,6 +96,7 @@ Detach The iRule From The Virtual Server
 
       tmsh modify ltm virtual web01_vs1 rules none
       tmsh save sys config
+
 
 
 2. Verify the iRule is no longer logging.  You may see a few older log entries but it should not be scrolling::
@@ -162,6 +163,8 @@ Detach The iRule From The Virtual Server
 
       tmsh modify ltm virtual web01_vs1 rules none
       tmsh save sys config
+      |
+      
 
 
 2. Verify the iRule is no longer logging.  You may see a few log old entries but it should not be scrolling::
