@@ -32,7 +32,7 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 
 4. Go back to the Response Codes filter and click 301 to deselect it, then click on 404.
    
-   Look at the **URLs** filter sto see what is causing the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k\ **b**\ .txt not /file_64k\ **d**\ .txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
+   Look at the **URLs** filter to see what is causing the 404's - file_64kd.txt.  In the lab this cause is simple, the URL should be /file_64k\ **b**\ .txt not /file_64k\ **d**\ .txt.  In a production environment, you may see many other URLs resulting in 404s.  They could be simple typos from the client or from bad links in the applications.  The 404 filter may also show you evidence of someone scanning your application(s).  The point of this is learn how to see what is happening with application traffic.
 
    .. image:: ../images/avr_http_typo.png
        :width: 300px
