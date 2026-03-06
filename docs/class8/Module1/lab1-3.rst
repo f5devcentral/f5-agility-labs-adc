@@ -1,7 +1,7 @@
 Task 3: Use iRules To Log Traffic Data
 ======================================
 
-If you do not have AVR provisioned and do not have the ablility to enable AVR since reprovisioning requires a full service restart on the BIG-IP, you can use iRules to log traffic data.  In most cases, these iRules would be used temporarily as they have the potential for creating a lot of log traffic.  With iRules you have flexibility on what you want to log and where you want to apply the logging.  It is also possible to sent logs to an external log collector. The iRules in the lab are only simple examples of what can be done and will only use local logging.
+If you do not have AVR provisioned and do not have the ablility to enable AVR since reprovisioning requires a full service restart on the BIG-IP, you can use iRules to log traffic data.  In most cases, these iRules would be used temporarily as they have the potential for creating a lot of log traffic.  With iRules you have flexibility on what you want to log and where you want to apply the logging.  It is also possible to send logs to an external log collector. The iRules in the lab are only simple examples of what can be done and will only use local logging.
 
 The traffic generated in the lab is not very complex nor a high number of client connections so the iRules shown won't have a lot of client-specific filtering that may be required in an environment with more traffic.  You will create iRules and assign them to Virtual Server(s) then remove the iRule assignment after collecting the needed log data.
     
