@@ -80,7 +80,7 @@ Option 1: Windows RDP
 Option 2: Windows Console
 -------------------------
 
-1. From the Windows-Client Access dropdown, click on **Console**
+1. From the Windows-Client Access dropdown, click on **Console** to open a noVNC connection to the client in your web browser
 
    .. image:: ../images/udf_windows_console.png
        :width: 350px
