@@ -13,6 +13,11 @@ The traffic generated in the lab is not very complex nor a high number of client
       Use **lab_ContentLength_rule** for the iRule name.  This rule will log the content-length of the HTTP responses passing through the system.  We will use this information later when tuning TCP profiles. You won't need to write down any of the specific sizes but just see what is happening - a lot of small, medium or large files.  Is it a mix of different size files?  Is is a lot of large files?
 
 
+   **Note:** For the code blocks in step 2 below, you can select the text and copy it or over the far right top corder of the box and **Copy** button will appear.  Clicking the **Copy** button will select and copy all of the contents of the box to the clipboard.
+
+   .. image:: ../images/irule_copy_to_clipboard.png
+       :width: 700px
+
 2. Enter the following code to log HTTP content-length and the request URL to local LTM log (/var/log/ltm):
 
    .. code-block:: tcl
@@ -63,7 +68,7 @@ View the new log data from the BIG-IP command-line
 1. If needed, open a Web Shell session to the BIGIP01
   
    .. image:: ../images/udf_bigip01_webshell.png
-       :width: 500px
+       :width: 400px
   
 
 2. Monitor the logs to see the content-length of the HTTP responses::
