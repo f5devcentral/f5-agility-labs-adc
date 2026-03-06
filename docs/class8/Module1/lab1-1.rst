@@ -58,7 +58,7 @@ If you want to see where to create or view the HTTP AVR profiles, use the follow
 3. Review **Associated Virtual Servers** to see where the profile is assigned
 
    .. image:: ../images/avr_profile_association.png
-       :width: 600px
+       :width: 700px
 
 
 4. Review **Statistics Gathering Configuration** to see the data collected by the HTTP AVR profile
