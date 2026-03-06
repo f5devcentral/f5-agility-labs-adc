@@ -1,7 +1,7 @@
 Task 3: Use iRules To Log Traffic Data
 ======================================
 
-If you do not have AVR provisioned and do not have the ablility to enable AVR since reprovisioning requires a full service restart on the BIG-IP, you can use iRules to log traffic data.  In most cases, these iRules would be used temporarily as they have the potential for creating a lot of log traffic.  With iRules you have flexibility on what you want to log and where you want to apply the logging.  The iRules in the lab are only simple examples of what can be done.
+If you do not have AVR provisioned and do not have the ablility to enable AVR since reprovisioning requires a full service restart on the BIG-IP, you can use iRules to log traffic data.  In most cases, these iRules would be used temporarily as they have the potential for creating a lot of log traffic.  With iRules you have flexibility on what you want to log and where you want to apply the logging.  It is also possible to sent logs to an external log collector. The iRules in the lab are only simple examples of what can be done and will only use local logging.
 
 The traffic generated in the lab is not very complex nor a high number of client connections so the iRules shown won't have a lot of client-specific filtering that may be required in an environment with more traffic.  You will create iRules and assign them to Virtual Server(s) then remove the iRule assignment after collecting the needed log data.
     
@@ -25,6 +25,7 @@ The traffic generated in the lab is not very complex nor a high number of client
         log local0. "Content-Length (Bytes): [HTTP::header value Content-Length] - URI: $reqURI" 
       }
 
+
    .. image:: ../images/iRule_ContentLength_rule.png
        :width: 900px
 
@@ -38,7 +39,7 @@ Assign New iRule to Virtual Server
 2. Click on **web01_vs1** then go to the the Resources tab where the iRule will be assigned.
 
    .. image:: ../images/iRule_vs_resources.png
-       :width: 600px
+       :width: 550px
 
 
 3. Click on the Manage button to the right of the iRule section
@@ -47,21 +48,21 @@ Assign New iRule to Virtual Server
        :width: 750px 
 
 
-4. Select rule **lab_ContentLength_rule** from the list on the right the click "<<" in the middle to assign the iRule to the Virtual Server.
+4. Select rule **lab_ContentLength_rule** from the list on the right the click the **<<** button in the middle sectionto assign the iRule to the Virtual Server.
   
    .. image:: ../images/iRule_Content-Assigment.png
        :width: 700px
   
 
-5. Click **Finished** button at the bottom of the page to save the change
+5. Click the **Finished** button at the bottom of the page to save the change
 
 
 View the new log data from the BIG-IP command-line
 --------------------------------------------------
 
-1. If needed, open an SSH session to the BIG-IP from the UDF Components page.
+1. If needed, open a Web Shell session to the BIGIP01
   
-   .. image:: ../images/udf_bigip01_access.png
+   .. image:: ../images/udf_bigip01_webshell.png
        :width: 500px
   
 
@@ -83,7 +84,7 @@ View the new log data from the BIG-IP command-line
 Detach The iRule From The Virtual Server
 ----------------------------------------
 
-1. Since you are connected to BIG-IP01 via SSH, modify the web01_vs1 Virtual Server from tmsh. Enter the following commands to remove the **lab_ContentLength_rule** iRule::
+1. Since you are connected to BIG-IP01 via Web Shell, modify Virtual Server **web01_vs1** from tmsh. Enter the following commands to remove the **lab_ContentLength_rule** iRule::
 
       tmsh modify ltm virtual web01_vs1 rules none
       tmsh save sys config
@@ -132,13 +133,8 @@ Assign New iRule to Virtual Server
 View the new log data from the BIG-IP command-line
 --------------------------------------------------
 
-1. If needed, open an SSH session to the BIG-IP from the UDF Components page.
-  
-   .. image:: ../images/udf_bigip01_access.png
-       :width: 500px
-  
 
-2. Monitor the logs to see the content-length of the HTTP responses::
+1. From the BIGIP01 Web Shell window, monitor the logs to see the content-length of the HTTP responses::
   
     tail -20 /var/log/ltm | grep "Response Code"
 
@@ -167,4 +163,4 @@ Detach The iRule From The Virtual Server
 
 3. Type <ctrl-c> to exit the tail command
 
-This completes Lab 1.  Even though this lab did not contain any performance modification, the data learned is necessary for later optimizations or for cleaning up network noise (bad URLs, old/bad redirects, block scanners, etc) that will free up performance. <<reword?>>
+This completes Lab 1.  Even though this lab did not contain any performance modifications, the data learned is necessary for later optimizations or for cleaning up network noise (bad URLs, old/bad redirects, block scanners, etc) that will reduces system load.
