@@ -31,15 +31,15 @@ Lab Credentials
 The following table lists the management credentials for the components used in the labs:
 
 
-+----------------+------------------------------+
-| Host           | Username:Password            |
-+================+==============================+
-| BIGIP01 TMUI   | admin:admin.F5demo.com       |
-+----------------+------------------------------+
-| Windows Client | labUser:lab.F5demo.com       |
-+----------------+------------------------------+
-| Linux Client   | SSH Key no password required |
-+----------------+------------------------------+
++----------------+-------------------------------------+
+| Host           | Username:Password                   |
++================+=====================================+
+| BIGIP01 TMUI   | admin:admin.F5demo.com              |
++----------------+-------------------------------------+
+| Windows Client | labUser:lab.F5demo.com              |
++----------------+-------------------------------------+
+| Linux Client   | No password required for Web Shell  |
++----------------+-------------------------------------+
 
 Timing for Labs
 ---------------
@@ -50,13 +50,13 @@ The time it takes to perform each lab varies from person to person.  Below is an
 +------------------------------------------------------+------------------+
 | LAB Name                                             | Time Allocated   |
 +======================================================+==================+
+| Into - Working With The Lab                          | 8 minutes        |
++------------------------------------------------------+------------------+
 | LAB 1 - Viewing Application Data                     | 20 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 2 - Working With TCP Profiles                    | 30 minutes       |
 +------------------------------------------------------+------------------+
-| LAB 3 - Layer 7 LB for HTTP and UDP                  | 20 minutes       |
-+------------------------------------------------------+------------------+
-| Appendix - Optional Packet Decryption Lab            | 15 minutes       |
+| LAB 3 - Layer 7 LB For HTTP And UDP                  | 20 minutes       |
 +------------------------------------------------------+------------------+
 
 Expected time to complete: **1.5 hours**
