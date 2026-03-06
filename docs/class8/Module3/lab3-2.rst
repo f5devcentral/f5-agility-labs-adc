@@ -20,7 +20,7 @@ Here are some connection re-use numbers from the lab::
     Total Reuses       1477
     New                  23
 
-These numbers are the result of a 1500 HTTPS transaction test with each creating a new client-side and server-side TCP connection.  The concurency rate was ~23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the entire test.
+These numbers are the result of a 1500 HTTPS transaction test with each creating a new client-side and server-side TCP connection.  The concurency rate was around 23 during the test.  Starting with zero idle TCP connections, 23 new TCP connections were opened to the servers with 1477 connections being re-used during the entire test.
 
 Here are some of the time and packet savings from the same 1500 transaction test with and without OneConnect::
 
@@ -31,7 +31,7 @@ Here are some of the time and packet savings from the same 1500 transaction test
         Total Time:     76.13s
         Server Time:    74.12s
 
-    With OneConnect Assigned
+    With OneConnect Profile Assigned
         Total Packets:  121,529
         Client Packets: 78,290 
         Server Packets: 43,239
@@ -44,11 +44,11 @@ There is a reduction in server-side packet count due to 1477 fewer TCP and TLS h
     :width: 950px
 
 
-Without OneConnect, the server-side connections are only open for the length of a single client request - around 38ms for the 256KB requests in the test.  The server-side connections are not open long enough for the TCP Window size to fully open to 3MB and each new connection restarts the ramp up process.
+Without OneConnect, the server-side connections are only active for the length of a single client request - around 38ms for the 256KB requests in the test.  The server-side connections are not open long enough for the TCP Window size to fully open to 3MB and each new connection restarts the ramp up process.
 
 .. image:: ../images/tcp_no_oc_ws.png
     :width: 950px 
 
 
-
+With OneConnect enabled, it is like being able to jump on to a moving train without it having to stop and pick you up.
 
