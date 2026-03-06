@@ -16,7 +16,7 @@ The traffic generated in the lab is not very complex nor a high number of client
 **Note:** For the code blocks in step 2 below, you can select the text and copy it or over the far right top corder of the box and **Copy** button will appear.  Clicking the **Copy** button will select and copy all of the contents of the box to the clipboard.
 
 .. image:: ../images/irule_copy_to_clipboard.png
-    :width: 700px
+    :width: 600px
 
 
 2. Enter the following code to log HTTP content-length and the request URL to local LTM log (/var/log/ltm):
@@ -33,7 +33,7 @@ The traffic generated in the lab is not very complex nor a high number of client
 
 
    |
-   
+
    .. image:: ../images/iRule_ContentLength_rule.png
        :width: 900px
 
