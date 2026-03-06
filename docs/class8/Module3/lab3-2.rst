@@ -1,5 +1,5 @@
-OneConnect Summary
-==================
+Task 2: OneConnect Summary
+==========================
 
 The typical use for a OneConnect profile is to reduce TCP connection time by re-using idle TCP connections.  In most cases, the lan-side TMOS to pool member TCP 3-way handshake is less than 1ms.  This doesn't look like much at first.  There is a lot of back and forth with TCP after the 3-way handshake in setting up Window Sizes, Slow Start, Congestion control etc.  Most of negotiaions happen near the start of a connection unless there is congestion/packet loss somewhere during the flow causing a reduction in TCP Window size.  You will see the benefit of a re-used connection in the graphs below. 
 
