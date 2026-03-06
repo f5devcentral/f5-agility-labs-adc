@@ -13,7 +13,7 @@ The traffic generated in the lab is not very complex nor a high number of client
       Use **lab_ContentLength_rule** for the iRule name.  This rule will log the content-length of the HTTP responses passing through the system.  We will use this information later when tuning TCP profiles. You won't need to write down any of the specific sizes but just see what is happening - a lot of small, medium or large files.  Is it a mix of different size files?  Is is a lot of large files?
 
 
-**Note:** For the code blocks in step 2 below, you can select the text and copy it or over the far right top corder of the box and **Copy** button will appear.  Clicking the **Copy** button will select and copy all of the contents of the box to the clipboard.
+**Note:** For code blocks like in step 2 below, you can select the text and copy it or over the far right top corder of the box and **Copy** button will appear.  Clicking the **Copy** button will select and copy all of the contents of the box to the clipboard.
 
 .. image:: ../images/irule_copy_to_clipboard.png
     :width: 600px
