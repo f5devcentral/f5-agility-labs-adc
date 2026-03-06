@@ -1,10 +1,10 @@
 Task 1: Review Base TCP Profiles
 ================================
 
-#. From the left-side menu, go to **Local Traffic > Profiles > Protocol > TCP**
-#. Click the **Parent Profile** column title twice to sort the Parent Profiles in decending order.
+#. From the left-side BIGIP01 menu, go to **Local Traffic > Profiles > Protocol > TCP**
+#. Click the **Parent Profile** column title twice to sort the Parent Profiles in ascending order.
 
-   Most profiles in TMOS have a parent/child structure where the child can both inherit and override settings from the parent profile.  Within the list of TCP profiles, you can see that all included profiles end up sourcing from the base profile named tcp - tcp > tcp-legacy, tcp-legacy > tcp-wan-optimized, etc. 
+   Most profiles in TMOS have a parent/child structure where the child can both inherit and override settings from the parent profile.  Within the list of TCP profiles, you can see that all included profiles end up sourcing from the base profile named **tcp**.  For example, tcp-wan-optimized is a child of tcp-legacy and tcp-legacy is a child of tcp 
 
    .. figure:: ../images/tcp_profiles_sorted.png
       :width: 750px
@@ -17,17 +17,17 @@ Task 1: Review Base TCP Profiles
    .. figure:: ../images/tcp_legacy_buffers.png
       :width: 700px
 
-   At this point, Virtual Server **web01-vs1** is using the older TCP profiles - tcp-wan-optimized (client-side) and tcp-lan-optimized (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS -  For exaample v10 > v12 > v14 > v15 > v17. 
+   At this point, Virtual Server **web01-vs1** is using the older TCP profiles - **tcp-wan-optimized** (client-side) and **tcp-lan-optimized** (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling limiting the amount of inflight data before an ACK.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS.  For example, v10 > v12 > v14 > v15 > v17. 
 
 
-4. If not still open from the previous lab, connect to the Ubuntu-Client via Web Shell using the Access dropdown
+4. If not still open from the previous lab, connect to the Ubuntu-Client via **Web Shell** using the Access dropdown
 
    .. image:: ../images/udf_client_webshell.png
-       :width: 452px
+       :width: 430px
 
 
 
-5. If not still open from the previous lab, connect to BIGIP01 via SSH using the Access dropdown of the component and follow the same prompts as with the Ubuntu-Client
+5. If not still open from the previous lab, connect to BIGIP01 via **Web Shell** using the Access dropdown
 
    .. image:: ../images/udf_bigip01_webshell.png
        :width: 450px
