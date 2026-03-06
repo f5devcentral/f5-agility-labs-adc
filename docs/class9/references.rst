@@ -18,7 +18,7 @@ Primary F5 Documentation
 
 The following resources define foundational control-plane security guidance:
 
-* **Security Best Practices for F5 Products**  
+* `**Security Best Practices for F5 Products**  <https://community.f5.com/kb/technicalarticles/security-best-practices-for-f5-products/302468>`
   Defines control-plane versus data-plane security boundaries and foundational hardening guidance.
 
 * `**K13092 – Overview of securing access to the BIG-IP system**  <https://my.f5.com/manage/s/article/K13092>`
