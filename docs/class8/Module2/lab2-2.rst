@@ -14,12 +14,12 @@ Task 2:  Using Modified TCP Profiles
        :width: 800px
 
 
-2. Run the following command again from the Ubuntu-Client SSH window::
+2. Run the following command again from the Ubuntu-Client Web Shell window::
     
       ~/zerowindow3.sh
 
 
-3. Go back to the BIGIP01 SSH window and run the same packet capture from earlier::
+3. Go back to the BIGIP01 Web Shell window and run the same packet capture from earlier::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500  
    

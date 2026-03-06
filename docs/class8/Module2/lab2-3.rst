@@ -33,7 +33,9 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
 Wireshark Instructions for Windows Scaling View
 -----------------------------------------------
 
-If you don't know how to view the above data using Wireshark, follow the steps below, either from the Windows-Client or using TCP captures you may already have on your local system.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
+If you don't know how to view the above data using Wireshark, follow the steps below, either from the Windows-Client or using TCP captures you may already have on your local system unrelated to this lab.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
+
+If you already know how to view TCP Window Scaling graphs in Wireshark, you can skip to the bottom of this page and go to Lab 3.
 
 1. Open RDP session to the Windows Client. An RDP file will save to your browser's download location.
 

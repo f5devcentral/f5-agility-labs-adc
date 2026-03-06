@@ -31,25 +31,23 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 
 5. For command-line access to BIGIP01, select **Web Shell** from the Access dropdown
 
-   .. image:: ../images/udf_bigip01_ssh.png
-       :width: 450px
+   .. image:: ../images/udf_bigip01_webshell.png
+       :width: 526px
 
  
-6. For the Ubuntu-Client, you only need to use Web Shell
+6. For the Ubuntu-Client, you only need to use **Web Shell**
 
-   .. image:: ../images/udf_client_ssh.png
-       :width: 500px
+   .. image:: ../images/udf_client_webshell.png
+       :width: 452px
 
 
    Once connected enter the following commands::
 
-      su admin
+      su ubuntu
       cd ~
 
       
-7. You may see the same prompts with the BIGIP01 SSH connection..  Also, SSH Key authentication is used for this connection so no credentials are needed.
-
-8. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
+7. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
 
    .. image:: ../images/udf_RDP_option.png
        :width: 500px

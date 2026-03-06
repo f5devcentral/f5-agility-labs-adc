@@ -7,7 +7,7 @@ In most cases this could be OK many applications being front-end by a CDN <<or o
 
 Here is an example (need a graphic):
 
-A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN may merge multiple requests together on the way in to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  This allows for more warm cache hits and a reduction in cache layer storage redundancy as all channel data doesn't have to be on each cache layer server. <<boil this down?>>
+A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN may merge multiple client requests together on the way in to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  This allows for more warm cache hits and a reduction in cache layer storage redundancy as all channel data doesn't have to be on each cache layer server.
 
 
 1. From the BIGIP01 UI, go to **Local Traffic > Pools > Pool List**
@@ -30,7 +30,7 @@ A live-streaming TV provider is front-ending their application with a CDN and ha
        :width: 500px
 
 
-6. From the Ubuntu-Client SSH window, run the following command::
+6. From the Ubuntu-Client Web Shell window, run the following command::
 
       ~/http_l7.sh
 

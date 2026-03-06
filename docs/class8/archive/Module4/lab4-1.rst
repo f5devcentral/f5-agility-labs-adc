@@ -12,7 +12,7 @@ Beginning with v15.x of BIG-IP there is a tcpdump option that has been added tha
       
       tmsh modify sys db tcpdump.sslprovider value enable 
 
-#. From BIGIP01 ssh window, we will collect a new packet capture with the **--f5 ssl** option at the end like this:
+#. From BIGIP01 Web Shell window, we will collect a new packet capture with the **--f5 ssl** option at the end like this:
 
    .. code-block:: bash
       :linenos:
