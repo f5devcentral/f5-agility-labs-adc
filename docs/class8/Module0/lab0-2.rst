@@ -6,7 +6,7 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 
 1. Click on the **Deployment** tab in UDF to see the components and their status.  The lab deployment will be fully operational when there is a green triangle next to each component. Each component within the deployment has at least one connection method from the **Access** dropdown as you'll see in the instructions below.
    
-   The following image shows a deployment in the startup phase - it should take a few minutes for startup to complete.
+   The following image shows a deployment in the startup phase with spinning yellow gears next to some components.  It should take a few minutes for startup to complete.
 
    .. figure:: ../images/udf_deployment_tab.png
       :width: 900px
@@ -39,10 +39,10 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 6. For the Ubuntu-Client, you only need to use **Web Shell**
 
    .. image:: ../images/udf_client_webshell.png
-       :width: 350px
+       :width: 300px
 
 
-   Once connected enter the following commands::
+   Once connected to Ubuntu-Client enter the following commands::
 
       su ubuntu
       cd ~
@@ -61,20 +61,21 @@ Option 1: Windows RDP
        :width: 350px
 
 
-2. Find the .RDP file and click to open with your RDP client
+2. Find the .RDP file in your wed browser's download location and double-click to open with your RDP client
 3. Use the following credentials:
 
     | User: labUser
     | Password: lab.F5demo.com
 
-    .. image:: ../images/udf_RDP_login.png
-        :width: 500px
+
+   .. image:: ../images/udf_RDP_login.png
+       :width: 500px
 
 
 4. Click continue to the connection prompt
 
-    .. image:: ../images/udf_RDP_continue.png
-        :width: 600px
+   .. image:: ../images/udf_RDP_continue.png
+       :width: 600px
 
 Option 2: Windows Console
 -------------------------
@@ -85,7 +86,7 @@ Option 2: Windows Console
        :width: 350px
 
 
-2. You may need to click on the screen to get the login prompt to appear.  (The background image may be different during the lab session)
+2. You may need to click on the screen to get the login prompt to appear. The background image may be different during the lab session
 
    .. image:: ../images/udf_windows_console_screen.png
        :width: 500px
