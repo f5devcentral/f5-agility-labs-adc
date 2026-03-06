@@ -39,7 +39,7 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 6. For the Ubuntu-Client, you only need to use **Web Shell**
 
    .. image:: ../images/udf_client_webshell.png
-       :width: 452px
+       :width: 350px
 
 
    Once connected enter the following commands::
@@ -47,15 +47,22 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
       su ubuntu
       cd ~
 
-      
-7. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
-
-   .. image:: ../images/udf_RDP_option.png
-       :width: 500px
 
 
-9. Find the .RDP file and click to open with your RDP client
-10. Use the following credentials:
+7. For Windows-Client, you will use **RDP**.  If RDP access is blocked on your computer you can use **Console**.  
+
+
+Option 1: Windows RDP
+---------------------
+
+1. From the Windows-Client Access dropdown, click on the RDP screen resolution you prefer.  An RDP file will save to your browser's download location.
+
+   .. image:: ../images/udf_windows_rdp_options.png
+       :width: 350px
+
+
+2. Find the .RDP file and click to open with your RDP client
+3. Use the following credentials:
 
     | User: labUser
     | Password: lab.F5demo.com
@@ -64,10 +71,35 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
         :width: 500px
 
 
-13. Click continue to the connection prompt
+4. Click continue to the connection prompt
 
     .. image:: ../images/udf_RDP_continue.png
         :width: 600px
+
+Option 2: Windows Console
+-------------------------
+
+1. From the Windows-Client Access dropdown, click on **Console**
+
+   .. image:: ../images/udf_windows_console.png
+       :width: 350px
+
+
+2. You may need to click on the screen to get the login prompt to appear.  (The background image may be different during the lab session)
+
+   .. image:: ../images/udf_windows_console_screen.png
+       :width: 500px
+
+
+3. Click on **Lab User** from the account selection on the bottom left
+
+   .. image::  ../images/udf_windows_user_select.png
+       :width: 600px
+
+4.  Use the following password to login
+
+    | Password: lab.F5demo.com
+
 
 
 **Note:** Throughout the labs you should leave a single connection open to the following as they will be used for multiple labs/tasks:

@@ -38,3 +38,25 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
        :width: 300px
 
 
+Optional AVR Profile Review
+---------------------------
+
+If you want to see where to create or view the AVR profiles, use the following steps.
+
+1. From the left menu, select **Local Traffic > Profiles > Analytics > HTTP Analytics**
+
+   .. image:: ../images/avr_view_profiles_http.png
+       :width: 550px
+
+
+2. Click on **http_avr_lab** from the list of profiles.
+3. Review **Associated Virtual Servers** to see where the profile is assigned
+4. Review **Statistics Gathering Configuration** to see the data being collected by the profile
+   
+   .. figure:: ../images/avr_http_collected.png
+      :width:  550px
+
+      Not all data is being collected in the lab.  For example, sicne we are using RFC 1918 adressing, collecting Countries is not needed.  In a production environment, you may want to collect Countries data (geolocation). 
+
+
+      
