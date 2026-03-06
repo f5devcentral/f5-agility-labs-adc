@@ -1,9 +1,9 @@
-Task 2: Layer 7 LB for UDP
+Task 3: Layer 7 LB for UDP
 ==========================
 
 Even though UDP is connectionless, TMOS will load balance UDP to the same pool member based on the client's source IP:Port by default.  This behavior can be changed through use of UDP Profiles by enabling the **Datagram LB** option.
 
-Looking at a DNS design where you want to load balance across a large pool of DNS servers, the local DNS servers may send queries in batches using the same ephemeral source port resulting in them all going to the same pool member.  Enabling Datagram LB in the UDF profile allows TMOS to send each query to the most capable pool member.
+Looking at a DNS design where you want to load balance across a large pool of DNS servers, the local DNS servers may send queries in batches using the same ephemeral source port resulting in them all going to the same pool member.  Enabling Datagram LB in the UDP profile allows TMOS to send each query to the most capable pool member.
 
    
 1. From BIGIP01 UI, go to **Local Traffic > Pools > Pools List** and click on **dns_pool**

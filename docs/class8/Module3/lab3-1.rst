@@ -1,13 +1,13 @@
 Task 1: Layer 7 LB for HTTP
 ===========================
 
-By default, TMOS load balances HTTP traffic at layer 4.  If a client connects to an HTTP Virtual Server and requests a log of files and resources through typical browsing through a web site, the load balancing decision is done during the initial TCP connection.  All of the requests will go to a single pool member.
+By default, TMOS load balances HTTP traffic at layer 4.  If a client connects to an HTTP Virtual Server and requests many files and resources through typical browsing through a web site, the load balancing decision is done during the initial TCP connection.  All of the requests will go to a single pool member.
 
-In most cases this could be OK many applications being front-end by a CDN <<or other examples??>> requests from multiple end clients could get aggregated before hitting the Virtual Server.  With TMOS, it is possible to load balance at the application layer (Layer 7 LB) by enabling the OneCOnnect profile on the HTTP Virtual Server.
+Load balancing may be find for certain applications but being able to load balance per request can improve performance by spreading the requests, not just the TCP connections, across the pool members. The inbound HTTP requests may not be from invidual client end-points but coming from another system that aggregates requests from multiple clients into a single TCP connection before they hit the Virtual Server.  CDNs may perform this tyoe of client request aggregation when verifing cached data.  With TMOS, it is possible to load balance at the application layer (Layer 7 LB) by assigning a OneCOnnect profile to an HTTP Virtual Server.
 
 Here is an example (need a graphic):
 
-A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN may merge multiple client requests together on the way in to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  This allows for more warm cache hits and a reduction in cache layer storage redundancy as all channel data doesn't have to be on each cache layer server.
+A live-streaming TV provider is front-ending their application with a CDN and has a back-end cache layer of 50 servers ahead of the video ingest servers.  The CDN merges multiple client requests together on the way to the Virtual Server - Requests for channel A, B, C, D all within a single TCP stream.  With L7 LB, TMOS can break out each request and send it to a specific pool member.  Requests for a specific channel content can be sent to a pool member. This allows for more warm cache hits and a reduction in cache layer storage redundancy as all channel data doesn't have to be on each cache layer server.
 
 
 1. From the BIGIP01 UI, go to **Local Traffic > Pools > Pool List**
