@@ -19,11 +19,11 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 
 
       .. image:: ../images/avr_http_overview.png
-          :width: 850px
+          :width: 900px
 
 
 
-3. Reset the view to **Last hour** from the top left dropdown.  Use the Response Code filter on the right side to see what codes are available.  With the lab traffic you will have at least 200, 301, and 404 and response codes available.  Use the filters to see what is happening beyond 200 responses.  Click on 301 and the graphs will update showing just the data related to 301 response codes.  Click on **URLs**  above on the right to show the list of URLs resulting in 301 (redirects).
+3. Reset the view to **Last hour** from the top left dropdown.  Click the **Response Code** filter on the right side to expand the list show what codes are available.  With the lab traffic you will have at least 200, 301, and 404 and response codes available.  Use the filters to see what is happening beyond 200 responses.  Click on 301 and the graphs will update showing just the data related to 301 response codes.  Click on **URLs**  above on the right to show the list of URLs resulting in 301 (redirects).
 
    .. figure:: ../images/avr_http_responses.png
       :width: 300px
@@ -41,7 +41,7 @@ AVR is already provisioned with custom HTTP and TCP AVR profiles created and ass
 Optional AVR Profile Review
 ---------------------------
 
-If you want to see where to create or view the AVR profiles, use the following steps.
+If you want to see where to create or view the HTTP AVR profiles, use the following steps:
 
 1. From the left menu, select **Local Traffic > Profiles > Analytics > HTTP Analytics**
 
@@ -49,14 +49,19 @@ If you want to see where to create or view the AVR profiles, use the following s
        :width: 600px
 
 
-2. Click on **http_avr_lab** from the list of profiles.
+2. Click on **http_avr_lab** name from the list of profiles
+
+   .. image:: ../images/avr_profile_select.png
+       :width: 450px
+
+
 3. Review **Associated Virtual Servers** to see where the profile is assigned
 4. Review **Statistics Gathering Configuration** to see the data being collected by the profile
    
    .. figure:: ../images/avr_http_collected.png
-      :width:  600px
+      :width:  700px
 
-      Not all data is being collected in the lab.  For example, sicne we are using RFC 1918 adressing, collecting Countries is not needed.  In a production environment, you may want to collect Countries data (geolocation). 
+      Not all data is being collected in the lab.  For example, since we are using RFC 1918 adressing, collecting Countries is not needed.  In a production environment, you may want to collect Countries data (geolocation). 
 
 
       
