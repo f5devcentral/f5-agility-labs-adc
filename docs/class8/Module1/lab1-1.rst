@@ -60,6 +60,7 @@ If you want to see where to create or view the HTTP AVR profiles, use the follow
    .. image:: ../images/avr_profile_association.png
        :width: 600px
 
+
 4. Review **Statistics Gathering Configuration** to see the data collected by the HTTP AVR profile
    
    .. figure:: ../images/avr_http_collected.png
