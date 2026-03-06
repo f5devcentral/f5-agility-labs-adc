@@ -65,15 +65,15 @@ In the last section you focused on HTTP stats.  In this section, you will review
       You can filter each graph on the options in the above image.  Click **Update** at the bottom to apply any filter changes
 
 
-**Note:** By default, all of the graphs show total stats for all Virtual Servers with an AVR TCP profile assigned.  Also, all of the graphs include a **View By** filter at the bottom but they were not all shown in the images above.
+**Note:** By default, all of the graphs show total stats for all Virtual Servers with an AVR TCP profile assigned.  Also, all of the graphs include a **View By** filter at the bottom but it was not shown in the images above.
 
 .. image:: ../images/avr_tcp_view_by.png
-    :width: 700px
+    :width: 500px
 
 
 The **Requests Side** filter is shown by default
 
-.. image:: ../imges/avr_tcp_requests_side.png
+.. image:: ../images/avr_tcp_requests_side.png
     :width: 750px
 
 
