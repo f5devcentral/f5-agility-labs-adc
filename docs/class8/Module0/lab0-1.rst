@@ -13,13 +13,27 @@ With Email From UDF
 
 
 #. Click on the Login Link shown above with the arrow
-#. Fill out required information
-#. Look for verification email from **F5 Accounts**
+#. Fill out required information to login or create a new account
+#. Select 2nd Factor Authentication method if needed
+#. Look for verification from authenticator method
 #. Click verify
 #. Click Invited-Users
 
    .. image:: ../images/udf_invited_users.png
          :width: 450px
+
+
+#. Look for the Scheduled Session for Appworld 2026 - TMOS Performance Tuning
+#. Click Launch on the right side
+
+   .. image:: ../images/udf_scheduled_session.png
+       :width: 900px 
+
+
+#. Click **Join** to start the course
+
+   .. image:: ../images/udf_session_join.png
+       :width: 750px
 
 
 
