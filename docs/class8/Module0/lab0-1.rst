@@ -6,19 +6,21 @@ In order to begin you will need to go to F5's Unified Demo Framework (UDF) site 
 With Email From UDF
 -------------------
 
-   #. Check your email for a message from **courses@notify.udf.f5.com**
-   #. Click on link
-   #. Fill out required information
-   #. Look for verification email from **F5 Accounts**
-   #. Click verify
-   #. Click Invited-Users
+#. Check your email for a message from **courses@notify.udf.f5.com**.  It will look something like this:
 
-      .. image:: ../images/udf_invited_users.png
-          :width: 450px
+   .. image:: ../images/udf_lab_email.png
+       :width: 900px
 
 
-   7.
-   
+#. Click on the Login Link shown above with the arrow
+#. Fill out required information
+#. Look for verification email from **F5 Accounts**
+#. Click verify
+#. Click Invited-Users
+
+   .. image:: ../images/udf_invited_users.png
+         :width: 450px
+
 
 
 Without Email From UDF
