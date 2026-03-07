@@ -51,7 +51,7 @@ The time it takes to perform each lab varies from person to person.  Below is an
 +------------------------------------------------------+------------------+
 | LAB Name                                             | Time Allocated   |
 +======================================================+==================+
-| Into - Working With The Lab                          | 8 minutes        |
+| Into - Working With The Lab                          | 10 minutes       |
 +------------------------------------------------------+------------------+
 | LAB 1 - Viewing Application Data                     | 20 minutes       |
 +------------------------------------------------------+------------------+
