@@ -22,7 +22,7 @@ The following components have been included in your lab environment:
 Lab Topology Diagram
 --------------------
 
-.. image:: ../images/udf_lab_diagram.pn
+.. image:: ../images/udf_lab_diagram.png
     :width: 900px
 
 
