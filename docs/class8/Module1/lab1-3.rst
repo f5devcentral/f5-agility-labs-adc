@@ -163,9 +163,7 @@ Detach The iRule From The Virtual Server
 
       tmsh modify ltm virtual web01_vs1 rules none
       tmsh save sys config
-      |
       
-
 
 2. Verify the iRule is no longer logging.  You may see a few log old entries but it should not be scrolling::
 

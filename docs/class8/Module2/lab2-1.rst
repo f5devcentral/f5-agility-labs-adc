@@ -23,14 +23,14 @@ Task 1: Review Base TCP Profiles
 4. If not still open from the previous lab, connect to the Ubuntu-Client via **Web Shell** using the Access dropdown
 
    .. image:: ../images/udf_client_webshell.png
-       :width: 430px
+       :width: 350px
 
 
 
 5. If not still open from the previous lab, connect to BIGIP01 via **Web Shell** using the Access dropdown
 
    .. image:: ../images/udf_bigip01_webshell.png
-       :width: 450px
+       :width: 350px
 
 
 6.  Run the following command from the Ubuntu-Client Web Shell window::
