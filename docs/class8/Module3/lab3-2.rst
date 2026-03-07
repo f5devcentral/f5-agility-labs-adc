@@ -50,5 +50,5 @@ Without OneConnect, the server-side connections are only active for the length o
     :width: 950px 
 
 
-With OneConnect enabled, it is like being able to jump on to a moving train without it having to stop and pick you up.
+With OneConnect enabled, it is like being able to jump on a train moving at full speed without it having to stop and pick you up.
 

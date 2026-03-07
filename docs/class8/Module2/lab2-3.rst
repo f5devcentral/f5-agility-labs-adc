@@ -1,12 +1,12 @@
 Task 3:  TCP Buffers and Window Scaling 
 =======================================
 
-In this section, you will review graphs related to the traffic testing in the previous sections in order to see how the TCP profile changes improved throughput.
+In this section, you will review graphs related to the testing in the previous sections showing the traffic behavior with each of the TCP Profiles.
 
 Window Scale Review Using Wireshark Screenshots
 -----------------------------------------------
 
-To speed up the process, you will review TCP Window Scale screenshots taken from packet captures already saved on the Windows client system.
+To speed up the process, you will review TCP Window Scale screenshots taken from packet captures collected while this class was created.
 
 1. **Base Condition** - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
 
