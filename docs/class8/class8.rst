@@ -23,7 +23,9 @@ Lab Topology Diagram
 --------------------
 
 <<still need to create the image - 3/3/26>>
-.. image:: ../images/image90.png
+.. image:: ../images/udf_lab_diagram.png
+    :width: 900px
+    
 
 Lab Credentials
 ---------------
