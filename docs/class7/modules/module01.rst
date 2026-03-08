@@ -106,8 +106,8 @@ Creating Self IPs
       +---------------+---------------+---------------+
 
 
-.. caution::
-   A common mistake is to forget to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your self IPs are in the appropriate VLAN.
+      .. caution::
+         A common mistake is to forget to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your self IPs are in the appropriate VLAN.
 
 
    - The default **Port Lockdown** setting of **Allow None** means the Self IP only responds to ICMP requests.
