@@ -57,15 +57,15 @@ b. The name is for management purposes only, you could name them after
 
 c. Under **Resources** in the **Interfaces** section:
 
-   i.   **Interface**: 1.1
+   i. **Interface**: 1.1
 
-   ii.  **Tagging**: Untagged
+   ii. **Tagging**: Untagged
 
    iii. Select the **Add** button. Leave all other items at the default
         setting.
 
-        .. image:: ../images/image11.png
-           :width: 600px
+      .. image:: ../images/image11.png
+          :width: 600px
 
 
 d. When you have completed your VLAN configuration, hit the **Finished** button
@@ -105,20 +105,21 @@ Creating Self IPs
       | Port Lockdown | Allow None    | Allow None    |
       +---------------+---------------+---------------+
 
+
 .. caution::
    A common mistake is to forgot to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your self IPs are in the appropriate VLAN. 
 
-- The default **Port Lockdown** setting of **Allow None** means the Self IP only responds to ICMP requests.
-- The **Allow Defaults** selection opens the following on the self IP of the VLAN.
-   - TCP: ssh, domain, snmp, https
-   - TCP: 4353, 6699 (for F5 protocols, such as HA and iQuery)
-   - UDP: 520, cap, domain, f5-iquery, snmp
-   - PROTOCOL: ospf
+   - The default **Port Lockdown** setting of **Allow None** means the Self IP only responds to ICMP requests.
+   - The **Allow Defaults** selection opens the following on the self IP of the VLAN.
+      - TCP: ssh, domain, snmp, https
+      - TCP: 4353, 6699 (for F5 protocols, such as HA and iQuery)
+      - UDP: 520, cap, domain, f5-iquery, snmp
+      - PROTOCOL: ospf
 
    b. When you have completed your selfIP configuration, hit the **Finished** button. You should have something similar to the following:
 
       .. image:: ../images/image14.png
-         :width: 800px
+          :width: 800px
 
 
 Assigning the Default Gateway
@@ -135,17 +136,12 @@ Assigning the Default Gateway
 
    b. Under **Properties**
 
-      i.   **Name**: def_gw
-
-      ii.  **Destination**: 0.0.0.0
-
+      i. **Name**: def_gw
+      ii. **Destination**: 0.0.0.0
       iii. **Netmask**: 0.0.0.0
-
       iv. **Resource**: Use Gateway…
-
-      v.   **Gateway** **Address**: 10.1.10.1
-
-      vi.  When you have completed defining your default gateway, hit the **Finished** button
+      v. **Gateway** **Address**: 10.1.10.1
+      vi. When you have completed defining your default gateway, hit the **Finished** button
 
 2. Verify your network configuration
 
@@ -171,29 +167,26 @@ statistical interfaces.
 
    a. Under **Configuration**:
 
-      i.   **Name**: www_pool
-          - The name is for management purposes only, no spaces can be used
-      ii.  **Description**: <optional>
-
+      i. **Name**: www_pool (The name is for management purposes only, no spaces can be used)
+      ii. **Description**: <optional>
       iii. **Health** **Monitor**: http
 
    b. Under **Resources**
 
-      i.   **Load Balancing Method**: <leave at the default Round Robin>
-
-      ii.  **Priority Group Activation**: <leave at default>
-
+      i. **Load Balancing Method**: <leave at the default Round Robin>
+      ii. **Priority Group Activation**: <leave at default>
       iii. **New Members**:
 
-      +-------------+------------------+
-      | **Address** | **Service Port** |
-      +=============+==================+
-      | 10.1.20.11  | 80               |
-      +-------------+------------------+
-      | 10.1.20.12  | 80               |
-      +-------------+------------------+
-      | 10.1.20.13  | 80               |
-      +-------------+------------------+
+         +-------------+------------------+
+         | **Address** | **Service Port** |
+         +=============+==================+
+         | 10.1.20.11  | 80               |
+         +-------------+------------------+
+         | 10.1.20.12  | 80               |
+         +-------------+------------------+
+         | 10.1.20.13  | 80               |
+         +-------------+------------------+
+
 
 2. As you enter each IP address and port combination hit **Add** button
 
@@ -214,23 +207,22 @@ Creating Virtual Servers
 
 2. Under **General Properties**
 
-   a.   **Name:** www_vs
-
-   b.  **Description**: <optional>
-
+   a. **Name:** www_vs
+   b. **Description**: <optional>
    c. **Type:** Standard
-
    d. **Source/Address:** <leave blank>
 
       .. note:: The default is 0.0.0.0/0, all source IP address are allowed
+
 
    e. **Destination** **Address/Mask:** 10.1.10.100
 
       .. note:: The default mask is /32
 
+
    f. **Service Port**: 80 or HTTP
 
-2. Under **Configurations**
+3. Under **Configurations**
 
    i.  The web servers do not use the BIG-IP LTM as the default gateway.
        This means return traffic will route around the BIG-IP LTM and
@@ -241,21 +233,16 @@ Creating Virtual Servers
 
    ii. **Source Address Translation**: Auto Map
 
-       .. image:: ../images/image19.png
+      .. image:: ../images/image19.png
           :width: 500px
 
 
 3. Under **Resources**
 
    a. **iRules**: none
-
    b. **Policies**: none
-
-   c. **Default Pool**: From the drop down menu, select the pool
-        (**www_pool**) which you created earlier
-
+   c. **Default Pool**: From the drop down menu, select the pool (**www_pool**) which you created earlier
    d. **Default Persistence Profile**: None
-
    e. **Fallback Persistence Profile**: None
 
 4. When you have complete your pool configuration, hit the **Finished**
@@ -300,15 +287,12 @@ Now let’s see if our virtual server works!
 8. Go to **Local Traffic >> Pools >> Statistics** to see pool member statistics
 
    * Did each pool member receive the same number of connections?
-
    * Did each pool member receive approximately the same number of bytes?
-
    * Note the Source and Destination address when you go to directly and through the virtual server
 
 9. Let’s archive our configuration in case we have to fall back later.
 
    a. Go to **System >> Archives** and select **Create**.
-
    b. Name your archive **lab1_the_basics_net_pool_vs**
 
 
@@ -340,7 +324,7 @@ Diagram for the IP address.
 
       iv.  (tmos)# **show ltm virtual detail**
 
-           1. Show statistics of all virtual servers
+           2. Show statistics of all virtual servers
 
 2. Check out the Dashboard!
 
