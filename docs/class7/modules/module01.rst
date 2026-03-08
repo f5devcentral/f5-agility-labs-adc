@@ -16,18 +16,18 @@ The BIG-IP Configuration Utility (GUI) is a web-based interface that provides a 
 
 You can perform various tasks such as:
 
-   1. Building and managing traffic objects (e.g., virtual servers, pools, nodes).
-   2. Configuring modules (LTM, DNS/GTM, Advanced WAF/ASM, APM, AFM).
-   3. Managing system/network settings (e.g., VLANs, routes).
-   4. Viewing statistics, health checks, and logs.
+* Building and managing traffic objects (e.g., virtual servers, pools, nodes).
+* Configuring modules (LTM, DNS/GTM, Advanced WAF/ASM, APM, AFM).
+* Managing system/network settings (e.g., VLANs, routes).
+* Viewing statistics, health checks, and logs.
 
 The following sections are important to guide you through the process of creating VLANs, self IPs, pools, and virtual servers using the BIG-IP GUI.
 
-   1. **Main**/Help/About
-   2. **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
-   3. **Device Management** >> Devices, Device Trust, Traffic Groups
-   4. **Network** >> interfaces, self IPs, Vlans
-   5. **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
+* **Main**/Help/About
+* **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
+* **Device Management** >> Devices, Device Trust, Traffic Groups
+* **Network** >> interfaces, self IPs, Vlans
+* **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
 
 Creating VLANs
 --------------
@@ -77,7 +77,7 @@ d. When you have completed your VLAN configuration, hit the **Finished** button
    When you are done, you should have two untagged VLANs, one on interface 1.1 and one on interface 1.2.
 
    .. image:: ../images/image11.1.png
-      :width: 950px
+       :width: 950px
 
 
 Creating Self IPs
