@@ -264,7 +264,7 @@ Creating Virtual Servers
 5. You have now created a Virtual Server
 
    .. image:: ../images/image20.png
-      :width: 900px
+       :width: 900px
  
 
 .. note:: Items in the GUI that are blue are links ie. shortcuts
@@ -281,7 +281,7 @@ Now let’s see if our virtual server works!
 3. Refresh the browser screen several times (use “<ctrl>” F5)
 
    .. image:: ../images/image21.png
-      :width: 700px
+       :width: 700px
 
 
 4. Go to your BIG-IP and view the statistics for the **www_vs** virtual
@@ -290,9 +290,9 @@ Now let’s see if our virtual server works!
 5. Go to **Statistics >> Module Statistics >> Local Traffic**
 
 6. Choose **Virtual Servers** from "Statistics Type" drop-down menu
-
+   
    .. image:: ../images/image22.png
-      :width: 600px
+       :width: 700px
 
 
 7. or, Go to **Local Traffic >> Virtual Servers >> Statistics**
@@ -309,7 +309,7 @@ Now let’s see if our virtual server works!
 
    a. Go to **System >> Archives** and select **Create**.
 
-   B. Name your archive **lab1_the_basics_net_pool_vs**
+   b. Name your archive **lab1_the_basics_net_pool_vs**
 
 
 Extra Credit!
