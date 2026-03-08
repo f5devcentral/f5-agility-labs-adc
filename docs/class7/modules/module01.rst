@@ -37,9 +37,9 @@ First, you will need to log into **bigip01**. You will need create two untagged 
 1. From the sidebar select **Network** **> VLANs** then select
    **Create**
 
-.. image:: ../images/image10.png
-   :width: 3.29032in
-   :height: 2.625in
+   .. image:: ../images/image10.png
+      :width: 600px
+
 
 a. Under **General Properties**:
 
@@ -64,19 +64,18 @@ c. Under **Resources** in the **Interfaces** section:
    iii. Select the **Add** button. Leave all other items at the default
         setting.
 
-.. image:: ../images/image11.png
-   :width: 2.39187in
-   :height: 1.66681in
+   .. image:: ../images/image11.png
+      :width: 600px
 
 d. When you have completed your VLAN configuration, hit the **Finished** button
 
-.. important::
-   Now create another untagged VLAN named **server_vlan** on interface **1.2,** following the same steps as above.
+   .. important::
+      Now create another untagged VLAN named **server_vlan** on interface **1.2,** following the same steps as above.
+
    When you are done, you should have two untagged VLANs, one on interface 1.1 and one on interface 1.2.
 
-.. image:: ../images/image11.1.png
-   :width: 6.0in
-   :height: 1.2in
+   .. image:: ../images/image11.1.png
+      :width: 900px
 
 
 Creating Self IPs
@@ -84,27 +83,27 @@ Creating Self IPs
 
 1. Go to **Network > Self IPs**, select **Create**.
 
-.. image:: ../images/image12.png
-   :width: 5.8125in
-   :height: 3.08766in
+   .. image:: ../images/image12.png
+      :width: 600px
+
 
 a. Create a new self IP, for the **server_vlan** and **client_vlan**
    VLANs. In **Network >> Self IPs >> New Self IP**, under
    **Configuration** enter:
 
-+---------------+---------------+---------------+
-|    Option     |  Server-side  |  Client-side  |
-+===============+===============+===============+
-| Name          | server_ip     | client_ip     |
-+---------------+---------------+---------------+
-| IP Address    | 10.1.20.245   | 10.1.10.245   |
-+---------------+---------------+---------------+
-| Netmask       | 255.255.255.0 | 255.255.255.0 |
-+---------------+---------------+---------------+
-| VLAN          | server_vlan   | client_vlan   |
-+---------------+---------------+---------------+
-| Port Lockdown | Allow None    | Allow None    |
-+---------------+---------------+---------------+
+   +---------------+---------------+---------------+
+   |    Option     |  Server-side  |  Client-side  |
+   +===============+===============+===============+
+   | Name          | server_ip     | client_ip     |
+   +---------------+---------------+---------------+
+   | IP Address    | 10.1.20.245   | 10.1.10.245   |
+   +---------------+---------------+---------------+
+   | Netmask       | 255.255.255.0 | 255.255.255.0 |
+   +---------------+---------------+---------------+
+   | VLAN          | server_vlan   | client_vlan   |
+   +---------------+---------------+---------------+
+   | Port Lockdown | Allow None    | Allow None    |
+   +---------------+---------------+---------------+
 
 .. caution::
    A common mistake is to forgot to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your self IPs are in the appropriate VLAN. 
@@ -119,9 +118,9 @@ a. Create a new self IP, for the **server_vlan** and **client_vlan**
 b. When you have completed your selfIP configuration, hit the **Finished**
    button. You should have something similar to the following:
 
-.. image:: ../images/image14.png
-   :width: 5.84768in
-   :height: 1.30208in
+   .. image:: ../images/image14.png
+      :width: 800px
+
 
 Assigning the Default Gateway
 -----------------------------
@@ -131,9 +130,9 @@ Assigning the Default Gateway
    a. Here is where we assign our default gateway (and other static
       routes as desired)
 
-.. image:: ../images/image15.png
-   :width: 3.96875in
-   :height: 2.33043in
+   .. image:: ../images/image15.png
+      :width: 600px
+
 
 b. Under **Properties**
 
@@ -150,7 +149,7 @@ b. Under **Properties**
    vi.  When you have completed defining your default gateway, hit the
         **Finished** button
 
-2. Verify your network configuration
+1. Verify your network configuration
 
    a. Use SSH or WebShell (UDF Only) to access your BIG-IP.
 
@@ -169,9 +168,8 @@ statistical interfaces.
 1. From the sidebar select **Local Traffic >>** **Pools** then select
    **Create**. Here we will create our new pool
 
-.. image:: ../images/image16.png
-   :width: 3.46998in
-   :height: 3.07292in
+   .. image:: ../images/image16.png
+      :width: 600px
 
 a. Under **Configuration**:
 
@@ -189,24 +187,24 @@ b. Under **Resources**
 
    iii. **New Members**:
 
-+-------------+------------------+
-| **Address** | **Service Port** |
-+=============+==================+
-| 10.1.20.11  | 80               |
-+-------------+------------------+
-| 10.1.20.12  | 80               |
-+-------------+------------------+
-| 10.1.20.13  | 80               |
-+-------------+------------------+
+   +-------------+------------------+
+   | **Address** | **Service Port** |
+   +=============+==================+
+   | 10.1.20.11  | 80               |
+   +-------------+------------------+
+   | 10.1.20.12  | 80               |
+   +-------------+------------------+
+   | 10.1.20.13  | 80               |
+   +-------------+------------------+
 
-2. As you enter each IP address and port combination hit **Add** button
+1. As you enter each IP address and port combination hit **Add** button
 
 a. When you have complete your pool configuration, hit the **Finished**
    button
 
-.. image:: ../images/image17.png
-   :width: 4.375in
-   :height: 1.27287in
+   .. image:: ../images/image17.png
+      :width: 600px
+
 
 Creating Virtual Servers
 ------------------------
@@ -216,10 +214,9 @@ Now let’s build our virtual server
 1. Under **Local Traffic** select **Virtual Servers** then select
    **Create**.
 
-.. image:: ../images/image18.png
-   :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML5118b969.PNG
-   :width: 3.71994in
-   :height: 3.08333in
+   .. image:: ../images/image18.png
+   :width: 600px
+
 
 a. Under **General Properties**
 
@@ -250,10 +247,9 @@ b. Under **Configurations**
 
    ii. **Source Address Translation**: Auto Map
 
-  .. image:: ../images/image19.png
-      :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML58387b2.PNG
-      :width: 2.97587in
-      :height: 0.99517in
+       .. image:: ../images/image19.png
+          :width: 500px
+
 
 c. Under **Resources**
 
@@ -273,22 +269,23 @@ d. When you have complete your pool configuration, hit the **Finished**
 
 e. You have now created a Virtual Server
 
-.. image:: ../images/image20.png
-   :width: 6.75892in
-   :height: 1.44179in
+   .. image:: ../images/image20.png
+      :width: 900px
+ 
 
 .. note:: Items in the GUI that are blue are links ie. shortcuts
 
-2. Now let’s see if our virtual server works!
+
+1. Now let’s see if our virtual server works!
      - **UDF** - log into your **Ubuntu Jumpbox via xRDP access method** using the credentials provided in Documentation section
 
    a. Open the browser from the bottom of the screen, go to the Virtual Server you just created http://10.1.10.100
 
    b. Refresh the browser screen several times (use “<ctrl>” F5)
 
-.. image:: ../images/image21.png
-   :width: 2.65963in
-   :height: 1.40625in
+      .. image:: ../images/image21.png
+         :width: 600px
+
 
 c. Go to your BIG-IP and view the statistics for the **www_vs** virtual
    server and the **www_pool** pool and its associated members
@@ -297,9 +294,9 @@ d. Go to **Statistics >> Module Statistics >> Local Traffic**
 
    i. Choose **Virtual Servers** from "Statistics Type" drop-down menu
 
-.. image:: ../images/image22.png
-   :width: 2.98593in
-   :height: 1.44792in
+      .. image:: ../images/image22.png
+         :width: 600px
+
 
 e. or, Go to **Local Traffic >> Virtual Servers >> Statistics**
 
@@ -313,14 +310,14 @@ f. Go to **Local Traffic >> Pools >> Statistics** to see pool member statistics
    iii. Note the Source and Destination address when you go to directly
         and through the virtual server
 
-3. Let’s archive our configuration in case we have to fall back later.
+1. Let’s archive our configuration in case we have to fall back later.
 
    a. Go to **System >> Archives** and select **Create**.
 
       i. Name your archive **lab1_the_basics_net_pool_vs**
 
-**ExtraCredit!**
-------------
+Extra Credit!
+-------------
 
 You can also review statistics via the CLI, simply SSH to the management
 IP of your BIG-IP. Refer to your Student Information page and Network
@@ -353,12 +350,13 @@ Diagram for the IP address.
 
    a. Go to **Statistics >> Dashboard**
 
-.. image:: ../images/image23.png
-   :width: 3.13542in
-   :height: 1.81755in
+      .. image:: ../images/image23.png
+         :width: 600px
 
-b. This will take you to the BIG-IP Dashboard page. The F5 **BIG-IP Dashboard** in the Configuration utility provides real-time, customizable graphical views of system performance, including CPU usage, memory, network traffic (PPS, Mbps), and connection statistics. It allows users to create custom "view sets" combining data from various modules (LTM, DNS, AFM) to monitor application health and traffic flow.
+
+   b. This will take you to the BIG-IP Dashboard page. The F5 **BIG-IP Dashboard** in the Configuration utility provides real-time, customizable graphical views of system performance, including CPU usage, memory, network traffic (PPS, Mbps), and connection statistics. It allows users to create custom "view sets" combining data from various modules (LTM, DNS, AFM) to monitor application health and traffic flow.
    
-   .. image:: ../images/dashboard.png
+      .. image:: ../images/dashboard.png
+         
    
    Feel free to explore the dashboard and create your own view sets to monitor the performance of your virtual server and pool!
