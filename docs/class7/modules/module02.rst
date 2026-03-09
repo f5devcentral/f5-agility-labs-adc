@@ -243,16 +243,14 @@ b. Once you have selected your parent (Type) monitor, you can access the **Confi
 c. Click **Finish** and you will be taken back to **Local
    Traffic>Monitors**
 
-..
-
-   .. image:: ../images/image35.png
-      :width: 0.94444in
-      :height: 0.55556in
-
 4.  Where is your new Monitor?
 
     a. **Hint:** Check the lower right hand corner of the Monitors list,
        here you can go to the next page or view all Monitors
+
+   .. image:: ../images/image35.png
+      :width: 0.94444in
+      :height: 0.55556in
 
     b. You can change the number of records displayed per page in
        **System>Preferences**
