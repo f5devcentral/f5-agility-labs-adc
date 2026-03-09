@@ -11,77 +11,72 @@ Objective:
 
 -  Modify your HTTP virtual server to use HTTPS
 
--  Add addition security to your HTTPS web server using the HTTP profile
+-  Add additional security to your HTTPS web server using the HTTP profile
 
 We will create a self-signed certificate and key and a SSL client
 profile to attach to our virtual server.
 
 Creating a Self-signed certificate and key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
-1. Go to **System > Certificate Management > Traffic Certificate
-   Management > SSL Certificates** **List** and select **Create**
+1. Go to **System >> Certificate Management >> Traffic Certificate
+   Management >> SSL Certificates List** and select **Create**
 
-.. image:: ../images/image52.png
-   :width: 5.83333in
-   :height: 1.83891in
+   .. image:: ../images/image52.png
+      :width: 550px
 
-This will take you to **Local Traffic >> SSL Certificates >> New SSL
-Certificate…**
+   This will take you to **Local Traffic >> SSL Certificates >> New SSL
+   Certificate…**
 
-a. NOTE: The default key size is **2048**, you can save SSL resources on
-   the **server-side** by lowering this key size.
+   a. Please note the default key size is **2048**, you can save SSL resources on
+      the **server-side** by lowering this key size.
 
-.. image:: ../images/image53.png
-   :width: 2.60099in
-   :height: 2.75581in
+      .. image:: ../images/image53.png
+         :width: 250px
 
-b. Enter:
+   b. Enter:
 
-   i.   **Name**: my-selfsigned-cert
+      i.   **Name**: my-selfsigned-cert
 
-   ii.  **Issuer**: Self
+      ii.  **Issuer**: Self
 
-   iii. **Common Name**: www.f5demo.com
+      iii. **Common Name**: www.f5demo.com
 
-   iv.  Fill out the rest any way you would like and then click Finished.
+      iv.  Fill out the rest any way you would like and then click Finished.
 
 Creating SSL Client Profile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
-1. Go to **Local** **Traffic>Profiles>SSL>Client** menu and select
+1. Go to **Local Traffic >> Profiles >> SSL >> Client** menu and select
    **Create**.
 
-.. image:: ../images/image54.png
-   :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTMLf292a2.PNG
-   :width: 2.15302in
-   :height: 1.94805in
+   .. image:: ../images/image54.png
+      :width: 200px
 
-a. Under **General Properties**
+   a. Under **General Properties**
 
-   i. **Name**: my_clientssl_profile
+      i. **Name**: my_clientssl_profile
 
-b. Under **Configuration** in the **Certificate Key Chain** section,
-   select the **Custom** box and hit **Add**.
+   b. Under **Configuration** in the **Certificate Key Chain** section,
+      select the **Custom** box and hit **Add**.
 
-   i.  In the **Add SSL Certificate to Key Chain** pop-up select:
+      i.  In the **Add SSL Certificate to Key Chain** pop-up select:
 
-       1. **Certificate**:         my-selfsigned-cert
+         1. **Certificate**:         my-selfsigned-cert
 
-       2. **Key**:                     my-selfsigned-cert
+         2. **Key**:                     my-selfsigned-cert
 
-   ii. Select **Add**
+      ii. Select **Add**
 
-.. image:: ../images/image55.png
-   :width: 2.23377in
-   :height: 1.08439in
+         .. image:: ../images/image55.png
+            :width: 225px
 
-c. Hit **Finished.**
+   c. Hit **Finished.**
 
 Building our New Secure Virtual Server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------
 
-1. Go to **Local Traffic>Virtual Servers** and hit the Create button or
+1. Go to **Local Traffic >> Virtual Servers** and hit the Create button or
    hit the “+” next to Virtual Servers
 
    a. **Name**: secure_vs
@@ -114,11 +109,11 @@ Building our New Secure Virtual Server
    c. What port did your pool members see traffic on?
 
 Securing web applications with the HTTP profile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------
 
 1. Let’s begin by creating a custom HTTP profile.
 
-   a. Go to **Local Traffic> Profiles>Services**, by default you are in HTTP profiles, click Create and generate a
+   a. Go to **Local Traffic >> Profiles >> Services**, by default you are in HTTP profiles, click Create and generate a
       new profile
 
    b. Under **General Properties**
@@ -137,21 +132,19 @@ Securing web applications with the HTTP profile
       iv.  **Insert XForwarded For**: Enabled *(to save the original client ip)*
 
          .. image:: ../images/image56.png
-            :alt: C:\Users\RASMUS~1\AppData\Local\Temp\SNAGHTML566674e6.PNG
-            :width: 3.25in
-            :height: 3.44635in
+            :width: 300px
 
    v. Select **Finish**
 
    vi. Attach your new HTTP Profile to your secure_vs (HTTPS) virtual server by going to the virtual server, selecting the **HTTP Profile** and changing it from **None** to **secure-my-website**.
 
-1. Browse to your secure virtual server in RDP session.
+2. Browse to your secure virtual server in RDP session.
 
    a. Do web pages appear normal?
 
    b. Now browse to a bad page.
 
-   c. Using your browser Inspect window check the server response.  Altenately you can to the **Request and Response Headers** from the **Demo** drop-down menu to view the headers. You should see your sanitized server response and the original client IP address in the **x-forward-for** header, which is itself new.
+   c. Using your browser Inspect window check the server response.  Alternatively you can go to the **Request and Response Headers** from the **Demo** drop-down menu to view the headers. You should see your sanitized server response and the original client IP address in the **x-forward-for** header, which is itself new.
 
    d. You can compare the headers by accessing your HTTP virtual server your unsecure **www_vs** and looking at the responses.
 

@@ -22,7 +22,7 @@ used to access the lab training portal. The RDP client will be used to
 connect to a Windows workstation, where you will be able to access the
 BIG-IP and BIG-IQ management interfaces (HTTPS, SSH).
 
-You class instructor will provide additional lab access details.
+Your class instructor will provide additional lab access details.
 
 Lab Diagram
 ^^^^^^^^^^^
@@ -55,5 +55,5 @@ take for each lab:
 +------------------------------------------------------+------------------+
 
 .. |image0| image:: images/image3.jpg
-   :width: 12in
-   :height: 10in
+   :width: 100%
+   :alt: Lab Network Diagram
