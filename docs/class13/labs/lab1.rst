@@ -153,7 +153,7 @@ Task 4: Scale out easily: add the 3rd and 4th MinIO AIStor nodes to Cluster 1
 In MinIO terminology, a storage pool (often referred to as a server pool) is a set of MinIO server nodes that aggregate their drives and resources to act as a single,
 independent unit of storage capacity. It is the fundamental unit for scaling, expanding, and managing capacity in a distributed MinIO deployment.
 
-To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
+To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new storage pool to your existing deployment. This allows for horizontal scaling. 
 
 Outcome desired:  Expand Cluster 1 from 2 nodes (Storage Pool 1) to 4 nodes (Storage Pool 1 + Storage Pool 2).   We will use the storage prefix to avoid confusion
 with BIG-IP **origin pools**, which frequently are just simply referred to as BIG-IP pools just simply pools.
