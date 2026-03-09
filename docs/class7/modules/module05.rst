@@ -107,8 +107,8 @@ Configure HA
          Lifetime is important, if your cert expires your HA setup
          will fail.
 
-      iv.  Select **Finished**. Your browser will ask to exchange certs
-        with the BIG-IP again, and refresh the page.
+      iv.  Select **Finished**. Your browser will ask to exchange certs with the BIG-IP again, and refresh the page.
+
 
    b. Under **Device Management > Device Trust > Local Domain** select
       **Reset Device Trust…**
@@ -177,6 +177,7 @@ Configure HA
       .. figure:: ../images/image66.png
 
          Is all the information there?
+
 
 
        v. Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
