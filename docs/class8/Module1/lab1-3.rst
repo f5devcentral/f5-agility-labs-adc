@@ -172,4 +172,10 @@ Detach The iRule From The Virtual Server
 
 3. Type <ctrl-c> to exit the tail command
 
-This completes Lab 1.  Even though this lab did not contain any performance modifications, the data learned is necessary for later optimizations or for cleaning up network noise (bad URLs, old/bad redirects, block scanners, etc) that will reduces system load.
+
+Recap
+-----
+
+Even though this lab did not contain any performance modifications, the data learned is necessary for later optimizations or for cleaning up network noise (bad URLs, old/bad redirects, block scanners, etc) that will reduces system load.
+
+This completes Lab 1
