@@ -15,9 +15,11 @@ On a standard virtual server application would follow something similar to the f
 
       I. at this point we can adjust how TCP works between the BIG-IP and the client using the client TCP profile and its parameters​
       II. or log or manipulate the connection using iRules​
-	3. The virtual server establish and encrypted session between the BIG-IP and the client.​
+
+	3. The virtual server establishes an encrypted session between the BIG-IP and the client.​
 	
       I. Again we can manipulate the SSL setup via iRules​
+
 	4. The decrypted data hits the HTTP profile and the HTTP information is parsed and processed according to the profile parameters, and iRules could be applied​
 	5. And so on, until we make the load balancing decision in TMOS​
 	6. Manipulate the HTTP stream as required​
@@ -65,16 +67,16 @@ b. You will be using your third interface (1.3) for Network Failover and
       need to set up the base networking. 
 
 
-   +----------------+----------------+----------------+-----------------+-----------------+
-   | **Interface**  | **Untagged     | **IP Name**    | **Self IP**     | **Netmask**     |
-   |                | VLAN**         |                |                 |                 |
-   +================+================+================+=================+=================+
-   | 1.1            | client_vlan    | client_ip      | 10.1.10.246     | 255.255.255.0   |
-   +----------------+----------------+----------------+-----------------+-----------------+
-   | 1.2            | server_vlan    | server_ip      | 10.1.20.246     | 255.255.255.0   |
-   +----------------+----------------+----------------+-----------------+-----------------+
-   | 1.3            | ha_vlan        | ha_ip          | 10.1.30.246     | 255.255.255.0   |
-   +----------------+----------------+----------------+-----------------+-----------------+
+      +----------------+----------------+----------------+-----------------+-----------------+
+      | **Interface**  | **Untagged     | **IP Name**    | **Self IP**     | **Netmask**     |
+      |                | VLAN**         |                |                 |                 |
+      +================+================+================+=================+=================+
+      | 1.1            | client_vlan    | client_ip      | 10.1.10.246     | 255.255.255.0   |
+      +----------------+----------------+----------------+-----------------+-----------------+
+      | 1.2            | server_vlan    | server_ip      | 10.1.20.246     | 255.255.255.0   |
+      +----------------+----------------+----------------+-----------------+-----------------+
+      | 1.3            | ha_vlan        | ha_ip          | 10.1.30.246     | 255.255.255.0   |
+      +----------------+----------------+----------------+-----------------+-----------------+
 
 b. On the **ha_vlan** ip configure set **Port Lockdown** to **Allow
    Default**
@@ -172,16 +174,18 @@ Configure HA
       Check on the other BIG-IP bigip02 in the **Peer and Subordinate Devices** list to verify that bigip01 is trusted. 
 
 
-      .. image:: ../images/image66.png
+      .. figure:: ../images/image66.png
 
          Is all the information there?
 
+
        v. Go to **bigip02.f5demo.com** and check the **Device Management > Device Trust > Peer and Subordinate Devices** list. 
       
-         Do you see the first BIG-IP in the list?
+          Do you see the first BIG-IP in the list?
 
  
-      .. image:: ../images/image67.png
+          .. image:: ../images/image67.png
+
 
    b. If some information is missing delete the trust and try again.
 
