@@ -105,7 +105,3 @@ If you already know how to view TCP Window Scaling graphs in Wireshark, you can 
 
        This sample has the **Bytes Out** option unchecked to make it easier to see the TCP Window Scale behavior.  **Bytes Out** is also interesting as it shows the in-flight data but the pattern is usually similar to **Rcv Win** where there are TCP Zero Window packets in the flow.
 
-
-
-
-This completes lab 2.

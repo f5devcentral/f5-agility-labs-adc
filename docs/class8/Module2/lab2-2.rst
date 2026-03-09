@@ -79,7 +79,7 @@ Test With Custom TCP Buffers
       ~/zerowindow3.sh
 
 
-3. Go back to the BIGIP01 SSH window and run the same packet capture::
+3. Go back to the BIGIP01 SSHWeb Shell window and run the same packet capture::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500 
   
