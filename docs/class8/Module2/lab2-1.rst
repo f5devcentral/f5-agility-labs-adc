@@ -33,7 +33,7 @@ Task 1: Review Base TCP Profiles
        :width: 350px
 
 
-6.  Run the following command from the Ubuntu-Client Web Shell window::
+6.  Run the following command from the Ubuntu-Client Web Shell browser tab::
     
       ~/zerowindow3.sh
 

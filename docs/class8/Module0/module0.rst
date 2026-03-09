@@ -7,7 +7,7 @@ Requirements:
 
 * Laptop with Internet Access and a web browser
 * Ability to disable VPN connection on laptop if you cannot use https to udf.f5.com.
-* RDP Client (There is a web-based alternative is needed)
+* RDP Client (There is a web-based alternative if needed)
 
 
 .. toctree::
