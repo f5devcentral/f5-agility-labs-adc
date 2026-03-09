@@ -65,7 +65,7 @@ c. Under **Resources** in the **Interfaces** section:
         setting.
 
       .. image:: ../images/image11.png
-          :width: 600px
+         :width: 100%
 
 
 d. When you have completed your VLAN configuration, hit the **Finished** button
