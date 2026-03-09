@@ -246,7 +246,7 @@ Now, to see the buckets on cluster1, node1, one simply can issue:
 
 |lab04b|
 
-Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefixing mcli to a command and choosing an alias.
+Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefacing mcli to a command and choosing an alias.
 
 The second administrative command in the screenshot above shows an example of tracing where the erasure coded chunks of a given sample object are
 actually stored, along with meta data details.
