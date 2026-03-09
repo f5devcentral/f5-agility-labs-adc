@@ -296,7 +296,7 @@ Prior to beginning the lab verify your **www_pool** has been set to the followin
    b. **Persistence Type**: Source Address Affinity
        
       .. image:: ../images/image38.png
-         :width: 600px
+         :width: 650px
 
 
       This will add the **Configuration** section to the **General Properties** section.
@@ -306,7 +306,7 @@ Prior to beginning the lab verify your **www_pool** has been set to the followin
    c. In the **Configuration** section, click the checkbox to the right of **Timeout** and set the value to 60 seconds
        
       .. image:: ../images/image38a.png
-         :width: 600px
+         :width: 650px
 
        
    d. Leave the **Prefix Length** as None
@@ -462,6 +462,6 @@ Let's take a look at the cookie.
 
    .. image:: ../images/image45.png
       :witch: 750px
-      
+
    
 4. Before proceeding to the next lab **please** remove the persistence profile from the virtual server. 
