@@ -118,7 +118,8 @@ c. From the dump you can see you are are hitting the virtual server.  Your origi
            0x0000:  4500 0028 8480 4000 ff06 c53b 0a01 0a06  E..(..@....;....
            0x0010:  0a01 140c e7de 0050 2f41 9b12 0000 0000  .......P/A......
            0x0020:  5014 0000 322e 0000                      P...2...
-1
+
+
 4. First, let’s check to see if the server is responding to HTTP on port 80. On the BIG-IP in an SSH window:
 
    a. Do a **<ctrl-c>** to escape out of **tcpdump**, if you are still
