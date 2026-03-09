@@ -32,15 +32,17 @@ Lab Credentials
 The following table lists the management credentials for the components used in the labs:
 
 
-+----------------+-------------------------------------+
-| Host           | Username:Password                   |
-+================+=====================================+
-| BIGIP01 TMUI   | admin:admin.F5demo.com              |
-+----------------+-------------------------------------+
-| Windows Client | labUser:lab.F5demo.com              |
-+----------------+-------------------------------------+
-| Linux Client   | No password required for Web Shell  |
-+----------------+-------------------------------------+
++----------------+------------------------------------+
+| Host           | Username:Password                  |
++================+====================================+
+| BIGIP01 TMUI   | admin:admin.F5demo.com             |
++----------------+------------------------------------+
+| BIGIP01 CLI    | No password required for Web Shell |
++----------------+------------------------------------+
+| Windows Client | labUser:lab.F5demo.com             |
++----------------+------------------------------------+
+| Linux Client   | No password required for Web Shell |
++----------------+------------------------------------+
 
 Timing for Labs
 ---------------

@@ -30,7 +30,7 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
        :width: 250px
 
 
-5. For command-line access to BIGIP01, select **Web Shell** from the Access dropdown.  Web Shell will open as a new web browser tab.
+5. For command-line (CLI) access to BIGIP01, select **Web Shell** from the Access dropdown.  Web Shell will open as a new web browser tab.
 
    .. image:: ../images/udf_bigip01_webshell.png
        :width: 350px
