@@ -223,7 +223,6 @@ The default monitor simply tells us the IP address is accessible, but we really 
        here you can go to the next page or view all Monitors
 
       .. image:: ../images/image35.png
-         :width: 400px
 
     b. You can change the number of records displayed per page in
        **System>Preferences**
