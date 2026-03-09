@@ -131,9 +131,11 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.  The AISTor |
+| 6. Confirm the WARP S3 load generator has run to completion, traffic settings can be seen below.  The AISTor  |
 |    GUI will likley not populate for a few more minutes, but later when checked will look like the AIStor      |
-|    screenshot provided below, set time frame to last 4 hours in second screen.                                |
+|    screenshot provided below, set time frame to last 4 hours in second screen.   Data points are updated      |
+|    updated every 15 minutes, your first two test runs may be reflected in only one data point unlike the      |
+|    provided screenshot below.                                                                                 | 
 +---------------------------------------------------------------------------------------------------------------+
 | |lab021|                                                                                                      |
 |                                                                                                               |
