@@ -213,24 +213,20 @@ The default monitor simply tells us the IP address is accessible, but we really 
       .. image:: ../images/image34.png
          :width: 600px
 
-
       **Note:** The receive string is not case sensitive.
 
 6. Click **Finish** and you will be taken back to **Local Traffic > Monitors**
-
-   .. image:: ../images/image35.png
-      :width: 0.94444in
-
-      
-<<wrong image>>
-
 
 7. Where is your new Monitor?
 
    a. **Hint:** Check the lower right hand corner of the Monitors list,
        here you can go to the next page or view all Monitors
 
-   b. You can change the number of records displayed per page in
+   .. image:: ../images/image35.png
+      :width: 0.94444in
+      :height: 0.55556in
+
+    b. You can change the number of records displayed per page in
        **System>Preferences**
 
 8. Go to **Local Traffic>Pools>www_pool** and choose **Properties**
