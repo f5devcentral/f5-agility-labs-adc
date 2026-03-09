@@ -98,7 +98,7 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 
 
 
-Why this matters:  Clients that target a single node are brittleutilization is uneven and scalability suffers. 
+Why this matters:  Clients that target a single node are brittle, utilization is uneven and scalability suffers. 
 
 
 
@@ -197,7 +197,7 @@ On both nodes, start the MinIO service:
 **sudo systemctl start minio**
 
 These nodes already have the two storage pool MINIO_VOLUMES pre-configured.
-The issued command with **no**t provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
+The issued command will *not* provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
 storage pool.
 
 **Step 4 — Restart Cluster 1 to pick up the new 4 server topology**
