@@ -34,7 +34,7 @@ In this section, you will review default TCP packet retransmission behaviors and
 6. From the Loss Detection and Recovery section, click the checkbox to the right of Initial Retransmission Timeout Base Multiplier for SYN Retransmission then change the value to 200.
 
    .. image:: ../images/tcp_loss_detect.png
-       :width 700px
+       :width: 700px
 
       
 7. Click the **Update** button at the bottom of the screen to save the changes
@@ -46,7 +46,7 @@ In this section, you will review default TCP packet retransmission behaviors and
 
 10. Run the following command from the Ubuntu-Client **Web Shell** window::
 
-    telnet web01.f5tcp.net 75
+     telnet web01.f5tcp.net 75
 
 
 11. Go back to the BIGIP01 **Web Shell** window and you will see tcpdump output similar to this::
@@ -58,7 +58,9 @@ In this section, you will review default TCP packet retransmission behaviors and
      00:55:16.154219 IP 10.1.10.15.46930 > 10.1.10.30.75: Flags [R.], seq 3657141190, ack 0, win 0, length 0
 
 
-    TMOS is now sending SYN retries at 203ms intervals.  This not eliminate SYN retranmissions during TCP 3-way handshake but is does shorten the retry process
+    TMOS is now sending SYN retries at 203ms intervals.  This change to the TCP Profile does not eliminate SYN retranmissions during TCP 3-way handshake but is does shorten the retry process allowing for quicker reselection of a working server.  In the lab, there isn't a working pool member so you will only see a shorter time to conneciton reset.
+
+
     
 
 This completes lab 2.
