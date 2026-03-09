@@ -347,8 +347,7 @@ Prior to beginning the lab verify your **www_pool** has been set to the followin
       :width: 750px
 
 
-9. Don’t forget to **Update** before leaving the page. *(Be careful,
-          someday I will quit telling you that.)*
+9. Don’t forget to **Update** before leaving the page. *(Be careful, someday I will quit telling you that.)*
        
 Testing Source Address Affinity
 -------------------------------

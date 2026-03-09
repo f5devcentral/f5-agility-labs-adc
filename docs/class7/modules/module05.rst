@@ -52,8 +52,7 @@ be creating a high availability VLAN.
 
       i.  Build a new untagged VLAN **ha_vlan** on interface **1.3**
 
-      ii. Add a self-IP name **ha_ip** and address **10.1.30.245** net mask
-         **255.255.255.0.**
+      ii. Add a self-IP name **ha_ip** and address **10.1.30.245** net mask **255.255.255.0.**
 
          a. Under **Port Lockdown**, select **Allow Default**, to open
             ports required for HA communications.
