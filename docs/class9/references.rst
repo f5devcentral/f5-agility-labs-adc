@@ -18,19 +18,24 @@ Primary F5 Documentation
 
 The following resources define foundational control-plane security guidance:
 
-* `**Security Best Practices for F5 Products**  <https://community.f5.com/kb/technicalarticles/security-best-practices-for-f5-products/302468>`
-  Defines control-plane versus data-plane security boundaries and foundational hardening guidance.
+* `Security Best Practices for F5 Products <https://community.f5.com/kb/technicalarticles/security-best-practices-for-f5-products/302468>`_
 
-* `**K13092 – Overview of securing access to the BIG-IP system**  <https://my.f5.com/manage/s/article/K13092>`
+ Defines control-plane versus data-plane security boundaries and foundational hardening guidance.
+
+* `K13092 – Overview of securing access to the BIG-IP system <https://my.f5.com/manage/s/article/K13092>`_
+
   Recommended approaches for protecting BIG-IP management interfaces.
 
-* `**K53108777 – Hardening your F5 system**  <https://my.f5.com/manage/s/article/K53108777>`
+* `K53108777 – Hardening your F5 system <https://my.f5.com/manage/s/article/K53108777>`_
+
   Comprehensive platform hardening guidance.
 
-* `**K27404821 – Using F5 iHealth to diagnose vulnerabilities**  <https://my.f5.com/manage/s/article/K27404821>`
+* `K27404821 – Using F5 iHealth to diagnose vulnerabilities <https://my.f5.com/manage/s/article/K27404821>`_
+
   Overview of security diagnostics and vulnerability detection.
 
-* `**K9970 – F5 Security Notifications and Advisories**  <https://my.f5.com/manage/s/article/K9970>`
+* `K9970 – F5 Security Notifications and Advisories <https://my.f5.com/manage/s/article/K9970>`_
+
   Subscription guidance for vulnerability alerts and software updates.
 
 Outer Layer – Boundary and Access Isolation
@@ -38,14 +43,14 @@ Outer Layer – Boundary and Access Isolation
 
 These articles support network-level access control and management-plane isolation:
 
-* `**K5380 – Restricting SSH access to trusted IP addresses**  <https://my.f5.com/manage/s/article/K5380>`
-* `**K13309 – Restricting access to the Configuration utility (TMUI)**  <https://my.f5.com/manage/s/article/K13309>`
-* `**K17333 – Self IP port lockdown recommendations**  <https://my.f5.com/manage/s/article/K17333>`
-* `**K9908 – Configuring idle logout for TMUI sessions**  <https://my.f5.com/manage/s/article/K9908>`
-* `**K6068 – Configuring login banners**  <https://my.f5.com/manage/s/article/K6068>`
-* `**K13121 – Changing default passwords**  <https://my.f5.com/manage/s/article/K13121>`
-* `**K15497 – Configuring secure password policies**  <https://my.f5.com/manage/s/article/K15497>`
-* `**K15632 – Disabling or restricting the root account**  <https://my.f5.com/manage/s/article/K15632>`
+* `K5380 – Restricting SSH access to trusted IP addresses <https://my.f5.com/manage/s/article/K5380>`_
+* `K13309 – Restricting access to the Configuration utility (TMUI) <https://my.f5.com/manage/s/article/K13309>`_
+* `K17333 – Self IP port lockdown recommendations <https://my.f5.com/manage/s/article/K17333>`_
+* `K9908 – Configuring idle logout for TMUI sessions  <https://my.f5.com/manage/s/article/K9908>`_
+* `K6068 – Configuring login banners <https://my.f5.com/manage/s/article/K6068>`_
+* `K13121 – Changing default passwords <https://my.f5.com/manage/s/article/K13121>`_
+* `K15497 – Configuring secure password policies <https://my.f5.com/manage/s/article/K15497>`_
+* `K15632 – Disabling or restricting the root account  <https://my.f5.com/manage/s/article/K15632>`_
 
 These references reinforce explicit allowlisting and account hygiene controls.
 
@@ -54,14 +59,14 @@ Middle Layer – Authentication and Protocol Hardening
 
 These references support centralized authentication and encryption controls:
 
-* `**K8811 – Configuring TACACS+ authentication**  <https://my.f5.com/manage/s/article/K8811>`
-* `**K11072 – Configuring LDAP and Active Directory authentication**  <https://my.f5.com/manage/s/article/K11072>`
-* `**K17403 – Configuring RADIUS authentication**  <https://my.f5.com/manage/s/article/K17403>`
-* `**K11719 – SSH brute-force mitigation**  <https://my.f5.com/manage/s/article/K11719>`
-* `**K80425458 – Hardening SSH ciphers and algorithms**  <https://my.f5.com/manage/s/article/K80425458>`
-* `**K3122 – Configuring NTP servers**  <https://my.f5.com/manage/s/article/K3122>`
-* `**K10240 – NTP configuration best practices**  <https://my.f5.com/manage/s/article/K10240>`
-* `**K14120 – Preventing time-based attacks against BIG-IP**  <https://my.f5.com/manage/s/article/K14120>`
+* `K8811 – Configuring TACACS+ authentication <https://my.f5.com/manage/s/article/K8811>`_
+* `K11072 – Configuring LDAP and Active Directory authentication <https://my.f5.com/manage/s/article/K11072>`_
+* `K17403 – Configuring RADIUS authentication <https://my.f5.com/manage/s/article/K17403>`_
+* `K11719 – SSH brute-force mitigation <https://my.f5.com/manage/s/article/K11719>`_
+* `K80425458 – Hardening SSH ciphers and algorithms <https://my.f5.com/manage/s/article/K80425458>`_
+* `K3122 – Configuring NTP servers <https://my.f5.com/manage/s/article/K3122>`_
+* `K10240 – NTP configuration best practices <https://my.f5.com/manage/s/article/K10240>`_
+* `K14120 – Preventing time-based attacks against BIG-IP <https://my.f5.com/manage/s/article/K14120>`_
 
 These documents support enterprise identity integration and protocol hardening.
 
@@ -69,10 +74,10 @@ Core Layer – Privilege, Survivability, and System Integrity
 
 These references align with advanced least-privilege and recovery mechanisms:
 
-* `**K12815 – Enabling Appliance Mode**  <https://my.f5.com/manage/s/article/K12815>`
-* `**K12173 – Role-Based Access Control (RBAC)**  <https://my.f5.com/manage/s/article/K12173>`
-* `**K73034260 – Hardware Security Modules (HSM) and SecureVault**  <https://my.f5.com/manage/s/article/K73034260>`
-* `**K11438344 – Control-plane incident response planning**  <https://my.f5.com/manage/s/article/K11438344>`
+* `K12815 – Enabling Appliance Mode <https://my.f5.com/manage/s/article/K12815>`_
+* `K12173 – Role-Based Access Control (RBAC)  <https://my.f5.com/manage/s/article/K12173>`_
+* `K73034260 – Hardware Security Modules (HSM) and SecureVault <https://my.f5.com/manage/s/article/K73034260>`_
+* `K11438344 – Control-plane incident response planning <https://my.f5.com/manage/s/article/K11438344>`_
 
 These materials provide guidance on restricting administrative capability
 and preparing for compromise scenarios.
@@ -84,7 +89,7 @@ iHealth provides automated analysis of BIG-IP configuration state.
 
 Portal:
 
-* **F5 iHealth Portal** – https://ihealth.f5.com
+* **F5 iHealth Portal** – `<https://ihealth.f5.com>`_
 
 Relevant diagnostics referenced in this guide include:
 
@@ -115,10 +120,10 @@ Industry Standards and Frameworks
 
 The layered approach in this guide aligns with widely adopted security frameworks:
 
-* `**NIST SP 800-53 – Security and Privacy Controls**  <https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final>`
-* `**NIST SP 800-207 – Zero Trust Architecture**  <https://csrc.nist.gov/pubs/sp/800/207/final>`
-* `**CIS Benchmarks – Network Device Hardening**  <https://www.cisecurity.org/benchmark/network_devices/>`
-* `**NIST SP 800-61 – Incident Response Guide**  <https://csrc.nist.gov/publications/detail/sp/800-61/rev-1/final>`
+* `NIST SP 800-53 – Security and Privacy Controls <https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final>`_
+* `NIST SP 800-207 – Zero Trust Architecture <https://csrc.nist.gov/pubs/sp/800/207/final>`_
+* `CIS Benchmarks – Network Device Hardening <https://www.cisecurity.org/benchmark/network_devices/>`_
+* `NIST SP 800-61 – Incident Response Guide <https://csrc.nist.gov/publications/detail/sp/800-61/rev-1/final>`_
 * Defense-in-depth architectural principles
 
 These frameworks reinforce segmentation, least privilege, and monitoring
