@@ -14,12 +14,12 @@ Task 2:  Using Modified TCP Profiles
        :width: 800px
 
 
-2. Run the following command again from the Ubuntu-Client Web Shell window::
+2. Run the following command again from the Ubuntu-Client Web Shell browser tab::
     
       ~/zerowindow3.sh
 
 
-3. Go back to the BIGIP01 Web Shell window and run the same packet capture from earlier::
+3. Go back to the BIGIP01 Web Shell browser tab and run the same packet capture from earlier::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500  
    
@@ -28,7 +28,7 @@ Task 2:  Using Modified TCP Profiles
    
    In the lab, there is very low latency on the server-side connetions (pool members) and higher latency on the client-side connections.  With most HTTP traffic the client is requesting something from the server (GET) and the server is replying with the requested data.  The **f5-tcp-progressive** TCP profile is not adequately setting the buffers because the sending (server) side is high bandwidth with low latency.
 
-3. From the BIGIP01 Web Shell window, run the following packet capture filtering in SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.::
+3. From the BIGIP01 **Web Shell**, run the following packet capture filtering in SYN and SYN/ACK packets ('tcp[13] & 2 != 0') from the client.::
 
     tcpdump -nni external host 10.1.30.6 and 'tcp[13] & 2 != 0' -c 4
 
@@ -74,12 +74,12 @@ Test With Custom TCP Buffers
        :width: 500px
 
 
-2. Run the test script again from the Ubuntu-Client SSH window::
+2. Run the test script again from the Ubuntu-Client **Web Shell** browser tab::
     
       ~/zerowindow3.sh
 
 
-3. Go back to the BIGIP01 SSHWeb Shell window and run the same packet capture::
+3. Go back to the BIGIP01 Web Shell browser tab and run the same packet capture::
   
     timeout 5s tcpdump -nni internal host 10.1.10.15 and 'tcp[14:2] == 0 && tcp[13] == 16' -s 500 
   
@@ -130,7 +130,7 @@ Disable TCP Slow Start
 
 
 5. Click the Update button at the bottom of the page to save the setting
-6. Run the test script again from the Ubuntu-Client Web Shell window::
+6. Run the test script again from the Ubuntu-Client **Web Shell**::
     
       ~/zerowindow3.sh
 

@@ -58,6 +58,9 @@ Looking at a DNS design where you want to load balance across a large pool of DN
         :width: 750px
 
 
-This concludes Lab 3 and is the end of the class.
+Recap
+-----
+
+You learned how to configure Layer 7 load balancing for both TCP and UDP traffic.  This concludes Lab 3 and is the end of the class.
 
 

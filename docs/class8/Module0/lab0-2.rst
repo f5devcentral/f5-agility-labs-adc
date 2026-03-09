@@ -30,13 +30,13 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
        :width: 250px
 
 
-5. For command-line access to BIGIP01, select **Web Shell** from the Access dropdown
+5. For command-line access to BIGIP01, select **Web Shell** from the Access dropdown.  Web Shell will open as a new web browser tab.
 
    .. image:: ../images/udf_bigip01_webshell.png
        :width: 350px
 
  
-6. For the Ubuntu-Client, you only need to use **Web Shell**
+6. For the Ubuntu-Client, you only need to use **Web Shell**. Web Shell will open as a new web browser tab.
 
    .. image:: ../images/udf_client_webshell.png
        :width: 300px
@@ -55,7 +55,7 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 Option 1: Windows RDP
 ---------------------
 
-1. From the Windows-Client Access dropdown, click on the RDP screen resolution you prefer.  An RDP file will save to your browser's download location.
+1. From the Windows-Client Access dropdown, click on the RDP screen resolution you prefer.  An RDP file will save to your browser's download location as device ID.rdp similar to *78bd595f-5239-4b93-8d04-1bc3ab2582c5.rdp*
 
    .. image:: ../images/udf_windows_rdp_options.png
        :width: 350px
