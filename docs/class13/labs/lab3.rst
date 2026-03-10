@@ -54,8 +54,8 @@ Task 2.  Run baseline workload (repesenting typical read/write load)
 
 Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> Firefox**)
 
-- Select the target: **BigIP-cluster-1 (healthcheck + quorum)**
-- Select **all** three buckets.
+- Select the target: **BigIP-cluster-2 (healthcheck + quorum)**
+- Select **only** cluster2-bucket-a.
 - Put sliders on **Duration** of 10 mins and **Concurrency** at 20 threads
 - Make sure that the IP address in WARP Parameters is a new BIG-IP virtual server at **10.1.40.162:9000**
 
@@ -232,9 +232,9 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px
 .. |lab401| image:: ../_static/c_health_monitor.png
    :width: 800px
-.. |lab402| image:: ../_static/c_warp_params.png
+.. |lab402| image:: ../_static/warp_clsuter2_write_quorum.png
    :width: 800px
-.. |lab403| image:: ../_static/c_traffic_to_all_nodes.png
+.. |lab403| image:: ../_static/cluster_2_even_traffic_write_quorum.png
    :width: 800px
 .. |lab404| image:: ../_static/c_connect_to_linux_host.png
    :width: 800px
