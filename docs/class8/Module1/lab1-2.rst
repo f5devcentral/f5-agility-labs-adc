@@ -68,12 +68,12 @@ In the last section you focused on HTTP stats.  In this section, you will review
 **Note:** By default, all of the graphs show total stats for all Virtual Servers with an AVR TCP profile assigned.  Also, all of the graphs include a **View By** filter at the bottom but it was not shown in the images above.
 
 .. image:: ../images/avr_tcp_view_by.png
-    :width: 500px
+    :width: 350px
 
 
 The **Requests Side** filter is shown by default
 
 .. image:: ../images/avr_tcp_requests_side.png
-    :width: 750px
+    :width: 900px
 
 
