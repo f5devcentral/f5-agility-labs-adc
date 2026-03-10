@@ -65,7 +65,7 @@ c. Under **Resources** in the **Interfaces** section:
         setting.
 
       .. image:: ../images/image11.png
-         :width: 100%
+         :width: 200px
 
 
 d. When you have completed your VLAN configuration, hit the **Finished** button
@@ -132,7 +132,7 @@ Assigning the Default Gateway
       routes as desired)
 
       .. image:: ../images/image15.png
-         :width: 600px
+         :width: 450px
 
 
    b. Under **Properties**
@@ -203,7 +203,7 @@ Creating Virtual Servers
 1. Under **Local Traffic** select **Virtual Servers** then select **Create**.
 
    .. image:: ../images/image18.png
-      :width: 600px
+      :width: 500px
 
 
 2. Under **General Properties**
@@ -235,7 +235,7 @@ Creating Virtual Servers
    ii. **Source Address Translation**: Auto Map
 
       .. image:: ../images/image19.png
-          :width: 500px
+          :width: 380px
 
 
 4. Under **Resources**
@@ -252,7 +252,7 @@ Creating Virtual Servers
 6. You have now created a Virtual Server
 
    .. image:: ../images/image20.png
-       :width: 900px
+       :width: 460px
 
 
 .. note:: Items in the GUI that are blue are links i.e., shortcuts
@@ -280,7 +280,7 @@ Now let’s see if our virtual server works!
 6. Choose **Virtual Servers** from "Statistics Type" drop-down menu
    
    .. image:: ../images/image22.png
-       :width: 700px
+       :width: 490px
 
 
 7. or, Go to **Local Traffic >> Virtual Servers >> Statistics**

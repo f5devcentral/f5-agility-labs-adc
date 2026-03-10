@@ -17,7 +17,7 @@ Troubleshoot using TCPDump or Curl
    a. Now go to your RDP session and browse the web site. You will not be able to access it even though
       the status of the virtual is available.
 
-      i. Because BIG-IP is not the server’s default gateway the server's response goes around the BIG-IP.
+      * Because BIG-IP is not the server’s default gateway the server's response goes around the BIG-IP.
 
    b. The web administrator tells you everything is fine as far as he
       can see and thinks the issue is with the BIG-IP, because they
