@@ -1,9 +1,7 @@
 Lab 2: Working With TCP Profiles
 ================================
 
-In this module you will learn how the TCP Profile affects traffic flows through TMOS.  
-
-In Lab 2, you will look at the base TCP profiles within TMOS and some legacy TCP profiles that may exist within your BIG-IP environments.  There are many tuning options within the TCP profiles.  You'll see some key settings that should always be adjusted and some options that are more appplication/environment specific.  With more details about the traffic, adjustments can be made to improve the speed of the data through the BIGIP.  Knowing what the lab traffic patterns are, you will apply a custom TCP profile and compare the performance with the base TCP profiles.
+In Lab 2, you will learn how the TCP Profile affects traffic flows through TMOS. You will look at the base TCP profiles within TMOS and some legacy TCP profiles that may exist within your BIG-IP environments.  There are many tuning options within the TCP profiles.  You'll see some key settings that should always be adjusted and some options that are more appplication/environment specific.  With more details about the traffic, adjustments can be made to improve the speed of the data through TMOS.  Knowing what the lab traffic patterns are, you will apply a custom TCP profile and compare the performance with the base TCP profiles.
 
 Supporting Documents:
 ---------------------

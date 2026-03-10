@@ -57,15 +57,23 @@ In the last section you focused on HTTP stats.  In this section, you will review
       |   
 
 
-
-**Note:** By default, all of the graphs show total stats for all Virtual Servers with an AVR TCP profile assigned.  Also, all of the graphs include client/server filters at the bottom but they were not all shown in this guide.
-
 3. Click on Expand Advanced Filters under the middle of the TCP Statistics menu.  Once open, the title changes to Collapse Advanced Filters as shown below.
 
    .. figure:: ../images/avr_tcp_adv_filters.png
       :width: 500px
 
-      You can filter each graph on the options in the above image.
+      You can filter each graph on the options in the above image.  Click **Update** at the bottom to apply any filter changes
 
+
+**Note:** By default, all of the graphs show total stats for all Virtual Servers with an AVR TCP profile assigned.  Also, all of the graphs include a **View By** filter at the bottom but it was not shown in the images above.
+
+.. image:: ../images/avr_tcp_view_by.png
+    :width: 350px
+
+
+The **Requests Side** filter is shown by default
+
+.. image:: ../images/avr_tcp_requests_side.png
+    :width: 900px
 
 

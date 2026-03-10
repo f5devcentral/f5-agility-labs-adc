@@ -1,12 +1,14 @@
 Task 3:  TCP Buffers and Window Scaling 
 =======================================
 
+In this section, you will review graphs related to the testing in the previous sections showing the traffic behavior with each of the TCP Profiles.
+
 Window Scale Review Using Wireshark Screenshots
 -----------------------------------------------
 
-To speed up the process, you will review TCP Window Scale screenshots taken from packet captures already saved on the Windows client system.
+To speed up the process, you will review TCP Window Scale screenshots taken from packet captures collected while this class was created.
 
-1. Base Condition** - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
+1. **Base Condition** - tcp-wan-optimized/tcp-lan-optimized TCP Profiles assigned
 
    .. figure:: ../images/tcp_base_ws_server.png
       :width: 950px
@@ -14,7 +16,7 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
       Server-side: The TCP Window size is limited to 65353 bytes because Window Scaling is not enabled.  The TCP Window drops to zero many times throughout the single TCP stream.
 
 
-2. F5-tcp-Progressive
+2. **F5-tcp-Progressive**
 
    .. figure:: ../images/tcp_prog_ws_server.png
       :width: 950px
@@ -22,7 +24,7 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
       Server-side: The TCP Window size grows a bit larger towards the end of the TCP stream but there are still many drops to zero bytes.  This is due to the way **f5-tcp_progressive** calculates the buffers with a low latency link.
 
 
-3. Tcp_3mb Profile
+3. **Tcp_3mb Profile**
 
    .. figure:: ../images/tcp_3mb_ws_server.png
       :width: 950px
@@ -30,10 +32,12 @@ To speed up the process, you will review TCP Window Scale screenshots taken from
       Server-side: The TCP Window size grows to 3mb in about 100ms and stays there throughout the TCP stream.  There are TCP Zero Window events.
 
 
-Wireshark Instructions for Windows Scaling View
------------------------------------------------
+Wireshark Instructions For Viewing Window Scaling Graphs
+--------------------------------------------------------
 
-If you don't know how to view the above data using Wireshark, follow the steps below, either from the Windows-Client or using TCP captures you may already have on your local system.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
+If you don't know how to view the above data using Wireshark, follow the steps below, either from the Windows-Client or using TCP captures you may already have on your local system unrelated to this lab.  You can skip to **step 7** if using Wireshark locally with your own TCP capture files.
+
+If you already know how to view TCP Window Scaling graphs in Wireshark, you can skip to the bottom of this page and go to Lab 3.
 
 1. Open RDP session to the Windows Client. An RDP file will save to your browser's download location.
 
@@ -63,8 +67,10 @@ If you don't know how to view the above data using Wireshark, follow the steps b
       tcp.flags.syn==1
 
 
-    .. image:: ../images/ws_tcp_syn_flags.png
-        :width: 500px
+   |
+
+   .. image:: ../images/ws_tcp_syn_flags.png
+       :width: 700px
   
 
 8. Click <Enter> for Wireshark to process the filter
@@ -72,7 +78,7 @@ If you don't know how to view the above data using Wireshark, follow the steps b
    You should see 2 sets of SYN packets from the lab capture.
    
      | Client-side: 10.1.30.6 <--> 10.1.20.104 
-     | Server-side: 10.1.20.15 <--> 10.1.10.31  
+     | Server-side: 10.1.10.15 <--> 10.1.10.31  
    
    If you are using you own capture file, pick a flow that is of interest.  
 
@@ -99,7 +105,3 @@ If you don't know how to view the above data using Wireshark, follow the steps b
 
        This sample has the **Bytes Out** option unchecked to make it easier to see the TCP Window Scale behavior.  **Bytes Out** is also interesting as it shows the in-flight data but the pattern is usually similar to **Rcv Win** where there are TCP Zero Window packets in the flow.
 
-
-
-
-This completes lab 2.
