@@ -25,7 +25,7 @@ Ratio Load Balancing
 
 
    .. note::
-      When we created the pool, we performed all our configuration on one page, but when we modify a pool the **Resource** information is    under the **Members** tab
+      When we created the pool, we performed all our configuration on one page, but when we modify a pool the **Resource** information is under the **Members** tab
 
 
 2. Under **Load Balancing** section
@@ -49,7 +49,7 @@ Ratio Load Balancing
       ii. Under the **Configuration** section, change the **Ratio** of the member to 3
 
           .. image:: ../images/image26.png
-             :width: 750px
+             :width: 600px
 
 
    e. Select the **Update** button
@@ -111,7 +111,7 @@ fails.
 6. Select the pool members **10.1.20.11** and **10.1.20.12** and set their **Priority Group** to **2**. This will allow you to change the priority on that particular member.
 
    .. image:: ../images/image28.png
-      :width: 750px
+      :width: 600px
 
 
 Review your settings and let’s see how load balancing reacts now.
@@ -234,7 +234,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
       **System >> Preferences**
 
 8. Go to **Local Traffic >> Pools >> www_pool** and choose **Properties**
-   from the top bar.
+    from the top bar.
 
    a. Remove the **http** monitor from the Active box.
 
