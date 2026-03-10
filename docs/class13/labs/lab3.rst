@@ -29,12 +29,12 @@ Task 1. Validate healthy write quorum - Using Lab AIStor Cluster 2
 In **BIG-IP TMUI**:
 
 - Navigate to Local **Traffic → Pools → cluster2-write-quorum**.
-- Confirm all 4 members are **green**.
+- Confirm all 4 members are **green**.  Change algorithm to "Least Connections (member) and click **Update**
 
 |lab400|
 
 
-**Expectation:** Pool entirely healthy; write quorum is satisfied.
+**Expectation:** Pool entirely healthy; write quorum is satisfied.  Reminder, we are using cluster **2** for this lab.
 
 Review the Monitors, under Local Traffic, where you will see one for read and one for write quorum.
 Open the minio-health-check to see the configuration of the monitor.
@@ -228,7 +228,7 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px 
 .. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px
-.. |lab400| image:: ../_static/c_write_quorom_pool.png
+.. |lab400| image:: ../_static/cluster_2_write_quorum.png
    :width: 800px
 .. |lab401| image:: ../_static/c_health_monitor.png
    :width: 800px
