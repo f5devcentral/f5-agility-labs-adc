@@ -69,7 +69,7 @@ Creating SSL Client Profile
       ii. Select **Add**
 
          .. image:: ../images/image55.png
-            :width: 225px
+            :width: 550px
 
    c. Hit **Finished.**
 
@@ -132,7 +132,7 @@ Securing web applications with the HTTP profile
       iv.  **Insert XForwarded For**: Enabled *(to save the original client ip)*
 
          .. image:: ../images/image56.png
-            :width: 300px
+            :width: 480px
 
    v. Select **Finish**
 

@@ -54,8 +54,8 @@ servers.
 
    a. Test your iRule.  If you browse at your unsecured virtual server (10.1.10.100) you will see there are multiple colors to the images, but browse the secure virtual server and all the image colors are the same because all the images were pulled from the same server (10.1.20.14) 
 
-   .. image:: ../images/image57.png
-      :width: 500
+      .. image:: ../images/image57.png
+         :width: auto
 
    b. Where do non-image requests go?  You can get an idea by clearing the pool statistics and reloading the page.
 
@@ -79,8 +79,8 @@ use a BIG-IP policy.
 
    c. Click on **Create Policy**
 
-   .. image:: ../images/image58.png
-      :width: 250px
+      .. image:: ../images/image58.png
+         :width: 420px
 
 3. Now you can create/view policy rules. Select Create in **Rules** section.
 
@@ -101,8 +101,8 @@ use a BIG-IP policy.
       i. **Forward Traffic** to **pool**, **Common/image_pool** at
          **request** time.
 
-   .. image:: ../images/image60.png
-      :width: 500
+         .. image:: ../images/image60.png
+            :width: auto
 
    d. **Save**
 
@@ -113,7 +113,7 @@ use a BIG-IP policy.
       Publish Policy**.
 
       .. image:: ../images/image61.png
-         :width: 250px
+         :width: 525px
 
 5. Go to the **Resources** section of your **secure_vs** virtual server.
 
@@ -124,9 +124,9 @@ use a BIG-IP policy.
 
       .. image:: ../images/image62.png
          :alt: Virtual Server - Resource Management - Policy screen
-         :width: 400
+         :width: 515px
 
 6. Test your policy.  If you browse at your unsecured virtual server (10.1.10.100) you will see there are multiple colors to the images, but browse the secure virtual server and all the image colors are the same because all the images were pulled from the same server (10.1.20.14).  You can also use pools statistics to determine results. 
 
    .. image:: ../images/image57.png
-      :width: 500
+      :width: auto

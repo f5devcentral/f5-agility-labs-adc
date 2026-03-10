@@ -21,7 +21,7 @@ Ratio Load Balancing
    link in the Pool List screen.
 
    .. image:: ../images/image69.png
-      :width: 600px
+      :width: 460px
 
 
    .. note::
@@ -37,7 +37,7 @@ Ratio Load Balancing
       difference between the two.
 
       .. image:: ../images/image25.png
-         :width: 750px
+         :width: 600px
 
 
    c. Don’t forget the **Update** button
@@ -163,7 +163,7 @@ Default Monitors
 2. Select the **Default Monitor** tab.
 
    .. image:: ../images/image30.png
-      :width: 650px
+      :width: 515px
  
 
    Notice we have several options, for nodes you want a generic monitor, so we will choose **icmp**.
@@ -205,7 +205,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
    b. **Type**: HTTP
 
       .. image:: ../images/image33.png
-         :width: 400px
+         :width: 350px
 
 
 5. Once you have selected your parent (Type) monitor, you can access the **Configuration** section
@@ -215,7 +215,7 @@ The default monitor simply tells us the IP address is accessible, but we really 
    b. In the Receive String box put “\ **200 OK**\ ” (no quotes)
 
       .. image:: ../images/image34.png
-         :width: 600px
+         :width: 460px
 
       .. note::
          The receive string is not case sensitive.
@@ -225,23 +225,23 @@ The default monitor simply tells us the IP address is accessible, but we really 
 7. Where is your new Monitor?
 
    a. **Hint:** Check the lower right hand corner of the Monitors list,
-       here you can go to the next page or view all Monitors
+      here you can go to the next page or view all Monitors
 
       .. image:: ../images/image35.png
-         :width: 650px
+         :width: 120px
 
-    b. You can change the number of records displayed per page in
-       **System >> Preferences**
+   b. You can change the number of records displayed per page in
+      **System >> Preferences**
 
 8. Go to **Local Traffic >> Pools >> www_pool** and choose **Properties**
-    from the top bar.
+   from the top bar.
 
    a. Remove the **http** monitor from the Active box.
 
    b. Select the **www_test** monitor from the Available monitor’s window in the **Configuration** section and move it to the Active        window.
 
       .. image:: ../images/image36.png
-         :width: 650px
+         :width: 500px
 
 
 9. Hit **Update** to apply the change.
@@ -399,7 +399,7 @@ At this point you may want to open a second browser window to the management GUI
 4. This brings us to the **Configuration** section.
        
    .. image:: ../images/image42.png
-      :width: 600px
+      :width: 510px
 
 
 5. As you can see the default **Cookie Method** is **HTTP Cookie Insert**, so we won’t have to modify the Cookie Method
