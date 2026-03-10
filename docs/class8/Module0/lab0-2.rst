@@ -6,7 +6,7 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
 
 1. Click on the **Deployment** tab in UDF to see the components and their status.  The lab deployment will be fully operational when there is a green triangle next to each component. Each component within the deployment has at least one connection method from the **Access** dropdown as you'll see in the instructions below.
    
-   The following image shows a deployment in the startup phase - it should take a few minutes for startup to complete.
+   The following image shows a deployment in the startup phase with spinning yellow gears next to some components.  It should take a few minutes for startup to complete.
 
    .. figure:: ../images/udf_deployment_tab.png
       :width: 900px
@@ -30,44 +30,77 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
        :width: 250px
 
 
-5. For command-line access to BIGIP01, select **Web Shell** from the Access dropdown
+5. For command-line (CLI) access to BIGIP01, select **Web Shell** from the Access dropdown.  Web Shell will open as a new web browser tab.
 
    .. image:: ../images/udf_bigip01_webshell.png
        :width: 350px
 
  
-6. For the Ubuntu-Client, you only need to use **Web Shell**
+6. For the Ubuntu-Client, you only need to use **Web Shell**. Web Shell will open as a new web browser tab.
 
    .. image:: ../images/udf_client_webshell.png
-       :width: 452px
+       :width: 300px
 
 
-   Once connected enter the following commands::
+   Once connected to Ubuntu-Client enter the following commands::
 
       su ubuntu
       cd ~
 
-      
-7. For Windows-Client, you will use RDP.  An RDP file will save to your browser's download location.
-
-   .. image:: ../images/udf_RDP_option.png
-       :width: 500px
 
 
-9. Find the .RDP file and click to open with your RDP client
-10. Use the following credentials:
+7. For Windows-Client, you will use **RDP**.  If RDP access is blocked on your computer you can use **Console**.  
+
+
+Option 1: Windows RDP
+---------------------
+
+1. From the Windows-Client Access dropdown, click on the RDP screen resolution you prefer.  An RDP file will save to your browser's download location as device ID.rdp similar to *78bd595f-5239-4b93-8d04-1bc3ab2582c5.rdp*
+
+   .. image:: ../images/udf_windows_rdp_options.png
+       :width: 350px
+
+
+2. Find the .RDP file in your wed browser's download location and double-click to open with your RDP client
+3. Use the following credentials:
 
     | User: labUser
     | Password: lab.F5demo.com
 
-    .. image:: ../images/udf_RDP_login.png
-        :width: 500px
+
+   .. image:: ../images/udf_RDP_login.png
+       :width: 500px
 
 
-13. Click continue to the connection prompt
+4. Click continue to the connection prompt
 
-    .. image:: ../images/udf_RDP_continue.png
-        :width: 600px
+   .. image:: ../images/udf_RDP_continue.png
+       :width: 600px
+
+Option 2: Windows Console
+-------------------------
+
+1. From the Windows-Client Access dropdown, click on **Console** to open a noVNC connection to the client in your web browser
+
+   .. image:: ../images/udf_windows_console.png
+       :width: 350px
+
+
+2. You may need to click on the screen to get the login prompt to appear. The background image may be different during the lab session
+
+   .. image:: ../images/udf_windows_console_screen.png
+       :width: 500px
+
+
+3. Click on **Lab User** from the account selection on the bottom left
+
+   .. image::  ../images/udf_windows_user_select.png
+       :width: 600px
+
+4.  Use the following password to login
+
+    | Password: lab.F5demo.com
+
 
 
 **Note:** Throughout the labs you should leave a single connection open to the following as they will be used for multiple labs/tasks:

@@ -16,149 +16,134 @@ Objectives:
 Ratio Load Balancing
 --------------------
 
-1. Go to **Local** **Traffic>Pools** and select **www_pool** and then
+1. Go to **Local Traffic >> Pools** and select **www_pool** and then
    **Members** from the top bar or you could click on the **Members**
    link in the Pool List screen.
 
-.. image:: ../images/image69.png
-   :width: 5.35046in
-   :height: 1.60014in
+   .. image:: ../images/image69.png
+      :width: 460px
 
-a. Note: When we created the pool, we performed all our configuration on
-   one page, but when we modify a pool the **Resource** information is
-   under the **Members** tab
 
-2. Under **Load** **Balancing** section
+   .. note::
+      When we created the pool, we performed all our configuration on one page, but when we modify a pool the **Resource** information is under the **Members** tab
 
-   a. Change the **Load** **Balancing** **Method** to **Ratio (Member)**
+
+2. Under **Load Balancing** section
+
+   a. Change the **Load Balancing Method** to **Ratio (Member)**
 
    b. As you look at the drop down menu, notice most load balancing
       methods have two options, **(Node)** or **(Member)**. You should know the
       difference between the two.
 
-.. image:: ../images/image25.png
-   :width: 5.01042in
-   :height: 2.59576in
+      .. image:: ../images/image25.png
+         :width: 600px
 
-c. Don’t forget the **Update** button
 
-d. Then under **Current Members**
+   c. Don’t forget the **Update** button
 
-   i.  Select the first member in the pool **10.1.20.11:80**.
+   d. Then under **Current Members**
 
-   ii. Under the **Configuration** section
+      i.  Select the first member in the pool **10.1.20.11:80**.
 
-       1. Change the **Ratio** of the member to 3
+      ii. Under the **Configuration** section, change the **Ratio** of the member to 3
 
-.. image:: ../images/image26.png
-   :width: 4.26042in
-   :height: 4.04175in
+          .. image:: ../images/image26.png
+             :width: 600px
 
-e. Select the **Update** button
 
-3. Verification
+   e. Select the **Update** button
 
-   a. Check the pool statics by selecting **Statistics** in the top bar,
-      if you are still in **Local Traffic> Pools** or by going to
-      **Statistics>Module Statistics>Local Traffic** and selecting
-      **Pool** from **Statistics Type**.
 
-   b. Reset the statistics for your **www_pool** pool by checking the
-      boxes next to the pool members and hitting the **Reset** button
+Ratio LB Verification
+---------------------
 
-      i.   Log back into Ubuntu Jumphost and browse to your **www_vs** **(10.1.10.100)** virtual server
 
-      ii.  Refresh the browser screen several times (use “<ctrl>” F5)
+1. Check the pool statistics by selecting **Statistics** in the top bar, if you are still in **Local Traffic >> Pools** or by going to **Statistics >> Module Statistics >> Local Traffic** and selecting **Pool** from **Statistics Type**.
 
-      iii. Select the **Refresh** button on the **Statistics** screen
+2. Reset the statistics for your **www_pool** pool by checking the boxes next to the pool members and hitting the **Reset** button
 
-      iv.  How many Total connections has each member taken?
+3. Log back into Ubuntu Jumphost and browse to your **www_vs** **(10.1.10.100)** virtual server
 
-      v.   Is the ratio of connections correct between the members?
+4. Refresh the browser screen several times (use “<ctrl>” F5)
 
-   c. Now go back and put the pool back to Round Robin Load Balancing
-      Method
+5. Select the **Refresh** button on the **Statistics** screen
 
-      i.   Reset the statistics
+   a. How many Total connections has each member taken?
 
-      ii.  Refresh the virtual server page several times
+   b. Is the ratio of connections correct between the members?
 
-      iii. Refresh the statistics
+6. Now go back and put the pool back to Round Robin Load Balancing Method
 
-      iv.  Does the ratio setting have any impact now?
+   a. Reset the statistics
+
+   b.  Refresh the virtual server page several times
+
+   c. Refresh the statistics
+
+   d.  Does the ratio setting have any impact now?
+
 
 Priority Groups Lab
 -------------------
 
 Let’s look at priority groups. In this scenario we will treat the
-**.13** server as if it was is in a disaster recovery site that can be
+**.13** server as if it was in a disaster recovery site that can be
 reached over a backhaul. To maintain at least two members in the pool
 for redundancy and load sharing, our customer would like to use it
 during maintenance periods or if one of the two other pool members
 fails.
 
-1. Go to **Local Traffic>Pools>www_pool**
+1. Go to **Local Traffic >> Pools >> www_pool**
 
-   a. Select the **Members** tab.
+2. Select the **Members** tab.
 
-      i.  Set the **Load Balancing Method** back to **Round Robin**
+3. Set the **Load Balancing Method** back to **Round Robin**
 
-      ii. Set the **Priority Group Activation** to **Less than …** **2**
-          Available Members.
+4. Set the **Priority Group Activation** to **Less than… 2** Available Members.
 
-.. image:: ../images/image27.png
-   :width: 5.4375in
-   :height: 2.03332in
+   .. image:: ../images/image27.png
+      :width: 750px
 
-b. Don’t forget the **Update** button
 
-c. Select the pool members **10.1.20.11** and **10.1.20.12** and set
-   their **Priority Group** to **2**.
+5. Don’t forget the **Update** button
 
-   i. This will allow you to change the priority on that particular
-      member.
+6. Select the pool members **10.1.20.11** and **10.1.20.12** and set their **Priority Group** to **2**. This will allow you to change the priority on that particular member.
 
-.. image:: ../images/image28.png
-   :width: 4.49091in
-   :height: 4.26042in
+   .. image:: ../images/image28.png
+      :width: 600px
 
-2. Review your settings and let’s see how load balancing reacts now.
 
-   a. Select the **Statistics** tab.
+Review your settings and let’s see how load balancing reacts now.
 
-   b. Reset the pool statistics.
+1. Select the **Statistics** tab.
 
-   c. In your RDP session to Jumpbox, browse to your virtual server and refresh several times.
+2. Reset the pool statistics.
 
-   d. Refresh you statistics on bigip01.
+3. In your RDP session to Jumpbox, browse to your virtual server and refresh several times.
 
-   e. Are all members taking connections?
+4. Refresh you statistics on bigip01.
 
-   f. Which member isn’t taking connections?
+5. Are all members taking connections?
 
-3. Let’s simulate a maintenance window, or an outage, by disabling a
-   pool member in the highest priority group. As this will drop the
-   number of active members below 2, this should cause the low priority
-   group to be activated.
+6. Which member isn’t taking connections?
 
-4. Select the member in the Priority Group 2 and Disable that pool
-   member.
+Let’s simulate a maintenance window, or an outage, by disabling a pool member in the highest priority group. As this will drop the    number of active members below 2, this should cause the low priority group to be activated.
 
-   a. Select the **Disable** button
-
-..
+1. Select the member in the Priority Group 2 and Disable that pool member using the **Disable** button
 
    .. image:: ../images/image29.png
-      :width: 6.9739in
-      :height: 1.24444in
+      :width: 750px
 
-a. The status indicator now goes to black, indicating the member has
-   been disabled
 
-5. Once again, select **Statistics**, reset the pool statistics, browse
-   to the virtual server and see which pool members are taking hits now.
+   .. note::
+      The status indicator will change to black, indicating the member has been disabled
 
-.. tip:: Once you are done testing re-enable your disabled pool member.
+
+2. Once again, select **Statistics**, reset the pool statistics, browse to the virtual server and see which pool members are taking hits now.
+
+   .. tip:: Once you are done testing re-enable your disabled pool member.
+
 
 Monitor Labs
 ------------
@@ -171,115 +156,103 @@ Objective:
 
 Default Monitors
 
-1. Go to **Local Traffic>Nodes**, note the Status.
+1. Go to **Local Traffic >> Nodes**, note the Status.
 
-   a. Notice there are Nodes in this table even though we never
-      specifically configured them under the Node portion of the GUI.
-      Each time a unique IP address is placed in a pool, by default, a
-      corresponding node entry is added and assigned the default monitor
-      (if any).
+   Notice there are Nodes in this table even though we never specifically configured them under the Node portion of the GUI. Each time a unique IP address is placed in a pool, by default, a corresponding node entry is added and assigned the default monitor (if any).
 
-   b. Select the **Default Monitor** tab.
+2. Select the **Default Monitor** tab.
 
-.. image:: ../images/image30.png
-   :width: 4.2837in
-   :height: 2.06685in
+   .. image:: ../images/image30.png
+      :width: 515px
+ 
 
-c. Notice we have several options, for nodes you want a generic monitor,
-   so we will choose **icmp**.
+   Notice we have several options, for nodes you want a generic monitor, so we will choose **icmp**.
 
-d. Select **icmp** from the **Available** box and hit the arrows button pointing to the left to place
+3. Select **icmp** from the **Available** box and hit the arrows button pointing to the left to place
    it in the **Active** box.
 
-e. Click on the **Update** button to finalize your changes.
+4. Click on the **Update** button to finalize your changes.
 
-2. Select **Node List** or **Statistics** from the top tab.
+5. Select **Node List** or **Statistics** from the top tab.
 
-    a. What is the Status of the Nodes?
+   * What is the Status of the Nodes?
 
-3. Select **Statistics>Module Statistics>Local Traffic**
+6. Select **Statistics >> Module Statistics >> Local Traffic**
 
-    a. What is the Status of your Nodes, Pool and Virtual Server?
+   * What is the Status of your Nodes, Pool and Virtual Server?
+
 
 Content Monitors
 ----------------
 
-The default monitor simply tells us the IP address is accessible, but we really don’t know the status of the particular application the node supports. We are now going to create a monitor to specifically test the application we are interested in. We are going to basic contnet check of our web site to determine it the servers are responding properly.
+The default monitor simply tells us the IP address is accessible, but we really don’t know the status of the particular application the node supports. We are now going to create a monitor to specifically test the application we are interested in. We are going to do a basic content check of our web site to determine if the servers are responding properly.
 
 1. Browse to **http://10.1.10.100**. A number of content items you could use to check the site status.  You could check for text on this page. You could view the source code and check for a text string not normally visible to the user. You can also look in the HTTP header information being returned. 
 
 2. We will be looking for the HTTP status “\ **200 OK**\ ” in the HTTP header information as our receive string to determine availability.
 
-3. Select **Local Traffic>Monitor** on the side-bar and select the plus
-   (**+**) sign or the **Create**
+3. Select **Local Traffic >> Monitor** on the side-bar and select the plus (**+**) sign or the **Create** button from the top right of the Monitor list page.
 
-.. image:: ../images/image32.png
-   :width: 3.78002in
-   :height: 2.46226in
+   .. image:: ../images/image32.png
+      :width: 650px
 
-a. Now we can create a monitor to check the content of our web page to
+
+4. Now we can create a monitor to check the content of our web page to
    ensure things are running properly.
 
-   i.  **Name**: www_test
+   a.  **Name**: www_test
 
-   ii. **Type**: HTTP
+   b. **Type**: HTTP
 
-.. image:: ../images/image33.png
-   :width: 1.93333in
-   :height: 2.56016in
+      .. image:: ../images/image33.png
+         :width: 350px
 
-b. Once you have selected your parent (Type) monitor, you can access the **Configuration** section
 
-   i.   **Send String**: Enter the command to retrieve the page you want **GET /index.php HTTP/1.0\\r\\n\\r\\n**
+5. Once you have selected your parent (Type) monitor, you can access the **Configuration** section
 
-   ii.  In the Receive String box put “\ **200 OK**\ ” (no quotes)
+   a. **Send String**: Enter the command to retrieve the page you want **GET /index.php HTTP/1.0\\r\\n\\r\\n**
 
-   .. image:: ../images/image34.png
-      :alt: Monitor configuration
-      :scale: 75
+   b. In the Receive String box put “\ **200 OK**\ ” (no quotes)
 
-.. note:: The receive string is not case sensitive.
+      .. image:: ../images/image34.png
+         :width: 460px
 
-c. Click **Finish** and you will be taken back to **Local
-   Traffic>Monitors**
+      .. note::
+         The receive string is not case sensitive.
 
-..
+6. Click **Finish** and you will be taken back to **Local Traffic >> Monitors**
 
-   .. image:: ../images/image35.png
-      :width: 0.94444in
-      :height: 0.55556in
+7. Where is your new Monitor?
 
-4.  Where is your new Monitor?
+   a. **Hint:** Check the lower right hand corner of the Monitors list,
+      here you can go to the next page or view all Monitors
 
-    a. **Hint:** Check the lower right hand corner of the Monitors list,
-       here you can go to the next page or view all Monitors
+      .. image:: ../images/image35.png
+         :width: 120px
 
-    b. You can change the number of records displayed per page in
-       **System>Preferences**
+   b. You can change the number of records displayed per page in
+      **System >> Preferences**
 
-5.  Go to **Local Traffic>Pools>www_pool** and choose **Properties**
+8. Go to **Local Traffic >> Pools >> www_pool** and choose **Properties**
     from the top bar.
 
-    a. Remove the **http** monitor from the Active box.
+   a. Remove the **http** monitor from the Active box.
 
-    b. Select the **www_test** monitor from the Available monitor’s
-       window in the **Configuration** section and move it to the Active
-       window.
+   b. Select the **www_test** monitor from the Available monitor’s window in the **Configuration** section and move it to the Active        window.
 
-.. image:: ../images/image36.png
-   :width: 3.76042in
-   :height: 3.10417in
+      .. image:: ../images/image36.png
+         :width: 500px
 
-6. Hit **Update** to apply the change.
 
-    a. Select **Statistics** from the tabs.
+9. Hit **Update** to apply the change.
 
-    b. What is the status of the pool and its members?
+10. Select **Statistics** from the tabs.
 
-7. Go to **Local Traffic>Virtual Servers**, what is the status of your virtual server?
+    * What is the status of the pool and its members?
 
-    a. Browse to your **www_vs** virtual server. Which members are
-       taking traffic?
+11. Go to **Local Traffic >> Virtual Servers**, what is the status of your virtual server?
+
+    a. Browse to your **www_vs** virtual server. Which members are taking traffic?
 
     b. Just for fun, let's reverse the monitor. Go to Properties of the monitor and change the **Reverse** setting to **Yes**. Update the monitor and browse to your virtual server again.
     
@@ -296,232 +269,206 @@ Persistence Labs
        
 In this lab we will configure a couple types of persistence and view their behavior. For persistence, profiles will have to be created and attached to our virtual server.
        
-       Lab Requirements:
+Lab Requirements:
        
-       -  Prior to beginning the lab verify your **www_pool** has been set to
-          the following parameters:
+Prior to beginning the lab verify your **www_pool** has been set to the following parameters:
        
-          -  **Load Balancing Method**: Round Robin
+1. **Load Balancing Method**: Round Robin
        
-          -  **Priority Group Activation**: Disable
+2. **Priority Group Activation**: Disable
+
+   The members **Ratio** and **Priority Group** mean nothing since we aren’t using Ratio load balancing and Priority Groups are disabled.
        
-             -  The members **Ratio** and **Priority** **Group** mean nothing
-                since we aren’t using Ratio load balancing and Priority Groups
-                are disabled.
+3. Hit **Update**
        
-          -  Hit **Update**
-       
-          -  Hit your virtual server several times, you should see all 3
-             servers respond.
+4. Hit your virtual server several times, you should see all servers respond.
        
 **Simple (Source Address) Persistence**
        
-       1. Go to **Local** **Traffic>Profiles** and select the **Persistence**
+1. Go to **Local Traffic >> Profiles** and select the **Persistence**
           tab.
        
-          a. From the **Persistence Profiles** screen select the **Create**
+2. From the **Persistence Profiles** screen select the **Create**
              button.
        
-         .. image:: ../images/image37.png
-            :scale: 75
+   .. image:: ../images/image37.png
+      :width: 750px
+
+
+3. At the **New Persistence Profile** screen enter:
+       
+   a. **Name**: my-src-persist
+       
+   b. **Persistence Type**: Source Address Affinity
+       
+      .. image:: ../images/image38.png
+         :width: 650px
+
+
+      This will add the **Configuration** section to the **General Properties** section.
+       
+      * Note the parent profile.
+       
+   c. In the **Configuration** section, click the checkbox to the right of **Timeout** and set the value to 60 seconds
+       
+      .. image:: ../images/image38a.png
+         :width: 650px
+
+       
+   d. Leave the **Prefix Length** as None
+       
+      1. This is the default, and is a /32 prefix (255.255.255.255 mask).
+       
+      2. Each new IP address will create a new persistence record.
+
+   e.  Click the **Finished** button.
+         
+   f. You have just created your first custom Profile.
+       
+      .. note::
+         The check box for your new custom profile isn’t grayed out and can be selected to allow you to delete the profile if desired.
+
+
+4. Now let’s attach our new profile to the virtual server.
+       
+5. Go to **Local Traffic >> Virtual Server** and ….
+       
+6.   Select **www_vs** and the **Resources** tab or ….
+       
+7. Take the shortcut directly to the **Resources** of the virtual server. (Can you find it?)
+
+   .. note:: 
+      When we created the Virtual Server everything was on a single page, we find when we return to modify the Virtual Server the Properties and Resources are on different pages.
       
-       b. At the **New Persistence Profile** screen enter:
+   
+8. Set the **Default Persistence Profile** to **my-src-persist**.
        
-          i.  **Name**: my-src-persist
-       
-          ii. **Persistence** **Type**: Source Address Affinity
-       
-       .. image:: ../images/image38.png
-          :width: 2.61621in
-          :height: 2.04167in
-       
-       c. This will add the **Configuration** section to the **General**
-          **Properties** section.
-       
-          i. Note the parent profile.
-       
-       d. In the **Configuration** section, set the
-       
-          i.   **Timeout**: 60 seconds
-       
-          ii.  **Prefix Length**: None
-       
-               1. This is the default, and is a /32 prefix (255.255.255.255 mask).
-       
-               2. Each new IP address will create a new persistence record.
+   .. image:: ../images/image39.png
+      :width: 750px
 
-          iii.  Click the Finished button.
-       
-         .. hint:: 
-            You can’t change the settings until you have checked the Custom box.  This is very useful in knowing which configuration items were modified from the default.
 
-       e. You have just created your first custom Profile.
+9. Don’t forget to **Update** before leaving the page. *(Be careful, someday I will quit telling you that.)*
        
-          i. Note the check box for your new custom profile isn’t grayed out
-             and can be selected to allow you to delete the profile if desired.
-       
-       f. Now let’s attach our new profile to the virtual server.
-       
-          i. Go to **Local Traffic>Virtual Server** and ….
-       
-             1.   Select **www_vs** and the **Resources** tab or ….
-       
-             2. Take the shortcut directly to the **Resources** of the virtual server. (Can you find it?)
+Testing Source Address Affinity
+-------------------------------
 
-      .. note:: 
-         When we created the Virtual Server everything was on a single page, we find when we return to modify the Virtual Server the Properties and Resources are on different pages.
-      
-      |
-       g. Set the **Default Persistence Profile** to **my-src-persist**.
+At this point you may want to open a second browser window to the management GUI of bigip01.
        
-       .. image:: ../images/image39.png
-          :width: 3.41667in
-          :height: 1.90957in
+1. For one management window go to **Statistics >> Module Statistics >> Local Traffic**
        
-       h. Don’t forget to **Update** before leaving the page. *(Be careful,
-          someday I will quit telling you that.)*
+2. Select **Persistence Records** for the **Statistics Type** menu
        
-       I. Testing Source Address Affinity
-       
-          i.   At this point you may want to open a second browser window to
-               the management GUI of bigip01.
-       
-          ii.  For one management window go to **Statistics>Module
-               Statistic>Local Traffic**
-       
-          iii. Select **Persistence Records** for the **Statistics Type** menu
-       
-       .. image:: ../images/image40.png
-          :width: 4.47075in
-          :height: 2.22917in
-       
-       j. At this point you will see that Persistence Records statistics
-          display has been disabled by default. A TMSH database command is
-          required to activate it.
-       
-          i. SSH to bigip01 or open a WebShelll session from the Access dropdown menu.
-       
-          ii. At the prompt enter: **tmsh**
-       
-          iii. At the TMSH prompt enter the command in the **Persistence Value** GUI.
+   .. image:: ../images/image40.png
+      :width: 750px
 
-               modify sys db ui.statistics.modulestatistics.localtraffic.persistencerecords value true
-               
-            Tab completion will make this a little easier
+       
+   At this point you will see that Persistence Records statistics display has been disabled by default. A TMSH database command is           required to activate it but we will view the records from TMSH.
+       
+3. SSH to bigip01 or open a Web Shell session from the Access dropdown menu.
+       
+4. At the prompt enter the following command to show persistence records::
+   
+     tmsh show ltm persistence persist-records
+   
 
-          iv. Go to RDP session and refresh your virtual server page several times.
-
-       2. Now, in this window you can watch you persistence records. You may
-          want to set **Auto Refresh** to 20 seconds.
+5. Go to RDP session and refresh your virtual server page several times.
        
-       .. image:: ../images/image41.png
-          :width: 4.8125in
-          :height: 1.80366in
+6. In your other management GUI window go to **www_pool** and clear the member statistics.
        
-       3. In your other management GUI window go to **www_pool** and clear the
-          member statistics.
-       
-          a. Open a browser session to your virtual server and refresh several
+7. Open a browser session to your virtual server and refresh several
              times.
        
-          b. How many members are taking traffic?
+8. How many members are taking traffic?
        
-          c. Check your Persists Records window, are the any persistence
-             records?
+9. Check your Persistence Records again from the bigip01 SSH or Web Shell window::
+
+      tmsh show ltm persistence persist-records
+
+
+10. Are there any persistence records?
        
-             i. If you are not Auto Refreshing, don’t forget to hit Refresh
-       
-          d. Refresh your web page prior to the Age column reaching 60. What
-             happens?
-       
+              
 **Cookie Persistence (Cookie Insert)**
        
-       1. Go to **Local Traffic>Profiles>Persistence** tab and hit **Create**
+1. Go to **Local Traffic >> Profiles >> Persistence** tab and hit **Create**
        
-       a. Let’s name our profile **my_cookie_insert** (original isn’t it)
+2. Let’s name our profile **my_cookie_insert** (original isn’t it)
        
-       b. Our **Persistence Type** will be **Cookie**
+3. Our **Persistence Type** will be **Cookie**
        
-       c. This brings us to the **Configuration** section.
+4. This brings us to the **Configuration** section.
        
-       .. image:: ../images/image42.png
-          :width: 3.59403in
-          :height: 3.15625in
+   .. image:: ../images/image42.png
+      :width: 510px
+
+
+5. As you can see the default **Cookie Method** is **HTTP Cookie Insert**, so we won’t have to modify the Cookie Method
        
-       2. As you can see the default **Cookie Method** is **HTTP** **Cookie**
-          **Insert**, so we won’t have to modify the Cookie Method
+    The BIG-IP will also create a cookie name for you using a combination of “\ **BIGipServer**\ ” and the pool name the virtual server     service. We will take this default also.
        
-       a. The BIG-IP will also create a cookie name for you using a combination
-          of “\ **BIGipServer**\ ” and the pool name the virtual server
-          service. We will take this default also.
+6. We will use a session cookie. Which means the cookie is deleted when the browser is closed.
        
-       b. We will use a session cookie. Which means the cookie is deleted when
-          the browser is closed.
+7. Select **Finished**
        
-       c. Select **Finished**
+8. Now attach your cookie persistence profile to your virtual server’s **Default Persistence Profile**
        
-       d. Now attach your cookie persistence profile to your virtual server’s
-          **Default Persistence Profile**
+9. Go to **Local Traffic >> Virtual Server >> www_vs >> Resources** tab
        
-       Go to **Local Traffic>Virtual Server>www_vs>Resources** tab
+10. Set the **Default Persistence Profile** to **my_cookie_insert**
        
-       e. Set the **Default Persistence Profile** to **my_cookie_insert**
+11. Hit **Update**
        
-       f. Hit **Update**
+    Whoa! Did you just get this error message?
        
-       g. Whoa! Did you just get this error message?
+    .. image:: ../images/image43.png
+       :width: 600px
+
+
+    Remember what we said earlier about some Profiles requiring prerequisite Profiles? Since we are looking in the HTTP header for           the cookie the prerequisite for the Cookie Profile is the HTTP profile.
+
+
+We will have to go to the Virtual Server to add the HTTP profile prior to adding the Cookie Persistence profile.
        
-       .. image:: ../images/image43.png
-          :width: 4.64151in
-          :height: 1.83072in
+1. Select the **Properties** tab on your virtual server
        
-       h. Remember what we said earlier about some Profiles requiring
-          prerequisite Profiles? Since we are looking in the HTTP header for
-          the cookie the prerequisite for the Cookie Profile is the HTTP
-          profile.
+2. Go to **HTTP Profile (client)** in the **Configuration** section and select the default HTTP (**http**) profile.
        
-       3. We will have to go to the virtual server to add the HTTP profile,
-          prior to adding the Cookie Persistence profile.
+   .. image:: ../images/image44.png
+      :width: 600px
+
+
+3. Hit the **Update** button
        
-          a. Select the **Properties** tab on your virtual server
-       
-          b. Go to **HTTP Profile (client)** in the **Configuration** section and select
-             the default HTTP (**http**) profile.
-       
-       .. image:: ../images/image44.png
-          :width: 3.13229in
-          :height: 3.69328in
-       
-       c. Hit the **Update** button
-       
-       d. Now we can go back to the **Resource** tab and add our cookie
+4. Now we can go back to the **Resource** tab and add our cookie
           persistence profile.
        
-       4. Testing cookie persistence.
+**Testing Cookie Persistence**
        
-          a. If you wish you can watch the member statistics to validate your
-             persistence.
+1. If you wish you can watch the member statistics to validate your persistence.
        
-          b. Open a new browser in your RDP session to your virtual server and refresh
+2. Open a new browser in your RDP session to your virtual server and refresh
              several times.
        
-          c. Does the page ever change?
+3. Does the page ever change?
        
-          d. Did you hit a different server?
+4. Did you hit a different server?
        
-          e. Refresh several times. Are you hitting the same server?
-          f. Let's take a look at the cookie.
-       
-             i. On the web page of the demo application right click and select **Inspect**. This should work on most browsers.
-             ii. In the **Element** bar of the Inspect window select **Network** and refresh your web page.
-             iii. In the **Name** section of the Inspect window on the content select **f5demo.css** and **Cookies** on the **Name** bar.  Here you will see the BIG-IP cookie that was inserted.
+5. Refresh several times. Are you hitting the same server?
 
-             .. tip::
-               **Inspect** is your friend.  Learn to use it.  It will aid in debugging, iRules, monitors and more.
+Let's take a look at the cookie.
        
-            .. image:: ../images/image45.png
-               :alt: Inspect page window
-               :scale: 50
-               :align: center
+1. On the web page of the demo application right click and select **Inspect**. This should work on most browsers.
 
-         g. Before proceeding to the next lab **please** remove the persistence profile from the virtual server. 
+2. In the **Element** bar of the Inspect window select **Network** and refresh your web page.
+
+3. In the **Name** section of the Inspect window on the content select **f5demo.css** and **Cookies** on the **Name** bar.  Here you will see the BIG-IP cookie that was inserted.
+
+   .. tip::
+      **Inspect** is your friend.  Learn to use it.  It will aid in debugging, iRules, monitors and more.
+       
+
+   .. image:: ../images/image45.png
+      :width: 750px
+
+   
+4. Before proceeding to the next lab **please** remove the persistence profile from the virtual server. 

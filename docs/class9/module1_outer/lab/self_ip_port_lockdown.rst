@@ -83,6 +83,33 @@ Hardened Enterprise Reference Design
 Lab Procedure
 -------------
 
+Step 0 – Access the BIG-IP in UDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before beginning the lab, log in to the BIG-IP Configuration Utility
+(TMUI) from the **UDF environment**.
+
+1. In the **UDF deployment**, select the **Access** tab.
+2. Locate the **BIG-IP TMUI** link.
+3. Click the link to open the BIG-IP Configuration Utility in a new browser tab.
+4. Log in using the following credentials:
+
+   * **Username:** ``admin``
+   * **Password:** ``f5Twister!``
+
+.. image:: ../_images/self-ip-port-lockdown-00-udf-access-tmui-login.png
+   :alt: Accessing BIG-IP TMUI from the UDF Access tab
+   :align: center
+   :width: 900px
+
+.. image:: ../_images/self-ip-port-lockdown-00-udf-access-tmui-login2.png
+   :alt: Accessing BIG-IP TMUI from the UDF Access tab
+   :align: center
+   :width: 900px
+
+After successful authentication, the **BIG-IP Configuration Utility dashboard**
+will appear. You are now ready to begin the lab.
+
 Step 1 – Identify Data-Plane Self IPs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -143,6 +170,21 @@ Execution Context:
 
 * Host: **Windows Jumphost**
 * Network Interface: **10.1.20.0/24 (Internal Data Plane)**
+* Git Bash
+
+Access Windows Jumphost with RDP:
+Username: user 
+Password: user
+
+.. image:: ../_images/self-ip-port-lockdown-03-access-jumphost.png
+   :alt: Access Windows Jumphost
+   :align: center
+   :width: 900px
+
+.. image:: ../_images/self-ip-port-lockdown-03-access-jumphost2.png
+   :alt: Access Windows Jumphost
+   :align: center
+   :width: 900px
 
 Run the following commands:
 
@@ -225,6 +267,7 @@ Execution Context:
 
 * Host: **Windows Jumphost**
 * Network Interface: **10.1.20.0/24 (Internal Data-Plane Network)**
+* Git Bash
 
 Run the following commands:
 

@@ -5,12 +5,10 @@ This course uses a virtual environment for the labs containing a BIG-IP VE, Linu
 
 Requirements:
 
-* Web Browser (VPN may slow connections to lab environment)
-* RDP Client
+* Laptop with Internet Access and a web browser
+* Ability to disable VPN connection on laptop if you cannot use https to udf.f5.com.
+* RDP Client (There is a web-based alternative if needed)
 
-Add the lab summary here
-
-Expected time to complete: **1.5 hours**
 
 .. toctree::
    :maxdepth: 1
