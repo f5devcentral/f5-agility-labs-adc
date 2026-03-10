@@ -192,7 +192,7 @@ Test console access to your tenant from your workstation/desktop using the passw
    ssh <tenant-name>@<F5OS IP> -p 7001
 
 
-Now test console access to your tenant from F5OS using the *virtctl* utility
+Now test console access to your tenant from F5OS using the *virtctl* utility. This utility is accessed from the root shell. 
 
 .. code-block:: none
 
