@@ -63,6 +63,10 @@ Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> 
 
 Click the **Run Benchmark** button to start a long, full ten minutes of high rate S3 load.
 
+The simplest way to reach the following screen in TMUI, is Local Traffic -> Pools -> Pool List and click on cluster2-write-quorum.
+
+Now click on Statistics tab in upper right of screen.
+
 |lab403|
 
 We observe all members of the pool cluster-1-write-quorum are getting close to the same number of total HTTP (S3) requests.
