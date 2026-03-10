@@ -23,22 +23,36 @@ Authorization answers:
 
 ---------------------------------------------------------------------
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
-This lab demonstrates secure API access enforcement for BIG-IP
-service extensions through layered controls:
+   This lab demonstrates secure API access enforcement for BIG-IP
+   service extensions through layered controls:
 
-* Network segmentation (Outer Layer)
-* REST authentication
-* Role-based authorization
-* Device-scoped extension protection
-* Deterministic authorization failure behavior
+   * Network segmentation (Outer Layer)
+   * REST authentication
+   * Role-based authorization
+   * Device-scoped extension protection
+   * Deterministic authorization failure behavior
 
-Together, these controls enforce least privilege and protect
-declarative service extensions from unauthorized invocation.
+   Together, these controls enforce least privilege and protect
+   declarative service extensions from unauthorized invocation.
 
 ---------------------------------------------------------------------
+
+API Exposure Surface
+---------------------
+
++-------------------------------+------------+--------------------------------------------+
+| Endpoint Family               | Port       | Purpose                                    |
++===============================+============+============================================+
+| /mgmt/shared/appsvcs/*        | TCP 443    | AS3 service extension (device-scoped)      |
++-------------------------------+------------+--------------------------------------------+
+| /mgmt/shared/declarative-*    | TCP 443    | Declarative Onboarding (device-scoped)     |
++-------------------------------+------------+--------------------------------------------+
+
+These endpoints are exposed on the BIG-IP management interface and are
+protected by the REST framework’s authentication and role-based authorization.
 
 Objective
 ---------
@@ -143,7 +157,13 @@ Confirm the following packages are installed:
 Baseline API Reachability (Administrator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From Git Bash on the Windows Jumphost:
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
 
 .. code-block:: bash
 
@@ -169,6 +189,14 @@ Phase 2 – Least Privilege Enforcement (Operator Denied)
 Create Restricted User
 ^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+
+   When a new local user logs in for the first time, BIG-IP may require
+   a password change. REST API authentication cannot complete this step.
+
+   Log in once through TMUI as ``api_test_user`` and change the password
+   before performing the API tests.
+
 Create a local user with limited privileges:
 
 * Username: ``api_test_user``
@@ -186,11 +214,17 @@ Create a local user with limited privileges:
 Create AS3 Test Declaration (Git Bash)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (local shell)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
 Create a minimal AS3 declaration payload locally on the jumphost. This
 payload is intentionally minimal and used only to validate authorization
 behavior.
 
-From Git Bash:
+Run the following command:
 
 .. code-block:: bash
 
@@ -225,6 +259,14 @@ Expected:
 
 Test AS3 Access (GET)
 ^^^^^^^^^^^^^^^^^^^^^
+
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
 
 .. code-block:: bash
 
@@ -310,6 +352,14 @@ Phase 3 – Administrative Authorization (Allowed)
 Test Administrative Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
+
 .. code-block:: bash
 
    curl -sk -u 'admin:f5Twister!' \
@@ -328,8 +378,8 @@ Expected:
 
 ---------------------------------------------------------------------
 
-Deterministic Validation Matrix
--------------------------------
+Authorization Enforcement Validation Matrix
+-------------------------------------------
 
 +-------------------------------------------+-----------------------------+
 | Test Case                                 | Expected Result             |
@@ -361,24 +411,6 @@ Security Controls Validated
 +-------------------------------------------+-----------+
 | Deterministic failure behavior            | ✔         |
 +-------------------------------------------+-----------+
-
----------------------------------------------------------------------
-
-Detection & Evidence
---------------------
-
-Relevant log locations:
-
-* ``/var/log/restjavad.*`` – REST authentication and authorization
-* ``/var/log/restnoded/restnoded.log`` – AS3 request handling
-* **System → Logs → Audit** – User and configuration changes
-
-Authorization failures generate:
-
-* HTTP 401 responses
-* REST framework log entries
-* No MCP configuration transactions
-* No configuration modification events
 
 ---------------------------------------------------------------------
 
