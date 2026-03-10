@@ -53,8 +53,6 @@ This guide focuses on:
 * Administrative role enforcement
 * Monitoring and incident response readiness
 
-Data-plane application security is out of scope.
-
 Intended Audience
 -----------------
 

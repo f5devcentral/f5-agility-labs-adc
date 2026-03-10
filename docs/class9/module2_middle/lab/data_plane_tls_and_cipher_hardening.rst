@@ -14,17 +14,15 @@ separately.
 
 This mechanism is a critical Middle Layer cryptographic control.
 
+.. admonition:: Executive Summary
+   :class: important
 
-Executive Summary
------------------
+   Applications must enforce modern TLS versions and strong cipher suites.
+   Legacy protocols and weak cryptographic algorithms must be disabled
+   unless explicitly required and formally risk-approved.
 
-Applications must enforce modern TLS versions and strong cipher suites.
-Legacy protocols and weak cryptographic algorithms must be disabled
-unless explicitly required and formally risk-approved.
-
-Hardening must be validated using deterministic handshake testing —
-not configuration inspection alone.
-
+   Hardening must be validated using deterministic handshake testing —
+   not configuration inspection alone.
 
 Data Plane TLS Exposure Surface
 -------------------------------
@@ -179,7 +177,13 @@ Step 2 – Confirm Backend Health
 Phase 2 – Baseline TLS Observation
 ----------------------------------
 
-From the **Windows Jump Host**, open **Git Bash**.
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.10.10)**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **External / Client Network (10.1.10.0/24)**
+
+Open **Git Bash** on the Windows Jump Host.
 
 .. note::
 
@@ -299,6 +303,12 @@ Phase 4 – Apply Hardened Profile
 
 Phase 5 – Deterministic Validation
 ----------------------------------
+
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.10.10)**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **External / Client Network (10.1.10.0/24)**
 
 Test TLS 1.0 (Expected: Failure)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

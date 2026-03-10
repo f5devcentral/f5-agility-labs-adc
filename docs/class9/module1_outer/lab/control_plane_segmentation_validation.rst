@@ -16,8 +16,8 @@ This lab validates network-layer segmentation only.
 Authentication and authorization enforcement are validated separately
 in the Middle Layer.
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
    Segmentation design must be empirically validated.
    This lab confirms that IP Allowlisting and Self IP Port Lockdown
@@ -163,8 +163,13 @@ Record the following values:
 Step 2 – Validate Management IP Reachability (Authorized Path)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the authorized administrative host
-(**Windows Jump Host – 10.1.1.4**):
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+* Powershell
+
+Run the following commands:
 
 .. code-block:: powershell
 
@@ -193,7 +198,13 @@ Administrative services must not be reachable on data-plane Self IPs.
 External Network Validation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From the **Windows Jump Host external interface (10.1.10.10)**:
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Network Interface: **External / DMZ Network (10.1.10.10)**
+* Powershell
+
+Run the following commands:
 
 .. code-block:: powershell
 
@@ -221,7 +232,13 @@ are not exposed on the data plane.
 Internal Network Validation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From the **Ubuntu App Services host (10.1.20.9)**:
+Execution Context:
+
+* Host: **Ubuntu App Services host (10.1.20.9)**
+* Network Interface: **Internal Application Network (10.1.20.0/24)**
+* Webshell
+
+Run the following commands:
 
 .. code-block:: bash
 
@@ -258,8 +275,13 @@ Step 4 – Validate Unauthorized Access to Management IP
    administrative login is permitted, not whether the TCP
    socket itself responds.
 
-From the **Ubuntu App Services host (10.1.20.9)** attempt to reach the
-BIG-IP management interface:
+Execution Context:
+
+* Host: **Ubuntu App Services host (10.1.20.9)**
+* Network Interface: **Internal Application Network (10.1.20.0/24)**
+* Webshell
+
+Attempt to reach the BIG-IP management interface:
 
 .. code-block:: bash
 

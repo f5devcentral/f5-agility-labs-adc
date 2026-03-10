@@ -21,12 +21,12 @@ You can perform various tasks such as:
 * Managing system/network settings (e.g., VLANs, routes).
 * Viewing statistics, health checks, and logs.
 
-The following sections are important to guide you through the process of creating VLANs, self IPs, pools, and virtual servers using the BIG-IP GUI.
+The following sections are important to guide you through the process of creating VLANs, Self IPs, pools, and virtual servers using the BIG-IP GUI.
 
 * **Main**/Help/About
 * **Local Traffic** >> Virtual servers, Profiles, Pools, Monitors
 * **Device Management** >> Devices, Device Trust, Traffic Groups
-* **Network** >> interfaces, self IPs, Vlans
+* **Network** >> Interfaces, Self IPs, VLANs
 * **System** >> Configuration, Disk Management, Software Management, License, Resource Provisioning, Platform, High Availability
 
 Creating VLANs
@@ -34,7 +34,7 @@ Creating VLANs
 
 First, you will need to log into **bigip01**. You will need create two untagged VLANs, one client-side VLAN (**client_vlan**) and one server-side VLAN (**server_vlan)** for the devices in your network.
 
-1. From the sidebar select **Network** **> VLANs** then select
+1. From the sidebar select **Network >> VLANs** then select
    **Create**
 
    .. image:: ../images/image10.png
@@ -65,7 +65,7 @@ c. Under **Resources** in the **Interfaces** section:
         setting.
 
       .. image:: ../images/image11.png
-          :width: 600px
+         :width: 200px
 
 
 d. When you have completed your VLAN configuration, hit the **Finished** button
@@ -83,13 +83,13 @@ d. When you have completed your VLAN configuration, hit the **Finished** button
 Creating Self IPs
 -----------------
 
-1. Go to **Network > Self IPs**, select **Create**.
+1. Go to **Network >> Self IPs**, select **Create**.
 
    .. image:: ../images/image12.png
       :width: 800px
 
 
-   a. Create a new self IP, for the **server_vlan** and **client_vlan** VLANs. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
+   a. Create a new Self IP, for the **server_vlan** and **client_vlan** VLANs. In **Network >> Self IPs >> New Self IP**, under **Configuration** enter:
 
       +---------------+---------------+---------------+
       |    Option     |  Server-side  |  Client-side  |
@@ -107,17 +107,17 @@ Creating Self IPs
 
 
       .. caution::
-         A common mistake is to forget to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your self IPs are in the appropriate VLAN.
+         A common mistake is to forget to change the VLAN/Tunnel selection to the appropriate VLAN.  Make sure your Self IPs are in the appropriate VLAN.
 
 
    - The default **Port Lockdown** setting of **Allow None** means the Self IP only responds to ICMP requests.
-   - The **Allow Defaults** selection opens the following on the self IP of the VLAN.
+   - The **Allow Defaults** selection opens the following on the Self IP of the VLAN.
       - TCP: ssh, domain, snmp, https
       - TCP: 4353, 6699 (for F5 protocols, such as HA and iQuery)
       - UDP: 520, cap, domain, f5-iquery, snmp
       - PROTOCOL: ospf
 
-   b. When you have completed your selfIP configuration, hit the **Finished** button. You should have something similar to the following:
+   b. When you have completed your Self IP configuration, hit the **Finished** button. You should have something similar to the following:
 
       .. image:: ../images/image14.png
           :width: 800px
@@ -126,13 +126,13 @@ Creating Self IPs
 Assigning the Default Gateway
 -----------------------------
 
-1. Go to **Network > Routes** and then **Add**.
+1. Go to **Network >> Routes** and then **Add**.
 
    a. Here is where we assign our default gateway (and other static
       routes as desired)
 
       .. image:: ../images/image15.png
-         :width: 600px
+         :width: 450px
 
 
    b. Under **Properties**
@@ -160,7 +160,7 @@ site and verify our configurations by accessing our web servers through
 the BIG-IP. Verification will be performed visually and through various
 statistical interfaces.
 
-1. From the sidebar select **Local Traffic >>** **Pools** then select
+1. From the sidebar select **Local Traffic >> Pools** then select
    **Create**. Here we will create our new pool
 
    .. image:: ../images/image16.png
@@ -191,7 +191,7 @@ statistical interfaces.
 
 2. As you enter each IP address and port combination hit **Add** button
 
-   a. When you have complete your pool configuration, hit the **Finished** button
+   a. When you have completed your pool configuration, hit the **Finished** button
 
       .. image:: ../images/image17.png
          :width: 600px
@@ -203,7 +203,7 @@ Creating Virtual Servers
 1. Under **Local Traffic** select **Virtual Servers** then select **Create**.
 
    .. image:: ../images/image18.png
-      :width: 600px
+      :width: 500px
 
 
 2. Under **General Properties**
@@ -229,16 +229,16 @@ Creating Virtual Servers
        This means return traffic will route around the BIG-IP LTM and
        the TCP handshake will fail. To prevent this we can configure
        SNAT Automap on the Virtual Server. This will translate the
-       client IP to the self IP of the egress VLAN and ensure the
+       client IP to the Self IP of the egress VLAN and ensure the
        response returns to the BIG-IP.
 
    ii. **Source Address Translation**: Auto Map
 
       .. image:: ../images/image19.png
-          :width: 500px
+          :width: 380px
 
 
-3. Under **Resources**
+4. Under **Resources**
 
    a. **iRules**: none
    b. **Policies**: none
@@ -246,16 +246,16 @@ Creating Virtual Servers
    d. **Default Persistence Profile**: None
    e. **Fallback Persistence Profile**: None
 
-4. When you have complete your pool configuration, hit the **Finished**
+5. When you have completed your pool configuration, hit the **Finished**
    button
 
-5. You have now created a Virtual Server
+6. You have now created a Virtual Server
 
    .. image:: ../images/image20.png
-       :width: 900px
- 
+       :width: 460px
 
-.. note:: Items in the GUI that are blue are links ie. shortcuts
+
+.. note:: Items in the GUI that are blue are links i.e., shortcuts
 
 
 
@@ -280,7 +280,7 @@ Now let’s see if our virtual server works!
 6. Choose **Virtual Servers** from "Statistics Type" drop-down menu
    
    .. image:: ../images/image22.png
-       :width: 700px
+       :width: 490px
 
 
 7. or, Go to **Local Traffic >> Virtual Servers >> Statistics**
@@ -325,7 +325,7 @@ Diagram for the IP address.
 
       iv.  (tmos)# **show ltm virtual detail**
 
-           2. Show statistics of all virtual servers
+           1. Show statistics of all virtual servers
 
 2. Check out the Dashboard!
 

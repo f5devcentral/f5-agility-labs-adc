@@ -8,8 +8,8 @@ BIG-IP management interface (OOB management), not data-plane Self IPs.
 
 This mechanism is a critical Outer Layer boundary control.
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
    Administrative access must be restricted by explicit source IP.
    Broad internal access (e.g., 10.0.0.0/8) undermines segmentation and
@@ -170,7 +170,13 @@ SSH access is now restricted to the authorized administrative host.
 Step 4 – Validate Authorized SSH Access
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the authorized administrative host (**Jumphost 10.1.1.4**):
+Execution Context:
+
+* Host: **Windows Jumphost (10.1.1.4)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+* Powershell
+
+Run the following commands:
 
 .. code-block:: powershell
 
@@ -191,6 +197,12 @@ Expected:
 Step 5 – Validate Unauthorized Access Blocked
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Execution Context:
+
+* Host: **App Services & Traffic Generation system (10.1.1.9)**
+* Network: **Non-authorized administrative host**
+* Webshell
+
 This test must be performed from a **non-authorized host**.
 
 In this lab environment we will use the **App Services & Traffic Generation system (10.1.1.9)**.
@@ -208,7 +220,7 @@ This opens a terminal session directly on the App Services host.
    :align: center
    :width: 500px
 
-Once the terminal opens, run the following command:
+Run the following command:
 
 .. code-block:: bash
 

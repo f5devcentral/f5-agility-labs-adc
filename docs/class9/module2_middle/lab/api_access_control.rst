@@ -23,20 +23,20 @@ Authorization answers:
 
 ---------------------------------------------------------------------
 
-Executive Summary
-------------------
+.. admonition:: Executive Summary
+   :class: important
 
-This lab demonstrates secure API access enforcement for BIG-IP
-service extensions through layered controls:
+   This lab demonstrates secure API access enforcement for BIG-IP
+   service extensions through layered controls:
 
-* Network segmentation (Outer Layer)
-* REST authentication
-* Role-based authorization
-* Device-scoped extension protection
-* Deterministic authorization failure behavior
+   * Network segmentation (Outer Layer)
+   * REST authentication
+   * Role-based authorization
+   * Device-scoped extension protection
+   * Deterministic authorization failure behavior
 
-Together, these controls enforce least privilege and protect
-declarative service extensions from unauthorized invocation.
+   Together, these controls enforce least privilege and protect
+   declarative service extensions from unauthorized invocation.
 
 ---------------------------------------------------------------------
 
@@ -157,7 +157,13 @@ Confirm the following packages are installed:
 Baseline API Reachability (Administrator)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-From Git Bash on the Windows Jumphost:
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
 
 .. code-block:: bash
 
@@ -208,11 +214,17 @@ Create a local user with limited privileges:
 Create AS3 Test Declaration (Git Bash)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (local shell)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
 Create a minimal AS3 declaration payload locally on the jumphost. This
 payload is intentionally minimal and used only to validate authorization
 behavior.
 
-From Git Bash:
+Run the following command:
 
 .. code-block:: bash
 
@@ -247,6 +259,14 @@ Expected:
 
 Test AS3 Access (GET)
 ^^^^^^^^^^^^^^^^^^^^^
+
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
 
 .. code-block:: bash
 
@@ -331,6 +351,14 @@ Phase 3 – Administrative Authorization (Allowed)
 
 Test Administrative Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Execution Context:
+
+* Host: **Windows Jump Host (10.1.1.4)**
+* Tool: **Git Bash (curl client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Run the following command:
 
 .. code-block:: bash
 

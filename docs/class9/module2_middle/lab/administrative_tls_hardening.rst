@@ -15,17 +15,17 @@ This lab focuses on management-plane TLS hardening. Data-plane TLS
 hardening for application virtual servers is covered separately in the
 Data Plane TLS and Cipher Hardening lab.
 
-Executive Summary
------------------
+.. admonition:: Executive Summary
+   :class: important
 
-Administrative interfaces must not support legacy TLS versions or weak
-cipher suites.
+   Administrative interfaces must not support legacy TLS versions or weak
+   cipher suites.
 
-Weak protocol exposure on the management interface increases the risk
-of downgrade attacks, cryptographic exploitation, and compliance
-violations.
+   Weak protocol exposure on the management interface increases the risk
+   of downgrade attacks, cryptographic exploitation, and compliance
+   violations.
 
-Hardening must be validated using deterministic handshake testing.
+   Hardening must be validated using deterministic handshake testing.
 
 Administrative TLS Exposure Surface
 -----------------------------------
@@ -103,13 +103,17 @@ and unauthorized configuration changes.
 Phase 1 – Baseline Management TLS Observation
 ---------------------------------------------
 
-From the Windows Jumpbox (Git Bash):
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
 
 Test TLS 1.0:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1
+   openssl s_client -connect 10.1.1.5:443 -tls1
 
 .. image:: ../_images/phase1_base_tlsv1.png
    :align: center
@@ -120,7 +124,7 @@ Test TLS 1.1:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_1
+   openssl s_client -connect 10.1.1.5:443 -tls1_1
 
 .. image:: ../_images/phase1_base_tlsv1_1.png
    :align: center
@@ -131,7 +135,7 @@ Test TLS 1.2:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_2
+   openssl s_client -connect 10.1.1.5:443 -tls1_2
 
 .. image:: ../_images/phase1_base_tlsv1_2.png
    :align: center
@@ -142,7 +146,7 @@ Test TLS 1.3:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_3
+   openssl s_client -connect 10.1.1.5:443 -tls1_3
 
 .. image:: ../_images/phase1_base_tlsv1_3.png
    :align: center
@@ -170,8 +174,13 @@ Step 1 – Disable Legacy Protocols
 Open an SSH Session to BIG-IP
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-From the **Windows Jump Host**, open **Git Bash** and connect to the
-BIG-IP management interface.
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (SSH client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
+Connect to the BIG-IP management interface:
 
 .. code-block:: bash
 
@@ -212,6 +221,12 @@ Expected result:
 Step 2 – Enforce Balanced Enterprise Cipher Posture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Execution Context:
+
+* Host: **BIG-IP (active SSH session)**
+* Interface: **Management Plane**
+* Shell: **tmsh**
+
 Apply reduced cipher list:
 
 .. code-block:: bash
@@ -234,11 +249,17 @@ Verify:
 Phase 3 – Deterministic Validation
 -----------------------------------
 
+Execution Context:
+
+* Host: **Windows Jump Host**
+* Tool: **Git Bash (OpenSSL client)**
+* Network Interface: **Management Network (10.1.1.0/24)**
+
 Test TLS 1.0 (Expected: Failure)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1
+   openssl s_client -connect 10.1.1.5:443 -tls1
 
 .. image:: ../_images/phase3_test_1_0.png
    :align: center
@@ -249,7 +270,7 @@ Test TLS 1.1 (Expected: Failure)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_1
+   openssl s_client -connect 10.1.1.5:443 -tls1_1
 
 .. image:: ../_images/phase3_test_1_1.png
    :align: center
@@ -260,7 +281,7 @@ Test TLS 1.2 (Expected: Success)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_2
+   openssl s_client -connect 10.1.1.5:443 -tls1_2
 
 .. image:: ../_images/phase3_test_1_2.png
    :align: center
@@ -271,7 +292,7 @@ Test TLS 1.3 (Version-Dependent)
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_3
+   openssl s_client -connect 10.1.1.5:443 -tls1_3
 
 .. image:: ../_images/phase3_test_1_3.png
    :align: center
@@ -285,7 +306,7 @@ Attempt deprecated SHA1 cipher:
 
 .. code-block:: bash
 
-   openssl s_client -connect <mgmt-ip>:443 -tls1_2 -cipher AES128-SHA
+   openssl s_client -connect 10.1.1.5:443 -tls1_2 -cipher AES128-SHA
 
 .. image:: ../_images/phase3_test_cipher.png
    :align: center
