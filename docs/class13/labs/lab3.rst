@@ -254,7 +254,7 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px
 .. |lab409| image:: ../_static/cluster_2_read_quorum_still_okay.png
    :width: 800px
-.. |lab410| image:: ../_static/c_trans_write_to_read_quorum.png
+.. |lab410| image:: ../_static/c_trans_write_to_read_quorum_2.png
    :width: 800px
 .. |lab411| image:: ../_static/c_back_to_steady_state.png
    :width: 800px
