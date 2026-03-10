@@ -23,7 +23,7 @@ Creating a Self-signed certificate and key
    Management >> SSL Certificates List** and select **Create**
 
    .. image:: ../images/image52.png
-      :width: 550px
+      :width: 850px
 
    This will take you to **Local Traffic >> SSL Certificates >> New SSL
    Certificate…**
@@ -32,7 +32,7 @@ Creating a Self-signed certificate and key
       the **server-side** by lowering this key size.
 
       .. image:: ../images/image53.png
-         :width: 250px
+         :width: 560px
 
    b. Enter:
 
@@ -51,7 +51,7 @@ Creating SSL Client Profile
    **Create**.
 
    .. image:: ../images/image54.png
-      :width: 200px
+      :width: 510px
 
    a. Under **General Properties**
 

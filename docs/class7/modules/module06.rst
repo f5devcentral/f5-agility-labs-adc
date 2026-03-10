@@ -35,7 +35,7 @@ Troubleshoot using TCPDump or Curl
 
       i. **tcpdump -i client_vlan -X -s 128 'host 10.1.10.100 and port 80'**
 
-         1. This is a little overkill, but a good example of syntax. We
+         *  This is a little overkill, but a good example of syntax. We
             will only look at traffic headed for the virtual server, we
             will see the first 128 bytes (-s128) in ASCII (-X).
 
