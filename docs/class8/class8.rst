@@ -64,6 +64,13 @@ The time it takes to perform each lab varies from person to person.  Below is an
 
 Expected time to complete: **1.5 hours**
 
+Lab Presentation
+----------------
+
+https://clouddocs.f5.com/training/community/adc/html/class8/AppWorld2026-TMOSPerformanceTuning.pdf
+
+
+
 .. toctree::
    :maxdepth: 1
    :glob:

@@ -246,7 +246,7 @@ Creating Virtual Servers
    d. **Default Persistence Profile**: None
    e. **Fallback Persistence Profile**: None
 
-5. When you have completed your pool configuration, hit the **Finished**
+5. When you have completed your virtual server configuration, hit the **Finished**
    button
 
 6. You have now created a Virtual Server
