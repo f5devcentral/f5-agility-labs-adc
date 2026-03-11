@@ -98,7 +98,7 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 
 
 
-Why this matters:  Clients that target a single node are brittleutilization is uneven and scalability suffers. 
+Why this matters:  Clients that target a single node are brittle, utilization is uneven and scalability suffers. 
 
 
 
@@ -131,9 +131,11 @@ Task 3: Baseline: Steer (proxy) the Same Workload through BIG-IP
 +---------------------------------------------------------------------------------------------------------------+
 
 +---------------------------------------------------------------------------------------------------------------+
-| 6. Confirm the WARP S3 load generator has run to completions, traffic settings can be seen below.  The AISTor |
+| 6. Confirm the WARP S3 load generator has run to completion, traffic settings can be seen below.  The AISTor  |
 |    GUI will likley not populate for a few more minutes, but later when checked will look like the AIStor      |
-|    screenshot provided below.                                                                                 |
+|    screenshot provided below, set time frame to last 4 hours in second screen.   Data points are updated      |
+|    updated every 15 minutes, your first two test runs may be reflected in only one data point unlike the      |
+|    provided screenshot below.                                                                                 | 
 +---------------------------------------------------------------------------------------------------------------+
 | |lab021|                                                                                                      |
 |                                                                                                               |
@@ -151,7 +153,7 @@ Task 4: Scale out easily: add the 3rd and 4th MinIO AIStor nodes to Cluster 1
 In MinIO terminology, a storage pool (often referred to as a server pool) is a set of MinIO server nodes that aggregate their drives and resources to act as a single,
 independent unit of storage capacity. It is the fundamental unit for scaling, expanding, and managing capacity in a distributed MinIO deployment.
 
-To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new server pool to your existing deployment. This allows for horizontal scaling. 
+To re-iterate, a storage pool is a **unit of expansion**:  When you need more capacity, you add a new storage pool to your existing deployment. This allows for horizontal scaling. 
 
 Outcome desired:  Expand Cluster 1 from 2 nodes (Storage Pool 1) to 4 nodes (Storage Pool 1 + Storage Pool 2).   We will use the storage prefix to avoid confusion
 with BIG-IP **origin pools**, which frequently are just simply referred to as BIG-IP pools just simply pools.
@@ -197,7 +199,7 @@ On both nodes, start the MinIO service:
 **sudo systemctl start minio**
 
 These nodes already have the two storage pool MINIO_VOLUMES pre-configured.
-The issued command with **no**t provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
+The issued command will *not* provide a return to the Linux prompt, the Minio service is activating but we need to restart Cluster1 to accept the new 
 storage pool.
 
 **Step 4 — Restart Cluster 1 to pick up the new 4 server topology**
@@ -244,7 +246,7 @@ Now, to see the buckets on cluster1, node1, one simply can issue:
 
 |lab04b|
 
-Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefixing mcli to a command and choosing an alias.
+Many familiar looking Linux/Unix commands, like the ls example above, can be harnessed by simply prefacing mcli to a command and choosing an alias.
 
 The second administrative command in the screenshot above shows an example of tracing where the erasure coded chunks of a given sample object are
 actually stored, along with meta data details.
@@ -294,7 +296,8 @@ Task 5: Scale out easily: add the 3rd and 4th MinIO AIStor node to the BIG-IP or
 |                                                                                                               |
 +---------------------------------------------------------------------------------------------------------------+
 **You will see the presence of the new nodes but data may not yet be reflected in the MinIO screen shown above,
-set the time to last 4 hours and data will appear in a few minutes**
+set the time to last 4 hours and data will appear in a few minutes.   By default data points in the AIStor charts
+update on the 15-minute mark through the day.**
 
 **Key Takeaway** There were no client changes and S3 applications still continue to talk to the same VIP;
 topology changes are absorbed by *BIG‑IP* at the dataplane.
