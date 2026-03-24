@@ -89,7 +89,7 @@ In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell**.
 
 
 
-In the BIG-IP Pool being used, called cluster1-write-quorum, click on the **Members / Statistics** tab and observe 1 marked **red**, this is the expected behavor.
+In the BIG-IP Pool being used, called cluster2-write-quorum, click on the **Members / Statistics** tab and observe 1 marked **red**, this is the expected behavor.
 
 |lab406|
 
@@ -109,6 +109,8 @@ the entire pool will be taken out because the healthcheck no longer returns 200 
 
 BIG-IP marks the entire pool as **red**.
 
+**The key point** :  two nodes are still up and running, but they show as red and **not** available in the context of this pool as the "write quorum" health check fails.   The health check, targetting a specific MinIO URL, is failing due to the total number of nodes falling below the threshold of healthy nodes.
+
 |lab408|
 
 Notice that all nodes are down, however a few TCP connections remain active.  No new S3 traffic will be proxied to these nodes by the corresponding
@@ -119,12 +121,12 @@ Task 5.  Read-only cluster & verification of failover
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An F5 iRule or policy could be configured to shift traffic from a pool that is no longer available to another. In
-our configuration, the cluster1-write-quorum automatically fails over to the cluster1-read-quorum pool.  The iRule used can be seen on the Resources
+our configuration, the cluster2-write-quorum automatically fails over to the cluster2-read-quorum pool.  The iRule used can be seen on the Resources
 tab of the virtual server named **minio-cluster-healthcheck**.
 
 Let's look at the pool that the iRule will now be directing S3 traffic towards.
 
-In **BIG-IP TMUI** open (Traffic -> Pools -> Pool List -> *cluster1-read-quorum* -> Members)
+In **BIG-IP TMUI** open (Traffic -> Pools -> Pool List -> *cluster2-read-quorum* -> Members)
 
 Two nodes are shown as down (nodes 2 and 4), however there are **two healthy nodes** (nodes 1 and 3), which is sufficient to satisfy the
 read quorum, hence the pool can still operate and fully accept read operations.
@@ -135,7 +137,7 @@ We see in the following screen, the two healthy nodes continue to handle transac
 
 Open UDF -> AST -> Access -> Grafana; Select **Device Pools**.
 
-Enlarge the Active Pool Connections chart, and select **only** pools cluster1-write-quarum and cluster1-read-quarum.
+Enlarge the Active Pool Connections chart, and select **only** pools cluster2-write-quarum and cluster2-read-quarum.
 
 If the WARP ten minute load generator was active when the ansible disater simulation playbook ran, taking down two nodes, one will be able
 to see this moment.
@@ -168,7 +170,7 @@ In the following, one can see the original Ansible disaster simulation script be
 |lab411|
 
 **Expectation:**  Without any operator intervention, or requirements on the part of S3 client configuration, the entire S3 storage solution has recovered.
-Traffic destined for the **write-quarum pool** has automatically resumed handling reads and writes.
+Traffic destined for the **write-quarum pool** has automatically resumed successfully handling reads and writes.
 
 
 Troubleshooting
@@ -243,13 +245,13 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px
 .. |lab405| image:: ../_static/cluster_2_updated_ansible_playbook.png
    :width: 800px
-.. |lab406| image:: ../_static/c_one_node_down.png
+.. |lab406| image:: ../_static/cluster_2_one_node_failed.png
    :width: 800px
 .. |lab407| image:: ../_static/c_take_down_second_node.png
    :width: 800px
-.. |lab408| image:: ../_static/c_all_nodes_down.png
+.. |lab408| image:: ../_static/cluster2_2failed_nodes.png
    :width: 800px
-.. |lab409| image:: ../_static/c_2_healthy_nodes.png
+.. |lab409| image:: ../_static/cluster_2_read_quorum_still_okay.png
    :width: 800px
 .. |lab410| image:: ../_static/c_trans_write_to_read_quorum.png
    :width: 800px
