@@ -62,15 +62,17 @@ Open the MinIO Warp bench tool (**UDF -> Components -> Traffic-Gen -> Access -> 
 |lab402|
 
 Click the **Run Benchmark** button to start a long, full ten minutes of high rate S3 load.
+The simplest way to reach the following screen in TMUI, is Local Traffic -> Pools -> Pool List and click on **cluster2-write-quorum**.
+Now click on the **Statistics** tab in upper right of screen.
 
 |lab403|
 
-We observe all members of the pool cluster-1-write-quorum are getting close to the same number of total HTTP (S3) requests.
+We observe all members of the pool cluster-2-write-quorum are getting close to the same number of total HTTP (S3) requests.
 
 Task 3.  Disable one node
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be careful not to inadvertently use WIN-JUMP-HOST).
+In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell**.
 
 - Check the active user: #whoami
 - If it returns **root**, switch to user ubuntu: #su - ubuntu
@@ -78,7 +80,8 @@ In UDF, open **UDF -> Components -> Jump Host → Access → Web Shell** (be car
 |lab404|
 
 - Change to /home/ubuntu/minio directory
-- run the ansible playbook $ansible-playbook cluster1-stop-one-node.yml
+- Run the ansible playbook $ansible-playbook cluster2-stop-one-node.yml (**double-click image to enlarge**)
+
 
 |lab405|
 
@@ -234,11 +237,11 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px
 .. |lab402| image:: ../_static/warp_clsuter2_write_quorum.png
    :width: 800px
-.. |lab403| image:: ../_static/c_traffic_to_all_nodes.png
+.. |lab403| image:: ../_static/cluster_2_even_traffic_write_quorum.png
    :width: 800px
 .. |lab404| image:: ../_static/c_connect_to_linux_host.png
    :width: 800px
-.. |lab405| image:: ../_static/c_ansible_take_one_node_down_2.png
+.. |lab405| image:: ../_static/cluster_2_updated_ansible_playbook.png
    :width: 800px
 .. |lab406| image:: ../_static/c_one_node_down.png
    :width: 800px
