@@ -23,13 +23,13 @@ BIG-IP integrates with MinIO health endpoints to monitor quorum readiness. With 
 - **Automatically restore writes** once quorum returns.
 - **Outcome**: AI workloads remain consistent and responsive even under node failures.
 
-Task 1. Validate healthy write quorum
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task 1. Validate healthy write quorum  Using Lab AIStor Cluster 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In **BIG-IP TMUI**:
 
 - Navigate to Local **Traffic → Pools → cluster1-write-quorum**.
-- Confirm all 4 members are **green**.
+- Confirm all 4 members are **green**.  Change algorithm to "Least Connections (member) and click **Update**
 
 |lab400|
 
@@ -228,7 +228,7 @@ What You Learned - BIG-IP and AIStor Impact
    :width: 800px 
 .. |lab313| image:: ../_static/lab3-appworld2025-waf-block-message.png
    :width: 800px
-.. |lab400| image:: ../_static/c_write_quorom_pool.png
+.. |lab400| image:: ../_static/cluster_2_write_quorum.png
    :width: 800px
 .. |lab401| image:: ../_static/c_health_monitor.png
    :width: 800px
