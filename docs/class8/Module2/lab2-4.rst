@@ -47,7 +47,7 @@ In this section, you will review default TCP packet retransmission behaviors and
 
 10. Run the following command from the Ubuntu-Client **Web Shell** window::
 
-     telnet web01.f5tcp.net 75
+     telnet web01.f5tcp.lab 75
 
 
 11. Go back to the BIGIP01 **Web Shell** browser tab and you will see tcpdump output similar to this::

@@ -48,6 +48,8 @@ UDF refers to lab elements as Components.  For the labs, you will access a BIG-I
       cd ~
 
 
+**Note:** For Windows systems you may need to use <ctrl><shift><v> in order to paste commands into a Web Shell session
+
 
 7. For Windows-Client, you will use **RDP**.  If RDP access is blocked on your computer you can use **Console**.  
 

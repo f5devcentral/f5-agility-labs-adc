@@ -17,7 +17,7 @@ Task 1: Review Base TCP Profiles
    .. figure:: ../images/tcp_legacy_buffers.png
       :width: 700px
 
-   At this point, Virtual Server **web01-vs1** is using the older TCP profiles - **tcp-wan-optimized** (client-side) and **tcp-lan-optimized** (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling limiting the amount of inflight data before an ACK.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS.  For example, v10 > v12 > v14 > v15 > v17. 
+   At this point, Virtual Server **web01_vs1** is using the older TCP profiles - **tcp-wan-optimized** (client-side) and **tcp-lan-optimized** (server-side).  These profiles are parented from tcp-legacy and have small TCP buffers that do not allow for TCP Window scaling limiting the amount of inflight data before an ACK.  These profiles are commonly assigned to Virtual Servers on BIG-IP systems that have been upgraded across many versions of TMOS.  For example, v10 > v12 > v14 > v15 > v17. 
 
 
 4. If not still open from the previous lab, connect to the Ubuntu-Client via **Web Shell** using the Access dropdown
