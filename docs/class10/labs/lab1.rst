@@ -75,8 +75,8 @@ The labs offer an easy-to-use graphical front end for Warp, to avoid needing to 
 | 8. Observe that there are 4 AIStor servers spread across 2 clusters, however data charts require normally     |
 |    30 minutes or more to popluate so expect no traffic on the right-hand chart.                               |
 |                                                                                                               |
-|    **REMINDER of ABOVE** You will not see the charts below filling for at least the fist 20 minutes, in later |
-|    steps you will notice them filled.                                                                         |
+|    **REMINDER of ABOVE** You will not see the charts below filling for at a number of minutes, data is added  |
+|    on 15-minute increments through the hour (0:00, 0:15, 0:45, 1:00).  Data will appear after initial write.  |
 +---------------------------------------------------------------------------------------------------------------+
 | |lab016|                                                                                                      |
 |                                                                                                               |
